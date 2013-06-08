@@ -1,0 +1,34 @@
+*** Smartest Reviews Changelog ***
+
+2013.02.22
+	* Bug fix - changed $perpage to $this->options['reviews_per_page'] to avoid mysql error for missing LIMIT number
+
+2012.12.10 - 
+ * Major Change - Made it transaltion-ready, even the jQuery javascript strings.
+
+2012.12.5 - no more version
+ * Major Change - pulls version from framework version. Fix - enqueue scripts properly instead of on init. Reviews page and aggregate pulls all reviews, not page dependent anymore, so deleting Reviews page and re-creating will be ok.
+
+2012.11.29 - version 1.1.6
+ * Major Change - converted from plugin to a bootstrap module that works with Smartest Business Framework
+
+2012.11.19 - version 1.1.5
+ * Tweak - move menu page position down to 62.
+
+2012.11.14 - version 1.1.4
+ * Tweaks - Lure visitors to leave reveiw if none yet. Some styling. Don't ask for website or review title by default. Get schema type from theme options.
+
+2012.10.15 - version 1.1.3
+ * Tweak - delete Reviews page upon deactivation
+
+2012.10.14 - version 1.1.2
+ * Tweak - Email notification to admin of review conditionally includes business name, else it has a plan b.
+
+2012.09.24 - version 1.1.1
+ * Major Change - Simplified options. business name, address, phone, are now pulled from theme options, not plugin options. Microdata and full functionality requires smartest themes business options, or else plugin just adds a reviews page without business microdata.
+
+2012.09.14 - version 1.1
+ * Tweak - stopped wrapper div from showing up on all inactive pages.
+	
+2012.09.10 - version 1.0
+ * First release!

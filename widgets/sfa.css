@@ -1,0 +1,17 @@
+﻿#sfawrap {
+	width:100%;overflow: hidden; position: relative;margin-bottom: 3em;
+}
+#sfawrap figure {
+    float: left;
+    margin: 0px 20px 0px 0px;
+}
+#sfafig .icon {
+	border: 0px none;
+}
+#sfacontent {
+    overflow: hidden;
+    padding-right: 15px;
+}
+#sfacontent p {
+	margin-bottom:15px;margin-left:0;
+}
