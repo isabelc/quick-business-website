@@ -6,7 +6,7 @@ Donate link: http://isabelcastillo.com/donate/
 Tags: business, business website, staff, services, announcements, company, quick site
 Requires at least: 3.4
 Tested up to: 3.5.1
-Stable Tag: 1.2
+Stable Tag: 1.3
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,9 +44,13 @@ For more info, see the [FAQ](http://wordpress.org/extend/plugins/quick-business-
 1. Download the plugin file, `quick-business-website.zip`
 2. Go to `Plugins -> Add New -> Upload` to upload the plugin.
 3. Activate the plugin through the 'Plugins' menu in WordPress
-4. Go to the `Quick Business Website` menu page to enter your business information.
+4. Go to the `Quick Business Website` menu page to enter your business information, and click "Save All Changes".
 5. Use the 6 available QBW widgets at `Appearances --> Widgets`.
 == Frequently Asked Questions ==
+
+= Why do I get a "Not Found" error for staff, news, services, or reviews? =
+
+If you disable either the staff, news, services, or reviews by un-checking the box in the plugin options panel "Preferences" tab, and then you later decide to enable one, you must click "Save All Changes" twice. This flushes the permalink settings. It will have the same effect as going to `Settings -> Permalinks` and clicking "Save Changes" twice. 
 
 = How can I give back? =
 
@@ -60,6 +64,9 @@ For more info, see the [FAQ](http://wordpress.org/extend/plugins/quick-business-
 5. Contact page showing contact form and business info 
 
 == Changelog ==
+
+= 1.3 =
+* Fixed typo, icon element should be i
 
 = 1.2 =
 * Tweak - made contact form responsive
