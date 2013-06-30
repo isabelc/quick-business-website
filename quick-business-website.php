@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: http://smartestthemes.com/downloads/quick-business-website-plugin/
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 1.3
+Version: 1.3.1
 Author: Smartest Themes
 Author URI: http://smartestthemes.com
 License: GPL2
@@ -1673,6 +1673,12 @@ class Quick_Business_Website{
 					'id'   => $prefix . 'staff_gplus',
 					'type' => 'text_medium',
 				),
+				array(
+					'name' => __('Linkedin Profile', 'smartestb'),
+					'desc' => __('The part of the profile address after "www.linkedin.com/". Optional', 'smartestb'),
+					'id'   => $prefix . 'staff_linkedin',
+					'type' => 'text_medium',
+				),
 			)
 		);
 		$meta_boxes[] = array(
@@ -1905,6 +1911,8 @@ class Quick_Business_Website{
 					$staffcontent .= '<li><a class="item-2" href="https://plus.google.com/' . get_post_meta($post->ID, '_smab_staff_gplus', true) . '" title="'. __('Google Plus', 'smartestb') . '" rel="author"></a></li>';
 			} if (get_post_meta($post->ID, '_smab_staff_facebook', true)) {
 					$staffcontent .= '<li><a class="item-3" href="https://facebook.com/' . get_post_meta($post->ID, '_smab_staff_facebook', true) . '" title="'. __('Facebook', 'smartestb') . '"></a></li>';
+			} if (get_post_meta($post->ID, '_smab_staff_linkedin', true)) {
+					$staffcontent .= '<li><a class="item-4" href="http://www.linkedin.com/' . get_post_meta($post->ID, '_smab_staff_linkedin', true) . '" title="'. __('LinkedIn', 'smartestb') . '"></a></li>';
 			}
 			$staffcontent .= '</ul></div>' . $content;
 			return $staffcontent;

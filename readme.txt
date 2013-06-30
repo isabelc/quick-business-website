@@ -5,8 +5,9 @@ Contributors: SmartestThemes, isabel104
 Donate link: http://isabelcastillo.com/donate/
 Tags: business, business website, staff, services, announcements, company, quick site
 Requires at least: 3.4
-Tested up to: 3.5.1
-Stable Tag: 1.3
+Tested up to: 3.5.2
+
+Stable Tag: 1.3.1
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,7 +39,7 @@ When you get your first review, your site will then automatically have:
 - `aggregateRating` Schema.org microdata which will add stars to your website in Google search results, making your site stand out.
 
 
-For more info, see the [FAQ](http://wordpress.org/extend/plugins/quick-business-website/faq/) and the [plugin web page](http://smartestthemes.com/downloads/quick-business-website-plugin/).
+For more info, see the [FAQ](http://wordpress.org/plugins/quick-business-website/faq/) and the [plugin web page](http://smartestthemes.com/downloads/quick-business-website-plugin/).
 == Installation ==
 
 1. Download the plugin file, `quick-business-website.zip`
@@ -64,6 +65,13 @@ If you disable either the staff, news, services, or reviews by un-checking the b
 5. Contact page showing contact form and business info 
 
 == Changelog ==
+
+= 1.3.1 =
+* Removed _vti_cnf files. 
+* Tested up to WP 3.5.2.
+* Tweak - update CSS to hide regular post meta on staff and services pages on Twenty Twelve.
+* Tweak - active menu item will be highlighted for staff, news, and services on Twenty Twelve.
+* New - add Linkedin to staff meta.
 
 = 1.3 =
 * Fixed typo, icon element should be i

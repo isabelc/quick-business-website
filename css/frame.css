@@ -26,6 +26,10 @@
 #qbw-staff-socials li a.item-3 {
 	background-position: -38px 0;
 }
+#qbw-staff-socials li a.item-4 {
+        background:url("../images/linkedin_18.png") no-repeat;
+	
+}
 #qbw-staff-socials li a.youtube {
 	width:60px;
 	height:25px;
@@ -36,6 +40,17 @@
 #qbw-staff-socials li a.item-add {
 	background-image:none;width:auto;
 }
+/* hide regular post meta for staff and services on Twenty Twelve */
+body.single-smartest_staff article.smartest_staff footer.entry-meta,
+body.post-type-archive-smartest_staff article.smartest_staff footer.entry-meta,
+body.post-type-archive-smartest_services article footer.entry-meta,
+body.single-smartest_services article footer.entry-meta {
+	display:none;
+}
+/* active menu items for staff, news, and services on Twenty Twelve */
+body.post-type-archive-smartest_services #site-navigation li.services a, body.single-smartest_services #site-navigation li.services a,
+body.post-type-archive-smartest_staff #site-navigation li.staff a, body.single-smartest_staff #site-navigation li.staff a,
+body.post-type-archive-smartest_news #site-navigation li.news a, body.single-smartest_news #site-navigation li.news a {font-weight:bold;}
 /* columns */
 .qbw-one-half, .qbw-one-third, .qbw-one-fourth {margin:1.5em 0;padding-left:2%;padding-right:2%;float:left;}
 .qbw-one-half {	width:46%;}
