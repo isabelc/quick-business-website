@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: http://smartestthemes.com/downloads/quick-business-website-plugin/
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 1.3.1
+Version: 1.3.2
 Author: Smartest Themes
 Author URI: http://smartestthemes.com
 License: GPL2
@@ -68,6 +68,7 @@ class Quick_Business_Website{
 				add_filter( 'wp_page_menu', array( $this, 'page_menu_services' ), 100 );
 				add_filter( 'wp_page_menu', array( $this, 'page_menu_news' ), 105 );
 			}
+			add_filter( 'parse_query', array( $this, 'sort_staff' ) );
     } // end __contruct
 
 	/** 
@@ -104,7 +105,7 @@ class Quick_Business_Website{
 	function settings_link($actions, $file) {
 	$qbw_path    = plugin_basename(__FILE__);
 	if(false !== strpos($file, $qbw_path))
-	 $actions['settings'] = '<a href="admin.php?page=smartestbthemes">'. __('Settings', 'smartestb'). '</a>';// @localize @test
+	 $actions['settings'] = '<a href="admin.php?page=smartestbthemes">'. __('Settings', 'smartestb'). '</a>';
 	return $actions; 
 	}
 	/** 
@@ -1458,7 +1459,7 @@ class Quick_Business_Website{
 							'not_found_in_trash' => __( 'No staff found in Trash','smartestb' ),
 							'parent' => __( 'Parent Staff','smartestb' ),
 						),
-			        	'supports' => array('title','editor','thumbnail'),
+			        	'supports' => array('title','editor','thumbnail','excerpt'),
 						'has_archive' => true,
 	
 			        );
@@ -1564,7 +1565,7 @@ class Quick_Business_Website{
 	public function staff_menu_link($items, $args) {
 			$newitems = $items;
 			if( get_option('smartestb_show_staff') == 'true' ) {
-			        $newitems .= '<li class="staff"><a title="Staff" href="'. site_url('/staff/') .'">'. __('Staff', 'smartestb'). '</a></li>';
+			        $newitems .= '<li class="staff"><a title="'. __('Staff', 'smartestb'). '" href="'. get_post_type_archive_link( 'smartest_staff' ) .'">'. __('Staff', 'smartestb'). '</a></li>';
 		    }
 			return $newitems;
 	}
@@ -1576,7 +1577,7 @@ class Quick_Business_Website{
 	public function services_menu_link($items, $args) {
 			$newitems = $items;
 			if( get_option('smartestb_show_services') == 'true' ) {
-			        $newitems .= '<li class="services"><a title="Services" href="'. site_url('/services/') .'">'. __('Services', 'smartestb'). '</a></li>';
+			        $newitems .= '<li class="services"><a title="'. __('Services', 'smartestb'). '" href="'. get_post_type_archive_link( 'smartest_services' ) .'">'. __('Services', 'smartestb'). '</a></li>';
 		    }
 		    return $newitems;
 	}
@@ -1588,7 +1589,7 @@ class Quick_Business_Website{
 	public function news_menu_link($items, $args) {
 			$newitems = $items;
 		    if( get_option('smartestb_show_news') == 'true' ) {
-		        $newitems .= '<li class="news"><a title="News" href="'. site_url('/news/') .'">'. __('News', 'smartestb'). '</a></li>';
+		        $newitems .= '<li class="news"><a title="'. __('News', 'smartestb'). '" href="'. get_post_type_archive_link( 'smartest_news' ) .'">'. __('News', 'smartestb'). '</a></li>';
 			 }
 		    return $newitems;
 	}
@@ -1599,7 +1600,7 @@ class Quick_Business_Website{
 	public function page_menu_staff( $menu ) {
 		$newmenu = $menu;
 		if( get_option('smartestb_show_staff') == 'true' ) {
-			$newitems = '<li class="staff"><a title="Staff" href="'. site_url('/staff/') .'">'. __('Staff', 'smartestb'). '</a></li>';
+			$newitems = '<li class="staff"><a title="'. __('Staff', 'smartestb') . '" href="'. get_post_type_archive_link( 'smartest_staff' ) .'">'. __('Staff', 'smartestb'). '</a></li>';
 		    $newmenu = str_replace( '</ul></div>', $newitems . '</ul></div>', $newmenu );
 		    }
 	    return $newmenu;
@@ -1613,7 +1614,7 @@ class Quick_Business_Website{
 	public function page_menu_services( $menu ) {
 		$newmenu = $menu;
 		if( get_option('smartestb_show_services') == 'true' ) {
-			$newitems = '<li class="services"><a title="Services" href="'. site_url('/services/') .'">'. __('Services', 'smartestb'). '</a></li>';
+			$newitems = '<li class="services"><a title="' . __('Services', 'smartestb') . '" href="'. get_post_type_archive_link( 'smartest_services' ) .'">'. __('Services', 'smartestb'). '</a></li>';
 		    $newmenu = str_replace( '</ul></div>', $newitems . '</ul></div>', $newmenu );
 	    }
 	    return $newmenu;
@@ -1626,15 +1627,14 @@ class Quick_Business_Website{
 	public function page_menu_news( $menu ) {
 		$newmenu = $menu;
 	    if( get_option('smartestb_show_news') == 'true' ) {
-	        $newitems = '<li class="news"><a title="News" href="'. site_url('/news/') .'">'. __('News', 'smartestb'). '</a></li>';
+	        $newitems = '<li id="testing" class="news"><a title="' . __('News', 'smartestb') . '" href="'. get_post_type_archive_link( 'smartest_news' ) .'">'. __('News', 'smartestb'). '</a></li>';
 		    $newmenu = str_replace( '</ul></div>', $newitems . '</ul></div>', $newmenu );
 		 }
 	    return $newmenu;
 	}
 
 	/** 
-	 * Custom metaboxes and fields for staff cpt: occupational title & social links, for services and news: featured
-	 *
+	 * Custom metaboxes and fields for staff cpt: order number, occupational title & social links. For services and news: featured.
 	 * @param  array $meta_boxes
 	 * @return array
 	 * @since 1.0
@@ -1654,6 +1654,12 @@ class Quick_Business_Website{
 					'desc' => __('The staff member\'s job title. Optional', 'smartestb'),
 					'id'   => $prefix . 'staff_job_title',
 					'type' => 'text_medium',
+				),
+				array(
+					'name' => 'Sort Order Number',
+					'desc' => 'Give this person a number to order them on the list on the staff page and in the staff widget. Number 1 appears 1st on the list, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would help to leave room in between to insert new staff members later without having to change everyone\'s current number.',
+					'id'   => $prefix . 'staff-order-number',
+					'type' => 'text',
 				),
 				array(
 					'name' => __('Facebook Profile ID', 'smartestb'),
@@ -2052,6 +2058,20 @@ class Quick_Business_Website{
 
 	}// end about_content_filter
 
+	/**
+	 * Sort staff archive by staff order number key
+	 *
+	 * @uses is_post_type_archive()
+	 * @since 1.3.2
+	 */
+
+    public function sort_staff($query) {
+	    if( is_post_type_archive('smartest_staff') ) {
+		    $query->query_vars['orderby'] = 'meta_value_num';
+		    $query->query_vars['meta_key'] = '_smab_staff-order-number';
+		    $query->query_vars['order'] = 'ASC';
+	    }
+    }
 }
 }
 if ( defined('THEME_FRAMEWORK') && ( THEME_FRAMEWORK == 'Smartest Business Framework' ) ) {
@@ -2061,6 +2081,7 @@ if ( defined('THEME_FRAMEWORK') && ( THEME_FRAMEWORK == 'Smartest Business Frame
  	register_deactivation_hook(__FILE__, array('Quick_Business_Website', 'deactivate')); 
 	register_activation_hook(__FILE__, array('Quick_Business_Website', 'activate'));
 	$Quick_Business_Website = new Quick_Business_Website();
+
 	/**
  	 * Include Contact form with both jquery client-side and php server-side validation
 	 * @since 1.0
