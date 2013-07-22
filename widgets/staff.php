@@ -47,7 +47,13 @@ class SmartestStaff extends WP_Widget {
 		
 		/* loop through staff */
 
-		query_posts( array( 'posts_per_page' => -1, 'post_type' => 'smartest_staff', 'orderby' => 'title', 'order' => 'ASC' ) );
+		query_posts( array(
+					'posts_per_page' => -1, 
+					'post_type' => 'smartest_staff', 
+					'orderby' => 'meta_value_num',
+					'meta_key' => '_isa_port-order-number',
+					'order' => 'ASC' ) 
+					);
 		if (have_posts()) : 
 			while (have_posts()) : the_post(); 
 

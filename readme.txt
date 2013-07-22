@@ -7,7 +7,7 @@ Tags: business, business website, staff, services, announcements, company, quick
 Requires at least: 3.4
 Tested up to: 3.5.2
 
-Stable Tag: 1.3.1
+Stable Tag: 1.3.2
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,7 @@ For more info, see the [FAQ](http://wordpress.org/plugins/quick-business-website
 3. Activate the plugin through the 'Plugins' menu in WordPress
 4. Go to the `Quick Business Website` menu page to enter your business information, and click "Save All Changes".
 5. Use the 6 available QBW widgets at `Appearances --> Widgets`.
+
 == Frequently Asked Questions ==
 
 = Why do I get a "Not Found" error for staff, news, services, or reviews? =
@@ -65,6 +66,10 @@ If you disable either the staff, news, services, or reviews by un-checking the b
 5. Contact page showing contact form and business info 
 
 == Changelog ==
+
+= 1.3.2 = 
+* New - added sort order for staff, effecting on staff archive and widget.
+* Tweak - using get_post_type_archive_link() instead of hardcoded url for news, services, and staff menu items
 
 = 1.3.1 =
 * Removed _vti_cnf files. 
