@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: http://smartestthemes.com/downloads/quick-business-website-plugin/
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 1.3.2
+Version: 1.3.3
 Author: Smartest Themes
 Author URI: http://smartestthemes.com
 License: GPL2
@@ -1650,14 +1650,14 @@ class Quick_Business_Website{
 			'show_names' => true,
 			'fields'     => array(
 				array(
-					'name' => __('Job Title', 'smartestb'),
-					'desc' => __('The staff member\'s job title. Optional', 'smartestb'),
+					'name' => __( 'Job Title', 'smartestb' ),
+					'desc' => __( 'The staff member\'s job title. Optional', 'smartestb' ),
 					'id'   => $prefix . 'staff_job_title',
 					'type' => 'text_medium',
 				),
 				array(
-					'name' => 'Sort Order Number',
-					'desc' => 'Give this person a number to order them on the list on the staff page and in the staff widget. Number 1 appears 1st on the list, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would help to leave room in between to insert new staff members later without having to change everyone\'s current number.',
+					'name' => __( 'Sort Order Number', 'smartestb' ),
+					'desc' => __( 'Give this person a number to order them on the list on the staff page and in the staff widget. Number 1 appears 1st on the list, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would help to leave room in between to insert new staff members later without having to change everyone\'s current number.', 'smartestb' ),
 					'id'   => $prefix . 'staff-order-number',
 					'type' => 'text',
 				),
@@ -2001,7 +2001,7 @@ class Quick_Business_Website{
 				$contactcontent .= '<p>';
 			
 				if ( get_option('smartestb_phone_number') ) {
-					$contactcontent .= '' . __('Telehone:', 'smartestb') . ' <span itemprop="telephone">'. get_option('smartestb_phone_number') . '</span>';
+					$contactcontent .= '' . __('Telephone:', 'smartestb') . ' <span itemprop="telephone">'. get_option('smartestb_phone_number') . '</span>';
 				}
 				if ( get_option('smartestb_fax_numb') ) {
 					$contactcontent .= '<br />' . __('FAX:', 'smartestb') . ' <span itemprop="faxNumber">' . get_option('smartestb_fax_numb') . '</span>';

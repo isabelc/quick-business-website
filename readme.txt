@@ -7,7 +7,7 @@ Tags: business, business website, staff, services, announcements, company, quick
 Requires at least: 3.4
 Tested up to: 3.5.2
 
-Stable Tag: 1.3.2
+Stable Tag: 1.3.3
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,6 +40,12 @@ When you get your first review, your site will then automatically have:
 
 
 For more info, see the [FAQ](http://wordpress.org/plugins/quick-business-website/faq/) and the [plugin web page](http://smartestthemes.com/downloads/quick-business-website-plugin/).
+
+For support, please use the [Support forum](http://wordpress.org/support/plugin/quick-business-website).
+
+Contribute or fork it [on Github](https://github.com/isabelc/quick-business-website).
+
+
 == Installation ==
 
 1. Download the plugin file, `quick-business-website.zip`
@@ -54,6 +60,11 @@ For more info, see the [FAQ](http://wordpress.org/plugins/quick-business-website
 
 If you disable either the staff, news, services, or reviews by un-checking the box in the plugin options panel "Preferences" tab, and then you later decide to enable one, you must click "Save All Changes" twice. This flushes the permalink settings. It will have the same effect as going to `Settings -> Permalinks` and clicking "Save Changes" twice. 
 
+= Where can I request support, get help, or report an error? =
+
+The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-website)
+
+
 = How can I give back? =
 
 [Please rate the plugin, Tweet about it, share it on Facebook](http://isabelcastillo.com/donate/), etc. Thank you. You can also follow me on your favorite social network: [Twitter](https://twitter.com/smartestthemes), [Facebook](https://www.facebook.com/SmartestThemes/), [Google Plus](https://plus.google.com/103171743862205247245/)
@@ -66,6 +77,12 @@ If you disable either the staff, news, services, or reviews by un-checking the b
 5. Contact page showing contact form and business info 
 
 == Changelog ==
+
+= 1.3.3 = 
+* Fixed - typo on displayed text.
+* Fixed - 2 strings left unlocalized on last update
+* Tweak - Added support links to readme.
+* Removed - uneeded file in order to minify: js/ui.datepicker.js.
 
 = 1.3.2 = 
 * New - added sort order for staff, effecting on staff archive and widget.
