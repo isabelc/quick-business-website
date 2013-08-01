@@ -7,6 +7,7 @@ Tags: business, business website, staff, services, announcements, company, quick
 Requires at least: 3.4
 Tested up to: 3.8
 Stable Tag: 1.4
+Tested up to: 3.5.2
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +73,7 @@ The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-
 5. Contact page showing contact form and business info 
 
 == Changelog ==
+
 
 = 1.4 =
 * New: added services categories taxonomy.
