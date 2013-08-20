@@ -5,9 +5,8 @@ Contributors: SmartestThemes, isabel104
 Donate link: http://isabelcastillo.com/donate/
 Tags: business, business website, staff, services, announcements, company, quick site
 Requires at least: 3.4
-Tested up to: 3.5.2
-
-Stable Tag: 1.3.3
+Tested up to: 3.6
+Stable Tag: 1.3.4
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +76,9 @@ The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-
 5. Contact page showing contact form and business info 
 
 == Changelog ==
+
+= 1.3.4 =
+* Update: compatible with WP 3.6
 
 = 1.3.3 = 
 * Fixed - typo on displayed text.
