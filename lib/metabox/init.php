@@ -6,7 +6,7 @@ Contributors: 	Andrew Norcross (@norcross / andrewnorcross.com)
 				Bill Erickson (@billerickson / billerickson.net)
 				Justin Sternberg (@jtsternberg / dsgnwrks.pro)
 Description: 	This will create metaboxes with custom fields that will blow your mind.
-Version: 		0.9.1
+Version: 		0.9.9.2
 */
 
 /**
@@ -515,7 +515,8 @@ class cmb_Meta_Box {
  * Adding scripts and styles
  */
 function cmb_scripts( $hook ) {
-  	if ( $hook == 'post.php' || $hook == 'post-new.php' || $hook == 'page-new.php' || $hook == 'page.php' ) {
+	if ( ( ( $hook == 'post.php' ) || ( $hook == 'post-new.php' ) ) && in_array( qbw_get_current_post_type(), array( 'smartest_staff', 'smartest_services', 'smartest_news' ) )
+	) {
 		wp_register_script( 'cmb-timepicker', CMB_META_BOX_URL . 'js/jquery.timePicker.min.js' );
 		wp_register_script( 'cmb-scripts', CMB_META_BOX_URL . 'js/cmb.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'media-upload', 'thickbox', 'farbtastic' ), '0.9.1' );
 		wp_localize_script( 'cmb-scripts', 'cmb_ajax_data', array( 'ajax_nonce' => wp_create_nonce( 'ajax_nonce' ), 'post_id' => get_the_ID() ) );
@@ -526,7 +527,26 @@ function cmb_scripts( $hook ) {
   	}
 }
 add_action( 'admin_enqueue_scripts', 'cmb_scripts', 10 );
-
+/**
+* gets the current post type in the WordPress Admin
+*/
+function qbw_get_current_post_type() {
+	global $post, $typenow, $current_screen;
+	//we have a post so we can just get the post type from that
+	if ( $post && $post->post_type )
+	return $post->post_type;
+	//check the global $typenow - set in admin.php
+	elseif( $typenow )
+	return $typenow;
+	//check the global $current_screen object - set in sceen.php
+	elseif( $current_screen && $current_screen->post_type )
+	return $current_screen->post_type;
+	//lastly check the post_type querystring
+	elseif( isset( $_REQUEST['post_type'] ) )
+	return sanitize_key( $_REQUEST['post_type'] );
+	//we do not know the post type!
+	return null;
+}
 function cmb_editor_footer_scripts() { ?>
 	<?php
 	if ( isset( $_GET['cmb_force_send'] ) && 'true' == $_GET['cmb_force_send'] ) {

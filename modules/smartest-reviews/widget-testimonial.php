@@ -36,18 +36,19 @@ class SmartestReviewsTestimonial extends WP_Widget {
 		/* pull single review from smartest reviews table */
 		function get_single_smartest_review() {
 			global $wpdb;
-			$single_review = $wpdb->get_var("SELECT review_text FROM wp_smareviewsb order by rand()");
-			/* for multisite, use this instead of previous 2 lines 
-			
-						global $wpdb, $blog_id;
-						$bi = get_current_blog_id();
-						$pre = $wpdb->base_prefix;
-						$pre2 = $pre . $bi . '_smareviewsb';
-						$single_review = $wpdb->get_var("SELECT review_text FROM $pre2 order by rand()");
-			
-			*/		
+			$pre = $wpdb->base_prefix;
+			if ( is_multisite() ) { 
+				global $blog_id;
+				$bi = get_current_blog_id();
+				$pre2 = $pre . $bi . '_smareviewsb';
+			} else {
+				// not Multisite
+				$pre2 = $pre . 'smareviewsb';
+			}
+			$single_review = $wpdb->get_var("SELECT review_text FROM $pre2 order by rand()");
 			return wp_trim_words( $single_review, 11);
 		}
+
 		global $wpdb;
 		// get the permalink by page id.
 		$reviews_pageurl = get_permalink(get_option('smartest_reviews_page_id'));
