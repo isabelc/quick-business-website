@@ -1,21 +1,9 @@
 /**
- * Ajax upload
+ * AJAX Upload
  * Project page - http://valums.com/ajax-upload/
  * Copyright (c) 2008 Andris Valums, http://valums.com
  * Licensed under the MIT license (http://valums.com/mit-license/)
- * Version 3.4 (22.06.2009)
  */
-
-/**
- * Changes from the previous version:
- * 1. Added better JSON handling that allows to use 'application/javascript' as a response
- * 2. Added demo for usage with jQuery UI dialog
- * 3. Fixed IE "mixed content" issue when used with secure connections
- * 
- * For the full changelog please visit: 
- * http://valums.com/ajax-upload-changelog/
- */
-
 (function(){
 	
 var d = document, w = window;
@@ -83,18 +71,20 @@ if (document.documentElement["getBoundingClientRect"]){
 		clientLeft = docElem.clientLeft || body.clientLeft || 0,
 		
 		// In Internet Explorer 7 getBoundingClientRect property is treated as physical,
-		// while others are logical. Make all logical, like in IE8.
-		
+		// while others are logical. Make all logical, like in IE8.		
 		
 		zoom = 1;
+		
 		if (body.getBoundingClientRect) {
 			var bound = body.getBoundingClientRect();
 			zoom = (bound.right - bound.left)/body.clientWidth;
 		}
+		
 		if (zoom > 1){
 			clientTop = 0;
 			clientLeft = 0;
 		}
+		
 		var top = box.top/zoom + (window.pageYOffset || docElem && docElem.scrollTop/zoom || body.scrollTop/zoom) - clientTop,
 		left = box.left/zoom + (window.pageXOffset|| docElem && docElem.scrollLeft/zoom || body.scrollLeft/zoom) - clientLeft;
 				
@@ -189,6 +179,38 @@ function getExt(file){
 	return (/[.]/.exec(file)) ? /[^.]+$/.exec(file.toLowerCase()) : '';
 }			
 
+/**
+ * Cross-browser way to get xhr object  
+ */
+var getXhr = function(){
+	var xhr;
+	
+	return function(){
+		if (xhr) return xhr;
+				
+		if (typeof XMLHttpRequest !== 'undefined') {
+			xhr = new XMLHttpRequest();
+		} else {
+			var v = [
+				"Microsoft.XmlHttp",
+				"MSXML2.XmlHttp.5.0",
+				"MSXML2.XmlHttp.4.0",
+				"MSXML2.XmlHttp.3.0",
+				"MSXML2.XmlHttp.2.0"					
+			];
+			
+			for (var i=0; i < v.length; i++){
+				try {
+					xhr = new ActiveXObject(v[i]);
+					break;
+				} catch (e){}
+			}
+		} 			
+
+		return xhr;
+	}
+}();
+
 // Please use AjaxUpload , Ajax_upload will be removed in the next version
 Ajax_upload = AjaxUpload = function(button, options){
 	if (button.jquery){
@@ -207,7 +229,7 @@ Ajax_upload = AjaxUpload = function(button, options){
 	// 3 seconds ago (requred to fix Safari on Mac error)
 	this._justClicked = false;
 	this._parentDialog = d.body;
-	
+		
 	if (window.jQuery && jQuery.ui && jQuery.ui.dialog){
 		var parentDialog = jQuery(this._button).parents('.ui-dialog');
 		if (parentDialog.length){
@@ -229,6 +251,11 @@ Ajax_upload = AjaxUpload = function(button, options){
 		// Only useful when you are using json data as a response.
 		// Set to "json" in that case. 
 		responseType: false,
+		// Location of the server-side script that fixes Safari 
+		// hanging problem returning "Connection: close" header
+		closeConnection: '',
+		// Class applied to button when mouse is hovered
+		hoverClass: 'hover',		
 		// When user selects a file, useful with autoSubmit disabled			
 		onChange: function(file, extension){},					
 		// Callback to fire before file is uploaded
@@ -259,7 +286,7 @@ AjaxUpload.prototype = {
 	enable : function(){
 		this._disabled = false;
 	},
-	// removes ajaxupload
+	// removes instance
 	destroy : function(){
 		if(this._input){
 			if(this._input.parentNode){
@@ -287,7 +314,9 @@ AjaxUpload.prototype = {
 			,'cursor': 'pointer'
 			,'display' : 'none'
 			,'zIndex' :  2147483583 //Max zIndex supported by Opera 9.0-9.2x 
-			// Strange, I expected 2147483647					
+			// Strange, I expected 2147483647
+			// Doesn't work in IE :(
+			//,'direction' : 'ltr'			
 		};
 		for (var i in styles){
 			input.style[i] = styles[i];
@@ -324,7 +353,7 @@ AjaxUpload.prototype = {
 			setTimeout(function(){
 				// we will wait 3 seconds for dialog to open
 				self.justClicked = false;
-			}, 3000);			
+			}, 2500);			
 		});		
 		
 		this._input = input;
@@ -338,9 +367,11 @@ AjaxUpload.prototype = {
 		//   self._input.click();
 		// });
 				
-		var box, dialogOffset = {top:0, left:0}, over = false;							
+		var box, dialogOffset = {top:0, left:0}, over = false;
+									
 		addEvent(self._button, 'mouseover', function(e){
 			if (!self._input || over) return;
+			
 			over = true;
 			box = getBox(self._button);
 					
@@ -350,14 +381,14 @@ AjaxUpload.prototype = {
 		});
 		
 	
-		// we can't use mouseout on the button,
+		// We can't use mouseout on the button,
 		// because invisible input is over it
 		addEvent(document, 'mousemove', function(e){
 			var input = self._input;			
 			if (!input || !over) return;
 			
 			if (self._disabled){
-				removeClass(self._button, 'hover');
+				removeClass(self._button, self._settings.hoverClass);
 				input.style.display = 'none';
 				return;
 			}	
@@ -365,18 +396,35 @@ AjaxUpload.prototype = {
 			var c = getMouseCoords(e);
 
 			if ((c.x >= box.left) && (c.x <= box.right) && 
-			(c.y >= box.top) && (c.y <= box.bottom)){			
+			(c.y >= box.top) && (c.y <= box.bottom)){
+							
 				input.style.top = c.y - dialogOffset.top + 'px';
 				input.style.left = c.x - dialogOffset.left + 'px';
 				input.style.display = 'block';
-				addClass(self._button, 'hover');				
+				addClass(self._button, self._settings.hoverClass);
+								
 			} else {		
 				// mouse left the button
 				over = false;
-				if (!self.justClicked){
-					input.style.display = 'none';
-				}
-				removeClass(self._button, 'hover');
+			
+				var check = setInterval(function(){
+					// if input was just clicked do not hide it
+					// to prevent safari bug
+					 
+					if (self.justClicked){
+						return;
+					}
+					
+					if ( !over ){
+						input.style.display = 'none';	
+					}						
+				
+					clearInterval(check);
+				
+				}, 25);
+					
+
+				removeClass(self._button, self._settings.hoverClass);
 			}			
 		});			
 			
@@ -420,6 +468,18 @@ AjaxUpload.prototype = {
 			// Do not submit if user function returns false										
 			var form = this._createForm(iframe);
 			form.appendChild(this._input);
+
+			// A pretty little hack to make uploads not hang in Safari. Just call this
+			// immediately before the upload is submitted. This does an Ajax call to
+			// the server, which returns an empty document with the "Connection: close"
+			// header, telling Safari to close the active connection.
+			// http://blog.airbladesoftware.com/2007/8/17/note-to-self-prevent-uploads-hanging-in-safari
+			if (settings.closeConnection && /AppleWebKit|MSIE/.test(navigator.userAgent)){
+				var xhr = getXhr();
+				// Open synhronous connection
+				xhr.open('GET', settings.closeConnection, false);
+				xhr.send('');
+			}
 			
 			form.submit();
 			
@@ -475,15 +535,14 @@ AjaxUpload.prototype = {
 				} else if (doc.body){
 					// response is html document or plain text
 					response = doc.body.innerHTML;
-					if (settings.responseType == 'json'){
+					if (settings.responseType && settings.responseType.toLowerCase() == 'json'){
 						// If the document was sent as 'application/javascript' or
 						// 'text/javascript', then the browser wraps the text in a <pre>
 						// tag and performs html encoding on the contents.  In this case,
 						// we need to pull the original text content from the text node's
 						// nodeValue property to retrieve the unmangled content.
-						if ((doc.body.children.length == 1) &&
-							(doc.body.firstChild.nodeType == 1) &&
-							(doc.body.firstChild.nodeName.toUpperCase() == 'PRE')){
+						// Note that IE6 only understands text/html
+						if (doc.body.firstChild && doc.body.firstChild.nodeName.toUpperCase() == 'PRE'){
 							response = doc.body.firstChild.firstChild.nodeValue;
 						}
 						if (response) {

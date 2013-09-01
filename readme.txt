@@ -2,11 +2,11 @@
 Author URI: http://smartestthemes.com
 Plugin URI: http://smartestthemes.com/downloads/quick-business-website-plugin/
 Contributors: SmartestThemes, isabel104
-Donate link: http://isabelcastillo.com/donate/
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=isa%40smartestthemes%2ecom
 Tags: business, business website, staff, services, announcements, company, quick site
 Requires at least: 3.4
 Tested up to: 3.6
-Stable Tag: 1.3.4
+Stable Tag: 1.3.5
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,7 +38,7 @@ When you get your first review, your site will then automatically have:
 - `aggregateRating` Schema.org microdata which will add stars to your website in Google search results, making your site stand out.
 
 
-For more info, see the [FAQ](http://wordpress.org/plugins/quick-business-website/faq/) and the [plugin web page](http://smartestthemes.com/downloads/quick-business-website-plugin/).
+For more info, see the [Instruction Guide](http://smartestthemes.com/docs/category/quick-business-website---wordpress-plugin/).
 
 For support, please use the [Support forum](http://wordpress.org/support/plugin/quick-business-website).
 
@@ -63,10 +63,6 @@ If you disable either the staff, news, services, or reviews by un-checking the b
 
 The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-website)
 
-
-= How can I give back? =
-
-[Please rate the plugin, Tweet about it, share it on Facebook](http://isabelcastillo.com/donate/), etc. Thank you. You can also follow me on your favorite social network: [Twitter](https://twitter.com/smartestthemes), [Facebook](https://www.facebook.com/SmartestThemes/), [Google Plus](https://plus.google.com/103171743862205247245/)
 == Screenshots ==
 
 1. Options panel
@@ -77,14 +73,26 @@ The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-
 
 == Changelog ==
 
+= 1.3.5 =
+* New: Testimonials widget works on multisite now.
+* New: added link to Instruction Guides in readme and on Support tab of options panel.
+* Bug fix: priority logic for grabbing contact form delivery email was off.
+* Bug fix: 1 Smartest Reviews microdata declaration was broken.
+* Bug fix: metabox class was causing conflict with some plugins, which in some cases would break the image uploader for inserting media into posts.
+* Tweak: removed uneeded colopicker CSS and JS and datepicker.css
+* Tweak: new donate link.
+* Tweak: removed padding from Feat. Announcements widget title.
+* Updated js/ajaxupload.php
+* Updated helper text for 'Disable News Icon' option.
+
 = 1.3.4 =
 * Update: compatible with WP 3.6
 
 = 1.3.3 = 
-* Fixed - typo on displayed text.
-* Fixed - 2 strings left unlocalized on last update
-* Tweak - Added support links to readme.
-* Removed - uneeded file in order to minify: js/ui.datepicker.js.
+* Fixed: typo on displayed text.
+* Fixed: 2 strings left unlocalized on last update
+* Tweak: Added support links to readme.
+* Removed: uneeded file in order to minify: ui.datepicker.js.
 
 = 1.3.2 = 
 * New - added sort order for staff, effecting on staff archive and widget.

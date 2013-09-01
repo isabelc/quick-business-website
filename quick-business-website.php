@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: http://smartestthemes.com/downloads/quick-business-website-plugin/
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 1.3.4
+Version: 1.3.5
 Author: Smartest Themes
 Author URI: http://smartestthemes.com
 License: GPL2
@@ -325,7 +325,7 @@ class Quick_Business_Website{
 		        <div id="smartestb-nav">
 					<ul>
 						<?php echo $return[1] ?>
-						<li><a class="theme-support" title="Theme Support" href="#smartestb-option-themesupport"><span class="smartestb-nav-icon"></span><?php _e('Plugin Support', 'smartestb'); ?></a></li>
+						<li><a class="theme-support" title="Support" href="#smartestb-option-themesupport"><span class="smartestb-nav-icon"></span><?php _e('Plugin Support', 'smartestb'); ?></a></li>
 						
 					</ul>		
 				</div>
@@ -334,8 +334,6 @@ class Quick_Business_Website{
 		         <!-- ADD SUPPORT SECTION -->
 		         <div class="group" id="smartestb-option-themesupport" style="display:block;">
 		         <h2><?php _e('Plugin Support', 'smartestb'); ?></h2>
-		         <div class="section support-section">
-		         </div>
 		         <div class="section support-section">
 		         <p class="support-content"><?php _e('Stuck?  Need some help?  Found a bug?', 'smartestb'); ?></p>
 		         </div>
@@ -350,6 +348,22 @@ class Quick_Business_Website{
 		         <div class="clear"></div>
 		         </div>
 		         <div class="support-divider"></div>
+
+
+
+<div class="section support-section">
+		         <div class="support-section-icon info_75"></div>
+<!-- 		         <h4 class="support-section-title"><?php _e('Instruction Guides', 'smartestb'); ?></h4> -->
+		         <p class="support-content"><?php _e('The Instruction Guides give detailed instructions for certain tasks.', 'smartestb'); ?></p>
+	<div class="section support-section">
+		         <a class="support-button" target="_blank" title="Instruction Guides" href="http://smartestthemes.com/docs/category/quick-business-website---wordpress-plugin/"><?php _e('Go To Instruction Guides', 'smartestb'); echo ' &raquo;'; ?> </a>
+		         </div>
+		         <div class="clear"></div>
+		         </div>
+		         <div class="support-divider"></div>
+
+
+
 		         </div><!-- END SUPPORT SECTION -->
 		        </div>
 		        <div class="clear"></div>
@@ -388,9 +402,6 @@ class Quick_Business_Website{
 		$fr = plugins_url( '/', __FILE__ );
 		add_action('admin_head', 'smartestb_admin_head');
 		wp_enqueue_script('jquery-ui-core');
-		wp_register_script('smart-jquery-ui-datepicker', $fr.'js/ui.datepicker.js', array( 'jquery-ui-core' ));
-		wp_enqueue_script('smart-jquery-ui-datepicker');
-
 		wp_register_script('jquery-input-mask', $fr. 'js/jquery.maskedinput-1.3.1.min.js', array( 'jquery' ));
 		wp_enqueue_script('jquery-input-mask');
 	
@@ -398,9 +409,6 @@ class Quick_Business_Website{
 			$fr = plugins_url( '/', __FILE__ );
 			?>
 			<link rel="stylesheet" type="text/css" href="<?php echo $fr; ?>admin-style.css" media="screen" />
-			<link rel="stylesheet" type="text/css" href="<?php echo $fr; ?>css/jquery-ui-datepicker.css" />
-	 		<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $fr; ?>css/colorpicker.css" />
-			<script type="text/javascript" src="<?php echo $fr; ?>js/colorpicker.js"></script>
 			<script>jQuery(document).ready(function(){
 				
 				//JQUERY DATEPICKER

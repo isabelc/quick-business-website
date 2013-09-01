@@ -13,7 +13,6 @@ if ($user_info == true) {
 } else {
 	$admin_name = __( 'Site Administrator', 'smartestb' );
 }
-$admin_mail = get_bloginfo('admin_email');
 $currtime = date("l, F jS, Y @ g:i a");
 $shortname = 'smartestb'; // @new shortname per framework
 global $smartestb_options;
@@ -224,9 +223,9 @@ $options[] = array( 'name' => __( 'Your Name', 'smartestb' ),
 
 
 $options[] = array( 'name' => __( 'Your Email', 'smartestb' ),
-                    'desc' => __( 'Where would you like to receive messages sent from the contact form? Default is the admin email set in `Settings -> General`', 'smartestb' ),
+                    'desc' => __( 'Where would you like to receive messages sent from the contact form? If blank, the default is the admin email set in `Settings -> General`', 'smartestb' ),
                     'id' => $shortname.'_sbfc_email',
-					'std' => $admin_mail,
+					'std' => '',
                     'type' => 'text');
 
 $options[] = array( 'name' => __( 'Default Subject', 'smartestb' ),
@@ -264,7 +263,7 @@ $options[] = array( 'name' => __( 'Custom content before the form', 'smartestb' 
 $options[] = array( 'name' => __( 'Custom content after the form', 'smartestb' ),
 					'desc' => __( 'Add some text/markup to appear <em>after</em> the contact form (optional).', 'smartestb' ),
 					'id' => $shortname.'_sbfc_appform',
-					'std' => '<div style=\'clear:both;\'>&nbsp;</div>',
+					'std' => '<div style="clear:both;">&nbsp;</div>',
 					'type' => 'textarea');
 $options[] = array( 'name' => __( 'Custom content before results', 'smartestb' ),
 					'desc' => __( 'Add some text/markup to appear <em>before</em> the success message (optional).', 'smartestb' ),
@@ -311,7 +310,7 @@ $options[] = array( 'name' => sprintf( __( 'Disable Extra Items on %s and %s', '
 					'std' => 'false',
 					'type' => 'checkbox');
 $options[] = array( 'name' => __('Disable News Icon','smartestb'),
-					'desc' => __('If an Announcement (News) post does not have a featured image, a news icon will show up as its featured image in the News archives and in the Featured Announcements widget. Check this to get rid of that icon.', 'smartestb'),
+					'desc' => __('If an Announcement (News) post does not have a featured image, a news icon will show up as its featured image in the News archives (if your <code>archive.php/code> shows the thumbnail) and in the Featured Announcements widget. Check this to get rid of that icon.', 'smartestb'),
 					'id' => $shortname.'_stop_theme_icon',
 					'std' => 'false',
 					'type' => 'checkbox');

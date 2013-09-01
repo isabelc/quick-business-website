@@ -301,7 +301,7 @@ class SMARTESTReviewsBusiness {
 
 
     function aggregate_footer() {// for home page
-
+		global $smartestb_options;	
 		// gather agg data
 		$postID = get_option('smartest_reviews_page_id');// was -1
 		$arr_Reviews = $this->get_reviews($postID, '', $this->options['reviews_per_page'], 1);
@@ -323,8 +323,7 @@ else {$show = false; }
             	if ( $this->options['biz_declare'] == 1 ) {
 						$isabiz_declare = ' itemscope itemtype="http://schema.org/LocalBusiness"';// isa depend
 		                $aggregate_footer_output = '<div id="smar_respond_1"><div id="smar_hcard_s"' . $isabiz_declare . ' class="isa_vcard">';
-// Populate Theme options in array for use
-global $smartestb_options;
+
 $smartestb_options = get_option('smartestb_options');
 	$bn = stripslashes_deep(esc_attr($smartestb_options['smartestb_business_name']));if(!$bn) {$bn = get_bloginfo('name'); }
 
@@ -354,7 +353,7 @@ $smartestb_options = get_option('smartestb_options');
 			                        $aggregate_footer_output .='<span itemprop="addressRegion">' . $smartestb_options['smartestb_address_state'] . '</span>,&nbsp;';
 			                    }
 			                    if ($smartestb_options['smartestb_address_zip'] != '') {
-			                        $aggregate_footer_output .='<span class="postal-code">' . $smartestb_options['smartestb_address_zip'] . '</span>&nbsp;';
+			                        $aggregate_footer_output .='<span class="postal-code" itemprop="postalCode">' . $smartestb_options['smartestb_address_zip'] . '</span>&nbsp;';
 			                    }
 			                    if ($smartestb_options['smartestb_address_country'] != '') {
 			                        $aggregate_footer_output .='<span itemprop="addressCountry">' . $smartestb_options['smartestb_address_country'] . '</span>&nbsp;';

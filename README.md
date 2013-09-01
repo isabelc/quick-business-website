@@ -27,4 +27,4 @@ When you get your first review, your site will then automatically have:
 - `aggregateRating` Schema.org microdata which will add stars to your website in Google search results, making your site stand out.
 
 
-For more info, see the [FAQ](http://wordpress.org/extend/plugins/quick-business-website/faq/) and the [plugin web page](http://smartestthemes.com/downloads/quick-business-website-plugin/).
+For more info, see the [Instruction Guide](http://smartestthemes.com/docs/category/quick-business-website---wordpress-plugin/).
