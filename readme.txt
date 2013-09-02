@@ -6,7 +6,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=isa%4
 Tags: business, business website, staff, services, announcements, company, quick site
 Requires at least: 3.4
 Tested up to: 3.6
-Stable Tag: 1.3.5
+Stable Tag: 1.3.6
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,9 @@ The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-
 5. Contact page showing contact form and business info 
 
 == Changelog ==
+
+= 1.3.6 =
+* Bug fix: code tag was left opened and messed up options panel.
 
 = 1.3.5 =
 * New: Testimonials widget works on multisite now.

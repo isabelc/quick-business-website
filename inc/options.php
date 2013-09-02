@@ -310,7 +310,7 @@ $options[] = array( 'name' => sprintf( __( 'Disable Extra Items on %s and %s', '
 					'std' => 'false',
 					'type' => 'checkbox');
 $options[] = array( 'name' => __('Disable News Icon','smartestb'),
-					'desc' => __('If an Announcement (News) post does not have a featured image, a news icon will show up as its featured image in the News archives (if your <code>archive.php/code> shows the thumbnail) and in the Featured Announcements widget. Check this to get rid of that icon.', 'smartestb'),
+					'desc' => __('If an Announcement (News) post does not have a featured image, a news icon will show up as its featured image in the News archives (if your <code>archive.php</code> shows the thumbnail) and in the Featured Announcements widget. Check this to get rid of that icon.', 'smartestb'),
 					'id' => $shortname.'_stop_theme_icon',
 					'std' => 'false',
 					'type' => 'checkbox');
