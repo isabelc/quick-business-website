@@ -47,19 +47,20 @@ class SmartestStaff extends WP_Widget {
 		
 		/* loop through staff */
 
-		query_posts( array(
-					'posts_per_page' => -1, 
-					'post_type' => 'smartest_staff', 
-					'orderby' => 'meta_value_num',
-					'meta_key' => '_isa_port-order-number',
-					'order' => 'ASC' ) 
-					);
-		if (have_posts()) : 
-			while (have_posts()) : the_post(); 
+                $args = array(
+                    'posts_per_page' => -1,
+                    'post_type' => 'smartest_staff',
+                    'orderby' => 'meta_value_num',
+                    'meta_key' => '_smab_staff-order-number',
+                    'order' => 'ASC' ); // @test
+                $qbwstaff = new WP_Query( $args );
+                if ( $qbwstaff->have_posts() ) {
+                    while ( $qbwstaff->have_posts() ) {
+                        $qbwstaff->the_post();
+		 
+			echo '<div id="sstwrap">';
 
-				echo '<div id="sstwrap">';
-
-				if ( has_post_thumbnail() ) {
+			if ( has_post_thumbnail() ) {
 
 				$thumb = get_post_thumbnail_id(); 
 				global $Quick_Business_Website;
@@ -76,9 +77,17 @@ class SmartestStaff extends WP_Widget {
 
 	<div id="sstcontent">
 <?php echo '<h5><a href="'.get_permalink().'" title="'.get_the_title().'">'.get_the_title().'</a></h5></div></div>';
-			endwhile;
-		endif; 
-		wp_reset_query();
+
+                    } // endwhile;
+                   
+
+                } // end if have posts   
+                else {
+
+                        '<h2>No posts found!</h2>';
+
+                }
+                wp_reset_postdata();
 
 		echo $after_widget;
 

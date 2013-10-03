@@ -1,7 +1,7 @@
 Quick Business Website
 ======================
 
-Business website to showcase your services, staff, announcements, a working contact form, and reviews.
+This WordPress plugin gives you a Business website to showcase your services, staff, announcements, a working contact form, and reviews.
 
 Get a complete business website up with a few clicks. When you activate this plugin, your website will immediately have: 
 
