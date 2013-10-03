@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: http://smartestthemes.com/downloads/quick-business-website-plugin/
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 1.3.6
+Version: 1.3.7
 Author: Smartest Themes
 Author URI: http://smartestthemes.com
 License: GPL2
@@ -2073,13 +2073,22 @@ class Quick_Business_Website{
 	 * @since 1.3.2
 	 */
 
-    public function sort_staff($query) {
-	    if( is_post_type_archive('smartest_staff') ) {
-		    $query->query_vars['orderby'] = 'meta_value_num';
-		    $query->query_vars['meta_key'] = '_smab_staff-order-number';
-		    $query->query_vars['order'] = 'ASC';
-	    }
-    }
+public function sort_staff($query) {
+
+    if( !is_admin() && is_post_type_archive('smartest_staff') && $query->is_main_query() && isset( $query->query_vars['meta_key'] ) ) {
+
+            $query->query_vars['orderby'] = 'meta_value_num';
+
+            $query->query_vars['meta_key'] = '_smab_staff-order-number';
+
+            $query->query_vars['order'] = 'ASC';
+
+      }
+
+    return $query;
+
+
+    }    
 }
 }
 if ( defined('THEME_FRAMEWORK') && ( THEME_FRAMEWORK == 'Smartest Business Framework' ) ) {
