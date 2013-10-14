@@ -18,7 +18,7 @@ $shortname = 'smartestb'; // @new shortname per framework
 global $smartestb_options;
 $smartestb_options = get_option('smartestb_options');
 $options = array();
-/* WELCOME ====================== */
+/* WELCOME */
 $options[] = array( 'name' => __('Welcome','smartestb'),
 						'type' => 'heading'
 						);
@@ -26,7 +26,7 @@ $options[] = array( 'name' => __('Welcome to Quick Business Website by Smartest 
 						'type' => 'info',
 						'std' => __( 'On the left are tabs to customize your site, but everything is optional.<br /><br />To make your website more complete, enter these two tabs on the left:<br /><br />1. The <strong>About Page</strong> tab.<br />2. The <strong>Business Info</strong> tab.<br /><br />Then, take a moment to browse all the tabs so you can see what options are available. <br /><br />To get started, first click the \'<strong>Save all Changes</strong>\' button to save the plugin defaults.', 'smartestb' ) );
 
-/* Business ====================== */
+/* Business */
 
 $options[] = array( 'name' => __('Business Info','smartestb'),'class' => 'money',
 					'type' => 'heading');
@@ -96,7 +96,7 @@ $options[] = array( 'name' => __('Google Map','smartestb'),
 					'id' => $shortname.'_hours',
 					'std' => '',
 					'type' => 'textarea');
-/* Preferences ====================== */
+/* Preferences */
 
 $options[] = array( 'name' => __('Preferences','smartestb'),'class' => 'pencil',
 					'type' => 'heading');
@@ -121,7 +121,7 @@ $options[] = array( 'name' => __('Add Reviews Section?','smartestb'),
 					'id' => $shortname.'_add_reviews',
 					'std' => 'true',
 					'type' => 'checkbox');
-/*  About Page ====================== */
+/*  About Page */
 
 $options[] = array( 'name' => __('About Page','smartestb'),'class' => 'aboutcircle',
 					'type' => 'heading');
@@ -144,7 +144,7 @@ $options[] = array( 'name' => __('Disable About Page','smartestb'),
 					'type' => 'checkbox');
 
 
-/* Social Media ====================== */
+/* Social Media */
 
 $options[] = array( 'name' => __('Social Media','smartestb'),'class' => 'smartsocial',
 					'type' => 'heading');
@@ -190,7 +190,7 @@ $options[] = array(
                     'id' => $shortname.'_business_sociallabel2',
                     'type' => 'text');
 
-/* Branding ======================*/
+/* Branding */
 
 $options[] = array( 'name' => __('Backend Branding','smartestb'),'class' => 'branding',
 					'type' => 'heading');
@@ -210,7 +210,7 @@ $options[] = array( 'name' => __('Remove WordPress Links From Admin Bar','smarte
 $options[] = array( 'type' => 'info',
 						'std' => __('<em>Refresh this page to see the effect of these changes.</em>','smartestb')
 						);
-/* Contact form ====================== */
+/* Contact form */
 
 $options[] = array( 'name' => __( 'Contact Form','smartestb' ),
 					'class' => 'mail',
@@ -270,13 +270,13 @@ $options[] = array( 'name' => __( 'Custom content before results', 'smartestb' )
 					'id' => $shortname.'_sbfc_prepend',
 					'std' => '',
 					'type' => 'textarea');
-$options[] = array(
+$options[] = array( 'name' => __( 'Custom content after results', 'smartestb' ),
 					'desc' => '<strong>' . __( 'Custom content after results.', 'smartestb' ) . '</strong> ' . __( 'Add some text/markup to appear <em>after</em> the success message (optional).', 'smartestb' ),
 					'id' => $shortname.'_sbfc_append',
 					'std' => '',
 					'type' => 'textarea');
 
-/* Scripts ====================== */
+/* Scripts */
 
 $options[] = array( 'name' => __('Scripts','smartestb'),'class' => 'scripts',
 					'type' => 'heading');
@@ -293,7 +293,7 @@ $options[] = array( 'name' => __('Additional Scripts To Load','smartestb'),
                     'std' => '',
                     'type' => 'textarea');
 
-/* Advanced ======================*/
+/* Advanced */
 
 $options[] = array( 'name' => __('Advanced','smartestb'),'class' => 'settings',
 					'type' => 'heading');
@@ -310,7 +310,7 @@ $options[] = array( 'name' => sprintf( __( 'Disable Extra Items on %s and %s', '
 					'std' => 'false',
 					'type' => 'checkbox');
 $options[] = array( 'name' => __('Disable News Icon','smartestb'),
-					'desc' => __('If an Announcement (News) post does not have a featured image, a news icon will show up as its featured image in the News archives (if your <code>archive.php</code> shows the thumbnail) and in the Featured Announcements widget. Check this to get rid of that icon.', 'smartestb'),
+					'desc' => __('If an Announcement (News) post does not have a featured image, a news icon will show up as its featured image on the News page (if your <code>archive.php</code> shows the thumbnail) and in the Featured Announcements widget. Check this to get rid of that icon.', 'smartestb'),
 					'id' => $shortname.'_stop_theme_icon',
 					'std' => 'false',
 					'type' => 'checkbox');

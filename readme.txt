@@ -6,7 +6,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=isa%4
 Tags: business, business website, staff, services, announcements, company, quick site
 Requires at least: 3.4
 Tested up to: 3.6.1
-Stable Tag: 1.3.7
+Stable Tag: 1.3.8
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,14 @@ The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-
 5. Contact page showing contact form and business info 
 
 == Changelog ==
+
+= 1.3.8 =
+* Bug fix: missing Linkedin icon is restored.
+* Bug fix: old Reviews didn't display in admin backend if Reviews page id had been changed, or if plugin had been deactivated and reactivated.
+* Bug fix: ob_get_clean() in smartest-reviews.php needed conditional wrap.
+* Tweak: moved 'smartest-reviews' register_script outside the Reviews page conditional so people can enqueue it on other pages.
+* Tweak: better mobile CSS for Contact form and Reviews form.
+* Maintenance: removed deprecated functions, PHP notices and warnings.
 
 = 1.3.7 =
 * Bug fix: fixed typo in query meta value for staff widget.
