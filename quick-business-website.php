@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: http://smartestthemes.com/downloads/quick-business-website-plugin/
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 1.3.7
+Version: 1.3.8
 Author: Smartest Themes
 Author URI: http://smartestthemes.com
 License: GPL2
@@ -77,10 +77,10 @@ class Quick_Business_Website{
 	* @since 1.0
 	*/
 	public static function activate() { 
-		wp_delete_post(get_option('smartest_contact_page_id'), true);
-		add_action( 'admin_head', array( $this, 'option_setup' ) );
+		$del_old_page = wp_delete_post(get_option('smartest_contact_page_id'), true);
+		add_action( 'admin_head', array( __CLASS__, 'option_setup' ) );
 		global $wp_rewrite;
-		$wp_rewrite->flush_rules();//flush_rewrite_rules();
+		$wp_rewrite->flush_rules();
 	}
 	/** 
 	* Upon plugin deactivation, delete created pages and options
@@ -154,8 +154,8 @@ class Quick_Business_Website{
 		$saved_options = get_option('smartestb_options');
 		foreach($template as $option) {
 			if($option['type'] != 'heading'){
-				$id = $option['id'];
-				$std = $option['std'];
+				$id = isset($option['id']) ? $option['id'] : '';
+				$std = isset($option['std']) ? $option['std'] : '';
 				$db_option = get_option($id);
 				if(empty($db_option)){
 					if(is_array($option['type'])) {
@@ -694,9 +694,8 @@ class Quick_Business_Website{
 	 */
 	public function ajax_callback() {
 	
-		global $wpdb; // this is how you get access to the database
+		global $wpdb;
 		$save_type = $_POST['type'];
-		//Uploads
 		if($save_type == 'upload'){
 			
 			$clickedID = $_POST['data']; // Acts as the name
@@ -725,14 +724,9 @@ class Quick_Business_Website{
 	
 			$data = $_POST['data'];
 			parse_str($data,$output);
-			//print_r($output);
-			
-			//Pull options
 	        	$options = get_option('smartestb_template');
-					
 			foreach($options as $option_array){
-	
-				$id = $option_array['id'];
+				$id = isset($option_array['id']) ? $option_array['id'] : '';
 				$old_value = get_option($id);
 				$new_value = '';
 				
@@ -873,20 +867,17 @@ class Quick_Business_Website{
 			
 			update_option('smartestb_options',$smartestb_array);
 			update_option('smartestb_settings_encode',$output);
-	
 			// this makes it finally flush, but only if you save twice. Isa
 			flush_rewrite_rules();
 		}
 		die();
-	} // end ajax_callback
-
+	}
 
 	/** 
 	 * Generate the options
 	 * @since 1.0
 	 */
 	public function machine($options) {
-	        
 	    $counter = 0;
 		$menu = '';
 		$output = '';
@@ -940,19 +931,13 @@ class Quick_Business_Website{
 				 
 				 } 
 				 $output .= '</select>';
-	
 				
 			break;
 			case 'select2':
-	
 				$output .= '<select class="smartestb-input" name="'. $value['id'] .'" id="'. $value['id'] .'">';
-			
 				$select_value = get_option($value['id']);
-				 
 				foreach ($value['options'] as $option => $name) {
-					
 					$selected = '';
-					
 					 if($select_value != '') {
 						 if ( $select_value == $option) { $selected = ' selected="selected"';} 
 				     } else {
@@ -966,16 +951,12 @@ class Quick_Business_Website{
 				 
 				 } 
 				 $output .= '</select>';
-	
-				
 			break;
 			case 'calendar':
-			
 				$val = $value['std'];
 				$std = get_option($value['id']);
 				if ( $std != "") { $val = $std; }
 	            $output .= '<input class="smartestb-input-calendar" type="text" name="'.$value['id'].'" id="'.$value['id'].'" value="'.$val.'">';
-			
 			break;
 			case 'time':
 				$val = $value['std'];
@@ -984,14 +965,10 @@ class Quick_Business_Website{
 				$output .= '<input class="smartestb-input-time" name="'. $value['id'] .'" id="'. $value['id'] .'" type="text" value="'. $val .'" />';
 			break;
 			case 'textarea':
-				
 				$cols = '8';
 				$ta_value = '';
-				
 				if(isset($value['std'])) {
-					
 					$ta_value = $value['std']; 
-					
 					if(isset($value['options'])){
 						$ta_options = $value['options'];
 						if(isset($ta_options['cols'])){
@@ -1018,7 +995,23 @@ class Quick_Business_Website{
 					$output .= '<input class="smartestb-input smartestb-radio" type="radio" name="'. $value['id'] .'" value="'. $key .'" '. $checked .' />' . $option .'<br />';
 				
 				}
-				 
+			break;
+			case "radio2":
+				$select_value = get_option( $value['id']);
+				foreach ($value['options'] as $key => $option)
+				{
+				$checked = '';
+				if($select_value != '') {
+				if ( $select_value == $option[2]) { $checked = ' checked'; }
+				} else {
+				$std_radio2 = isset($value['std']) ? $value['std'] : '';
+				if ($option[2] == $std_radio2 ) { $checked = ' checked'; }
+				}
+				$output .= '<input class="smartestb-input smartestb-radio" type="radio" name="'. $value['id'] .'" value="'. $option[2] .'" '. $checked .' />' . $option[0];
+				// image
+				$output .= '<img alt="demo" class="demoimg" src="' . $option[1] . '" />';
+				$output .= '<br />';
+				}
 			break;
 			case "checkbox": 
 		if( !empty($value['std']) ) {
@@ -1044,14 +1037,10 @@ class Quick_Business_Website{
 	
 			break;
 			case "multicheck":
-			
 				$std =  $value['std'];         
-				
 				foreach ($value['options'] as $key => $option) {
-												 
 				$smartestb_key = $value['id'] . '_' . $key;
 				$saved_std = get_option($smartestb_key);
-						
 				if(!empty($saved_std)) 
 				{ 
 					  if($saved_std == 'true'){
@@ -1071,14 +1060,10 @@ class Quick_Business_Website{
 				}
 			break;
 			case "upload":
-				
 				$output .= $this->the_uploader($value['id'],$value['std'],null);
-				
 			break;
 			case "upload_min":
-				
 				$output .= $this->the_uploader($value['id'],$value['std'],'min');
-				
 			break;
 			case "color":
 				$val = $value['std'];
@@ -1114,20 +1099,16 @@ class Quick_Business_Website{
 					$output .= '</span>';
 					
 				}
-			
 			break; 
-			
 			case "info":
 				$default = $value['std'];
 				$output .= $default;
 			break;                                   
-			
 			case "heading":
-				
 				if($counter >= 2){
 				   $output .= '</div>'."\n";
 				}
-				$jquery_click_hook = ereg_replace("[^A-Za-z0-9]", "", strtolower($value['name']) );
+				$jquery_click_hook = preg_replace('#[^A-Za-z0-9]#', '', strtolower($value['name']) );
 				$jquery_click_hook = "smartestb-option-" . $jquery_click_hook;
 						$menu .= '<li><a ';
 						if ( !empty( $value['class'] ) ) {
@@ -1147,9 +1128,7 @@ class Quick_Business_Website{
 						$saved_std = get_option($id);
 						if($saved_std != $std && !empty($saved_std) ){$std = $saved_std;} 
 						$meta =   $array['meta'];
-						
 						if($array['type'] == 'text') { // Only text at this point
-							 
 							 $output .= '<input class="input-text-small smartestb-input" name="'. $id .'" id="'. $id .'" type="text" value="'. $std .'" />';  
 							 $output .= '<span class="meta-two">'.$meta.'</span>';
 						}
@@ -1168,7 +1147,6 @@ class Quick_Business_Website{
 		}
 	    $output .= '</div>';
 	    return array($output,$menu);
-	
 	}// end machine
 
 	/** 
@@ -1177,7 +1155,6 @@ class Quick_Business_Website{
 	 */
 
 	public function the_uploader($id,$std,$mod){
-	
 		$uploader = '';
 	    $upload = get_option($id);
 		

@@ -167,7 +167,7 @@ class SMARTESTReviewsBusiness {
         /* upgrade to 2.0.0 */
         if ($current_dbversion < 200) {
             /* change all current reviews to use the selected page id */
-            $pageID = intval($this->options['selected_pageid']);
+            $pageID = intval(get_option('smartest_reviews_page_id'));
             $wpdb->query("UPDATE `$this->dbtable` SET `page_id`=$pageID WHERE `page_id`=0");
             $this->options['dbversion'] = 200;
             $current_dbversion = 200;
@@ -241,7 +241,7 @@ class SMARTESTReviewsBusiness {
             return $this->got_aggregate;
         }
         global $wpdb;
-        $pageID = get_option('smartest_reviews_page_id');// 3.11 was -1
+        $pageID = get_option('smartest_reviews_page_id');
         $row = $wpdb->get_results("SELECT COUNT(*) AS `total`,AVG(review_rating) AS `aggregate_rating`,MAX(review_rating) AS `max_rating` FROM `$this->dbtable` WHERE `status`=1");
 
         /* make sure we have at least one review before continuing below */
@@ -252,23 +252,15 @@ class SMARTESTReviewsBusiness {
         $aggregate_rating = $row[0]->aggregate_rating;
         $max_rating = $row[0]->max_rating;
         $total_reviews = $row[0]->total;
-
-        $row = $wpdb->get_results("SELECT `review_text` FROM `$this->dbtable` WHERE `page_id`=$pageID AND `status`=1 ORDER BY `date_time` DESC");// 3.11 put back LIMIT 1. works without too
-
-        $sample_text = substr($row[0]->review_text, 0, 180);
+        $row = $wpdb->get_results("SELECT `review_text` FROM `$this->dbtable` WHERE `page_id`=$pageID AND `status`=1 ORDER BY `date_time` DESC");
+        $sample_text = ! empty( $row[0]->review_text ) ? substr($row[0]->review_text, 0, 180) : '';
         $this->got_aggregate = array("aggregate" => $aggregate_rating, "max" => $max_rating, "total" => $total_reviews, "text" => $sample_text);
         return true;
     }
-
-
-
-    function get_reviews($postID, $startpage, $perpage, $status) {
-
-
+    function get_reviews( $startpage, $perpage, $status ) {
         global $wpdb;
         $startpage = $startpage - 1; /* mysql starts at 0 instead of 1, so reduce them all by 1 */
         if ($startpage < 0) { $startpage = 0; }
-
         $limit = 'LIMIT ' . $startpage * $perpage . ',' . $perpage;
         if ($status == -1) {
             $qry_status = '1=1';
@@ -293,18 +285,15 @@ class SMARTESTReviewsBusiness {
             FROM `$this->dbtable` WHERE $qry_status ORDER BY `date_time` DESC $limit
             ");
         $total_reviews = $wpdb->get_results("SELECT COUNT(*) AS `total` FROM `$this->dbtable` WHERE $qry_status");
-
         $total_reviews = $total_reviews[0]->total;
-
         return array($reviews, $total_reviews);
     }
-
 
     function aggregate_footer() {// for home page
 		global $smartestb_options;	
 		// gather agg data
-		$postID = get_option('smartest_reviews_page_id');// was -1
-		$arr_Reviews = $this->get_reviews($postID, '', $this->options['reviews_per_page'], 1);
+		$postID = get_option('smartest_reviews_page_id');
+		$arr_Reviews = $this->get_reviews('', $this->options['reviews_per_page'], 1);
 	 	$reviews = $arr_Reviews[0];// 12.5 prob dont need
 		$total_reviews = intval($arr_Reviews[1]);
 		$this->get_aggregate_reviews($postID);
@@ -469,19 +458,14 @@ $smartestb_options = get_option('smartestb_options');
     }
         
     function output_reviews_show($inside_div, $postid, $perpage, $max, $hide_custom = 0, $hide_response = 0, $snippet_length = 0, $show_morelink = '') {
-        
-
-        if ($max != -1) {
+	if ($max != -1) {
             $thispage = 1;
         } else {
             $thispage = $this->page;
         }
-
-        $arr_Reviews = $this->get_reviews($postid, $thispage, $perpage, 1);
-        
+       $arr_Reviews = $this->get_reviews($thispage, $perpage, 1);
         $reviews = $arr_Reviews[0];
         $total_reviews = intval($arr_Reviews[1]);
-
         $reviews_content = '';
         $hidesummary = '';
         $title_tag = $this->options['title_tag'];
@@ -1018,7 +1002,7 @@ function do_the_content($original_content) {
             foreach ($cookie as $col => $val) {
                 setcookie($col, $val); /* add cookie via headers */
             }
-            ob_end_clean();
+		if (ob_get_length()) ob_end_clean();
             wp_redirect($url); /* nice redirect */
         }
         
@@ -1044,9 +1028,9 @@ function do_the_content($original_content) {
 	function enqueue_scripts() {
 		if( get_option('smartestb_add_reviews') == 'true'  ) { // isa depend
 			wp_register_style('smartest-reviews', $this->getpluginurl() . 'smartest-reviews.css', array(), $this->plugin_version);wp_enqueue_style('smartest-reviews');
-		
+			wp_register_script('smartest-reviews', $this->getpluginurl() . 'smartest-reviews.js', array('jquery'), $this->plugin_version);
 			if( is_page(get_option('smartest_reviews_page_id'))) {
-		        wp_register_script('smartest-reviews', $this->getpluginurl() . 'smartest-reviews.js', array('jquery'), $this->plugin_version);wp_enqueue_script('smartest-reviews');
+		        wp_enqueue_script('smartest-reviews');
 				$loc = array(
 					'hidebutton' => __('Click here to hide form', 'smartestb'),
 					'email' => __('The email address provided is not valid.', 'smartestb'),

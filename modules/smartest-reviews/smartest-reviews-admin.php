@@ -60,14 +60,10 @@ class SMARTESTReviewsBusinessAdmin
 					
 				}
 			}
-
             return $post_id;
 	}
-	
-
 	function createUpdateReviewTable() {
             require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
-            
             $sql = "CREATE TABLE $this->dbtable (
                       id int(11) NOT NULL AUTO_INCREMENT,
                       date_time datetime NOT NULL,
@@ -89,7 +85,6 @@ class SMARTESTReviewsBusinessAdmin
             
             dbDelta($sql);
         }
-	
 	function force_update_cache() {
 			return; /* testing to increase performance */
 			global $wpdb;
@@ -134,7 +129,6 @@ class SMARTESTReviewsBusinessAdmin
             {
                 $this->options['activate'] = 1;
                 $this->options['act_email'] = $this->p->email;
-
                 update_option('smar_options', $this->options);
                 $msg = 'Thank you. Please configure below.';
             }
@@ -209,13 +203,6 @@ class SMARTESTReviewsBusinessAdmin
         return $msg;
     }
 
-    function my_get_pages() { /* gets pages, even if hidden using a plugin */
-        global $wpdb;
-        
-        $res = $wpdb->get_results("SELECT `ID`,`post_title` FROM `$wpdb->posts` WHERE `post_status` = 'publish' AND `post_type` = 'page' ORDER BY `ID`");
-        return $res;
-    }
-	
     function show_options() {
         $su_checked = '';
         if ($this->options['show_hcard_on']) {
@@ -440,9 +427,7 @@ class SMARTESTReviewsBusinessAdmin
                         $show_val = '';
                         $update_col = false;
                         $update_val = false;
-                        
                         foreach ($this->p->json as $col => $val) {
-                            
                             switch ($col) {
                                 case 'date_time':
                                     $d = date("m/d/Y g:i a",strtotime($val));
@@ -451,7 +436,6 @@ class SMARTESTReviewsBusinessAdmin
                                         echo json_encode(array("errors" => __('Bad Date Format', 'smartestb')));
                                         exit(); 
                                     }
-                                    
                                     $show_val = $d;
                                     $d2 = date("Y-m-d H:i:s",strtotime($val));
                                     $update_col = mysql_real_escape_string($col);
@@ -464,10 +448,8 @@ class SMARTESTReviewsBusinessAdmin
                                         echo json_encode(array("errors" => __('Bad Value', 'smartestb')));
                                         exit(); 
                                     }
-									
                                     /* for storing in DB - fix with IE 8 workaround */
                                     $val = str_replace( array("<br />","<br/>","<br>") , "\n" , $val );	
-
                                     if (substr($col,0,7) == 'custom_') /* updating custom fields */
                                     {
                                         $custom_fields = array(); /* used for insert as well */
@@ -558,7 +540,6 @@ class SMARTESTReviewsBusinessAdmin
             $this->p->review_status = -1;
             $and_clause = "AND (`reviewer_name` LIKE %s OR `reviewer_email` LIKE %s OR `reviewer_ip` LIKE %s OR `review_text` LIKE %s OR `review_response` LIKE %s OR `reviewer_url` LIKE %s)";
             $and_clause = $wpdb->prepare($and_clause,$this->p->s,$this->p->s,$this->p->s,$this->p->s,$this->p->s,$this->p->s);
-            
             $query = "SELECT 
                 `id`,
                 `date_time`,
@@ -581,7 +562,7 @@ class SMARTESTReviewsBusinessAdmin
         /* end - searching */
         else
         {
-            $arr_Reviews = $this->parentClass->get_reviews(-1,$this->page,$this->options['reviews_per_page'],$this->p->review_status);
+            $arr_Reviews = $this->parentClass->get_reviews($this->page,$this->options['reviews_per_page'],$this->p->review_status);
             $reviews = $arr_Reviews[0];
             $total_reviews = $arr_Reviews[1];
         }
@@ -664,11 +645,8 @@ class SMARTESTReviewsBusinessAdmin
                       ?>
                         <tr><td colspan="3" align="center"><br />
 <?php echo sprintf(__('There are no %s reviews yet.', 'smartestb'), $status_text); ?> <br /><br /></td></tr>
-                      <?php
-                  }
-                                    
-                  foreach ($reviews as $review)
-                  {                    
+<?php		}
+                  foreach ($reviews as $review) {                    
                       $rid = $review->id;
                       $update_path = get_admin_url()."admin-ajax.php?page=smar_view_reviews&r=$rid&action=update_field";
                       $hash = md5( strtolower( trim( $review->reviewer_email ) ) );
@@ -681,9 +659,7 @@ class SMARTESTReviewsBusinessAdmin
                       $review_text = str_replace( array("\r\n","\r","\n") , "" , $review_text );
                       $review_response = nl2br($review->review_response);
                       $review_response = str_replace( array("\r\n","\r","\n") , "" , $review_response );
-                      $page = get_post($review->page_id);
-                      if (!$page) { continue; } /* page no longer exists */
-                  ?>
+                      $page = get_post($review->page_id); ?>
                       <tr class="approved" id="review-<?php echo $rid;?>">
                         <th class="check-column" scope="row"><input type="checkbox" value="<?php echo $rid;?>" name="delete_reviews[]" /></th>
                         <td class="author column-author">
