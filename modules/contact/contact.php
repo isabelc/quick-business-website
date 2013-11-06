@@ -175,10 +175,10 @@ if(get_option('smartestb_stop_contact') == 'true') {
  * enqueue CSS and validation script
  */
 function sbfc_enqueue_scripts() {
+	wp_register_script('sbfc-validate', plugins_url( '/sbfc-validate.js', __FILE__ ), array('jquery'));
+	wp_register_style('contactstyle', plugins_url( '/contact.css', __FILE__) );
 	if (is_page(get_option('qbw_contact_page_id'))){
-		wp_register_script('sbfc-validate', plugins_url( '/sbfc-validate.js', __FILE__ ), array('jquery'));
 		wp_enqueue_script('sbfc-validate');
-		wp_register_style('contactstyle', plugins_url( '/contact.css', __FILE__) );
 		wp_enqueue_style('contactstyle');
 	}
 }
@@ -244,7 +244,7 @@ Agent:  $agent
 <pre>Name:       '. $name    .'
 Email:      '. $email   .'
 Date:       '. $date .'
-Message:    '. $message .'</pre><p class="sbfc_reset">[ <a href="'. $form .'">'. __( 'Click here to reset the form', 'smartestb' ) .'</a> ]</p></div>' . $sbfc_custom . $append);
+Message:    '. $message .'</pre><p class="sbfc_reset">[ <a href="'. $form .'">'. __( 'Click here to reset the form', 'smartestb' ) .'</a> ]</p></div>' . $append);
 
 	echo $results;
 }
@@ -295,7 +295,7 @@ function sbfc_display_contact_form() {
 				</div>
 			</form>
 		</div>
-		' . $sbfc_custom . $smartestb_sbfc_appform);
+		' . $smartestb_sbfc_appform);
 	return $sbfc_form;
 }
 ?>

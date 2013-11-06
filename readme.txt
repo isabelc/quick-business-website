@@ -5,8 +5,8 @@ Contributors: SmartestThemes, isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=isa%40smartestthemes%2ecom
 Tags: business, business website, staff, services, announcements, company, quick site
 Requires at least: 3.4
-Tested up to: 3.6.1
-Stable Tag: 1.3.8
+Tested up to: 3.7.1
+Stable Tag: 1.3.9
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,11 @@ The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-
 5. Contact page showing contact form and business info 
 
 == Changelog ==
+
+= 1.3.9 =
+* New: option to show a different amount of testimonials instead of only showing 1.
+* Tweak: Moved contact form script and style register outside the Contact page conditional so may be enqueued on any page, such as when using the shortcode.
+* Maintenance: Removed unused variable from contact.php.
 
 = 1.3.8 =
 * Bug fix: missing Linkedin icon is restored.
