@@ -362,7 +362,7 @@ $smartestb_options = get_option('smartestb_options');
 
 					// do agg rating for both scenarios
 
-					$aggregate_footer_output .= '<br /><span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" id="hreview-smar-aggregate"> '. __('Average rating:', 'smartestb'). ' <span itemprop="ratingValue" class="average">' . $average_score . '</span> ' . __('out of', 'smartestb'). ' <span itemprop="bestRating">' . $best_score . ' </span> '. __('based on', 'smartestb').' <span itemprop="reviewCount">' . $this->got_aggregate["total"] . ' </span>';
+					$aggregate_footer_output .= '<br /><span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" id="hreview-smar-aggregate"> '. __('Average rating:', 'smartestb'). ' <span itemprop="ratingValue" class="average">' . $average_score . '</span> ' . __('out of', 'smartestb'). ' <span itemprop="bestRating">' . $best_score . ' </span> '. __('based on', 'smartestb').' <span itemprop="ratingCount">' . $this->got_aggregate["total"] . ' </span>';
 				
 					if($this->got_aggregate["total"] == 1)
 					    $basedon = __('review.', 'smartestb');
@@ -511,18 +511,16 @@ $smartestb_options = get_option('smartestb_options');
             $average_score = number_format($this->got_aggregate["aggregate"], 1);
 			$reviews_content .= '<div itemscope itemtype="http://schema.org/LocalBusiness"><br />
 							<span class="isa_vcard">
-                                <a itemprop="name" href="' . site_url('/') . '">' . $bn . '</a>
-                                <span itemprop="telephone">' . $smartestb_options['smartestb_phone_number'] . '</span>
+                                <a itemprop="name" href="' . site_url('/') . '">' . $bn . '</a><br />
+                                <span itemprop="telephone">' . $smartestb_options['smartestb_phone_number'] . '</span><br />
                                 <span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-                                    <span itemprop="streetAddress">' . $smartestb_options['smartestb_address_street'] . ' ' .$smartestb_options['smartestb_address_suite'] . '</span>
+                                    <span itemprop="streetAddress">' . $smartestb_options['smartestb_address_street'] . ' ' .$smartestb_options['smartestb_address_suite'] . '</span><br />
                                     <span itemprop="addressLocality">' . $smartestb_options['smartestb_address_city'] . '</span>
                                     <span itemprop="addressRegion">' . $smartestb_options['smartestb_address_state'] . '</span> <span itemprop="postalCode">' . $smartestb_options['smartestb_address_zip'] . '</span>
                                     <span itemprop="addressCountry">' . $smartestb_options['smartestb_address_country'] . '</span>
                                 </span>
                             </span><hr />';
-
-
-			
+		
             foreach ($reviews as $review) {
                 
                 if ($snippet_length > 0)

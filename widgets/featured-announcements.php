@@ -50,74 +50,64 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 		
 		/* loop through announcements */
 
-		query_posts( array( 
-
+		$args = array(
 			'post_type' => 'smartest_news',
 			'meta_query' => array(
-								array  (
-									'key' => '_smab_news_featured',
-									'value'=> 'on' 
-
-									)
-								),
-						)
-					);
-		if (have_posts()) : 
-			while (have_posts()) : the_post(); 
-
+				array (
+					'key' => '_smab_news_featured',
+					'value'=> 'on'
+				)
+			)
+		);
+		$sbffa = new WP_Query( $args );
+		if ( $sbffa->have_posts() ) {
+			while ( $sbffa->have_posts() ) {
+				$sbffa->the_post();
 				echo '<div id="sfawrap">';
-
-		if ( has_post_thumbnail() ) {
-		
-			$thumb = get_post_thumbnail_id();
-			global $Quick_Business_Website;
-			$smallimage = $Quick_Business_Website->vt_resize( $thumb, '', 40, 65, true);
-
-			echo '<figure id="sfafig"><a href="'.get_permalink().'" title="'.get_the_title().'">';
-			?>
-			<img class="thumb" src="<?php echo $smallimage['url']; ?>" width="<?php echo $smallimage['width']; ?>" />
-
-		<?php echo '</a></figure>';
-
+				if ( has_post_thumbnail() ) {
 				
-		} else {
-				// if not stopped with option smartestb_stop_theme_icon
-				if(get_option('smartestb_stop_theme_icon') != 'true') {
-					echo '<figure class="img-indent"><a href="'.get_permalink().'" title="'.get_the_title().'">'; ?>
-					<img class="icon" src="<?php echo plugins_url('/images/news.svg', dirname(__FILE__)); ?>" width="40px" />
+					$thumb = get_post_thumbnail_id();
+					global $Quick_Business_Website;
+					$smallimage = $Quick_Business_Website->vt_resize( $thumb, '', 40, 65, true);
+					echo '<figure id="sfafig"><a href="'.get_permalink().'" title="'.get_the_title().'">';
+					?>
+					<img class="thumb" src="<?php echo $smallimage['url']; ?>" width="<?php echo $smallimage['width']; ?>" />
+		
 					<?php echo '</a></figure>';
+						
+				} else {
+					// if not stopped with option smartestb_stop_theme_icon
+					if(get_option('smartestb_stop_theme_icon') != 'true') {
+						$smallimage = array('url' => get_template_directory_uri(). '/images/newsicon.png', 'width' => '40px', 'cl' => 'icon');
+						echo '<figure class="img-indent"><a href="'.get_permalink().'" title="'.get_the_title().'">'; ?>
+						<img class="icon" src="<?php echo plugins_url('/images/news.svg', dirname(__FILE__)); ?>" width="40px" />
+						<?php echo '</a></figure>';
+					}
+	
 				}
-
-		}
 					
-						echo '<div id="sfacontent">';
-							echo '<h4><a href="'.get_permalink().'" title="'.get_the_title().'">'.get_the_title().'</a></h4>';
-							echo '<p>'. get_the_excerpt(). '</p>';
-							echo '<a class="button" href="'.get_permalink().'" title="'.get_the_title().'">Read More</a>';
-
-
-						echo '</div>';
+				echo '<div id="sfacontent">';
+				echo '<h4><a href="'.get_permalink().'" title="'.get_the_title().'">'.get_the_title().'</a></h4>';
+				echo '<p>'. get_the_excerpt(). '</p>';
+				echo '<a class="button" href="'.get_permalink().'" title="'.get_the_title().'">Read More</a>';
+				echo '</div>';
 					
 				echo '</div>';	
 		 
-			endwhile;
-
-			else :
+			} // endwhile;
+		} else { 
 				$li = '<a href="'.get_post_type_archive_link( 'smartest_news' ).'">'. __('News', 'smartestb'). '</a>';
 				?>
 				<p><?php printf(__( 'Coming soon. See all %s.', 'smartestb'), $li); ?></p>		
-<?php 
-		endif; 
-		wp_reset_query();
-
+		<?php }
+		wp_reset_postdata();
+	
 		echo $after_widget;
 
 	}// end widget
 
 	/**
 	 * Sanitize widget form values as they are saved.
-	 *
-	 * @see WP_Widget::update()
 	 *
 	 * @param array $new_instance Values just sent to be saved.
 	 * @param array $old_instance Previously saved values from database.

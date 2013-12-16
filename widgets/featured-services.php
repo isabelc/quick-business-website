@@ -52,21 +52,19 @@ class SmartestFeaturedServices extends WP_Widget {
 		
 		/* loop through announcements */
 
-		query_posts( array( 
-
+		$args = array(
 			'post_type' => 'smartest_services',
 			'meta_query' => array(
-								array  (
-									'key' => '_smab_services_featured',
-									'value'=> 'on' 
-
-									)
-								),
-						)
-					);
-		if (have_posts()) : 
-			while (have_posts()) : the_post(); 
-				
+				array (
+				'key' => '_smab_services_featured',
+				'value'=> 'on'
+				)
+			)
+		);
+		$sbffs = new WP_Query( $args );
+		if ( $sbffs->have_posts() ) {
+			while ( $sbffs->have_posts() ) {
+				$sbffs->the_post();
 				echo '<div id="sfswrap">';
 				if ( has_post_thumbnail() ) {
 					echo '<figure id="sfsfig"><a href="'.get_permalink().'" title="'.get_the_title().'">';
@@ -77,20 +75,18 @@ class SmartestFeaturedServices extends WP_Widget {
 <?php
 				echo '</a></figure>';
 				}
-				
 						echo '<div id="sfscontent">';
 							echo '<h4><a href="'.get_permalink().'" title="'.get_the_title().'">'.get_the_title().'</a></h4>';
 							echo get_the_excerpt();
 						echo '</div>';
 				echo '</div>';	
-			endwhile;
-			else :
+			} // endwhile
+		} else {
 				$li = '<a href="'.get_post_type_archive_link( 'smartest_services' ).'">'. __('Services', 'smartestb'). '</a>';
 				?>
 				<p><?php printf(__( 'Coming soon. See all %s.', 'smartestb'), $li); ?></p>		
-<?php endif; 
-		wp_reset_query();
-
+		<?php } // endif
+		wp_reset_postdata();
 		echo $after_widget;
 
 	}// end widget
@@ -98,11 +94,8 @@ class SmartestFeaturedServices extends WP_Widget {
 	/**
 	 * Sanitize widget form values as they are saved.
 	 *
-	 * @see WP_Widget::update()
-	 *
 	 * @param array $new_instance Values just sent to be saved.
 	 * @param array $old_instance Previously saved values from database.
-	 *
 	 * @return array Updated safe values to be saved.
 	 */
 	public function update( $new_instance, $old_instance ) {
@@ -113,9 +106,6 @@ class SmartestFeaturedServices extends WP_Widget {
 
 	/**
 	 * Back-end widget form.
-	 *
-	 * @see WP_Widget::form()
-	 *
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form( $instance ) {
@@ -134,6 +124,4 @@ class SmartestFeaturedServices extends WP_Widget {
 		</p>
 		<?php 
 	}
-
-}
-?>
+}?>

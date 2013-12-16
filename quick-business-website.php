@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: http://smartestthemes.com/downloads/quick-business-website-plugin/
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 1.3.9
+Version: 1.4
 Author: Smartest Themes
 Author URI: http://smartestthemes.com
 License: GPL2
@@ -41,6 +41,7 @@ class Quick_Business_Website{
 			add_filter( 'login_headertitle', array( $this, 'wp_login_title' ) );
 			add_action( 'after_setup_theme', array( $this, 'after_setup' ) );
 			add_action( 'init', array( $this, 'create_business_cpts') );
+			add_action( 'init', array( $this, 'set_taxonomies' ), 0 );
 			add_filter( 'cmb_meta_boxes', array( $this, 'metaboxes') );
 			add_action( 'init', array( $this, 'initialize_cmb_meta_boxes' ), 9999 );
 			add_filter( 'enter_title_here', array( $this, 'change_enter_title') );
@@ -1543,6 +1544,44 @@ class Quick_Business_Website{
 
 	} // end create_business_cpts
 	
+
+	/**
+	 * Registers custom taxonomy for services
+	 * @since 1.4
+	 * @return void
+	 */
+	function set_taxonomies() {
+		$category_labels = array(
+			'name' => __( 'Categories', 'smartestb' ),
+			'singular_name' =>__( 'Category', 'smartestb' ),
+			'search_items' => __( 'Search Categories', 'smartestb' ),
+			'all_items' => __( 'All Categories', 'smartestb' ),
+			'parent_item' => __( 'Parent Category', 'smartestb' ),
+			'parent_item_colon' => __( 'Parent Category:', 'smartestb' ),
+			'edit_item' => __( 'Edit Category', 'smartestb' ),
+			'update_item' => __( 'Update Category', 'smartestb' ),
+			'add_new_item' => __( 'Add New Category', 'smartestb' ),
+			'new_item_name' => __( 'New Category Name', 'smartestb' ),
+			'menu_name' => __( 'Categories', 'smartestb' ),
+		);
+		
+		$category_args = apply_filters( 'smartestb_service_category_args', array(
+			'hierarchical'		=> true,
+			'labels'			=> apply_filters('smartestb_service_category_labels', $category_labels),
+			'show_ui'           => true,
+			'show_admin_column' => true,
+			'query_var' => true,
+			'rewrite'			=> array(
+								'slug'		=> 'services/category',
+								'with_front'	=> false,
+								'hierarchical'	=> true ),
+		)
+		);
+		register_taxonomy( 'smartest_service_category', array('smartest_services'), $category_args );
+		register_taxonomy_for_object_type( 'smartest_service_category', 'smartest_services' );
+	}
+
+
 	/**  
 	 * Adds Staff archives link menu item to wp_menu_nav.
 	 * @since 1.0
@@ -1562,7 +1601,19 @@ class Quick_Business_Website{
 	public function services_menu_link($items, $args) {
 			$newitems = $items;
 			if( get_option('smartestb_show_services') == 'true' ) {
-			        $newitems .= '<li class="services"><a title="'. __('Services', 'smartestb'). '" href="'. get_post_type_archive_link( 'smartest_services' ) .'">'. __('Services', 'smartestb'). '</a></li>';
+			        $newitems .= '<li class="services"><a title="'. __('Services', 'smartestb'). '" href="'. get_post_type_archive_link( 'smartest_services' ) .'">'. __('Services', 'smartestb'). '</a>';
+
+			// if service cat tax terms exist, do sub-menu
+			$service_cats = get_terms('smartest_service_category');
+			$count = count($service_cats);
+			if ( $count > 0 ){
+				$newitems .= '<ul class="sub-menu">';
+				foreach ( $service_cats as $service_cat ) {
+					$newitems .= '<li><a title="' . esc_attr( $service_cat->name ) . '" href="'. get_term_link( $service_cat ) .'">' . $service_cat->name . '</a></li>';	
+				}
+				$newitems .= '</ul>';
+			}
+			$newitems .= '</li>';
 		    }
 		    return $newitems;
 	}
@@ -1570,6 +1621,7 @@ class Quick_Business_Website{
 	 * Adds News archives link menu item to wp_menu_nav.
 	 * @since 1.0
 	 */
+
 
 	public function news_menu_link($items, $args) {
 			$newitems = $items;
@@ -1599,7 +1651,18 @@ class Quick_Business_Website{
 	public function page_menu_services( $menu ) {
 		$newmenu = $menu;
 		if( get_option('smartestb_show_services') == 'true' ) {
-			$newitems = '<li class="services"><a title="' . __('Services', 'smartestb') . '" href="'. get_post_type_archive_link( 'smartest_services' ) .'">'. __('Services', 'smartestb'). '</a></li>';
+			$newitems = '<li class="services"><a title="' . __('Services', 'smartestb') . '" href="'. get_post_type_archive_link( 'smartest_services' ) .'">'. __('Services', 'smartestb'). '</a>';
+			// if service cat tax terms exist, do sub-menu
+			$service_cats = get_terms('smartest_service_category');
+			$count = count($service_cats);
+			if ( $count > 0 ){
+				$newitems .= '<ul class="sub-menu">';
+				foreach ( $service_cats as $service_cat ) {
+					$newitems .= '<li><a title="' . esc_attr( $service_cat->name ) . '" href="'. get_term_link( $service_cat ) .'">' . $service_cat->name . '</a></li>';	
+				}
+				$newitems .= '</ul>';
+			}
+			$newitems .= '</li>';
 		    $newmenu = str_replace( '</ul></div>', $newitems . '</ul></div>', $newmenu );
 	    }
 	    return $newmenu;
@@ -1645,6 +1708,7 @@ class Quick_Business_Website{
 					'desc' => __( 'Give this person a number to order them on the list on the staff page and in the staff widget. Number 1 appears 1st on the list, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would help to leave room in between to insert new staff members later without having to change everyone\'s current number.', 'smartestb' ),
 					'id'   => $prefix . 'staff-order-number',
 					'type' => 'text',
+					'std' => 9999
 				),
 				array(
 					'name' => __('Facebook Profile ID', 'smartestb'),
@@ -1802,6 +1866,7 @@ class Quick_Business_Website{
 		$columns = array(
 			'cb' => '<input type="checkbox" />',
 			'title' => __('Title', 'smartestb'),
+			'taxonomy-smartest_service_category' => __('Categories', 'smartestb'),
 			'featureds' => __('Featured', 'smartestb'),
 			'date' => __('Date', 'smartestb')
 		);
@@ -2061,10 +2126,7 @@ public function sort_staff($query) {
             $query->query_vars['order'] = 'ASC';
 
       }
-
-    return $query;
-
-
+	return $query;
     }    
 }
 }

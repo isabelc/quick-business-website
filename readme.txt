@@ -5,8 +5,8 @@ Contributors: SmartestThemes, isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=isa%40smartestthemes%2ecom
 Tags: business, business website, staff, services, announcements, company, quick site
 Requires at least: 3.4
-Tested up to: 3.7.1
-Stable Tag: 1.3.9
+Tested up to: 3.8
+Stable Tag: 1.4
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,18 @@ The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-
 5. Contact page showing contact form and business info 
 
 == Changelog ==
+
+= 1.4 =
+* New: added services categories taxonomy.
+* New: option on All Services Widget to limit by category.
+* New: dynamic menu will automatically populate service sub-menu with service category terms.
+* Tweak: on smartest reviews home page aggregate rating microdata, changed reviewCount to ratingCount.
+* Tweak: added line breaks to Reviews page business address.
+* Bug fix: Staff sort order number will populate default number in order to avoid leaving staff out of list because of missing sort order number.
+* Tweak: better CSS for staff widget and for Contact page.
+* Tweak: changed email headers in contact module to send from site and added Reply to: visitor.
+* Tweak: Changed query_posts to new WP_Query in all widgets.
+* Tested for WP 3.8 compatibility.
 
 = 1.3.9 =
 * New: option to show a different amount of testimonials instead of only showing 1.
