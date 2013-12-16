@@ -49,33 +49,31 @@ class SmartestAnnouncements extends WP_Widget {
 		
 		/* loop through announcements */
 
-		query_posts( array( 'posts_per_page' => $number, 'post_type' => 'smartest_news', 'order' => 'DESC' ) );
+/*		query_posts( array( 'posts_per_page' => $number, 'post_type' => 'smartest_news', 'order' => 'DESC' ) );
 		if (have_posts()) : 
+*/
+		 $args = array(
+			'posts_per_page' => $number,
+			'post_type' => 'smartest_news',
+			'order' => 'DESC' );
+		$sbfnews = new WP_Query( $args );
+		if ( $sbfnews->have_posts() ) {
 			echo '<ul>';
-			while (have_posts()) : the_post(); 
+			while ( $sbfnews->have_posts() ) {
+				$sbfnews->the_post();
 				echo '<li><a href="'.get_permalink().'" title="'.get_the_title().'">'.get_the_title().'</a><br />';
-
 				$datetime = get_the_date('Y-m-d');
-
 				printf ( '<time datetime="%s">%s</time>', $datetime, get_the_date() );
 				echo '</li>';	
-		 
-			endwhile;
+			} // endwhile
 			echo '</ul>';
 			$li = '<a href="'.get_post_type_archive_link( 'smartest_news' ).'">'. __('All Announcements', 'smartestb'). '</a>';
-
 			?> <p><?php printf(__( '%s', 'smartestb'), $li); ?></p>
 
-<?php
-
-			else : 
-				?>
+		<?php } else { ?>
 				<p><?php _e('Coming soon.', 'smartestb'); ?></p>		
-<?php 
-		endif; 
-		wp_reset_query();
-	
-
+		<?php }
+		wp_reset_postdata();
 		echo $after_widget;
 
 	}// end widget

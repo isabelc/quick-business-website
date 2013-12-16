@@ -212,9 +212,17 @@ function sbfc_process_contact_form($content='') {
 	$prepend = stripslashes($smartestb_options['smartestb_sbfc_prepend']);
 	$append  = stripslashes($smartestb_options['smartestb_sbfc_append']);
 
+	// Get the site domain and get rid of www.
+	$sitename = strtolower( $_SERVER['SERVER_NAME'] );
+	if ( substr( $sitename, 0, 4 ) == 'www.' ) {
+		$sitename = substr( $sitename, 4 );
+	}
+	$from_email = 'wordpress@' . $sitename;
+
 	$headers   = "MIME-Version: 1.0\n";
-	$headers  .= "From: $name <$email>\n";
-	$headers  .= "Content-Type: text/plain; charset=\"" . get_settings('blog_charset') . "\"";
+	$headers .= "From: " . get_bloginfo('name') . " <$from_email>\n";
+	$headers .= "Reply-To: $email\n";
+	$headers .= "Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\"";
 
 	$message   = $_POST['sbfc_message'];
 	$fullmsg   = ("Hello $recipname,
