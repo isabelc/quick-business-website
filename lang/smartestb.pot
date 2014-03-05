@@ -1,0 +1,2073 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Quick Business Website\n"
+"POT-Creation-Date: 2014-03-04 22:14-0500\n"
+"PO-Revision-Date: 2014-03-04 22:14-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.3\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_x\n"
+"X-Poedit-SearchPath-0: C:\\Users\\Isabel\\Documents\\My Web Sites\\chema\\wp-"
+"content\\plugins\\quick-business-website\n"
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:112
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:9
+msgid "Settings"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:181
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:295
+msgid "Quick Business Website"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:197
+#, php-format
+msgid "%s Options"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:213
+msgid " Options"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:287
+msgid "Options Updated"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:288
+msgid "Options Reset"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:312
+msgid "Rate This Plugin"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:318
+msgid "See our Business App Themes"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:319
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:377
+msgid "Save All Changes"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:329
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:337
+msgid "Plugin Support"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:339
+msgid "Stuck?  Need some help?  Found a bug?"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:344
+msgid "Support Forum"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:345
+msgid ""
+"Get help or report a bug at the forum. There we focus on answering your "
+"questions and helping you to use the default functionality of this plugin."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:347
+msgid "Go To Support Forum"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:357
+msgid "Instruction Guides"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:358
+msgid "The Instruction Guides give detailed instructions for certain tasks."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:360
+msgid "Go To Instruction Guides"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:382
+msgid "Reset Options"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:463
+msgid "Uploading"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:464
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1168
+msgid "Upload Image"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:465
+msgid ""
+"Click OK to reset back to default settings. All custom QBW plugin settings "
+"will be lost!"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:713
+msgid "Upload Error: "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1172
+msgid "Remove"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1270
+#, php-format
+msgid "About %s"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1274
+msgid "about"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1420
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1421
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1433
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1434
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1590
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1638
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/staff.php:113
+msgid "Staff"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1427
+msgid "staff"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1435
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1475
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1517
+msgid "Add New"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1436
+msgid "Add New Staff"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1437
+msgid "All Staff"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1438
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1478
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1520
+msgid "Edit"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1439
+msgid "Edit Staff"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1440
+msgid "New Staff"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1441
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1442
+msgid "View Staff"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1443
+msgid "Search Staff"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1444
+msgid "No staff found"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1445
+msgid "No staff found in Trash"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1446
+msgid "Parent Staff"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1460
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1473
+msgid "Announcements"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1461
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1474
+msgid "Announcement"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1467
+msgid "news"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1476
+msgid "Add New Announcement"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1477
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/announcements.php:61
+msgid "All Announcements"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1479
+msgid "Edit Announcement"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1480
+msgid "New Announcement"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1481
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1482
+msgid "View Announcement"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1483
+msgid "Search Announcements"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1484
+msgid "No announcement found"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1485
+msgid "No announcements found in Trash"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1486
+msgid "Parent Announcement"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1502
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1515
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1602
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1652
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/all-services.php:140
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/featured-services.php:94
+msgid "Services"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1503
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1516
+msgid "Service"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1509
+msgid "services"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1518
+msgid "All Services"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1519
+msgid "Add New Service"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1521
+msgid "Edit Service"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1522
+msgid "New Service"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1523
+msgid "View Services"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1524
+msgid "View Service"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1525
+msgid "Search Services"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1526
+msgid "No services found"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1527
+msgid "No services found in Trash"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1528
+msgid "Parent Service"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1553
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1563
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1886
+msgid "Categories"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1554
+msgid "Category"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1555
+msgid "Search Categories"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1556
+msgid "All Categories"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1557
+msgid "Parent Category"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1558
+msgid "Parent Category:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1559
+msgid "Edit Category"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1560
+msgid "Update Category"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1561
+msgid "Add New Category"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1562
+msgid "New Category Name"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1627
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1676
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/featured-announcements.php:90
+msgid "News"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1692
+msgid "Details"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1699
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1857
+msgid "Job Title"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1700
+msgid "The staff member's job title. Optional"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1705
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1763
+msgid "Sort Order Number"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1706
+msgid ""
+"Give this person a number to order them on the list on the staff page and in "
+"the staff widget. Number 1 appears 1st on the list, while greater numbers "
+"appear lower. Numbers do not have to be consecutive; for example, you could "
+"number them like, 10, 20, 35, 45, etc. This would help to leave room in "
+"between to insert new staff members later without having to change "
+"everyone's current number."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1712
+msgid "Facebook Profile ID"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1713
+msgid "The staff member's Facebook profile ID. Optional"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1718
+msgid "Twitter Username"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1719
+msgid "The staff member's Twitter username. Optional"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1724
+msgid "Google Plus Profile ID"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1725
+msgid "The staff member's Google Plus profile ID. Optional"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1730
+msgid "Linkedin Profile"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1731
+msgid "The part of the profile address after \"www.linkedin.com/\". Optional"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1739
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/featured-services.php:125
+msgid "Featured Services"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1746
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1781
+msgid "Feature this?"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1747
+msgid ""
+"Check this box to feature this service in the list of featured services on "
+"the home page and in the Featured Services widget."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1756
+msgid "Set a Sort-Order"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1764
+msgid ""
+"Give this service a number to order them on the list on the services page "
+"and in the services widget. Number 1 appears 1st on the list, while greater "
+"numbers appear lower. Numbers do not have to be consecutive; for example, "
+"you could number them like, 10, 20, 35, 45, etc. This would help to leave "
+"room in between to insert new staff members later without having to change "
+"all current numbers."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1774
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/featured-announcements.php:125
+msgid "Featured News"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1782
+msgid ""
+"Check this box to feature this announcement in the Featured Announcements "
+"widget."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1809
+msgid "Enter staff member's name here"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1856
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:261
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:267
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:273
+msgid "Name"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1858
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1888
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1918
+msgid "Date"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1885
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1916
+msgid "Title"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1887
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1903
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1917
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:1932
+msgid "Featured"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:2005
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:2045
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:156
+msgid "Twitter"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:2007
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:2048
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:161
+msgid "Google Plus"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:2009
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:2051
+msgid "Facebook"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:2011
+msgid "LinkedIn"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:2054
+msgid "Youtube"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:2057
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:2060
+msgid "Connect"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:2098
+msgid "Telephone:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:2101
+msgid "FAX:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:2105
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:738
+msgid "Email:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:2191
+msgid "You cannot activate Quick Business Website"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/quick-business-website.php:2191
+msgid ""
+"plugin when using Smartest Themes because they clash. But Smartest Themes "
+"have everything the Quick Business Website plugin has, and more. QBW plugin "
+"will not be activated! To use the plugin, please change your Theme, first."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:14
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/contact/contact.php:199
+msgid "Site Administrator"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:22
+msgid "Welcome"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:25
+msgid "Welcome to Quick Business Website by Smartest Themes!"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:27
+msgid ""
+"On the left are tabs to customize your site, but everything is optional.<br /"
+"><br />To make your website more complete, enter these two tabs on the left:"
+"<br /><br />1. The <strong>About Page</strong> tab.<br />2. The "
+"<strong>Business Info</strong> tab.<br /><br />Then, take a moment to browse "
+"all the tabs so you can see what options are available. <br /><br />To get "
+"started, first click the '<strong>Save all Changes</strong>' button to save "
+"the plugin defaults."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:31
+msgid "Business Info"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:34
+msgid "Business Name"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:35
+msgid "Enter the name of your business or organization."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:39
+msgid "Business Street Address"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:40
+msgid "The street address of your business"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:45
+msgid "Business suite or apartment number"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:50
+msgid "Business city"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:56
+msgid ""
+"Business state: if in the U.S., enter the state that your business is in"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:62
+msgid "Business zip code"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:68
+msgid "Business Country: the country that your business is in"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:73
+msgid "Business Phone Number"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:74
+msgid ""
+"Optional. Your business phone number to be displayed on your Contact page. "
+"Enter like 555-555-5555."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:78
+msgid "Business Fax Number"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:79
+msgid ""
+"Optional. Your business fax number to be displayed on your Contact page. "
+"Enter like 555-555-5555."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:83
+msgid "Display Business Email Address?"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:84
+#, php-format
+msgid ""
+"Check this to show your business email address on your Contact Page. You can "
+"change your email address in %s."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:88
+msgid "Google Map"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:89
+#, php-format
+msgid ""
+"If you want to show a Google Map for your business address, paste here your "
+"HTML embed code from %s."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:94
+msgid "Business Hours"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:95
+msgid ""
+"Optional. Enter your hours here if you want to display them. Example:<br /"
+"><br />Monday - Friday: 7:30 am - 6:00<br />Saturday: 7:30 am - Noon<br /"
+"><br />"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:101
+msgid "Preferences"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:104
+msgid "Add Staff section?"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:105
+msgid "Check this to show your staff memebers."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:109
+msgid "Add News section?"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:110
+msgid "Check this to add an Announcements section."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:114
+msgid "Add Services?"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:115
+msgid "Check this to show your services."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:119
+#, php-format
+msgid ""
+"%s Set Custom Sort-Order? %s Check this to set a custom sort-order for "
+"services. Default sort-order is descending order by date of post."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:123
+msgid "Add Reviews Section?"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:124
+msgid "Check this to add a page to let visitors submit reviews."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:129
+msgid "About Page"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:131
+msgid "About Your Business"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:132
+msgid ""
+"The 'About Page' is a page about your business. Type what you want your "
+"visitors to read here. It may be a history, a sales pitch, or anything you "
+"like. To enlarge the text area, drag the lower right corner down."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:136
+msgid "About Page Picture"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:137
+msgid ""
+"Upload a picture for your About page, or specify the image address of an "
+"online picture, like http://yoursite.com/picture.png"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:141
+msgid "Disable About Page"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:142
+msgid ""
+"Check this to disable the About page altogether. This will delete the "
+"automatically-created About page."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:148
+msgid "Social Media"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:151
+msgid "Facebook Page"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:152
+msgid ""
+"The ID of your business Facebook page. Tip: the part of the address that "
+"comes after www.facebook.com/"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:157
+msgid "The username of your business Twitter profile. Tip: the part after '@'"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:162
+msgid "The ID of your business Google Plus page."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:166
+msgid "YouTube"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:167
+msgid ""
+"The name of your YouTube channel. Tip: Your Youtube name or ID, or the part "
+"of the address after www.youtube.com/user/"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:170
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:179
+msgid "Another Profile"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:171
+msgid ""
+"Add another business profile URL.  Example: http://www.linkedin.com/in/"
+"YourName"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:175
+msgid ""
+"Give a title for the business profile you entered above. Example: LinkedIn"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:180
+msgid "Add another business profile URL. Example: http://YourName.tumblr.com/"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:184
+msgid ""
+"Give a title for the business profile you entered above. Example: Tumblr"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:189
+msgid "Backend Branding"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:191
+msgid "Replace This Page's Logo"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:192
+msgid ""
+"See the \"Smartest Themes\" logo at the top of this page? Upload a logo here "
+"to replace this page's logo. Or specify the image address of your online "
+"logo, like http://yoursite.com/logo.png"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:196
+msgid "Custom WP Admin Footer Text"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:197
+msgid ""
+"By default, the text at the bottom of this page is \"Thank you for creating "
+"with WordPress.\" Replace it with your own custom text here."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:201
+msgid "Or check here to completely remove the Admin Footer Text."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:204
+msgid "Remove WordPress Links From Admin Bar"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:205
+msgid ""
+"See the Wordpress link on the left of the bar across the top of this page? "
+"Check here to remove that link."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:210
+msgid "<em>Refresh this page to see the effect of these changes.</em>"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:214
+msgid "Contact Form"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:217
+msgid "Your Name"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:218
+msgid ""
+"How would you like to be addressed in messages sent from the contact form?"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:224
+msgid "Your Email"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:225
+msgid ""
+"Where would you like to receive messages sent from the contact form? If "
+"blank, the default is the admin email set in `Settings -> General`"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:230
+msgid "Default Subject"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:231
+msgid ""
+"What should be the default subject line for the contact messages? Default is "
+"\"Message sent from your contact form\"."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:233
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/contact/contact.php:197
+msgid "Message sent from your contact form"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:236
+msgid "Success Message"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:237
+msgid ""
+"When the form is sucessfully submitted, this message will be displayed to "
+"the sender. Default is \"Success! Your message has been sent.\""
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:239
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/contact/contact.php:200
+msgid "Success! "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:239
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/contact/contact.php:200
+msgid "Your message has been sent."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:241
+msgid "Error Message"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:242
+msgid ""
+"If the user skips a required field, this message will be displayed. Default "
+"is \"Please complete the required fields.\""
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:244
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/contact/contact.php:127
+msgid "Please complete the required fields."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:247
+msgid "Enable Captcha"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:248
+msgid ""
+"Check this box if you want to enable the captcha (challenge question/answer)."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:252
+msgid "Time Offset"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:253
+#, php-format
+msgid ""
+"Please specify the time offset from the \"Current time\" listed below. For "
+"example, +1 or -1. If no offset, enter \"0\" (zero).<br />Current time: %s "
+"<br /><br />"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:257
+msgid "Custom content before the form"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:258
+msgid ""
+"Add some text/markup to appear <em>before</em> the contact form (optional)."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:262
+msgid "Custom content after the form"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:263
+msgid ""
+"Add some text/markup to appear <em>after</em> the contact form (optional)."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:267
+msgid "Custom content before results"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:268
+msgid ""
+"Add some text/markup to appear <em>before</em> the success message "
+"(optional)."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:272
+msgid "Custom content after results"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:273
+msgid "Custom content after results."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:273
+msgid ""
+"Add some text/markup to appear <em>after</em> the success message (optional)."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:280
+msgid "Scripts"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:283
+msgid "Add Analytics Code"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:284
+msgid "Paste your analytics script here."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:289
+msgid "Additional Scripts To Load"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:290
+msgid ""
+"Paste any scripts here to be loaded into wp_head. Remember your script tags."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:297
+msgid "Advanced"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:300
+msgid "Disable Contact Page"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:301
+#, php-format
+msgid ""
+"Check this to disable the Contact page. This will delete the automatically-"
+"created Contact page. You will still be able to use the shortcode to add a "
+"contact form: %s"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:306
+#, php-format
+msgid "Disable Extra Items on %s and %s"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:307
+#, php-format
+msgid ""
+"Check this to stop inserting extra menu items, such as \"Staff\", \"Services"
+"\", and \"News\", into %s and %s."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:311
+msgid "Disable News Icon"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:312
+msgid ""
+"If an Announcement (News) post does not have a featured image, a news icon "
+"will show up as its featured image on the News page (if your <code>archive."
+"php</code> shows the thumbnail) and in the Featured Announcements widget. "
+"Check this to get rid of that icon."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:316
+msgid "Backwards Compatibility: Use Old Social Icons"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/inc/options.php:317
+msgid ""
+"As of version 1.4.1, we use new icons for the social buttons that are Retina-"
+"ready for high resolution screens, and they change color to match your links "
+"color. Check this box to use the OLD social icons instead."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/lib/metabox/init.php:632
+msgid "Please Try Again"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/lib/metabox/init.php:649
+msgid "Remove Embed"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/lib/metabox/init.php:655
+#, php-format
+msgid "No oEmbed Results Found for %s. View more info at"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/contact/contact.php:122
+msgid ""
+"Please do not include any of the following in the Name or Email fields: "
+"linebreaks, or the phrases \"mime-version\", \"content-type\", \"cc:\" or "
+"\"to:\""
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/contact/contact.php:130
+msgid "Oops. Incorrect answer for the security question. Please try again."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/contact/contact.php:130
+msgid "Hint: 1 + 1 = 2"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/contact/contact.php:164
+#, php-format
+msgid "Contact %s"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/contact/contact.php:166
+msgid "contact"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/contact/contact.php:255
+msgid "Click here to reset the form"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/contact/contact.php:288
+msgid "Name (Required)"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/contact/contact.php:292
+msgid "Email (Required)"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/contact/contact.php:297
+msgid "Message (Required)"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/contact/contact.php:301
+msgid "Send email"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:241
+msgid "Display Options"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:243
+msgid "General Settings"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:246
+msgid "Enable Aggregate Rating on Home Page."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:247
+msgid ""
+"This will pull data from your Reviews page, then add `aggregateRating` "
+"Schema.org Microdata to your home page."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:248
+msgid "Declare LocalBusiness Type Microdata on Home page."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:250
+msgid ""
+"Add Schema.org LocalBusiness type declaration on home page. Don't check this "
+"if you added your own Microdata type and you only want to add on the "
+"aggregate rating."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:251
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:325
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:360
+msgid "Save Changes"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:252
+msgid "Review Page Settings"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:253
+msgid "Reviews shown per page: "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:255
+msgid "Location of Review Form: "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:257
+msgid "Above Reviews"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:258
+msgid "Below Reviews"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:260
+msgid "Fields to ask for on review form: "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:262
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:268
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:274
+msgid "Email"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:263
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:269
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:275
+msgid "Website"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:264
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:270
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:276
+msgid "Review Title"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:266
+msgid "Fields to require on review form: "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:272
+msgid "Fields to show on each approved review: "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:278
+msgid "It is usually NOT a good idea to show email addresses publicly."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:280
+msgid "Custom fields on review form: "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:280
+msgid "You can type in the names of any additional fields you would like here."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:293
+msgid "Field Name: "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:294
+msgid "Ask"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:295
+msgid "Require"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:296
+msgid "Show"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:302
+msgid "Heading to use for Review Titles: "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:311
+msgid "Show review form: "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:313
+msgid ""
+"If this option is unchecked, there will be no visible way for visitors to "
+"submit reviews."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:315
+msgid "Button text used to show review form: "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:317
+msgid "This button will be shown above the first review."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:319
+msgid "Text to be displayed above review form: "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:321
+msgid "This will be shown as a heading immediately above the review form."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:323
+msgid "Text to use for review form submit button: "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:339
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:354
+msgid "COULD NOT CREATE DATABASE TABLE, PLEASE REPORT THIS ERROR"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:372
+msgid "Smartest Reviews - Options"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:380
+msgid "About Smartest Reviews"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:382
+msgid ""
+"Smartest Reviews allows your customers and visitors to leave reviews or "
+"testimonials of your business. It also enables cross-page aggregate ratings. "
+"This pulls aggregate ratings data from the Reviews page into your home page "
+"to create rich snippets for search engines on your home page and your "
+"Reviews page. Reviews are Schema.org Microdata enabled."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:383
+#, php-format
+msgid "Activate Reviews by checking %s in %s."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:423
+msgid "Bad Request"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:436
+msgid "Bad Date Format"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:448
+msgid "Bad Value"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:574
+msgid "Submitted"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:577
+msgid "Pending"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:580
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:604
+msgid "Approved"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:583
+msgid "Trashed"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:598
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:54
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:56
+msgid "Smartest Reviews"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:598
+#, php-format
+msgid "%s Reviews"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:600
+msgid "All"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:601
+msgid "Pending "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:607
+msgid "Trash"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:614
+msgid "RESULTS FOR: "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:615
+msgid "Search Reviews:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:618
+msgid "Search Reviews"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:627
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:760
+msgid "Bulk Actions"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:628
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:761
+msgid "Unapprove"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:629
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:762
+msgid "Approve"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:630
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:744
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:763
+msgid "Move to Trash"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:631
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:747
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:764
+msgid "Delete Forever"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:633
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:766
+msgid "Apply"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:633
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:638
+msgid "Author"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:633
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:639
+msgid "Review"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:647
+#, php-format
+msgid "There are no %s reviews yet."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:657
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:533
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:537
+msgid "Anonymous"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:705
+msgid "m/d/Y g:i a"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:707
+msgid "View Review on Page"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:710
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/widget-testimonial.php:87
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/all-services.php:147
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/announcements.php:115
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/featured-announcements.php:130
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/featured-services.php:128
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/staff.php:118
+msgid "Title:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:725
+msgid "Official Response:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:726
+msgid "Leave this blank if you do not want it to be public"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:738
+msgid "Mark as Approved"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews-admin.php:741
+msgid "Mark as Unapproved"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:96
+msgid "Click here to submit your review."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:98
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:105
+msgid "Submit your review"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:249
+msgid "Reviews for my site"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:365
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:594
+msgid "Average rating:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:365
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:594
+msgid "out of"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:365
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:594
+msgid "based on"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:368
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:597
+msgid "review."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:370
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:599
+msgid "reviews."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:371
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:600
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/announcements.php:62
+#, php-format
+msgid "%s"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:415
+msgid "Page: "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:503
+msgid "There are no reviews yet. Be the first to leave yours!"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:505
+msgid "Reviews are not available."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:563
+msgid "Response:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:587
+msgid "by"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:590
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:816
+msgid "Rating:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:590
+msgid "out of 5."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:631
+msgid "reviews"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:631
+msgid "Reviews"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:730
+msgid "Name:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:746
+msgid "Website:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:754
+msgid "Review Title:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:785
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:792
+msgid "Required Field"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:821
+msgid "Review:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:828
+msgid "Check this box to confirm you are human."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:892
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:908
+msgid "You must include your"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:916
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:1034
+msgid "The email address provided is not valid."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:923
+msgid "The website provided is not valid. Be sure to include http://"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:928
+msgid "You have triggered our anti-spam system. Please try again. Code 001."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:932
+msgid "You have triggered our anti-spam system. Please try again. Code 002"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:936
+msgid "You have triggered our anti-spam system. Please try again. Code 003"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:940
+msgid "You must include a review. Please make reviews at least 5 letters."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:973
+#, php-format
+msgid "Link to admin approval page: %s"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:974
+#, php-format
+msgid "A new review has been posted on %1$s's website."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:975
+msgid ""
+"You will need to login to the admin area and approve this review before it "
+"will appear on your site."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:977
+#, php-format
+msgid "New Review Posted on %1$s"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:981
+msgid ""
+"Thank you for your comments. All submissions are moderated and if approved, "
+"yours will appear soon."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:988
+msgid "Redirecting"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:989
+msgid "Processing... Please wait..."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:1033
+msgid "Click here to hide form"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:1035
+msgid "You must include your "
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:1036
+msgid "You must include a review. Please make reviews at least 4 letters."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:1037
+msgid "You must confirm that you are human."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:1038
+msgid "Code 2."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:1039
+msgid "Code 3."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:1040
+msgid "Please select a star rating from 1 to 5."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/smartest-reviews.php:1041
+msgid "The website provided is not valid. Be sure to include"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/widget-testimonial.php:16
+msgid "Display a random review as a testimonial."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/widget-testimonial.php:50
+#, php-format
+msgid "Be the first to <a href=\"%s\">leave a review..."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/widget-testimonial.php:55
+msgid "More..."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/widget-testimonial.php:79
+msgid "Testimonials"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/modules/smartest-reviews/widget-testimonial.php:91
+msgid "How many testimonials to show:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/all-services.php:18
+msgid "QBW Services List"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/all-services.php:19
+msgid "Display the full list of Services."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/all-services.php:150
+msgid "Optional. Only show services of this category:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/announcements.php:18
+msgid "QBW Announcements"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/announcements.php:19
+msgid "Display the latest Announcements."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/announcements.php:65
+msgid "Coming soon."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/announcements.php:102
+msgid "Latest News"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/announcements.php:120
+msgid "How many recent announcements to show:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/featured-announcements.php:19
+msgid "QBW Featured Announcements"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/featured-announcements.php:20
+msgid "Display selected featured announcements."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/featured-announcements.php:92
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/featured-services.php:96
+#, php-format
+msgid "Coming soon. See all %s."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/featured-services.php:15
+msgid "QBW Featured Services"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/featured-services.php:16
+msgid "Display selected featured services."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/staff.php:17
+msgid "QBW Staff List"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\My Web
+#: Sites\chema\wp-content\plugins\quick-business-website/widgets/staff.php:18
+msgid "Display the full list of Staff members."
+msgstr ""

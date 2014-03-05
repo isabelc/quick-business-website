@@ -15,8 +15,8 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 	 */
 	public function __construct() {
 		parent::__construct(
-	 		'smartest_featured_announce', // Base ID
-			__('QBW Featured Announcements', 'smartestb'), // Name
+	 		'smartest_featured_announce',
+			__('QBW Featured Announcements', 'smartestb'),
 			array( 'description' => __( 'Display selected featured announcements.', 'smartestb' ), )
 		);
 		add_action('wp_enqueue_scripts', array($this, 'featnews_css'));
@@ -27,9 +27,7 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 	public function featnews_css() {
 			wp_register_style('sfa', 
 			plugins_url('/sfa.css', __FILE__));
-			wp_enqueue_style('sfa');
 	} 
-
 
 	/**
 	 * Front-end display of widget.
@@ -39,17 +37,12 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
-
 		extract( $args );
-		// these are our widget options
+		wp_enqueue_style('sfa');
 		$title = apply_filters('widget_title', $instance['title']);
-
 		echo $before_widget;
 		if ( ! empty( $title ) )
 			echo '<h3 class="widget-title">'. $title . '</h3>';
-		
-		/* loop through announcements */
-
 		$args = array(
 			'post_type' => 'smartest_news',
 			'meta_query' => array(
@@ -78,20 +71,18 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 				} else {
 					// if not stopped with option smartestb_stop_theme_icon
 					if(get_option('smartestb_stop_theme_icon') != 'true') {
-						$smallimage = array('url' => get_template_directory_uri(). '/images/newsicon.png', 'width' => '40px', 'cl' => 'icon');
-						echo '<figure class="img-indent"><a href="'.get_permalink().'" title="'.get_the_title().'">'; ?>
-						<img class="icon" src="<?php echo plugins_url('/images/news.svg', dirname(__FILE__)); ?>" width="40px" />
-						<?php echo '</a></figure>';
+							$smallimage = array('url' => get_template_directory_uri(). '/images/newsicon.png', 'width' => '40px', 'cl' => 'icon');
+							echo '<figure class="img-indent"><a href="'.get_permalink().'" title="'.get_the_title().'">'; ?>
+							<img class="icon" src="<?php echo plugins_url('/images/news.svg', dirname(__FILE__)); ?>" width="40px" />
+							<?php echo '</a></figure>';
 					}
 	
 				}
-					
 				echo '<div id="sfacontent">';
 				echo '<h4><a href="'.get_permalink().'" title="'.get_the_title().'">'.get_the_title().'</a></h4>';
 				echo '<p>'. get_the_excerpt(). '</p>';
 				echo '<a class="button" href="'.get_permalink().'" title="'.get_the_title().'">Read More</a>';
 				echo '</div>';
-					
 				echo '</div>';	
 		 
 			} // endwhile;
@@ -101,9 +92,7 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 				<p><?php printf(__( 'Coming soon. See all %s.', 'smartestb'), $li); ?></p>		
 		<?php }
 		wp_reset_postdata();
-	
 		echo $after_widget;
-
 	}// end widget
 
 	/**

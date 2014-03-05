@@ -1,15 +1,15 @@
 <?php
 /*
 Plugin Name: Quick Business Website
-Plugin URI: http://smartestthemes.com/downloads/quick-business-website-plugin/
+Plugin URI: http://smartestthemes.com/docs/category/quick-business-website-wordpress-plugin/
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 1.4
+Version: 1.4.1
 Author: Smartest Themes
 Author URI: http://smartestthemes.com
 License: GPL2
 Text Domain: smartestb
 Domain Path: lang
-Copyright 2013 Smartest Themes(email : isa@smartestthemes.com)
+Copyright 2013 - 2014 Smartest Themes(email : isa@smartestthemes.com)
 
 Quick Business Website is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as 
@@ -53,10 +53,10 @@ class Quick_Business_Website{
 			add_action( 'manage_smartest_services_posts_custom_column', array( $this, 'smar_manage_services_columns' ), 10, 2 );
 			add_filter( 'manage_edit-smartest_news_columns', array( $this, 'smar_manage_edit_news_columns') );
 			add_action( 'manage_smartest_news_posts_custom_column', array( $this, 'smar_manage_news_columns' ), 10, 2 );
+			add_filter('smartestb_options_branding', array( $this, 'custom_options_page_logo' ) );
 			add_filter( 'admin_footer_text', array( $this, 'remove_footer_admin') ); 
 			add_action( 'wp_before_admin_bar_render', array( $this, 'admin_bar') ); 
 			add_action( 'wp_enqueue_scripts', array( $this, 'framework_enq') ); 
-			add_action( 'wp_head', array( $this, 'version' ) );
 			add_filter ( 'the_content',  array( $this, 'staff_meta_content_filter' ) );
 			add_filter ( 'the_content',  array( $this, 'contact_content_filter' ), 50 );
 			add_filter ( 'the_content',  array( $this, 'about_content_filter' ) );
@@ -70,6 +70,9 @@ class Quick_Business_Website{
 				add_filter( 'wp_page_menu', array( $this, 'page_menu_news' ), 105 );
 			}
 			add_filter( 'parse_query', array( $this, 'sort_staff' ) );
+			if( get_option('smartestb_enable_service_sort') == 'true'  ) 
+				add_filter( 'parse_query', array( $this, 'sort_services' ) );
+
     } // end __contruct
 
 	/** 
@@ -110,18 +113,18 @@ class Quick_Business_Website{
 	return $actions; 
 	}
 	/** 
-	* Include plugin options.
+	* Include plugin options and load textdomain
 	*
 	* @since 1.0
 	* @return void
 	*/
 	public function load() {
+		load_plugin_textdomain( 'smartestb', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
 		include QUICKBUSINESSWEBSITE_PATH . 'inc/options.php';
 		add_action( 'init', 'smartestb_options' );
 	}
-
 	/** 
-	* Store plugin name and version as options
+	* Store plugin name as options
 	*
 	* @since 1.0
 	* @return void
@@ -131,17 +134,6 @@ class Quick_Business_Website{
 		update_option( 'qbw_smartestb_plugin_version', $plugin_data['Version'] );
 		update_option( 'qbw_smartestb_plugin_name', $plugin_data['Name'] );
 	}
-
-	/** 
-	* Add meta generator tag with plugin name and version to head
-	*
-	* @since 1.0
-	* @return string meta element name=generator
-	*/
-	public function version(){
-		echo '<meta name="generator" content="' . get_option( 'qbw_smartestb_plugin_name' ) . ' ' . get_option( 'qbw_smartestb_plugin_version' ) . '" />' . "\n";
-	}
-
 	/**  
 	* Setup options panel
 	*
@@ -290,21 +282,18 @@ class Quick_Business_Website{
 	 */
 	public function options_page(){
 	    $options = get_option('smartestb_template');      
-		$fDIR = plugins_url( '/', __FILE__ );?>
+		$fDIR = plugins_url( '/', __FILE__ ); ?>
 	<div class="wrap" id="smartestb_container">
 	<div id="smartestb-popup-save" class="smartestb-save-popup"><div class="smartestb-save-save"><?php _e('Options Updated', 'smartestb'); ?></div></div>
 	<div id="smartestb-popup-reset" class="smartestb-save-popup"><div class="smartestb-save-reset"><?php _e('Options Reset', 'smartestb'); ?></div></div>
 	    <form action="" enctype="multipart/form-data" id="smartestbform">
 	        <div id="header">
 	           <div class="logo">
-				<a href="http://smartestthemes.com" title="Smartest Themes">
 			<?php echo apply_filters('smartestb_options_branding', '<img alt="Smartest Themes" src="'. $fDIR. 'images/st_logo_admin.png" />'); ?>
-				</a>
 	          </div>
 	             <div class="theme-info">
 					<span class="theme" style="margin-top:10px;"><?php _e('Quick Business Website', 'smartestb'); ?>
 					</span>
-					
 				</div>
 				<div class="clear"></div>
 			</div>
@@ -314,8 +303,19 @@ class Quick_Business_Website{
 	<div class="ie">
 	<![endif]-->
 				<ul>
-			<li id="smar-ui-icon"><a href="http://wordpress.org/support/view/plugin-reviews/quick-business-website" target="_blank" title="Rate This Plugin"><i class="ui-icon-star"></i>Rate This Plugin</a></li>
-            <li class="right"><img style="display:none" src="<?php echo $fDIR; ?>images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." />
+			
+
+<li id="smar-ui-icon">
+
+<a href="http://wordpress.org/support/view/plugin-reviews/quick-business-website" target="_blank" title="Rate This Plugin">
+
+<div class="dashicons dashicons-star-filled"></div> <?php _e( 'Rate This Plugin', 'smartestb' ); ?></a></li>
+
+<li id="smar-ui-icon">
+
+<a href="http://smartestthemes.com/downloads/" target="_blank" title="Smartest Themes">
+
+<div class="dashicons dashicons-desktop"></div> <?php _e( 'See our Business App Themes', 'smartestb' ); ?></a></li><li class="right"><img style="display:none" src="<?php echo $fDIR; ?>images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." />
 	<input type="submit" value="<?php _e('Save All Changes', 'smartestb'); ?>" class="button submit-button" /></li>
 				</ul> 
 	<!--[if IE]>
@@ -1206,18 +1206,19 @@ class Quick_Business_Website{
 	 * Style the custom text logo on wp-login.php
 	 * @since 1.0
 	 */
-
 	public function login_logo() {
-			echo'<style type="text/css">.login h1 a {background-position: center top;text-indent: 0px;text-align:center; background-image:none;text-decoration:none;color:#000000;}</style>';
+			echo'<style type="text/css">.login h1 a {background-position: center top;text-indent: 0px;text-align:center; background-image:none;text-decoration:none;width: 326px;height: 70px;}</style>';
 	}
 	/** 
-	 * Show the business name as link title on wp-login.php
+	 * Get the business name. To be used as link title on wp-login.php
 	 * @since 1.0
 	 */
 	public function wp_login_title() {
 		$bn = stripslashes_deep(esc_attr(get_option('smartestb_business_name')));
+		if ( empty($bn) )
+			$bn = get_bloginfo('name');
 		return $bn;
-	}// end login_logo
+	}
 	
 	/** 
 	 * Create a page, post, or custom post
@@ -1321,11 +1322,10 @@ class Quick_Business_Website{
 		}
 		
 		$file_info = pathinfo( $file_path );
-		$extension = '.'. $file_info['extension'];
-	
+		$extension = !empty($file_info['extension']) ? '.'. $file_info['extension'] : '';
+
 		// the image path without the extension
-		$no_ext_path = $file_info['dirname'].'/'.$file_info['filename'];
-	
+		$no_ext_path = !empty($file_info['dirname']) ? $file_info['dirname'].'/'.$file_info['filename'] : '';
 		$cropped_img_path = $no_ext_path.'-'.$width.'x'.$height.$extension;
 	
 		// checking if the file size is larger than the target size
@@ -1446,8 +1446,8 @@ class Quick_Business_Website{
 							'parent' => __( 'Parent Staff','smartestb' ),
 						),
 			        	'supports' => array('title','editor','thumbnail','excerpt'),
-						'has_archive' => true,
-	
+					'has_archive' => true,
+					'menu_icon' => 'dashicons-groups',
 			        );
 	
 		    	register_post_type( 'smartest_staff' , $args );
@@ -1486,7 +1486,8 @@ class Quick_Business_Website{
 							'parent' => __( 'Parent Announcement','smartestb' ),
 						),
 			        	'supports' => array('title','editor','thumbnail'),
-						'has_archive' => true
+					'has_archive' => true,
+					'menu_icon' => 'dashicons-exerpt-view'
 	
 			        );
 	
@@ -1527,14 +1528,11 @@ class Quick_Business_Website{
 							'parent' => __( 'Parent Service','smartestb' ),
 						),
 			        	'supports' => array('title','editor','thumbnail'),
-						'has_archive' => true,
-	
+					'has_archive' => true,
+					'menu_icon' => 'dashicons-portfolio'
 			        );
-	
 		    	register_post_type( 'smartest_services' , $args );
-	
 				}// end if show services enabled
-	
 		if(get_option('smartestb_stop_about') == 'true') {
 			wp_delete_post(get_option('smartest_about_page_id'), true);
 		}
@@ -1752,12 +1750,31 @@ class Quick_Business_Website{
 				),
 			)
 		);
+	if( get_option('smartestb_enable_service_sort') == 'true'  ) { 
+		$meta_boxes[] = array(
+			'id'         => 'services-sort-order',
+			'title'      => __( 'Set a Sort-Order', 'smartestb' ),
+			'pages'      => array( 'smartest_services' ),
+			'context'    => 'normal',
+			'priority'   => 'high',//high, core, default, low
+			'show_names' => true,
+			'fields'     => array(
+				array(
+					'name' => __( 'Sort Order Number', 'smartestb' ),
+					'desc' => __( 'Give this service a number to order them on the list on the services page and in the services widget. Number 1 appears 1st on the list, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would help to leave room in between to insert new staff members later without having to change all current numbers.', 'smartestb' ),
+					'id'   => $prefix . 'service-order-number',
+					'type' => 'text',
+					'std' => 9999
+				),
+			)
+		);
+	}
 		$meta_boxes[] = array(
 			'id'         => 'featured_news',
 			'title'      => __('Featured News', 'smartestb'),
-			'pages'      => array( 'smartest_news', ), // Post type
+			'pages'      => array( 'smartest_news', ),
 			'context'    => 'side',
-			'priority'   => 'default',//high, core, default, low
+			'priority'   => 'default',
 			'show_names' => true,
 			'fields'     => array(
 				array(
@@ -1918,6 +1935,17 @@ class Quick_Business_Website{
 				break;
 		}
 	}
+	/**
+	 * Options Page Branding: use custom logo on theme options page header
+	 * @since 1.4.1
+	 */
+	function custom_options_page_logo() {
+		if (get_option('smartestb_options_logo')) {
+			return '<img alt="logo" src="'.get_option('smartestb_options_logo').'" class="custom-bb-logo"/>';
+		} else { 
+			return '<img alt="Smartest Themes" src="'. plugins_url( '/', __FILE__ ) .'images/st_logo_admin.png" />';
+		}
+	}
 	/** 
 	 * Replace WP footer with own custom text, if enabled
 	 * @since Quick Business Website 1.0
@@ -1938,6 +1966,7 @@ class Quick_Business_Website{
 	public function framework_enq() {
 		wp_register_style( 'frame', plugins_url( 'css/frame.css' , __FILE__ ) );
 		wp_enqueue_style( 'frame' );
+		wp_enqueue_style('font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
 		wp_register_script( 'responsive', plugins_url( 'js/responsive.js' , __FILE__ ), array('jquery') );
 		// not on reviews page
 		if( !is_page( get_option('smartest_reviews_page_id') ) ) {	
@@ -1960,15 +1989,26 @@ class Quick_Business_Website{
 			if (get_post_meta($post->ID, '_smab_staff_job_title', true)) {
 				$staffcontent .= '<h5>' . get_post_meta($post->ID, '_smab_staff_job_title', true) . '</h5>';
 			}
+			if (get_option('smartestb_old_social_icons') == 'false') {
+				$twit = 'fa-twitter';
+				$goog = 'fa-google';
+				$face = 'fa-facebook';
+				$link = 'fa-linkedin';
+			} else {
+				$twit = 'item-1';
+				$goog = 'item-2';
+				$face = 'item-3';
+				$link = 'item-4';
+			}
 			$staffcontent .= '<ul id="qbw-staff-socials">';
 			if (get_post_meta($post->ID, '_smab_staff_twitter', true)) {
-					$staffcontent .= '<li><a class="item-1" href="https://twitter.com/' . get_post_meta($post->ID, '_smab_staff_twitter', true) . '" title="'. __('Twitter', 'smartestb') . '"></a></li>';
+					$staffcontent .= '<li><a class="' . $twit. '" href="https://twitter.com/' . get_post_meta($post->ID, '_smab_staff_twitter', true) . '" title="'. __('Twitter', 'smartestb') . '"></a></li>';
 			} if (get_post_meta($post->ID, '_smab_staff_gplus', true)) {
-					$staffcontent .= '<li><a class="item-2" href="https://plus.google.com/' . get_post_meta($post->ID, '_smab_staff_gplus', true) . '" title="'. __('Google Plus', 'smartestb') . '" rel="author"></a></li>';
+					$staffcontent .= '<li><a class="' . $goog .'" href="https://plus.google.com/' . get_post_meta($post->ID, '_smab_staff_gplus', true) . '" title="'. __('Google Plus', 'smartestb') . '" rel="author"></a></li>';
 			} if (get_post_meta($post->ID, '_smab_staff_facebook', true)) {
-					$staffcontent .= '<li><a class="item-3" href="https://facebook.com/' . get_post_meta($post->ID, '_smab_staff_facebook', true) . '" title="'. __('Facebook', 'smartestb') . '"></a></li>';
+					$staffcontent .= '<li><a class="' . $face. '" href="https://facebook.com/' . get_post_meta($post->ID, '_smab_staff_facebook', true) . '" title="'. __('Facebook', 'smartestb') . '"></a></li>';
 			} if (get_post_meta($post->ID, '_smab_staff_linkedin', true)) {
-					$staffcontent .= '<li><a class="item-4" href="http://www.linkedin.com/' . get_post_meta($post->ID, '_smab_staff_linkedin', true) . '" title="'. __('LinkedIn', 'smartestb') . '"></a></li>';
+					$staffcontent .= '<li><a class="' . $link .'" href="http://www.linkedin.com/' . get_post_meta($post->ID, '_smab_staff_linkedin', true) . '" title="'. __('LinkedIn', 'smartestb') . '"></a></li>';
 			}
 			$staffcontent .= '</ul></div>' . $content;
 			return $staffcontent;
@@ -1978,8 +2018,6 @@ class Quick_Business_Website{
 			return $content;
 		}
 	}// end staff_meta_content_filter
-
-
 	/**
 	 * Add business info to content on Contact page
 	 *
@@ -1987,35 +2025,41 @@ class Quick_Business_Website{
 	 * @uses is_page()
 	 */
 	public function contact_content_filter( $content ) {
-	
 		if( is_page( get_option('qbw_contact_page_id') ) ) {
-
 			global $smartestb_options;
-
-			$contactcontent = '<div class="qbw-one-half">' . $content . '</div><div id="qbw-contact-info" class="qbw-one-half"  itemscope itemtype="http://schema.org/LocalBusiness">';
-
+			$contactcontent = '<div id="qbw-col-wrap"><div class="qbw-one-half">' . $content . '</div><div id="qbw-contact-info" class="qbw-one-half"  itemscope itemtype="http://schema.org/LocalBusiness">';
 			// social box
 			$contactcontent .= '<ul id="qbw-staff-socials">';
+			if (get_option('smartestb_old_social_icons') == 'false') {
+				$twit = 'fa-twitter';
+				$goog = 'fa-google';
+				$face = 'fa-facebook';
+				$yout = 'fa-youtube';
+			} else {
+				$twit = 'item-1';
+				$goog = 'item-2';
+				$face = 'item-3';
+				$yout = 'youtube';
+			}
 			if ( get_option('smartestb_business_twitter') ) {
-				$contactcontent .= '<li><a class="item-1" href="https://twitter.com/' . get_option('smartestb_business_twitter') . '" title="'. __('Twitter', 'smartestb') . '"></a></li>';
+				$contactcontent .= '<li><a class="' . $twit . '" href="https://twitter.com/' . get_option('smartestb_business_twitter') . '" title="'. __('Twitter', 'smartestb') . '"></a></li>';
 			} 
 			if ( get_option('smartestb_business_gplus') ) {
-				$contactcontent .= '<li><a class="item-2" href="https://plus.google.com/' . get_option('smartestb_business_gplus') . '" title="'. __('Google Plus', 'smartestb') . '" rel="publisher"></a></li>';
+				$contactcontent .= '<li><a class="' . $goog . '" href="https://plus.google.com/' . get_option('smartestb_business_gplus') . '" title="'. __('Google Plus', 'smartestb') . '" rel="publisher"></a></li>';
 			} 
 			if ( get_option('smartestb_business_facebook') ) {
-				$contactcontent .= '<li><a class="item-3" href="https://facebook.com/' . get_option('smartestb_business_facebook') . '" title="'. __('Facebook', 'smartestb') . '"></a></li>';
+				$contactcontent .= '<li><a class="' . $face . '" href="https://facebook.com/' . get_option('smartestb_business_facebook') . '" title="'. __('Facebook', 'smartestb') . '"></a></li>';
 			}
 			if ( get_option('smartestb_business_youtube') ) {
-				$contactcontent .= '<li><a class="youtube" href="https://youtube.com/user/' . get_option('smartestb_business_youtube') . '" title="'. __('Youtube', 'smartestb') . '"></a></li>';
+				$contactcontent .= '<li><a class="' . $yout. '" href="https://youtube.com/user/' . get_option('smartestb_business_youtube') . '" title="'. __('Youtube', 'smartestb') . '"></a></li>';
 			}
 			if ( get_option('smartestb_business_socialurl1') ) {
-				
 				$contactcontent .= '<li><a class="item-add" target="_blank" href="'. get_option('smartestb_business_socialurl1') . '" title="' . __( 'Connect', 'smartestb' ) . '">' . get_option('smartestb_business_sociallabel1') . '</a></li>';
 			} 
 			if ( get_option('smartestb_business_socialurl2') ) {
 				$contactcontent .= '<li><a class="item-add" target="_blank" href="'. get_option('smartestb_business_socialurl2') . '" title="' . __( 'Connect', 'smartestb' ) . '">' . get_option('smartestb_business_sociallabel2') . '</a></li>';
 			} 
-			$contactcontent .= '</ul><span itemprop="name">' . get_option('smartestb_business_name') . '</span><br />';
+			$contactcontent .= '</ul><strong><span itemprop="name">' . get_option('smartestb_business_name') . '</span></strong><br /><br />';
 			if (get_option('smartestb_hours')) { 
 				$contactcontent .= '<div id="qbw-contact-hours"><strong>Business Hours: </strong><br />' . wpautop(get_option('smartestb_hours')) . '</div>';
 			} 
@@ -2057,16 +2101,12 @@ class Quick_Business_Website{
 					$contactcontent .= '<br />' . __('FAX:', 'smartestb') . ' <span itemprop="faxNumber">' . get_option('smartestb_fax_numb') . '</span>';
 				
 				} 
-				
 				if ( get_option('smartestb_show_contactemail') == 'true' ) {
 					$contactcontent .= '<br />' . __('Email:', 'smartestb') . ' <a href="mailto:' . get_bloginfo('admin_email') . '"><span itemprop="email">' . get_bloginfo('admin_email') . '</span></a><br />';
 				}
-	
-
 				$contactcontent .= '</p>';
 			}
-
-			$contactcontent .= '</div>';// close #qbw-contact-info.qbw-one-half 2nd column 
+			$contactcontent .= '</div></div>';
 			return $contactcontent;
 			
 		} else {
@@ -2115,19 +2155,36 @@ class Quick_Business_Website{
 	 * @since 1.3.2
 	 */
 
-public function sort_staff($query) {
+	public function sort_staff($query) {
+		if( !is_admin() && is_post_type_archive('smartest_staff') && $query->is_main_query() && isset( $query->query_vars['meta_key'] ) ) {
+			$query->query_vars['orderby'] = 'meta_value_num';
+			$query->query_vars['meta_key'] = '_smab_staff-order-number';
+			$query->query_vars['order'] = 'ASC';
+		}
+		return $query;
+	}    
 
-    if( !is_admin() && is_post_type_archive('smartest_staff') && $query->is_main_query() && isset( $query->query_vars['meta_key'] ) ) {
-
-            $query->query_vars['orderby'] = 'meta_value_num';
-
-            $query->query_vars['meta_key'] = '_smab_staff-order-number';
-
-            $query->query_vars['order'] = 'ASC';
-
-      }
-	return $query;
-    }    
+	/**
+	 * Sort services archive by service order number key
+	 *
+	 * @uses is_admin()
+	 * @uses is_post_type_archive()
+	 * @uses is_main_query()
+	 * @since 1.4.1
+	 */
+	function sort_services($query) {
+		if( !is_admin() &&
+		( 
+		( is_post_type_archive('smartest_services') || is_tax( 'smartest_service_category' ) ) &&
+		$query->is_main_query()
+		)
+		&& isset( $query->query_vars['meta_key'] ) ) {
+		$query->query_vars['orderby'] = 'meta_value_num';
+		$query->query_vars['meta_key'] = '_smab_service-order-number';
+		$query->query_vars['order'] = 'ASC';
+		}
+		return $query;
+	}
 }
 }
 if ( defined('THEME_FRAMEWORK') && ( THEME_FRAMEWORK == 'Smartest Business Framework' ) ) {

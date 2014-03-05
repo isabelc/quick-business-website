@@ -116,22 +116,23 @@ $options[] = array( 'name' => __('Add Services?','smartestb'),
 					'id' => $shortname.'_show_services',
 					'std' => 'true',
 					'type' => 'checkbox');
+$options[] = array( 	'desc' => sprintf( __('%s Set Custom Sort-Order? %s Check this to set a custom sort-order for services. Default sort-order is descending order by date of post.','smartestb'), '<strong>', '</strong>' ),
+					'id' => $shortname.'_enable_service_sort',
+					'std' => 'false',
+					'type' => 'checkbox');
 $options[] = array( 'name' => __('Add Reviews Section?','smartestb'),
 					'desc' => __('Check this to add a page to let visitors submit reviews.','smartestb'),
 					'id' => $shortname.'_add_reviews',
 					'std' => 'true',
 					'type' => 'checkbox');
 /*  About Page */
-
 $options[] = array( 'name' => __('About Page','smartestb'),'class' => 'aboutcircle',
 					'type' => 'heading');
-					
 $options[] = array( 'name' => __('About Your Business','smartestb'),
 						'desc' => __('The \'About Page\' is a page about your business. Type what you want your visitors to read here. It may be a history, a sales pitch, or anything you like. To enlarge the text area, drag the lower right corner down.', 'smartestb'),
 					'id' => $shortname.'_about_page',
 					'std' => '',
 					'type' => 'textarea');
-
 $options[] = array( 'name' => __('About Page Picture','smartestb'),
 					'desc' => __('Upload a picture for your About page, or specify the image address of an online picture, like http://yoursite.com/picture.png','smartestb'),
 					'id' => $shortname.'_about_picture',
@@ -143,9 +144,7 @@ $options[] = array( 'name' => __('Disable About Page','smartestb'),
 					'std' => 'false',
 					'type' => 'checkbox');
 
-
 /* Social Media */
-
 $options[] = array( 'name' => __('Social Media','smartestb'),'class' => 'smartsocial',
 					'type' => 'heading');
 					
@@ -168,14 +167,10 @@ $options[] = array( 'name' => __('YouTube','smartestb'),
                     'desc' => __('The name of your YouTube channel. Tip: Your Youtube name or ID, or the part of the address after www.youtube.com/user/','smartestb'),
                     'id' => $shortname.'_business_youtube',
                     'type' => 'text');
-
-
 $options[] = array( 'name' => __('Another Profile','smartestb'),
                     'desc' => __('Add another business profile URL.  Example: http://www.linkedin.com/in/YourName','smartestb'),
                     'id' => $shortname.'_business_socialurl1',
                     'type' => 'text');
-
-
 $options[] = array(
                     'desc' => __('Give a title for the business profile you entered above. Example: LinkedIn','smartestb'),
                     'id' => $shortname.'_business_sociallabel1',
@@ -191,9 +186,13 @@ $options[] = array(
                     'type' => 'text');
 
 /* Branding */
-
 $options[] = array( 'name' => __('Backend Branding','smartestb'),'class' => 'branding',
 					'type' => 'heading');
+$options[] = array( 'name' => __('Replace This Page\'s Logo','smartestb'),
+					'desc' => __('See the "Smartest Themes" logo at the top of this page? Upload a logo here to replace this page\'s logo. Or specify the image address of your online logo, like http://yoursite.com/logo.png','smartestb'),
+					'id' => $shortname.'_options_logo',
+					'std' => '',
+					'type' => 'upload');
 $options[] = array( 'name' => __('Custom WP Admin Footer Text','smartestb'),
                     'desc' => __('By default, the text at the bottom of this page is "Thank you for creating with WordPress." Replace it with your own custom text here.','smartestb'),
                     'id' => $shortname.'_admin_footer',
@@ -312,6 +311,11 @@ $options[] = array( 'name' => sprintf( __( 'Disable Extra Items on %s and %s', '
 $options[] = array( 'name' => __('Disable News Icon','smartestb'),
 					'desc' => __('If an Announcement (News) post does not have a featured image, a news icon will show up as its featured image on the News page (if your <code>archive.php</code> shows the thumbnail) and in the Featured Announcements widget. Check this to get rid of that icon.', 'smartestb'),
 					'id' => $shortname.'_stop_theme_icon',
+					'std' => 'false',
+					'type' => 'checkbox');
+$options[] = array( 'name' => __('Backwards Compatibility: Use Old Social Icons','smartestb'),
+					'desc' => __('As of version 1.4.1, we use new icons for the social buttons that are Retina-ready for high resolution screens, and they change color to match your links color. Check this box to use the OLD social icons instead.', 'smartestb'),
+					'id' => $shortname.'_old_social_icons',
 					'std' => 'false',
 					'type' => 'checkbox');
 update_option('smartestb_template',$options);      

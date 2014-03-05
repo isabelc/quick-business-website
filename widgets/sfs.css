@@ -1,1 +1,38 @@
-﻿#sfswrap{width:100%;overflow:hidden;position:relative;padding-bottom:21px;border-bottom:1px #e5e5e5 solid;margin-bottom:20px}#sfsfig{float:left;margin:0 20px 0 0;width:25%;max-width:100px}.front-widgets #sfsfig{width:auto;max-width:100%}#sfscontent{overflow:hidden;padding-right:15px}#sfscontent h4{margin-bottom:1em}.widget_smartest_featured_services .widget-title{margin-left:0}#sidebar #sfsfig,#first .footer-widget #sfsfig,#third .footer-widget #sfsfig{float:none}@media screen and (max-device-width:568px){#sfsfig{float:none;margin:0}}
+﻿#sfswrap{
+	width:100%;
+	overflow:hidden;
+	position:relative;
+	padding-bottom:21px;
+	border-bottom:1px #e5e5e5 solid;
+	margin-bottom:20px
+}
+#sfsfig{
+	float:left;
+	margin:0 20px 0 0;
+	width:25%;
+	max-width:100px
+}
+/* Thin out for TwentyFourteen thin sidebars */
+#footer-sidebar #sfsfig, #primary-sidebar #sfsfig, .front-widgets #sfsfig{
+	width:auto;
+	max-width:100%
+}
+#footer-sidebar #sfsfig, #primary-sidebar #sfsfig {float:none;margin: 0;}
+#sfscontent{
+	overflow:hidden;
+}
+#sfscontent h4{
+	margin-bottom:1em
+}
+.widget_smartest_featured_services .widget-title{
+	margin-left:0
+}
+#sidebar #sfsfig,#first .footer-widget #sfsfig,#third .footer-widget #sfsfig{
+	float:none
+}
+@media screen and (max-device-width:568px){
+	#sfsfig{
+		float:none;
+		margin:0
+	}
+}

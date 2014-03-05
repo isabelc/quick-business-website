@@ -9,29 +9,21 @@
  */
 
 class SmartestFeaturedServices extends WP_Widget {
-
-	/**
-	 * Register widget.
-	 */
 	public function __construct() {
 		parent::__construct(
-	 		'smartest_featured_services', // Base ID
-			__('QBW Featured Services', 'smartestb'), // Name
-			array( 'description' => __( 'Display selected featured services.', 'smartestb' ), ) // Args
+	 		'smartest_featured_services',
+			__('QBW Featured Services', 'smartestb'),
+			array( 'description' => __( 'Display selected featured services.', 'smartestb' ), )
 		);
 		add_action('wp_enqueue_scripts', array($this, 'featsvcs_css'));
 	}
-
 	/**
 	 * Register stylesheet.
 	 */
 	public function featsvcs_css() {
 			wp_register_style('sfs',
 			plugins_url('/sfs.css', __FILE__));
-			wp_enqueue_style('sfs');		
 	} 
-
-
 	/**
 	 * Front-end display of widget.
 	 *
@@ -40,27 +32,44 @@ class SmartestFeaturedServices extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
-
 		extract( $args );
-		
-		// these are our widget options
+		wp_enqueue_style('sfs');
 		$title = apply_filters('widget_title', $instance['title']);
-
 		echo $before_widget;
 		if ( ! empty( $title ) )
 			echo '<h3 class="widget-title">'. $title . '</h3>';
-		
-		/* loop through announcements */
+		if( get_option('smartestb_enable_service_sort') == 'true'  ) {
 
-		$args = array(
-			'post_type' => 'smartest_services',
-			'meta_query' => array(
-				array (
-				'key' => '_smab_services_featured',
-				'value'=> 'on'
-				)
-			)
-		);
+			// custom sort order is enabled
+
+			$args = array( 
+				'post_type' => 'smartest_services',
+				'meta_query' => array(
+							array  (
+								'key' => '_smab_services_featured',
+								'value'=> 'on' 
+							)
+						),
+				'orderby' => 'meta_value_num',
+				'meta_key' => '_smab_service-order-number',
+				'order' => 'ASC'
+				);
+
+		} else {
+
+			// default sort order
+
+			$args = array( 
+				'post_type' => 'smartest_services',
+				'meta_query' => array(
+							array  (
+								'key' => '_smab_services_featured',
+								'value'=> 'on' 
+								)
+							)
+				);
+
+		}
 		$sbffs = new WP_Query( $args );
 		if ( $sbffs->have_posts() ) {
 			while ( $sbffs->have_posts() ) {
@@ -109,15 +118,12 @@ class SmartestFeaturedServices extends WP_Widget {
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form( $instance ) {
-		
 		if ( isset( $instance[ 'title' ] ) ) {
 			$title = $instance[ 'title' ];
 		}
 		else {
 			$title = __( 'Featured Services', 'smartestb' );
-		}
-		
-    	?>
+		} ?>
 		<p>
 		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'smartestb' ); ?></label> 
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
