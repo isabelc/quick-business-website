@@ -27,7 +27,6 @@ class SmartestAnnouncements extends WP_Widget {
 	public function ann_css() {
 			wp_register_style('san', 
 			plugins_url('/sa.css', __FILE__));
-			wp_enqueue_style('san');
 	} 
 
 	/**
@@ -38,20 +37,12 @@ class SmartestAnnouncements extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		extract( $args );
-		
-		// these are our widget options
+		wp_enqueue_style('san');
 		$title = apply_filters('widget_title', $instance['title']);
 		$number = $instance['number'];
-
 		echo $before_widget;
 		if ( ! empty( $title ) )
 			echo '<h3 class="widget-title">'. $title . '</h3>';
-		
-		/* loop through announcements */
-
-/*		query_posts( array( 'posts_per_page' => $number, 'post_type' => 'smartest_news', 'order' => 'DESC' ) );
-		if (have_posts()) : 
-*/
 		 $args = array(
 			'posts_per_page' => $number,
 			'post_type' => 'smartest_news',

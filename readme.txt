@@ -1,12 +1,12 @@
 ﻿=== Quick Business Website ===
 Author URI: http://smartestthemes.com
-Plugin URI: http://smartestthemes.com/downloads/quick-business-website-plugin/
+Plugin URI: http://smartestthemes.com/docs/category/quick-business-website-wordpress-plugin/
 Contributors: SmartestThemes, isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=isa%40smartestthemes%2ecom
 Tags: business, business website, staff, services, announcements, company, quick site
 Requires at least: 3.4
-Tested up to: 3.8
-Stable Tag: 1.4
+Tested up to: 3.8.1
+Stable Tag: 1.4.1
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,7 +24,7 @@ Get a complete business website up with a few clicks. When you activate this plu
 - 6 Quick Business Website widgets
 - Table buttons in your post editor to easily create tables (makes it easy to create a pricelist)
 - the wp-login.php page will show your blogname with a link to your home page, instead of "WordPress" linking to WordPress.
-- Backend branding tweaks: You can change or remove the footer text in the WP Admin area. You can remove the WordPress links from Admin/tool bar.
+- Backend branding tweaks: You can upload your own logo for your clients to see in the backend. You can change or remove the footer text in the WP Admin area. You can remove the WordPress links from Admin/tool bar.
 - You can add your Google Analytics or other scripts via the options panel, without touching your code.
 
 After you enter your business information, your site will then automatically have:
@@ -37,7 +37,6 @@ When you get your first review, your site will then automatically have:
 
 - `aggregateRating` Schema.org microdata which will add stars to your website in Google search results, making your site stand out.
 
-
 For more info, see the [Instruction Guide](http://smartestthemes.com/docs/category/quick-business-website---wordpress-plugin/).
 
 For support, please use the [Support forum](http://wordpress.org/support/plugin/quick-business-website).
@@ -48,10 +47,12 @@ Contribute or fork it [on Github](https://github.com/isabelc/quick-business-webs
 == Installation ==
 
 1. Download the plugin file, `quick-business-website.zip`
-2. Go to `Plugins -> Add New -> Upload` to upload the plugin.
-3. Activate the plugin through the 'Plugins' menu in WordPress
-4. Go to the `Quick Business Website` menu page to enter your business information, and click "Save All Changes".
-5. Use the 6 available QBW widgets at `Appearances --> Widgets`.
+2. Go to "Plugins -> Add New -> Upload" to upload the plugin.
+3. Click to activate the plugin.
+4. Go to the "Quick Business Website" menu page to enter your business information, and click "Save All Changes".
+5. Use the 6 available QBW widgets at "Appearances --> Widgets".
+
+For more step-by-step instructions, see the [Instruction Guide](http://smartestthemes.com/docs/category/quick-business-website---wordpress-plugin/) which is growing all the time.
 
 == Frequently Asked Questions ==
 
@@ -61,7 +62,7 @@ If you disable either the staff, news, services, or reviews by un-checking the b
 
 = Where can I request support, get help, or report an error? =
 
-The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-website)
+The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-website), or the [Instruction Guide](http://smartestthemes.com/docs/category/quick-business-website---wordpress-plugin/) which is growing all the time.
 
 == Screenshots ==
 
@@ -72,6 +73,21 @@ The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-
 5. Contact page showing contact form and business info 
 
 == Changelog ==
+
+= 1.4.1 =
+* Fix: pending reviews showed up in some rare cases.
+* New: added option to enable sort order for Services with backwards compatibility for those without it.
+* New: Backend Branding let's you upload your own logo
+* New: Font Awesome retina-ready icons for social buttons, with option to use old icons instead.
+* New: menu dashicons for services, staff, announcements.
+* New: .pot file for localization.
+* Tweak: better style for Reviews form input fields.
+* Tweak: enqueue the widget stylesheets only when widget is being used on a page.
+* Tweak: removed generator tag from head for less markup.
+* Tweak: added width and height to wp-login page text logo.
+* Tweak: darker color for options fonts.
+* Maintenance: fixed alignment for checkboxes in theme options.
+* Maintenance: updated plugin URI.
 
 = 1.4 =
 * New: added services categories taxonomy.
