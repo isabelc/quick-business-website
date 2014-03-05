@@ -14,9 +14,9 @@ class SmartestServices extends WP_Widget {
 	 */
 	public function __construct() {
 		parent::__construct(
-	 		'smartest_services_list', // Base ID
-			__('QBW Services List', 'smartestb'), // Name
-			array( 'description' => __( 'Display the full list of Services.', 'smartestb' ), ) // Args
+	 		'smartest_services_list',
+			__('QBW Services List', 'smartestb'),
+			array( 'description' => __( 'Display the full list of Services.', 'smartestb' ), )
 		);
 	}
 	/**
@@ -27,8 +27,6 @@ class SmartestServices extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		extract( $args );
-		
-		// these are our widget options
 		$title = apply_filters('widget_title', $instance['title']);
 		$service_category_term_id = $instance['service_category'];
 		$service_category = !empty($service_category_term_id) ? $service_category_term_id : '';
@@ -37,28 +35,67 @@ class SmartestServices extends WP_Widget {
 		if ( ! empty( $title ) )
 			echo '<h3 class="widget-title">'. $title . '</h3>';
 		
-		/* loop through announcements */
-
 		// if cat is selected, do tax query
 		if ( ! empty ($service_category) ) {
-			$args = array(
-				'posts_per_page' => -1,
-				'post_type' => 'smartest_services',
-				'tax_query' => array(
-					array(
-						'taxonomy' => 'smartest_service_category',
-						'field' => 'id',
-						'terms' => array( $service_category ),
-					)
-				),
-				'orderby' => 'title',
-				'order' => 'ASC' );
+
+			if( get_option('smartestb_enable_service_sort') == 'true'  ) {
+
+				// custom sort order is enabled
+
+				$args = array( 
+					'posts_per_page' => -1, 
+					'post_type' => 'smartest_services',
+					'tax_query' => array(
+						array(
+							'taxonomy' => 'smartest_service_category',
+							'field' => 'id',
+							'terms' => array( $service_category ),
+						)
+					),
+					'orderby' => 'meta_value_num',
+					'meta_key' => '_smab_service-order-number',
+					'order' => 'ASC' );
+
+			} else { 
+
+				// default sort order
+				$args = array( 
+					'posts_per_page' => -1, 
+					'post_type' => 'smartest_services',
+					'tax_query' => array(
+						array(
+							'taxonomy' => 'smartest_service_category',
+							'field' => 'id',
+							'terms' => array( $service_category ),
+						)
+					),
+					'orderby' => 'title',
+					'order' => 'ASC' );
+
+			}
+
 		} else {
-			$args = array(
-				'posts_per_page' => -1,
-				'post_type' => 'smartest_services',
-				'orderby' => 'title',
-				'order' => 'ASC' );
+
+			// no tax query
+
+			if( get_option('smartestb_enable_service_sort') == 'true'  ) {
+
+				// custom sort order is enabled
+				$args = array( 
+					'posts_per_page' => -1, 
+					'post_type' => 'smartest_services',
+					'orderby' => 'meta_value_num',
+					'meta_key' => '_smab_service-order-number',
+					'order' => 'ASC' );
+
+			} else {
+				// default sort order
+				$args = array( 
+					'posts_per_page' => -1, 
+					'post_type' => 'smartest_services',
+					'orderby' => 'title',
+					'order' => 'ASC' );
+			}
 		}
 		$sbfservices = new WP_Query( $args );
 		if ( $sbfservices->have_posts() ) {
@@ -73,9 +110,7 @@ class SmartestServices extends WP_Widget {
 
 		} // endif
 		wp_reset_postdata();
-
 		echo $after_widget;
-
 	}// end widget
 
 	/**

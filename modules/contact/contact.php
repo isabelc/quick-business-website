@@ -16,9 +16,9 @@ $value_email    =  isset($value_email) ? $value_email : '';
 $value_response = isset($value_response) ? $value_response : '';
 $value_message  = isset($value_message) ? $value_message : '';
 $sbfc_strings = array(
-	'name' 	 => '<input name="smartestb_sbfc_name" id="smartestb_sbfc_name" type="text" class="required" size="33" maxlength="99" value="'. $value_name .'" placeholder="Your name" />', 
-	'email'    => '<input name="smartestb_sbfc_email" id="smartestb_sbfc_email" type="text" class="required email" size="33" maxlength="99" value="'. $value_email .'" placeholder="Your email" />', 
-	'response' => '<input name="sbfc_response" id="sbfc_response" type="text" size="33" class="required number" maxlength="99" value="'. $value_response .'" />',	
+	'name' 	 => '<input name="smartestb_sbfc_name" id="smartestb_sbfc_name" type="text" class="required" maxlength="99" value="'. $value_name .'" placeholder="Your name" />', 
+	'email'    => '<input name="smartestb_sbfc_email" id="smartestb_sbfc_email" type="text" class="required email" maxlength="99" value="'. $value_email .'" placeholder="Your email" />', 
+	'response' => '<input name="sbfc_response" id="sbfc_response" type="text" class="required number" maxlength="99" value="'. $value_response .'" />',	
 	'message'  => '<textarea name="sbfc_message" id="sbfc_message" class="required" minlength="4" cols="33" rows="7" placeholder="Your message">'. $value_message .'</textarea>', 
 	'error'    => ''
 	);
@@ -87,7 +87,7 @@ function sbfc_input_filter() {
 	if(empty($_POST['smartestb_sbfc_name'])) {
 		$pass = FALSE;
 		$fail = 'empty';
-		$sbfc_strings['name'] = '<input class="smartestb_sbfc_error" name="smartestb_sbfc_name" id="smartestb_sbfc_name" type="text" size="33" maxlength="99" value="'. htmlentities($_POST['smartestb_sbfc_name']) .'" placeholder="Your name" />';
+		$sbfc_strings['name'] = '<input class="smartestb_sbfc_error" name="smartestb_sbfc_name" id="smartestb_sbfc_name" type="text" maxlength="99" value="'. htmlentities($_POST['smartestb_sbfc_name']) .'" placeholder="Your name" />';
 	}
 	if(!is_email($_POST['smartestb_sbfc_email'])) {
 		$pass = FALSE; 
