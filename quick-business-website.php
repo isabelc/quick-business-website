@@ -1703,7 +1703,7 @@ class Quick_Business_Website{
 				),
 				array(
 					'name' => __( 'Sort Order Number', 'smartestb' ),
-					'desc' => __( 'Give this person a number to order them on the list on the staff page and in the staff widget. Number 1 appears 1st on the list, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would help to leave room in between to insert new staff members later without having to change everyone\'s current number.', 'smartestb' ),
+					'desc' => __( 'Give this person a number to order them on the staff list. Number 1 appears 1st on the list, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new staff members later without having to change everyone\'s current number.', 'smartestb' ),
 					'id'   => $prefix . 'staff-order-number',
 					'type' => 'text',
 					'std' => 9999
@@ -1761,7 +1761,7 @@ class Quick_Business_Website{
 			'fields'     => array(
 				array(
 					'name' => __( 'Sort Order Number', 'smartestb' ),
-					'desc' => __( 'Give this service a number to order them on the list on the services page and in the services widget. Number 1 appears 1st on the list, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would help to leave room in between to insert new staff members later without having to change all current numbers.', 'smartestb' ),
+					'desc' => __( 'Give this service a number to order it on the services list. Number 1 appears 1st on the list, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new services later without having to change all current numbers.', 'smartestb' ),
 					'id'   => $prefix . 'service-order-number',
 					'type' => 'text',
 					'std' => 9999
