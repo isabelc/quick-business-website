@@ -305,6 +305,8 @@ function sbfc_display_contact_form() {
 			<label for="smartestb_sbfc_phone">'. __( 'Phone', 'smartestb' ) .'</label>
 			'. $sbfc_strings['phone'] .
 			'</fieldset>';
+	} else {
+		$phone_field = '';
 	}
 	$sbfc_form = ($smartestb_sbfc_preform . $sbfc_strings['error'] . '
 		<div id="sbfc-contactform-wrap">
