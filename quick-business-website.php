@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: http://smartestthemes.com/docs/category/quick-business-website-wordpress-plugin/
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 1.4.1
+Version: 1.4.2
 Author: Smartest Themes
 Author URI: http://smartestthemes.com
 License: GPL2
@@ -1940,6 +1940,13 @@ class Quick_Business_Website{
 	 * @since 1.4.1
 	 */
 	function custom_options_page_logo() {
+
+		// backwards compat. if option = 'false' string, update it to ''. @todo remove in 2.0
+		$backlogo = get_option('smartestb_options_logo');
+		if( 'false' == $backlogo ) {
+			delete_option( 'smartestb_options_logo' );
+		}
+
 		if (get_option('smartestb_options_logo')) {
 			return '<img alt="logo" src="'.get_option('smartestb_options_logo').'" class="custom-bb-logo"/>';
 		} else { 
