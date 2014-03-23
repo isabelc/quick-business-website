@@ -219,20 +219,16 @@ $options[] = array( 'name' => __( 'Your Name', 'smartestb' ),
                     'id' => $shortname.'_sbfc_name',
 					'std' => $admin_name,
                     'type' => 'text');
-
-
 $options[] = array( 'name' => __( 'Your Email', 'smartestb' ),
                     'desc' => __( 'Where would you like to receive messages sent from the contact form? If blank, the default is the admin email set in `Settings -> General`', 'smartestb' ),
                     'id' => $shortname.'_sbfc_email',
 					'std' => '',
                     'type' => 'text');
-
 $options[] = array( 'name' => __( 'Default Subject', 'smartestb' ),
                     'desc' => __( 'What should be the default subject line for the contact messages? Default is "Message sent from your contact form".', 'smartestb' ),
                     'id' => $shortname.'_sbfc_subject',
 					'std' => __( 'Message sent from your contact form', 'smartestb' ),
                     'type' => 'text');
-
 $options[] = array( 'name' => __( 'Success Message', 'smartestb' ),
                     'desc' => __( 'When the form is sucessfully submitted, this message will be displayed to the sender. Default is "Success! Your message has been sent."', 'smartestb' ),
                     'id' => $shortname.'_sbfc_success',
@@ -243,7 +239,6 @@ $options[] = array( 'name' => __( 'Error Message', 'smartestb' ),
                     'id' => $shortname.'_sbfc_error',
 					'std' => '<strong>' . __( 'Please complete the required fields.', 'smartestb' ) . '</strong>',
                     'type' => 'textarea');
-
 $options[] = array( 'name' => __( 'Enable Captcha', 'smartestb' ),
 					'desc' => __( 'Check this box if you want to enable the captcha (challenge question/answer).', 'smartestb' ),
 					'id' => $shortname.'_sbfc_captcha',
@@ -254,6 +249,16 @@ $options[] = array( 'name' => __( 'Time Offset', 'smartestb' ),
                     'id' => $shortname.'_sbfc_offset',
 					'std' => '',
                     'type' => 'text');
+$options[] = array( 'name' => __( 'Add Phone Number Field', 'smartestb' ),
+					'desc' => __( 'Check this box to add a phone number field to the contact form.', 'smartestb' ),
+					'id' => $shortname.'_sbfc_include_phone',
+					'std' => 'false',
+					'type' => 'checkbox');
+$options[] = array(
+					'desc' => sprintf(__( 'Make the phone number %srequired.%s This has no effect if you do not check the box above.', 'smartestb' ), '<strong>', '</strong>' ),
+					'id' => $shortname.'_sbfc_required_phone',
+					'std' => 'false',
+					'type' => 'checkbox');
 $options[] = array( 'name' => __( 'Custom content before the form', 'smartestb' ),
 					'desc' => __( 'Add some text/markup to appear <em>before</em> the contact form (optional).', 'smartestb' ),
 					'id' => $shortname.'_sbfc_preform',
