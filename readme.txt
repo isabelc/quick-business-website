@@ -72,6 +72,13 @@ The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-
 
 == Changelog ==
 
+= 1.4.2 =
+* New: textdomain has changed to quick-business-website. You must update your language files with the new filename for translations to work.
+* New: option to add phone number field to Contact form, with option to make it required.
+* New: Do singleton of the plugin main class and mce table buttons class.
+* Tweak: Updated description for Delete About page to stress that is will permanently delete the About page from the website.
+* Maintenance: tested and passed for WP 3.9 compatibility.
+
 = 1.4.1 =
 * Fix: pending reviews showed up in some rare cases.
 * New: added option to enable sort order for Services with backwards compatibility for those without it.
