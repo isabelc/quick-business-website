@@ -243,35 +243,57 @@ function sbfc_process_contact_form($content='') {
 
 	$phone	= $_POST['sbfc_phone'];
 	$message   = $_POST['sbfc_message'];
-	$fullmsg   = ("Hello $recipname,
 
-You are being contacted via $recipsite:
+// @TEST BEGIN
 
-Name:     $name
-Email:    $email
-Phone:	$phone
-Message:
+
+// localize
+
+$local_hello = __( 'Hello', 'smartestb' );// @todo change textdomain!!!! also make singleton
+$local_intro = sprintf( __( 'You are being contacted @TEST via %s:', 'smartestb' ), $recipsite ); 
+$local_name = __( 'Name:', 'smartestb' );
+$local_email = __( 'Email:', 'smartestb' );
+$local_phone = __( 'Phone:', 'smartestb' );
+$local_msg = __( 'Message:', 'smartestb' );
+$local_addtl_info = __( 'Additional Information:', 'smartestb' );
+$local_site = __( 'Site:', 'smartestb' );
+$local_url = __( 'URL:', 'smartestb' );
+$local_date = __( 'Date:', 'smartestb' );
+$local_ip = __( 'IP:', 'smartestb' );
+$local_host = __( 'Host:', 'smartestb' );
+$local_agent = __( 'Agent:', 'smartestb' );
+
+/// @TEST END
+
+$fullmsg   = ("$local_hello $recipname,
+
+$local_intro
+
+$local_name     $name
+$local_email    $email
+$local_phone	$phone
+$local_msg
 
 $message
 
 -----------------------
 
-Additional Information:
+$local_addtl_info
 
-Site:   $recipsite
-URL:    $form
-Date:   $date
-IP:     $senderip
-Host:   $host
-Agent:  $agent
+$local_site   $recipsite
+$local_url    $form
+$local_date   $date
+$local_ip     $senderip
+$local_host   $host
+$local_agent  $agent
 ");
 	$fullmsg = stripslashes(strip_tags(trim($fullmsg)));
 	wp_mail($recipient, $topic, $fullmsg, $headers);
 	$results = ($prepend . '<div id="sbfc_isa_success"><div id="isa_success">' . $success . '</div>
-<pre>Name:       '. $name    .'
-Email:      '. $email   .'
-Date:       '. $date .'
-Message:    '. $message .'</pre><p class="sbfc_reset">[ <a href="'. $form .'">'. __( 'Click here to reset the form', 'smartestb' ) .'</a> ]</p></div>' . $append);
+<pre>' . $local_name . ' ' . $name    .
+$local_email . ' ' . $email   .
+$local_date . ' ' . $date .
+$local_msg . ' ' . $message .'</pre><p class="sbfc_reset">[ <a href="'. $form .'">'. __( 'Click here to @test reset the form', 'smartestb' ) .'</a> ]</p></div>' . $append);
 
 	echo $results;
 }
