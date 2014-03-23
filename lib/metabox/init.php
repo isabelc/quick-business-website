@@ -662,5 +662,4 @@ function cmb_oembed_ajax_results() {
 	echo json_encode( array( 'result' => $return, 'id' => $found ) );
 	die();
 }
-
 // End. That's it, folks! //

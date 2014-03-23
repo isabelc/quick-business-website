@@ -1,4 +1,4 @@
-﻿var smar_old_btn_val = smartlocal.hidebutton;
+var smar_old_btn_val = smartlocal.hidebutton;
 
 var smar_req = [];
 
@@ -148,5 +148,4 @@ function smar_init() {
 
     jQuery("#smar_commentform .smar_rating").bind("mouseover",smar_onhover);
 }
-
 jQuery(document).ready(smar_init);

@@ -163,5 +163,4 @@ class SmartestServices extends WP_Widget {
 		</p>
 		<?php 
 	}
-
 } ?>

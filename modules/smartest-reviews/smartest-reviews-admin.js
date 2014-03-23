@@ -1,4 +1,4 @@
-﻿jQuery(document).ready(function() {
+jQuery(document).ready(function() {
     
     jQuery("#comments-form").submit(function(e) {
        var hasbip = jQuery(this).find('input.bip');
