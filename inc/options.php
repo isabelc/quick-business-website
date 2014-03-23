@@ -139,7 +139,7 @@ $options[] = array( 'name' => __('About Page Picture','smartestb'),
 					'std' => '',
 					'type' => 'upload');
 $options[] = array( 'name' => __('Disable About Page','smartestb'),
-					'desc' => __('Check this to disable the About page altogether. This will delete the automatically-created About page.', 'smartestb'),
+					'desc' => __('Check this to disable the About page altogether. This will delete the About page.', 'smartestb'),
 					'id' => $shortname.'_stop_about',
 					'std' => 'false',
 					'type' => 'checkbox');
