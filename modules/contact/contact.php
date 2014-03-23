@@ -245,7 +245,7 @@ function sbfc_process_contact_form($content='') {
 	$message   = $_POST['sbfc_message'];
 
 // localize
-$local_hello = __( 'Hello', 'quick-business-website' );// @todo change textdomain!!!! also make singleton
+$local_hello = __( 'Hello', 'quick-business-website' );
 $local_intro = sprintf( __( 'You are being contacted via %s:', 'quick-business-website' ), $recipsite ); 
 $local_name = __( 'Name:', 'quick-business-website' );
 $local_email = __( 'Email:', 'quick-business-website' );
