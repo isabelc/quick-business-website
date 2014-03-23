@@ -5,7 +5,16 @@
  * Version: 0.9
 */
 class Smartest_MCE_Table_Buttons {
-	public function __construct() {
+	private static $instance = null;
+
+	public static function get_instance() {
+		if ( null == self::$instance ) {
+			self::$instance = new self;
+		}
+		return self::$instance;
+	}
+
+	private function __construct() {
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_action( 'content_save_pre', array( $this, 'content_save_pre'), 100 );
 		add_action( 'admin_footer', array( $this, 'admin_footer' ), 100 );
@@ -54,4 +63,4 @@ class Smartest_MCE_Table_Buttons {
 		return $content;
 	}
 }
-$mce_table_buttons = new Smartest_MCE_Table_Buttons;
+$mce_table_buttons = Smartest_MCE_Table_Buttons::get_instance();
