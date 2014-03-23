@@ -15,11 +15,20 @@ $value_name     = isset($value_name) ? $value_name : '';
 $value_email    =  isset($value_email) ? $value_email : '';
 $value_response = isset($value_response) ? $value_response : '';
 $value_message  = isset($value_message) ? $value_message : '';
+$value_phone		= isset($_POST['sbfc_phone']) ? htmlentities($_POST['sbfc_phone']) : '';
+
+if ( get_option('smartestb_sbfc_required_phone') == 'true' ) {
+	$require_phone = ' class="required"';
+} else {
+	$require_phone = '';
+}
+
 $sbfc_strings = array(
 	'name' 	 => '<input name="smartestb_sbfc_name" id="smartestb_sbfc_name" type="text" class="required" maxlength="99" value="'. $value_name .'" placeholder="Your name" />', 
 	'email'    => '<input name="smartestb_sbfc_email" id="smartestb_sbfc_email" type="text" class="required email" maxlength="99" value="'. $value_email .'" placeholder="Your email" />', 
 	'response' => '<input name="sbfc_response" id="sbfc_response" type="text" class="required number" maxlength="99" value="'. $value_response .'" />',	
-	'message'  => '<textarea name="sbfc_message" id="sbfc_message" class="required" minlength="4" cols="33" rows="7" placeholder="Your message">'. $value_message .'</textarea>', 
+	'message'  => '<textarea name="sbfc_message" id="sbfc_message" class="required" minlength="4" cols="33" rows="7" placeholder="Your message">'. $value_message .'</textarea>',
+	'phone'	=> '<input name="sbfc_phone" id="sbfc_phone" type="text" size="33" ' . $require_phone . 'maxlength="99" value="'. $value_phone.'" placeholder="Your phone" />',
 	'error'    => ''
 	);
 /**
@@ -80,6 +89,7 @@ function sbfc_input_filter() {
 	$_POST['smartestb_sbfc_email']    = stripslashes(trim($_POST['smartestb_sbfc_email']));
 	$_POST['sbfc_message']  = stripslashes(trim($_POST['sbfc_message']));
 	$_POST['sbfc_response'] = stripslashes(trim($_POST['sbfc_response']));
+	$_POST['sbfc_phone'] = isset($_POST['sbfc_phone']) ? stripslashes(trim($_POST['sbfc_phone'])) : '';
 
 	global $smartestb_options, $sbfc_strings;
 	$pass  = true;
@@ -110,6 +120,13 @@ function sbfc_input_filter() {
 		$pass = FALSE; 
 		$fail = 'empty';
 		$sbfc_strings['message'] = '<textarea class="smartestb_sbfc_error" name="sbfc_message" id="sbfc_message" cols="33" rows="7" placeholder="Your message">'. $_POST['sbfc_message'] .'</textarea>';
+	}
+	if ($smartestb_options['smartestb_sbfc_required_phone'] == 'true') {
+		if (empty($_POST['sbfc_phone'])) {
+			$pass = FALSE; 
+			$fail = 'empty';
+			$sbfc_strings['phone'] = '<input class="smartestb_sbfc_error" name="sbfc_phone" id="sbfc_phone" type="text" size="33" maxlength="99" value="'. $_POST['sbfc_phone'] .'" />';
+		}
 	}
 	if(sbfc_malicious_input($_POST['smartestb_sbfc_name']) || sbfc_malicious_input($_POST['smartestb_sbfc_email'])) {
 		$pass = false; 
@@ -224,6 +241,7 @@ function sbfc_process_contact_form($content='') {
 	$headers .= "Reply-To: $email\n";
 	$headers .= "Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\"";
 
+	$phone	= $_POST['sbfc_phone'];
 	$message   = $_POST['sbfc_message'];
 	$fullmsg   = ("Hello $recipname,
 
@@ -231,6 +249,7 @@ You are being contacted via $recipsite:
 
 Name:     $name
 Email:    $email
+Phone:	$phone
 Message:
 
 $message
@@ -264,7 +283,8 @@ function sbfc_display_contact_form() {
 
 	$captcha  = $smartestb_options['smartestb_sbfc_captcha'];
 	$offset   = $smartestb_options['smartestb_sbfc_offset'];
-	
+	$include_phone   = isset($smartestb_options['smartestb_sbfc_include_phone']) ? $smartestb_options['smartestb_sbfc_include_phone'] : '';
+
 	if ($smartestb_options['smartestb_sbfc_preform'] !== '') {
 		$smartestb_sbfc_preform = $smartestb_options['smartestb_sbfc_preform'];
 	} else { $smartestb_sbfc_preform = ''; }
@@ -280,7 +300,12 @@ function sbfc_display_contact_form() {
 					'. $sbfc_strings['response'] .'
 				</fieldset>';
 	} else { $captcha_box = ''; }
-
+	if ( 'true' == $include_phone ) {
+		$phone_field = '<fieldset class="sbfc-phone">
+			<label for="smartestb_sbfc_phone">'. __( 'Phone', 'smartestb' ) .'</label>
+			'. $sbfc_strings['phone'] .
+			'</fieldset>';
+	}
 	$sbfc_form = ($smartestb_sbfc_preform . $sbfc_strings['error'] . '
 		<div id="sbfc-contactform-wrap">
 			<form action="'. get_permalink() .'" method="post" id="sbfc-contactform">
@@ -292,7 +317,7 @@ function sbfc_display_contact_form() {
 					<label for="smartestb_sbfc_email">'. __( 'Email (Required)', 'smartestb' ) .'</label>
 					'. $sbfc_strings['email'] .'
 				</fieldset>
-					' . $captcha_box . '
+					' . $captcha_box . $phone_field . '
 				<fieldset class="sbfc-message">
 					<label for="sbfc_message">'. __( 'Message (Required)', 'smartestb' ) .'</label>
 					'. $sbfc_strings['message'] .'
