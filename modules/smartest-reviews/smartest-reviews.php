@@ -11,19 +11,19 @@
  */
 class SMARTESTReviewsBusiness {
 
-    var $dbtable = 'smareviewsb';
-    var $force_active_page = false;
-    var $got_aggregate = false;
-    var $options = array();
-    var $p = '';
-    var $page = 1;
-    var $plugin_version = '0.0.0';
-    var $shown_form = false;
-    var $shown_hcard = false;
-    var $status_msg = '';
+	var $dbtable = 'smareviewsb';
+	var $force_active_page = false;
+	var $got_aggregate = false;
+	var $options = array();
+	var $p = '';
+	var $page = 1;
+	var $plugin_version = '0.0.0';
+	var $shown_form = false;
+	var $shown_hcard = false;
+	var $status_msg = '';
 
-    function SMARTESTReviewsBusiness() {
-        global $wpdb;
+	function SMARTESTReviewsBusiness() {
+		global $wpdb;
 
         define('IN_SMAR', 1);
         

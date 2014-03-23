@@ -1244,14 +1244,9 @@ class Quick_Business_Website{
 	public function insert_post($potype, $slug, $option, $page_title = '', $page_content = '', $post_parent = 0 ) {
 		global $wpdb;
 		$option_value = get_option( $option );
+
 		if ( $option_value > 0 && get_post( $option_value ) )
 			return;
-		$page_found = $wpdb->get_var("SELECT ID FROM " . $wpdb->posts . " WHERE post_name = '$slug' LIMIT 1;");
-		if ( $page_found ) :
-			if ( ! $option_value )
-				update_option( $option, $page_found );
-			return;
-		endif;
 		$page_data = array(
 	        'post_status' 		=> 'publish',
 	        'post_type' 		=> $potype,// was 'page',
