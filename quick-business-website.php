@@ -26,7 +26,16 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 if(!class_exists('Quick_Business_Website')) {
 class Quick_Business_Website{
-    public function __construct() {
+	private static $instance = null;
+
+	public static function get_instance() {
+		if ( null == self::$instance ) {
+			self::$instance = new self;
+		}
+		return self::$instance;
+	}
+
+	private function __construct() {
 			if( ! defined('QUICKBUSINESSWEBSITE_PATH')) {
 				define( 'QUICKBUSINESSWEBSITE_PATH', plugin_dir_path(__FILE__) );
 			}
@@ -1940,13 +1949,11 @@ class Quick_Business_Website{
 	 * @since 1.4.1
 	 */
 	function custom_options_page_logo() {
-
 		// backwards compat. if option = 'false' string, update it to ''. @todo remove in 2.0
 		$backlogo = get_option('smartestb_options_logo');
 		if( 'false' == $backlogo ) {
 			delete_option( 'smartestb_options_logo' );
 		}
-
 		if (get_option('smartestb_options_logo')) {
 			return '<img alt="logo" src="'.get_option('smartestb_options_logo').'" class="custom-bb-logo"/>';
 		} else { 
@@ -2200,7 +2207,7 @@ if ( defined('THEME_FRAMEWORK') && ( THEME_FRAMEWORK == 'Smartest Business Frame
 } else {
  	register_deactivation_hook(__FILE__, array('Quick_Business_Website', 'deactivate')); 
 	register_activation_hook(__FILE__, array('Quick_Business_Website', 'activate'));
-	$Quick_Business_Website = new Quick_Business_Website();
+	$Quick_Business_Website = Quick_Business_Website::get_instance();
 
 	/**
  	 * Include Contact form with both jquery client-side and php server-side validation
