@@ -16,8 +16,8 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 	 		'smartest_featured_announce',
-			__('QBW Featured Announcements', 'smartestb'),
-			array( 'description' => __( 'Display selected featured announcements.', 'smartestb' ), )
+			__('QBW Featured Announcements', 'quick-business-website'),
+			array( 'description' => __( 'Display selected featured announcements.', 'quick-business-website' ), )
 		);
 		add_action('wp_enqueue_scripts', array($this, 'featnews_css'));
 	}
@@ -87,9 +87,9 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 		 
 			} // endwhile;
 		} else { 
-				$li = '<a href="'.get_post_type_archive_link( 'smartest_news' ).'">'. __('News', 'smartestb'). '</a>';
+				$li = '<a href="'.get_post_type_archive_link( 'smartest_news' ).'">'. __('News', 'quick-business-website'). '</a>';
 				?>
-				<p><?php printf(__( 'Coming soon. See all %s.', 'smartestb'), $li); ?></p>		
+				<p><?php printf(__( 'Coming soon. See all %s.', 'quick-business-website'), $li); ?></p>		
 		<?php }
 		wp_reset_postdata();
 		echo $after_widget;
@@ -122,12 +122,12 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 			$title = $instance[ 'title' ];
 		}
 		else {
-			$title = __( 'Featured News', 'smartestb' );
+			$title = __( 'Featured News', 'quick-business-website' );
 		}
 		
     	?>
 		<p>
-		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'smartestb' ); ?></label> 
+		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'quick-business-website' ); ?></label> 
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<?php 

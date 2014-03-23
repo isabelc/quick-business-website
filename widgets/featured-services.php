@@ -12,8 +12,8 @@ class SmartestFeaturedServices extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 	 		'smartest_featured_services',
-			__('QBW Featured Services', 'smartestb'),
-			array( 'description' => __( 'Display selected featured services.', 'smartestb' ), )
+			__('QBW Featured Services', 'quick-business-website'),
+			array( 'description' => __( 'Display selected featured services.', 'quick-business-website' ), )
 		);
 		add_action('wp_enqueue_scripts', array($this, 'featsvcs_css'));
 	}
@@ -91,9 +91,9 @@ class SmartestFeaturedServices extends WP_Widget {
 				echo '</div>';	
 			} // endwhile
 		} else {
-				$li = '<a href="'.get_post_type_archive_link( 'smartest_services' ).'">'. __('Services', 'smartestb'). '</a>';
+				$li = '<a href="'.get_post_type_archive_link( 'smartest_services' ).'">'. __('Services', 'quick-business-website'). '</a>';
 				?>
-				<p><?php printf(__( 'Coming soon. See all %s.', 'smartestb'), $li); ?></p>		
+				<p><?php printf(__( 'Coming soon. See all %s.', 'quick-business-website'), $li); ?></p>		
 		<?php } // endif
 		wp_reset_postdata();
 		echo $after_widget;
@@ -122,10 +122,10 @@ class SmartestFeaturedServices extends WP_Widget {
 			$title = $instance[ 'title' ];
 		}
 		else {
-			$title = __( 'Featured Services', 'smartestb' );
+			$title = __( 'Featured Services', 'quick-business-website' );
 		} ?>
 		<p>
-		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'smartestb' ); ?></label> 
+		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'quick-business-website' ); ?></label> 
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<?php 

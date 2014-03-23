@@ -13,7 +13,7 @@ class SmartestReviewsTestimonial extends WP_Widget {
 		parent::__construct(
 	 		'smartest_reviews_testimonial',
 			'QBW Reviews Testimonial',
-			array( 'description' => __( 'Display a random review as a testimonial.', 'smartestb' ), )
+			array( 'description' => __( 'Display a random review as a testimonial.', 'quick-business-website' ), )
 		);
 	}
 	/**
@@ -47,12 +47,12 @@ class SmartestReviewsTestimonial extends WP_Widget {
 
 		if ( empty( $getreviews ) ) {
 			//no review yet, lure them to leave one
-			echo '<p>'. sprintf(__('Be the first to <a href="%s">leave a review...', 'smartestb'), $reviews_pageurl).'</a></p>';
+			echo '<p>'. sprintf(__('Be the first to <a href="%s">leave a review...', 'quick-business-website'), $reviews_pageurl).'</a></p>';
 		} else {
 			foreach ( $getreviews as $getreview ) {
 				echo '<blockquote>' . wp_trim_words( $getreview->review_text, 20) . '</blockquote><br />';
 			}
-			echo '<a href="'.$reviews_pageurl.'">'.__('More...', 'smartestb').'</a>';
+			echo '<a href="'.$reviews_pageurl.'">'.__('More...', 'quick-business-website').'</a>';
 		}
 		echo $after_widget;
 	}// end widget
@@ -76,7 +76,7 @@ class SmartestReviewsTestimonial extends WP_Widget {
 		if ( isset( $instance[ 'title' ] ) ) {
 			$title = $instance[ 'title' ];
 		} else {
-			$title = __( 'Testimonials', 'smartestb' );
+			$title = __( 'Testimonials', 'quick-business-website' );
 		}
  		if ( isset( $instance[ 'number' ] ) ) {
 			$number = $instance[ 'number' ];
@@ -84,11 +84,11 @@ class SmartestReviewsTestimonial extends WP_Widget {
 			$number = 1; 
 		} ?>
 		<p>
-		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'smartestb' ); ?></label> 
+		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'quick-business-website' ); ?></label> 
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<p>
-		<label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php _e( 'How many testimonials to show:', 'smartestb' ); ?></label> 
+		<label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php _e( 'How many testimonials to show:', 'quick-business-website' ); ?></label> 
 		<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" value="<?php echo esc_attr( $number ); ?>" />
 	</p>
 <?php }

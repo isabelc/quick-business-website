@@ -1,12 +1,10 @@
 ﻿=== Quick Business Website ===
-Author URI: http://smartestthemes.com
-Plugin URI: http://smartestthemes.com/docs/category/quick-business-website-wordpress-plugin/
 Contributors: SmartestThemes, isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=isa%40smartestthemes%2ecom
 Tags: business, business website, staff, services, announcements, company, quick site
 Requires at least: 3.4
-Tested up to: 3.8.1
-Stable Tag: 1.4.1
+Tested up to: 3.9
+Stable Tag: 1.4.2
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

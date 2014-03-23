@@ -238,46 +238,46 @@ class SMARTESTReviewsBusinessAdmin
         if ($this->options['show_fields']['ftitle'] == 1) { $sf['ftitle'] = 'checked'; }
         
         echo '
-        <div class="postbox" style="width:700px;"><h3>'. __('Display Options', 'smartestb') .'</h3><div id="smar_ad">
+        <div class="postbox" style="width:700px;"><h3>'. __('Display Options', 'quick-business-website') .'</h3><div id="smar_ad">
                <form method="post" action=""><div style="background:#eaf2fa;padding:6px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
-                        <legend>'. __('General Settings', 'smartestb').'</legend>
+                        <legend>'. __('General Settings', 'quick-business-website').'</legend>
                     </div>                    
 <div style="padding:10px;"><input id="show_hcard_on" name="show_hcard_on" type="checkbox" '.$su_checked.' value="1" />&nbsp;
-<label for="show_hcard_on">'. __('Enable Aggregate Rating on Home Page.', 'smartestb').'</label>
-<br /><br /> <small>'. __('This will pull data from your Reviews page, then add `aggregateRating` Schema.org Microdata to your home page.', 'smartestb'). '</small><br /><br /><input id="biz_declare" name="biz_declare" type="checkbox" '.$bizdeclare_checked.' value="1" />&nbsp;
-<label for="biz_declare">'. __('Declare LocalBusiness Type Microdata on Home page.', 'smartestb').'</label>
+<label for="show_hcard_on">'. __('Enable Aggregate Rating on Home Page.', 'quick-business-website').'</label>
+<br /><br /> <small>'. __('This will pull data from your Reviews page, then add `aggregateRating` Schema.org Microdata to your home page.', 'quick-business-website'). '</small><br /><br /><input id="biz_declare" name="biz_declare" type="checkbox" '.$bizdeclare_checked.' value="1" />&nbsp;
+<label for="biz_declare">'. __('Declare LocalBusiness Type Microdata on Home page.', 'quick-business-website').'</label>
                         <br /><br />
-                        <small>'. __('Add Schema.org LocalBusiness type declaration on home page. Don\'t check this if you added your own Microdata type and you only want to add on the aggregate rating.', 'smartestb').'</small><br />
-                        <div class="submit" style="padding:10px 0px 0px 0px;"><input type="submit" class="button-primary" value="'. __('Save Changes', 'smartestb') .'" name="Submit"></div>
-</div>         <div style="background:#eaf2fa;padding:6px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;"><legend>'. __('Review Page Settings', 'smartestb'). '</legend></div>
-                    <div style="padding:10px;padding-bottom:10px;"><label for="reviews_per_page">'. __('Reviews shown per page: ', 'smartestb') . '</label><input style="width:40px;" type="text" id="reviews_per_page" name="reviews_per_page" value="'.$this->options['reviews_per_page'].'" />
+                        <small>'. __('Add Schema.org LocalBusiness type declaration on home page. Don\'t check this if you added your own Microdata type and you only want to add on the aggregate rating.', 'quick-business-website').'</small><br />
+                        <div class="submit" style="padding:10px 0px 0px 0px;"><input type="submit" class="button-primary" value="'. __('Save Changes', 'quick-business-website') .'" name="Submit"></div>
+</div>         <div style="background:#eaf2fa;padding:6px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;"><legend>'. __('Review Page Settings', 'quick-business-website'). '</legend></div>
+                    <div style="padding:10px;padding-bottom:10px;"><label for="reviews_per_page">'. __('Reviews shown per page: ', 'quick-business-website') . '</label><input style="width:40px;" type="text" id="reviews_per_page" name="reviews_per_page" value="'.$this->options['reviews_per_page'].'" />
                         <br /><br />
-                        <label for="form_location">'. __('Location of Review Form: ', 'smartestb'). '</label>
+                        <label for="form_location">'. __('Location of Review Form: ', 'quick-business-website'). '</label>
                         <select id="form_location" name="form_location">
-                            <option ';if ($this->options['form_location'] == 0) { echo "selected"; } echo ' value="0">'. __('Above Reviews', 'smartestb'). '</option>
-                            <option ';if ($this->options['form_location'] == 1) { echo "selected"; } echo ' value="1">'. __('Below Reviews', 'smartestb'). '</option>                     </select>
+                            <option ';if ($this->options['form_location'] == 0) { echo "selected"; } echo ' value="0">'. __('Above Reviews', 'quick-business-website'). '</option>
+                            <option ';if ($this->options['form_location'] == 1) { echo "selected"; } echo ' value="1">'. __('Below Reviews', 'quick-business-website'). '</option>                     </select>
                         <br /><br />
-                        <label>'. __('Fields to ask for on review form: ', 'smartestb'). '</label>
-                        <input data-what="fname" id="ask_fname" name="ask_fields[]" type="checkbox" '.$af['fname'].' value="fname" />&nbsp;<label for="ask_fname"><small>'. __('Name', 'smartestb'). '</small></label>&nbsp;&nbsp;&nbsp;
-                        <input data-what="femail" id="ask_femail" name="ask_fields[]" type="checkbox" '.$af['femail'].' value="femail" />&nbsp;<label for="ask_femail"><small>'. __('Email', 'smartestb'). '</small></label>&nbsp;&nbsp;&nbsp;
-                        <input data-what="fwebsite" id="ask_fwebsite" name="ask_fields[]" type="checkbox" '.$af['fwebsite'].' value="fwebsite" />&nbsp;<label for="ask_fwebsite"><small>'. __('Website', 'smartestb'). '</small></label>&nbsp;&nbsp;&nbsp;
-                        <input data-what="ftitle" id="ask_ftitle" name="ask_fields[]" type="checkbox" '.$af['ftitle'].' value="ftitle" />&nbsp;<label for="ask_ftitle"><small>'. __('Review Title', 'smartestb'). '</small></label>
+                        <label>'. __('Fields to ask for on review form: ', 'quick-business-website'). '</label>
+                        <input data-what="fname" id="ask_fname" name="ask_fields[]" type="checkbox" '.$af['fname'].' value="fname" />&nbsp;<label for="ask_fname"><small>'. __('Name', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
+                        <input data-what="femail" id="ask_femail" name="ask_fields[]" type="checkbox" '.$af['femail'].' value="femail" />&nbsp;<label for="ask_femail"><small>'. __('Email', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
+                        <input data-what="fwebsite" id="ask_fwebsite" name="ask_fields[]" type="checkbox" '.$af['fwebsite'].' value="fwebsite" />&nbsp;<label for="ask_fwebsite"><small>'. __('Website', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
+                        <input data-what="ftitle" id="ask_ftitle" name="ask_fields[]" type="checkbox" '.$af['ftitle'].' value="ftitle" />&nbsp;<label for="ask_ftitle"><small>'. __('Review Title', 'quick-business-website'). '</small></label>
                         <br /><br />
-                        <label>'. __('Fields to require on review form: ', 'smartestb'). '</label>
-                        <input id="require_fname" name="require_fields[]" type="checkbox" '.$rf['fname'].' value="fname" />&nbsp;<label for="require_fname"><small>'. __('Name', 'smartestb'). '</small></label>&nbsp;&nbsp;&nbsp;
-                        <input id="require_femail" name="require_fields[]" type="checkbox" '.$rf['femail'].' value="femail" />&nbsp;<label for="require_femail"><small>'. __('Email', 'smartestb'). '</small></label>&nbsp;&nbsp;&nbsp;
-                        <input id="require_fwebsite" name="require_fields[]" type="checkbox" '.$rf['fwebsite'].' value="fwebsite" />&nbsp;<label for="require_fwebsite"><small>'. __('Website', 'smartestb'). '</small></label>&nbsp;&nbsp;&nbsp;
-                        <input id="require_ftitle" name="require_fields[]" type="checkbox" '.$rf['ftitle'].' value="ftitle" />&nbsp;<label for="require_ftitle"><small>'. __('Review Title', 'smartestb'). '</small></label>
+                        <label>'. __('Fields to require on review form: ', 'quick-business-website'). '</label>
+                        <input id="require_fname" name="require_fields[]" type="checkbox" '.$rf['fname'].' value="fname" />&nbsp;<label for="require_fname"><small>'. __('Name', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
+                        <input id="require_femail" name="require_fields[]" type="checkbox" '.$rf['femail'].' value="femail" />&nbsp;<label for="require_femail"><small>'. __('Email', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
+                        <input id="require_fwebsite" name="require_fields[]" type="checkbox" '.$rf['fwebsite'].' value="fwebsite" />&nbsp;<label for="require_fwebsite"><small>'. __('Website', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
+                        <input id="require_ftitle" name="require_fields[]" type="checkbox" '.$rf['ftitle'].' value="ftitle" />&nbsp;<label for="require_ftitle"><small>'. __('Review Title', 'quick-business-website'). '</small></label>
                         <br /><br />
-                        <label>'. __('Fields to show on each approved review: ', 'smartestb'). '</label>
-                        <input id="show_fname" name="show_fields[]" type="checkbox" '.$sf['fname'].' value="fname" />&nbsp;<label for="show_fname"><small>'. __('Name', 'smartestb'). '</small></label>&nbsp;&nbsp;&nbsp;
-                        <input id="show_femail" name="show_fields[]" type="checkbox" '.$sf['femail'].' value="femail" />&nbsp;<label for="show_femail"><small>'. __('Email', 'smartestb'). '</small></label>&nbsp;&nbsp;&nbsp;
-                        <input id="show_fwebsite" name="show_fields[]" type="checkbox" '.$sf['fwebsite'].' value="fwebsite" />&nbsp;<label for="show_fwebsite"><small>'. __('Website', 'smartestb'). '</small></label>&nbsp;&nbsp;&nbsp;
-                        <input id="show_ftitle" name="show_fields[]" type="checkbox" '.$sf['ftitle'].' value="ftitle" />&nbsp;<label for="show_ftitle"><small>'. __('Review Title', 'smartestb'). '</small></label>
+                        <label>'. __('Fields to show on each approved review: ', 'quick-business-website'). '</label>
+                        <input id="show_fname" name="show_fields[]" type="checkbox" '.$sf['fname'].' value="fname" />&nbsp;<label for="show_fname"><small>'. __('Name', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
+                        <input id="show_femail" name="show_fields[]" type="checkbox" '.$sf['femail'].' value="femail" />&nbsp;<label for="show_femail"><small>'. __('Email', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
+                        <input id="show_fwebsite" name="show_fields[]" type="checkbox" '.$sf['fwebsite'].' value="fwebsite" />&nbsp;<label for="show_fwebsite"><small>'. __('Website', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
+                        <input id="show_ftitle" name="show_fields[]" type="checkbox" '.$sf['ftitle'].' value="ftitle" />&nbsp;<label for="show_ftitle"><small>'. __('Review Title', 'quick-business-website'). '</small></label>
                         <br />
-                        <small>'. __('It is usually NOT a good idea to show email addresses publicly.', 'smartestb'). '</small>
+                        <small>'. __('It is usually NOT a good idea to show email addresses publicly.', 'quick-business-website'). '</small>
                         <br /><br />
-                        <label>'. __('Custom fields on review form: ', 'smartestb'). '</label>(<small>'. __('You can type in the names of any additional fields you would like here.', 'smartestb'). '</small>)
+                        <label>'. __('Custom fields on review form: ', 'quick-business-website'). '</label>(<small>'. __('You can type in the names of any additional fields you would like here.', 'quick-business-website'). '</small>)
                         <div style="font-size:10px;padding-top:6px;">
                         ';
                         for ($i = 0; $i < 6; $i++) /* 6 custom fields */
@@ -290,16 +290,16 @@ class SMARTESTReviewsBusinessAdmin
                             if ($this->options['require_custom'][$i] == 1) { $crf = 'checked'; } else { $crf = ''; }
                             if ($this->options['show_custom'][$i] == 1) { $csf = 'checked'; } else { $csf = ''; }
                             echo '
-                            <label for="field_custom'.$i.'">'. __('Field Name: ', 'smartestb'). '</label><input id="field_custom'.$i.'" name="field_custom['.$i.']" type="text" value="'.$this->options['field_custom'][$i].'" />&nbsp;&nbsp;&nbsp;
-                            <input '.$caf.' class="custom_ask" data-id="'.$i.'" id="ask_custom'.$i.'" name="ask_custom['.$i.']" type="checkbox" value="1" />&nbsp;<label for="ask_custom'.$i.'">'. __('Ask', 'smartestb'). '</label>&nbsp;&nbsp;&nbsp;
-                            <input '.$crf.' class="custom_req" data-id="'.$i.'" id="require_custom'.$i.'" name="require_custom['.$i.']" type="checkbox" value="1" />&nbsp;<label for="require_custom'.$i.'">'. __('Require', 'smartestb'). '</label>&nbsp;&nbsp;&nbsp;
-                            <input '.$csf.' class="custom_show" data-id="'.$i.'" id="show_custom'.$i.'" name="show_custom['.$i.']" type="checkbox" value="1" />&nbsp;<label for="show_custom'.$i.'">'. __('Show', 'smartestb'). '</label><br />
+                            <label for="field_custom'.$i.'">'. __('Field Name: ', 'quick-business-website'). '</label><input id="field_custom'.$i.'" name="field_custom['.$i.']" type="text" value="'.$this->options['field_custom'][$i].'" />&nbsp;&nbsp;&nbsp;
+                            <input '.$caf.' class="custom_ask" data-id="'.$i.'" id="ask_custom'.$i.'" name="ask_custom['.$i.']" type="checkbox" value="1" />&nbsp;<label for="ask_custom'.$i.'">'. __('Ask', 'quick-business-website'). '</label>&nbsp;&nbsp;&nbsp;
+                            <input '.$crf.' class="custom_req" data-id="'.$i.'" id="require_custom'.$i.'" name="require_custom['.$i.']" type="checkbox" value="1" />&nbsp;<label for="require_custom'.$i.'">'. __('Require', 'quick-business-website'). '</label>&nbsp;&nbsp;&nbsp;
+                            <input '.$csf.' class="custom_show" data-id="'.$i.'" id="show_custom'.$i.'" name="show_custom['.$i.']" type="checkbox" value="1" />&nbsp;<label for="show_custom'.$i.'">'. __('Show', 'quick-business-website'). '</label><br />
                             ';
                         }
                         echo '
                         </div>
                         <br /><br />
-                        <label for="title_tag">'. __('Heading to use for Review Titles: ', 'smartestb'). '</label>
+                        <label for="title_tag">'. __('Heading to use for Review Titles: ', 'quick-business-website'). '</label>
                         <select id="title_tag" name="title_tag">
                             <option ';if ($this->options['title_tag'] == 'h2') { echo "selected"; } echo ' value="h2">H2</option>
                             <option ';if ($this->options['title_tag'] == 'h3') { echo "selected"; } echo ' value="h3">H3</option>
@@ -308,21 +308,21 @@ class SMARTESTReviewsBusinessAdmin
                             <option ';if ($this->options['title_tag'] == 'h6') { echo "selected"; } echo ' value="h6">H7</option>
                         </select>
                         <br /><br />
-                        <label for="goto_show_button">'. __('Show review form: ', 'smartestb'). '</label><input type="checkbox" id="goto_show_button" name="goto_show_button" value="1" '.$goto_show_button_checked.' />
+                        <label for="goto_show_button">'. __('Show review form: ', 'quick-business-website'). '</label><input type="checkbox" id="goto_show_button" name="goto_show_button" value="1" '.$goto_show_button_checked.' />
                         <br />
-                        <small>'. __('If this option is unchecked, there will be no visible way for visitors to submit reviews.', 'smartestb'). '</small>
+                        <small>'. __('If this option is unchecked, there will be no visible way for visitors to submit reviews.', 'quick-business-website'). '</small>
                         <br /><br />
-                        <label for="goto_leave_text">'. __('Button text used to show review form: ', 'smartestb'). '</label><input style="width:250px;" type="text" id="goto_leave_text" name="goto_leave_text" value="'.$this->options['goto_leave_text'].'" />
+                        <label for="goto_leave_text">'. __('Button text used to show review form: ', 'quick-business-website'). '</label><input style="width:250px;" type="text" id="goto_leave_text" name="goto_leave_text" value="'.$this->options['goto_leave_text'].'" />
                         <br />
-                        <small>'. __('This button will be shown above the first review.', 'smartestb'). '</small>
+                        <small>'. __('This button will be shown above the first review.', 'quick-business-website'). '</small>
                         <br /><br />
-                        <label for="leave_text">'. __('Text to be displayed above review form: ', 'smartestb'). '</label><input style="width:250px;" type="text" id="goto_leave_text" name="goto_leave_text" value="'.$this->options['goto_leave_text'].'" />
+                        <label for="leave_text">'. __('Text to be displayed above review form: ', 'quick-business-website'). '</label><input style="width:250px;" type="text" id="goto_leave_text" name="goto_leave_text" value="'.$this->options['goto_leave_text'].'" />
                         <br />
-                        <small>'. __('This will be shown as a heading immediately above the review form.', 'smartestb'). '</small>
+                        <small>'. __('This will be shown as a heading immediately above the review form.', 'quick-business-website'). '</small>
                         <br /><br />
-                        <label for="submit_button_text">'. __('Text to use for review form submit button: ', 'smartestb'). '</label><input style="width:200px;" type="text" id="submit_button_text" name="submit_button_text" value="'.$this->options['submit_button_text'].'" />
+                        <label for="submit_button_text">'. __('Text to use for review form submit button: ', 'quick-business-website'). '</label><input style="width:200px;" type="text" id="submit_button_text" name="submit_button_text" value="'.$this->options['submit_button_text'].'" />
                         <br />
-                        <div class="submit" style="padding:10px 0px 0px 0px;"><input type="submit" class="button-primary" value="'. __('Save Changes', 'smartestb'). '" name="Submit"></div>
+                        <div class="submit" style="padding:10px 0px 0px 0px;"><input type="submit" class="button-primary" value="'. __('Save Changes', 'quick-business-website'). '" name="Submit"></div>
                     </div>';
                     settings_fields("smar_options");
                     echo '
@@ -336,7 +336,7 @@ class SMARTESTReviewsBusinessAdmin
     function security() {
         if (!current_user_can('manage_options'))
         {
-            wp_die( __('You do not have sufficient permissions to access this page.','smartestb') );
+            wp_die( __('You do not have sufficient permissions to access this page.','quick-business-website') );
         }
     }
 	
@@ -351,13 +351,13 @@ class SMARTESTReviewsBusinessAdmin
 		if ($exists != $this->dbtable) {
 			$exists = $wpdb->get_var("SHOW TABLES LIKE '$this->dbtable'");
 			if ($exists != $this->dbtable) {
-				print "<br /><br /><br /><p class='warning'>". __('COULD NOT CREATE DATABASE TABLE, PLEASE REPORT THIS ERROR', 'smartestb'). "</p>";
+				print "<br /><br /><br /><p class='warning'>". __('COULD NOT CREATE DATABASE TABLE, PLEASE REPORT THIS ERROR', 'quick-business-website'). "</p>";
 			}
 		}
         
         if (!isset($this->p->Submit)) { $this->p->Submit = ''; }
         
-        if ($this->p->Submit == __('Save Changes', 'smartestb')) {
+        if ($this->p->Submit == __('Save Changes', 'quick-business-website')) {
             $msg = $this->update_options();
             $this->parentClass->get_options();
         }
@@ -369,7 +369,7 @@ class SMARTESTReviewsBusinessAdmin
         
         echo '
         <div id="smar_respond_1" class="wrap">
-            <h2>'. __('Smartest Reviews - Options', 'smartestb'). '</h2>';
+            <h2>'. __('Smartest Reviews - Options', 'quick-business-website'). '</h2>';
             if ($msg) { echo '<h3 style="color:#a00;">'.$msg.'</h3>'; }
 
 			// set var used below
@@ -377,10 +377,10 @@ class SMARTESTReviewsBusinessAdmin
 
             echo '<div class="metabox-holder">
             <div class="postbox" style="width:700px;">
-                <h3 style="cursor:default;">'. __('About Smartest Reviews', 'smartestb'). '</h3>
+                <h3 style="cursor:default;">'. __('About Smartest Reviews', 'quick-business-website'). '</h3>
                 <div style="padding:10px; background:#ffffff;">
-                    <p>'. __('Smartest Reviews allows your customers and visitors to leave reviews or testimonials of your business. It also enables cross-page aggregate ratings. This pulls aggregate ratings data from the Reviews page into your home page to create rich snippets for search engines on your home page and your Reviews page. Reviews are Schema.org Microdata enabled.', 'smartestb'). '<br /><br />'
-					. sprintf(__('Activate Reviews by checking %s in %s.', 'smartestb'), '<code>Add Reviews Section</code>', $linkp).
+                    <p>'. __('Smartest Reviews allows your customers and visitors to leave reviews or testimonials of your business. It also enables cross-page aggregate ratings. This pulls aggregate ratings data from the Reviews page into your home page to create rich snippets for search engines on your home page and your Reviews page. Reviews are Schema.org Microdata enabled.', 'quick-business-website'). '<br /><br />'
+					. sprintf(__('Activate Reviews by checking %s in %s.', 'quick-business-website'), '<code>Add Reviews Section</code>', $linkp).
 '</p><br /> </div> </div>';
         $this->show_options();
         echo '<br /></div>';
@@ -420,7 +420,7 @@ class SMARTESTReviewsBusinessAdmin
                         
                         if (!is_array($this->p->json)) {
                             header('HTTP/1.1 403 Forbidden');
-                            echo json_encode(array("errors" => __('Bad Request', 'smartestb')));
+                            echo json_encode(array("errors" => __('Bad Request', 'quick-business-website')));
                             exit(); 
                         }
                         
@@ -433,7 +433,7 @@ class SMARTESTReviewsBusinessAdmin
                                     $d = date("m/d/Y g:i a",strtotime($val));
                                     if (!$d || $d == '01/01/1970 12:00 am') {
                                         header('HTTP/1.1 403 Forbidden');
-                                        echo json_encode(array("errors" => __('Bad Date Format', 'smartestb')));
+                                        echo json_encode(array("errors" => __('Bad Date Format', 'quick-business-website')));
                                         exit(); 
                                     }
                                     $show_val = $d;
@@ -445,7 +445,7 @@ class SMARTESTReviewsBusinessAdmin
                                 default:
                                     if ($val == '') {
                                         header('HTTP/1.1 403 Forbidden');
-                                        echo json_encode(array("errors" => __('Bad Value', 'smartestb')));
+                                        echo json_encode(array("errors" => __('Bad Value', 'quick-business-website')));
                                         exit(); 
                                     }
                                     /* for storing in DB - fix with IE 8 workaround */
@@ -571,16 +571,16 @@ class SMARTESTReviewsBusinessAdmin
         switch ($this->p->review_status)
         {
             case -1:
-                $status_text = __('Submitted', 'smartestb');
+                $status_text = __('Submitted', 'quick-business-website');
                 break;
             case 0:
-                $status_text = __('Pending', 'smartestb');
+                $status_text = __('Pending', 'quick-business-website');
                 break;
             case 1:
-                $status_text = __('Approved', 'smartestb');
+                $status_text = __('Approved', 'quick-business-website');
                 break;
             case 2:
-                $status_text = __('Trashed', 'smartestb');
+                $status_text = __('Trashed', 'quick-business-website');
                 break;
         }
         
@@ -595,27 +595,27 @@ class SMARTESTReviewsBusinessAdmin
         ?>
         <div id="smar_respond_1" class="wrap">
             <div class="icon32" id="icon-edit-comments"><br /></div>
-            <h2><?php _e('Smartest Reviews', 'smartestb'); ?> - <?php echo sprintf(__('%s Reviews', 'smartestb'), $status_text); ?></h2>
+            <h2><?php _e('Smartest Reviews', 'quick-business-website'); ?> - <?php echo sprintf(__('%s Reviews', 'quick-business-website'), $status_text); ?></h2>
               <ul class="subsubsub">
-                <li class="all"><a <?php if ($this->p->review_status == -1) { echo 'class="current"'; } ?> href="?page=smar_view_reviews&amp;review_status=-1"><?php _e('All', 'smartestb'); ?></a> |</li>
-                <li class="moderated"><a <?php if ($this->p->review_status == 0) { echo 'class="current"'; } ?> href="?page=smar_view_reviews&amp;review_status=0"><?php _e('Pending ', 'smartestb'); ?>
+                <li class="all"><a <?php if ($this->p->review_status == -1) { echo 'class="current"'; } ?> href="?page=smar_view_reviews&amp;review_status=-1"><?php _e('All', 'quick-business-website'); ?></a> |</li>
+                <li class="moderated"><a <?php if ($this->p->review_status == 0) { echo 'class="current"'; } ?> href="?page=smar_view_reviews&amp;review_status=0"><?php _e('Pending ', 'quick-business-website'); ?>
                     <span class="count">(<span class="pending-count"><?php echo $pending_count;?></span>)</span></a> |
                 </li>
-                <li class="approved"><a <?php if ($this->p->review_status == 1) { echo 'class="current"'; } ?> href="?page=smar_view_reviews&amp;review_status=1"><?php _e('Approved', 'smartestb'); ?>
+                <li class="approved"><a <?php if ($this->p->review_status == 1) { echo 'class="current"'; } ?> href="?page=smar_view_reviews&amp;review_status=1"><?php _e('Approved', 'quick-business-website'); ?>
                     <span class="count">(<span class="pending-count"><?php echo $approved_count;?></span>)</span></a> |
                 </li>
-                <li class="trash"><a <?php if ($this->p->review_status == 2) { echo 'class="current"'; } ?> href="?page=smar_view_reviews&amp;review_status=2"><?php _e('Trash', 'smartestb'); ?>
+                <li class="trash"><a <?php if ($this->p->review_status == 2) { echo 'class="current"'; } ?> href="?page=smar_view_reviews&amp;review_status=2"><?php _e('Trash', 'quick-business-website'); ?>
                     <span class="count">(<span class="pending-count"><?php echo $trash_count;?></span>)</span></a>
                 </li>
               </ul>
 
               <form method="GET" action="" id="search-form" name="search-form">
                   <p class="search-box">
-                      <?php if ($this->p->s_orig): ?><span style='color:#c00;font-weight:bold;'><?php _e('RESULTS FOR: ', 'smartestb'); ?></span><?php endif; ?>
-                      <label for="comment-search-input" class="screen-reader-text"><?php _e('Search Reviews:', 'smartestb'); ?></label> 
+                      <?php if ($this->p->s_orig): ?><span style='color:#c00;font-weight:bold;'><?php _e('RESULTS FOR: ', 'quick-business-website'); ?></span><?php endif; ?>
+                      <label for="comment-search-input" class="screen-reader-text"><?php _e('Search Reviews:', 'quick-business-website'); ?></label> 
                       <input type="text" value="<?php echo $this->p->s_orig; ?>" name="s" id="comment-search-input" />
                       <input type="hidden" name="page" value="smar_view_reviews" />
-                      <input type="submit" class="button" value="<?php _e('Search Reviews', 'smartestb'); ?>" />
+                      <input type="submit" class="button" value="<?php _e('Search Reviews', 'quick-business-website'); ?>" />
                   </p>
               </form>
 
@@ -624,19 +624,19 @@ class SMARTESTReviewsBusinessAdmin
               <div class="tablenav">
                 <div class="alignleft actions">
                       <select name="action">
-                            <option selected="selected" value="-1"><?php _e('Bulk Actions', 'smartestb'); ?></option>
-                            <option value="bunapprove"><?php _e('Unapprove', 'smartestb'); ?></option>
-                            <option value="bapprove"><?php _e('Approve', 'smartestb'); ?></option>
-                            <option value="btrash"><?php _e('Move to Trash', 'smartestb'); ?></option>
-                            <option value="bdelete"><?php _e('Delete Forever', 'smartestb'); ?></option>
+                            <option selected="selected" value="-1"><?php _e('Bulk Actions', 'quick-business-website'); ?></option>
+                            <option value="bunapprove"><?php _e('Unapprove', 'quick-business-website'); ?></option>
+                            <option value="bapprove"><?php _e('Approve', 'quick-business-website'); ?></option>
+                            <option value="btrash"><?php _e('Move to Trash', 'quick-business-website'); ?></option>
+                            <option value="bdelete"><?php _e('Delete Forever', 'quick-business-website'); ?></option>
                       </select>&nbsp;
-                      <input type="submit" class="button-secondary apply" name="act" value="<?php _e('Apply', 'smartestb'); ?>" id="doaction" /></div><br class="clear" /></div> <div class="clear"></div><table cellspacing="0" class="widefat comments fixed"><thead><tr><th style="" class="manage-column column-cb check-column" id="cb" scope="col"><input type="checkbox" /></th><th style="" class="manage-column column-author" id="author" scope="col"><?php _e('Author', 'smartestb'); ?></th><th style="" class="manage-column column-comment" id="comment" scope="col"><?php _e('Review', 'smartestb'); ?></th></tr>
+                      <input type="submit" class="button-secondary apply" name="act" value="<?php _e('Apply', 'quick-business-website'); ?>" id="doaction" /></div><br class="clear" /></div> <div class="clear"></div><table cellspacing="0" class="widefat comments fixed"><thead><tr><th style="" class="manage-column column-cb check-column" id="cb" scope="col"><input type="checkbox" /></th><th style="" class="manage-column column-author" id="author" scope="col"><?php _e('Author', 'quick-business-website'); ?></th><th style="" class="manage-column column-comment" id="comment" scope="col"><?php _e('Review', 'quick-business-website'); ?></th></tr>
                 </thead>
                 <tfoot>
                   <tr>
                     <th style="" class="manage-column column-cb check-column" scope="col"><input type="checkbox" /></th>
-                    <th style="" class="manage-column column-author" scope="col"><?php _e('Author', 'smartestb'); ?></th>
-                    <th style="" class="manage-column column-comment" scope="col"><?php _e('Review', 'smartestb'); ?></th>
+                    <th style="" class="manage-column column-author" scope="col"><?php _e('Author', 'quick-business-website'); ?></th>
+                    <th style="" class="manage-column column-comment" scope="col"><?php _e('Review', 'quick-business-website'); ?></th>
                   </tr>
                 </tfoot>
                 <tbody class="list:comment" id="the-comment-list">
@@ -644,7 +644,7 @@ class SMARTESTReviewsBusinessAdmin
                   if (count($reviews) == 0) {
                       ?>
                         <tr><td colspan="3" align="center"><br />
-<?php echo sprintf(__('There are no %s reviews yet.', 'smartestb'), $status_text); ?> <br /><br /></td></tr>
+<?php echo sprintf(__('There are no %s reviews yet.', 'quick-business-website'), $status_text); ?> <br /><br /></td></tr>
 <?php		}
                   foreach ($reviews as $review) {                    
                       $rid = $review->id;
@@ -654,7 +654,7 @@ class SMARTESTReviewsBusinessAdmin
                       $review->review_text = stripslashes($review->review_text);
                       $review->review_response = stripslashes($review->review_response);
                       $review->reviewer_name = stripslashes($review->reviewer_name);
-                      if ($review->reviewer_name == '') { $review->reviewer_name = __('Anonymous', 'smartestb'); }
+                      if ($review->reviewer_name == '') { $review->reviewer_name = __('Anonymous', 'quick-business-website'); }
                       $review_text = nl2br($review->review_text);
                       $review_text = str_replace( array("\r\n","\r","\n") , "" , $review_text );
                       $review_response = nl2br($review->review_response);
@@ -702,12 +702,12 @@ class SMARTESTReviewsBusinessAdmin
                           <div class="smar-submitted-on">
                             <span class="best_in_place" data-url='<?php echo $update_path; ?>' data-object='json' data-attribute='date_time'>
                             <!-- <?php echo date("m/d/Y g:i a",strtotime($review->date_time)); ?> -->
-<?php echo date(__('m/d/Y g:i a', 'smartestb'),strtotime(__($review->date_time,' smartestb'))); ?><!-- isa locale -->
+<?php echo date(__('m/d/Y g:i a', 'quick-business-website'),strtotime(__($review->date_time,' smartestb'))); ?><!-- isa locale -->
                             </span>
-                            <?php if ($review->status == 1) : ?>[<a target="_blank" href="<?php echo $this->parentClass->get_jumplink_for_review($review,$this->page); ?>"><?php _e('View Review on Page', 'smartestb'); ?></a>]<?php endif; ?>
+                            <?php if ($review->status == 1) : ?>[<a target="_blank" href="<?php echo $this->parentClass->get_jumplink_for_review($review,$this->page); ?>"><?php _e('View Review on Page', 'quick-business-website'); ?></a>]<?php endif; ?>
                           </div>
                           <p>
-                              <span style="font-size:13px;font-weight:bold;"><?php _e('Title:', 'smartestb'); ?>&nbsp;</span>
+                              <span style="font-size:13px;font-weight:bold;"><?php _e('Title:', 'quick-business-website'); ?>&nbsp;</span>
                               <span style="font-size:14px; font-weight:bold;" 
                                     class="best_in_place" 
                                     data-url='<?php echo $update_path; ?>' 
@@ -722,8 +722,8 @@ class SMARTESTReviewsBusinessAdmin
                                     data-type='textarea'><?php echo $review_text; ?></div>
                              <div style="font-size:13px;font-weight:bold;">
                                  <br />
-                                 <?php _e('Official Response:', 'smartestb'); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                 <span style="font-size:11px;font-style:italic;"><?php _e('Leave this blank if you do not want it to be public', 'smartestb'); ?></span>
+                                 <?php _e('Official Response:', 'quick-business-website'); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 <span style="font-size:11px;font-style:italic;"><?php _e('Leave this blank if you do not want it to be public', 'quick-business-website'); ?></span>
                              </div>
                              <div class="best_in_place" 
                                     data-url='<?php echo $update_path; ?>'
@@ -735,16 +735,16 @@ class SMARTESTReviewsBusinessAdmin
                           <div class="row-actions">
                             <span class="approve <?php if ($review->status == 0 || $review->status == 2) { echo 'smar_show'; } else { echo 'smar_hide'; }?>"><a title="Mark as Approved"
                             href="?page=smar_view_reviews&amp;action=approvereview&amp;r=<?php echo $rid;?>&amp;review_status=<?php echo $this->p->review_status;?>">
-                            <?php _e('Mark as Approved', 'smartestb'); ?></a>&nbsp;|&nbsp;</span>
+                            <?php _e('Mark as Approved', 'quick-business-website'); ?></a>&nbsp;|&nbsp;</span>
                             <span class="unapprove <?php if ($review->status == 1 || $review->status == 2) { echo 'smar_show'; } else { echo 'smar_hide'; }?>"><a title="Mark as Unapproved"
                             href="?page=smar_view_reviews&amp;action=unapprovereview&amp;r=<?php echo $rid;?>&amp;review_status=<?php echo $this->p->review_status;?>">
-                            <?php _e('Mark as Unapproved', 'smartestb'); ?></a><?php if ($review->status != 2): ?>&nbsp;|&nbsp;<?php endif; ?></span>
+                            <?php _e('Mark as Unapproved', 'quick-business-website'); ?></a><?php if ($review->status != 2): ?>&nbsp;|&nbsp;<?php endif; ?></span>
                             <span class="trash <?php if ($review->status == 2) { echo 'smar_hide'; } else { echo 'smar_show'; }?>"><a title="Move to Trash" 
                             href= "?page=smar_view_reviews&amp;action=trashreview&amp;r=<?php echo $rid;?>&amp;review_status=<?php echo $this->p->review_status;?>">
-                            <?php _e('Move to Trash', 'smartestb'); ?></a><?php if ($review->status != 2): ?>&nbsp;|&nbsp;<?php endif; ?></span>
+                            <?php _e('Move to Trash', 'quick-business-website'); ?></a><?php if ($review->status != 2): ?>&nbsp;|&nbsp;<?php endif; ?></span>
                             <span class="trash <?php if ($review->status == 2) { echo 'smar_hide'; } else { echo 'smar_show'; }?>"><a title="Delete Forever" 
                             href= "?page=smar_view_reviews&amp;action=deletereview&amp;r=<?php echo $rid;?>&amp;review_status=<?php echo $this->p->review_status;?>">
-                            <?php _e('Delete Forever', 'smartestb'); ?></a></span>
+                            <?php _e('Delete Forever', 'quick-business-website'); ?></a></span>
                           </div>
                         </td>
                       </tr>
@@ -757,13 +757,13 @@ class SMARTESTReviewsBusinessAdmin
               <div class="tablenav">
                 <div class="alignleft actions" style="float:left;">
                       <select name="action2">
-                            <option selected="selected" value="-1"><?php _e('Bulk Actions', 'smartestb'); ?></option>
-                            <option value="bunapprove"><?php _e('Unapprove', 'smartestb'); ?></option>
-                            <option value="bapprove"><?php _e('Approve', 'smartestb'); ?></option>
-                            <option value="btrash"><?php _e('Move to Trash', 'smartestb'); ?></option>
-                            <option value="bdelete"><?php _e('Delete Forever', 'smartestb'); ?></option>
+                            <option selected="selected" value="-1"><?php _e('Bulk Actions', 'quick-business-website'); ?></option>
+                            <option value="bunapprove"><?php _e('Unapprove', 'quick-business-website'); ?></option>
+                            <option value="bapprove"><?php _e('Approve', 'quick-business-website'); ?></option>
+                            <option value="btrash"><?php _e('Move to Trash', 'quick-business-website'); ?></option>
+                            <option value="bdelete"><?php _e('Delete Forever', 'quick-business-website'); ?></option>
                       </select>&nbsp;
-                      <input type="submit" class="button-secondary apply" name="act2" value="<?php _e('Apply', 'smartestb'); ?>" id="doaction2" />
+                      <input type="submit" class="button-secondary apply" name="act2" value="<?php _e('Apply', 'quick-business-website'); ?>" id="doaction2" />
                 </div>
                 <div class="alignleft actions" style="float:left;padding-left:20px;"><?php echo $this->parentClass->pagination($total_reviews, $this->options['reviews_per_page']); ?></div>  
                 <br class="clear" />

@@ -136,15 +136,15 @@ function sbfc_input_filter() {
 		return true;
 	} else {
 		if($fail == 'malicious') {
-			$sbfc_strings['error'] = '<p id="sbfc_isa_error">' . __( 'Please do not include any of the following in the Name or Email fields: linebreaks, or the phrases "mime-version", "content-type", "cc:" or "to:"', 'smartestb' ) . '</p>';
+			$sbfc_strings['error'] = '<p id="sbfc_isa_error">' . __( 'Please do not include any of the following in the Name or Email fields: linebreaks, or the phrases "mime-version", "content-type", "cc:" or "to:"', 'quick-business-website' ) . '</p>';
 		} elseif($fail == 'empty') {
 
 			$posted_msg = stripslashes($smartestb_options['smartestb_sbfc_error']);
 			// in case they erase the default in admin
-			$msg = ($posted_msg) ? $posted_msg : __( 'Please complete the required fields.', 'smartestb' );
+			$msg = ($posted_msg) ? $posted_msg : __( 'Please complete the required fields.', 'quick-business-website' );
 			$sbfc_strings['error'] = '<p id="sbfc_isa_error">' . $msg . '</p>';
 		} elseif($fail == 'wrong') {
-			$sbfc_strings['error'] = '<p id="sbfc_isa_error">' . __( 'Oops. Incorrect answer for the security question. Please try again.', 'smartestb' ) . '<br />' . __( 'Hint: 1 + 1 = 2', 'smartestb' ) . '</p>';
+			$sbfc_strings['error'] = '<p id="sbfc_isa_error">' . __( 'Oops. Incorrect answer for the security question. Please try again.', 'quick-business-website' ) . '<br />' . __( 'Hint: 1 + 1 = 2', 'quick-business-website' ) . '</p>';
 		}
 		return false;
 	}
@@ -178,9 +178,9 @@ function sbf_create_contact_page() {
 	if(get_option('smartestb_stop_contact') == 'false') {
 		// CONTACT form is not disabled so do it	
 		$bn = stripslashes_deep(esc_attr(get_option('smartestb_business_name')));
-		$contitle = sprintf(__('Contact %s','smartestb'), $bn);
+		$contitle = sprintf(__('Contact %s','quick-business-website'), $bn);
 		global $Quick_Business_Website;
-		$Quick_Business_Website->insert_post( 'page', esc_sql( _x('contact', 'page_slug', 'smartestb') ), 'qbw_contact_page_id', $contitle, '[smartest_themes_contact_form]' );
+		$Quick_Business_Website->insert_post( 'page', esc_sql( _x('contact', 'page_slug', 'quick-business-website') ), 'qbw_contact_page_id', $contitle, '[smartest_themes_contact_form]' );
 	}
 }
 add_action('after_setup_theme', 'sbf_create_contact_page');
@@ -211,10 +211,10 @@ function sbfc_process_contact_form($content='') {
 	$recipname = stripslashes($smartestb_options['smartestb_sbfc_name']);
 	$success   = stripslashes($smartestb_options['smartestb_sbfc_success']);
 	// in case 4 defaults were deleted in admin
-	$topic     = ! empty($topic) ? $topic : __( 'Message sent from your contact form', 'smartestb' );
+	$topic     = ! empty($topic) ? $topic : __( 'Message sent from your contact form', 'quick-business-website' );
 	$recipient = ! empty($recipient) ? $recipient : get_bloginfo('admin_email');
-	$recipname = ! empty($recipname) ? $recipname : __( 'Site Administrator', 'smartestb' );
-	$success   = ! empty($success) ? $success : '<strong>' . __( 'Success! ', 'smartestb' ) . '</strong> ' . __( 'Your message has been sent.', 'smartestb');
+	$recipname = ! empty($recipname) ? $recipname : __( 'Site Administrator', 'quick-business-website' );
+	$success   = ! empty($success) ? $success : '<strong>' . __( 'Success! ', 'quick-business-website' ) . '</strong> ' . __( 'Your message has been sent.', 'quick-business-website');
 
 	$name      = $_POST['smartestb_sbfc_name'];
 	$email     = $_POST['smartestb_sbfc_email'];
@@ -244,26 +244,20 @@ function sbfc_process_contact_form($content='') {
 	$phone	= $_POST['sbfc_phone'];
 	$message   = $_POST['sbfc_message'];
 
-// @TEST BEGIN
-
-
 // localize
-
-$local_hello = __( 'Hello', 'smartestb' );// @todo change textdomain!!!! also make singleton
-$local_intro = sprintf( __( 'You are being contacted @TEST via %s:', 'smartestb' ), $recipsite ); 
-$local_name = __( 'Name:', 'smartestb' );
-$local_email = __( 'Email:', 'smartestb' );
-$local_phone = __( 'Phone:', 'smartestb' );
-$local_msg = __( 'Message:', 'smartestb' );
-$local_addtl_info = __( 'Additional Information:', 'smartestb' );
-$local_site = __( 'Site:', 'smartestb' );
-$local_url = __( 'URL:', 'smartestb' );
-$local_date = __( 'Date:', 'smartestb' );
-$local_ip = __( 'IP:', 'smartestb' );
-$local_host = __( 'Host:', 'smartestb' );
-$local_agent = __( 'Agent:', 'smartestb' );
-
-/// @TEST END
+$local_hello = __( 'Hello', 'quick-business-website' );// @todo change textdomain!!!! also make singleton
+$local_intro = sprintf( __( 'You are being contacted via %s:', 'quick-business-website' ), $recipsite ); 
+$local_name = __( 'Name:', 'quick-business-website' );
+$local_email = __( 'Email:', 'quick-business-website' );
+$local_phone = __( 'Phone:', 'quick-business-website' );
+$local_msg = __( 'Message:', 'quick-business-website' );
+$local_addtl_info = __( 'Additional Information:', 'quick-business-website' );
+$local_site = __( 'Site:', 'quick-business-website' );
+$local_url = __( 'URL:', 'quick-business-website' );
+$local_date = __( 'Date:', 'quick-business-website' );
+$local_ip = __( 'IP:', 'quick-business-website' );
+$local_host = __( 'Host:', 'quick-business-website' );
+$local_agent = __( 'Agent:', 'quick-business-website' );
 
 $fullmsg   = ("$local_hello $recipname,
 
@@ -290,10 +284,10 @@ $local_agent  $agent
 	$fullmsg = stripslashes(strip_tags(trim($fullmsg)));
 	wp_mail($recipient, $topic, $fullmsg, $headers);
 	$results = ($prepend . '<div id="sbfc_isa_success"><div id="isa_success">' . $success . '</div>
-<pre>' . $local_name . ' ' . $name    .
-$local_email . ' ' . $email   .
-$local_date . ' ' . $date .
-$local_msg . ' ' . $message .'</pre><p class="sbfc_reset">[ <a href="'. $form .'">'. __( 'Click here to @test reset the form', 'smartestb' ) .'</a> ]</p></div>' . $append);
+<pre>' . $local_name . ' ' . $name    . '
+ ' . $local_email . ' ' . $email   . '
+ ' . $local_date . ' ' . $date . ' 
+ ' . $local_msg . ' ' . $message .'</pre><p class="sbfc_reset">[ <a href="'. $form .'">'. __( 'Click here to reset form', 'quick-business-website' ) .'</a> ]</p></div>' . $append);
 
 	echo $results;
 }
@@ -324,7 +318,7 @@ function sbfc_display_contact_form() {
 	} else { $captcha_box = ''; }
 	if ( 'true' == $include_phone ) {
 		$phone_field = '<fieldset class="sbfc-phone">
-			<label for="smartestb_sbfc_phone">'. __( 'Phone', 'smartestb' ) .'</label>
+			<label for="smartestb_sbfc_phone">'. __( 'Phone', 'quick-business-website' ) .'</label>
 			'. $sbfc_strings['phone'] .
 			'</fieldset>';
 	} else {
@@ -334,20 +328,20 @@ function sbfc_display_contact_form() {
 		<div id="sbfc-contactform-wrap">
 			<form action="'. get_permalink() .'" method="post" id="sbfc-contactform">
 				<fieldset class="sbfc-name">
-					<label for="smartestb_sbfc_name">'. __( 'Name (Required)', 'smartestb' ) .'</label>
+					<label for="smartestb_sbfc_name">'. __( 'Name (Required)', 'quick-business-website' ) .'</label>
 					'. $sbfc_strings['name'] .'
 				</fieldset>
 				<fieldset class="sbfc-email">
-					<label for="smartestb_sbfc_email">'. __( 'Email (Required)', 'smartestb' ) .'</label>
+					<label for="smartestb_sbfc_email">'. __( 'Email (Required)', 'quick-business-website' ) .'</label>
 					'. $sbfc_strings['email'] .'
 				</fieldset>
 					' . $captcha_box . $phone_field . '
 				<fieldset class="sbfc-message">
-					<label for="sbfc_message">'. __( 'Message (Required)', 'smartestb' ) .'</label>
+					<label for="sbfc_message">'. __( 'Message (Required)', 'quick-business-website' ) .'</label>
 					'. $sbfc_strings['message'] .'
 				</fieldset>
 				<div class="sbfc-submit">
-					<input type="submit" name="Submit" id="sbfc_contact" value="' . __('Send email', 'smartestb') . '">
+					<input type="submit" name="Submit" id="sbfc_contact" value="' . __('Send email', 'quick-business-website') . '">
 					<input type="hidden" name="sbfc_key" value="process">
 				</div>
 			</form>

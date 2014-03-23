@@ -15,8 +15,8 @@ class SmartestServices extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 	 		'smartest_services_list',
-			__('QBW Services List', 'smartestb'),
-			array( 'description' => __( 'Display the full list of Services.', 'smartestb' ), )
+			__('QBW Services List', 'quick-business-website'),
+			array( 'description' => __( 'Display the full list of Services.', 'quick-business-website' ), )
 		);
 	}
 	/**
@@ -137,17 +137,17 @@ class SmartestServices extends WP_Widget {
 			$title = $instance[ 'title' ];
 		}
 		else {
-			$title = __( 'Services', 'smartestb' );
+			$title = __( 'Services', 'quick-business-website' );
 		}
 		if ( isset( $instance[ 'service_category' ] ) ) {
 			$instance_service_category = $instance[ 'service_category' ];
 		} else {
 			$instance_service_category = '';
 		} ?>
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'smartestb' ); ?></label> 
+		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'quick-business-website' ); ?></label> 
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
-		 <p><label for="<?php echo $this->get_field_id( 'service_category' ); ?>"><?php _e( 'Optional. Only show services of this category:', 'smartestb' ); ?></label>
+		 <p><label for="<?php echo $this->get_field_id( 'service_category' ); ?>"><?php _e( 'Optional. Only show services of this category:', 'quick-business-website' ); ?></label>
 		<select class="widefat" name="<?php echo $this->get_field_name( 'service_category' ); ?>" id="<?php echo $this->get_field_id( 'service_category' ); ?>">
 		<option value="" <?php if (empty($instance_service_category)) echo 'selected="selected"'; ?>>
 		</option>';

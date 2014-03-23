@@ -7,7 +7,7 @@ Version: 1.4.2
 Author: Smartest Themes
 Author URI: http://smartestthemes.com
 License: GPL2
-Text Domain: smartestb
+Text Domain: quick-business-website
 Domain Path: lang
 Copyright 2013 - 2014 Smartest Themes(email : isa@smartestthemes.com)
 
@@ -109,7 +109,7 @@ class Quick_Business_Website{
 	function settings_link($actions, $file) {
 	$qbw_path    = plugin_basename(__FILE__);
 	if(false !== strpos($file, $qbw_path))
-	 $actions['settings'] = '<a href="admin.php?page=smartestbthemes">'. __('Settings', 'smartestb'). '</a>';
+	 $actions['settings'] = '<a href="admin.php?page=smartestbthemes">'. __('Settings', 'quick-business-website'). '</a>';
 	return $actions; 
 	}
 	/** 
@@ -119,7 +119,7 @@ class Quick_Business_Website{
 	* @return void
 	*/
 	public function load() {
-		load_plugin_textdomain( 'smartestb', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
+		load_plugin_textdomain( 'quick-business-website', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
 		include QUICKBUSINESSWEBSITE_PATH . 'inc/options.php';
 		add_action( 'init', 'smartestb_options' );
 	}
@@ -178,7 +178,7 @@ class Quick_Business_Website{
 	*/
 	public function add_admin() {
 	    global $query_string;
-	    $title = __('Quick Business Website', 'smartestb');      
+	    $title = __('Quick Business Website', 'quick-business-website');      
 	    if ( isset($_REQUEST['page']) && $_REQUEST['page'] == 'smartestbthemes' ) {
 			if (isset($_REQUEST['smartestb_save']) && 'reset' == $_REQUEST['smartestb_save']) {
 	
@@ -194,7 +194,7 @@ class Quick_Business_Website{
 				$icon = plugins_url( 'images/smartestb-icon.png' , __FILE__ );
 				}
 		
-		$sto=add_menu_page( sprintf(__('%s Options', 'smartestb'), $title), $title, 'activate_plugins', 'smartestbthemes', array($this, 'options_page'), $icon, 45);
+		$sto=add_menu_page( sprintf(__('%s Options', 'quick-business-website'), $title), $title, 'activate_plugins', 'smartestbthemes', array($this, 'options_page'), $icon, 45);
 		add_action( 'admin_head-'. $sto, array($this, 'frame_load') );
 		$this->add_admin_menu_separator(44);
 	
@@ -210,7 +210,7 @@ class Quick_Business_Website{
 	    $wp_admin_bar->add_menu( array(
 	        'parent' => 'appearance',
 	        'id' => 'qbw-options',
-	        'title' => $label. __(' Options', 'smartestb'),
+	        'title' => $label. __(' Options', 'quick-business-website'),
 	        'href' => admin_url( 'admin.php?page=smartestbthemes')
 	    ) );
 		if ( get_option('smartestb_remove_wplinks') == 'true' ) {
@@ -284,15 +284,15 @@ class Quick_Business_Website{
 	    $options = get_option('smartestb_template');      
 		$fDIR = plugins_url( '/', __FILE__ ); ?>
 	<div class="wrap" id="smartestb_container">
-	<div id="smartestb-popup-save" class="smartestb-save-popup"><div class="smartestb-save-save"><?php _e('Options Updated', 'smartestb'); ?></div></div>
-	<div id="smartestb-popup-reset" class="smartestb-save-popup"><div class="smartestb-save-reset"><?php _e('Options Reset', 'smartestb'); ?></div></div>
+	<div id="smartestb-popup-save" class="smartestb-save-popup"><div class="smartestb-save-save"><?php _e('Options Updated', 'quick-business-website'); ?></div></div>
+	<div id="smartestb-popup-reset" class="smartestb-save-popup"><div class="smartestb-save-reset"><?php _e('Options Reset', 'quick-business-website'); ?></div></div>
 	    <form action="" enctype="multipart/form-data" id="smartestbform">
 	        <div id="header">
 	           <div class="logo">
 			<?php echo apply_filters('smartestb_options_branding', '<img alt="Smartest Themes" src="'. $fDIR. 'images/st_logo_admin.png" />'); ?>
 	          </div>
 	             <div class="theme-info">
-					<span class="theme" style="margin-top:10px;"><?php _e('Quick Business Website', 'smartestb'); ?>
+					<span class="theme" style="margin-top:10px;"><?php _e('Quick Business Website', 'quick-business-website'); ?>
 					</span>
 				</div>
 				<div class="clear"></div>
@@ -309,14 +309,14 @@ class Quick_Business_Website{
 
 <a href="http://wordpress.org/support/view/plugin-reviews/quick-business-website" target="_blank" title="Rate This Plugin">
 
-<div class="dashicons dashicons-star-filled"></div> <?php _e( 'Rate This Plugin', 'smartestb' ); ?></a></li>
+<div class="dashicons dashicons-star-filled"></div> <?php _e( 'Rate This Plugin', 'quick-business-website' ); ?></a></li>
 
 <li id="smar-ui-icon">
 
 <a href="http://smartestthemes.com/downloads/" target="_blank" title="Smartest Themes">
 
-<div class="dashicons dashicons-desktop"></div> <?php _e( 'See our Business App Themes', 'smartestb' ); ?></a></li><li class="right"><img style="display:none" src="<?php echo $fDIR; ?>images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." />
-	<input type="submit" value="<?php _e('Save All Changes', 'smartestb'); ?>" class="button submit-button" /></li>
+<div class="dashicons dashicons-desktop"></div> <?php _e( 'See our Business App Themes', 'quick-business-website' ); ?></a></li><li class="right"><img style="display:none" src="<?php echo $fDIR; ?>images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." />
+	<input type="submit" value="<?php _e('Save All Changes', 'quick-business-website'); ?>" class="button submit-button" /></li>
 				</ul> 
 	<!--[if IE]>
 	</div>
@@ -326,7 +326,7 @@ class Quick_Business_Website{
 		        <div id="smartestb-nav">
 					<ul>
 						<?php echo $return[1] ?>
-						<li><a class="theme-support" title="Support" href="#smartestb-option-themesupport"><span class="smartestb-nav-icon"></span><?php _e('Plugin Support', 'smartestb'); ?></a></li>
+						<li><a class="theme-support" title="Support" href="#smartestb-option-themesupport"><span class="smartestb-nav-icon"></span><?php _e('Plugin Support', 'quick-business-website'); ?></a></li>
 						
 					</ul>		
 				</div>
@@ -334,17 +334,17 @@ class Quick_Business_Website{
 		         <?php echo $return[0]; /* Settings */ ?>
 		         <!-- ADD SUPPORT SECTION -->
 		         <div class="group" id="smartestb-option-themesupport" style="display:block;">
-		         <h2><?php _e('Plugin Support', 'smartestb'); ?></h2>
+		         <h2><?php _e('Plugin Support', 'quick-business-website'); ?></h2>
 		         <div class="section support-section">
-		         <p class="support-content"><?php _e('Stuck?  Need some help?  Found a bug?', 'smartestb'); ?></p>
+		         <p class="support-content"><?php _e('Stuck?  Need some help?  Found a bug?', 'quick-business-website'); ?></p>
 		         </div>
 		         <div class="support-divider"></div>
 		         <div class="section support-section">
 		         <div class="support-section-icon comments_blue_75"></div>
-<!-- 		         <h4 class="support-section-title"><?php _e('Support Forum', 'smartestb'); ?></h4> -->
-		         <p class="support-content"><?php _e('Get help or report a bug at the forum. There we focus on answering your questions and helping you to use the default functionality of this plugin.', 'smartestb'); ?></p>
+<!-- 		         <h4 class="support-section-title"><?php _e('Support Forum', 'quick-business-website'); ?></h4> -->
+		         <p class="support-content"><?php _e('Get help or report a bug at the forum. There we focus on answering your questions and helping you to use the default functionality of this plugin.', 'quick-business-website'); ?></p>
 	<div class="section support-section">
-		         <a class="support-button" target="_blank" title="Support Forum" href="http://wordpress.org/support/plugin/quick-business-website"><?php _e('Go To Support Forum', 'smartestb'); echo ' &raquo;'; ?> </a>
+		         <a class="support-button" target="_blank" title="Support Forum" href="http://wordpress.org/support/plugin/quick-business-website"><?php _e('Go To Support Forum', 'quick-business-website'); echo ' &raquo;'; ?> </a>
 		         </div>
 		         <div class="clear"></div>
 		         </div>
@@ -354,10 +354,10 @@ class Quick_Business_Website{
 
 <div class="section support-section">
 		         <div class="support-section-icon info_75"></div>
-<!-- 		         <h4 class="support-section-title"><?php _e('Instruction Guides', 'smartestb'); ?></h4> -->
-		         <p class="support-content"><?php _e('The Instruction Guides give detailed instructions for certain tasks.', 'smartestb'); ?></p>
+<!-- 		         <h4 class="support-section-title"><?php _e('Instruction Guides', 'quick-business-website'); ?></h4> -->
+		         <p class="support-content"><?php _e('The Instruction Guides give detailed instructions for certain tasks.', 'quick-business-website'); ?></p>
 	<div class="section support-section">
-		         <a class="support-button" target="_blank" title="Instruction Guides" href="http://smartestthemes.com/docs/category/quick-business-website---wordpress-plugin/"><?php _e('Go To Instruction Guides', 'smartestb'); echo ' &raquo;'; ?> </a>
+		         <a class="support-button" target="_blank" title="Instruction Guides" href="http://smartestthemes.com/docs/category/quick-business-website---wordpress-plugin/"><?php _e('Go To Instruction Guides', 'quick-business-website'); echo ' &raquo;'; ?> </a>
 		         </div>
 		         <div class="clear"></div>
 		         </div>
@@ -374,12 +374,12 @@ class Quick_Business_Website{
 			<![endif]-->
 	        <div class="save_bar_top">
 	        <img style="display:none" src="<?php echo $fDIR; ?>images/loading-bottom.gif" class="ajax-loading-img ajax-loading-img-bottom" alt="Working..." />
-	        <input type="submit" value="<?php _e('Save All Changes', 'smartestb'); ?>" class="button submit-button" />        
+	        <input type="submit" value="<?php _e('Save All Changes', 'quick-business-website'); ?>" class="button submit-button" />        
 	        </form>
 	     
 	        <form action="<?php echo esc_html( $_SERVER['REQUEST_URI'] ) ?>" method="post" style="display:inline" id="smartestbform-reset">
 	            <span class="submit-footer-reset">
-	            <input name="reset" type="submit" value="<?php _e('Reset Options', 'smartestb'); ?>" class="button submit-button reset-button" onclick="return confirm(localized_label.reset);" />
+	            <input name="reset" type="submit" value="<?php _e('Reset Options', 'quick-business-website'); ?>" class="button submit-button reset-button" onclick="return confirm(localized_label.reset);" />
 	            <input type="hidden" name="smartestb_save" value="reset" /> 
 	            </span>
 	        </form>
@@ -460,9 +460,9 @@ class Quick_Business_Website{
 			/**
 			 * Set localized php vars for js
 			 */
-			$upl = __('Uploading', 'smartestb');
-			$upi = __('Upload Image', 'smartestb');
-			$okr = __('Click OK to reset back to default settings. All custom QBW plugin settings will be lost!', 'smartestb');
+			$upl = __('Uploading', 'quick-business-website');
+			$upi = __('Upload Image', 'quick-business-website');
+			$okr = __('Click OK to reset back to default settings. All custom QBW plugin settings will be lost!', 'quick-business-website');
 			 // deliver the vars to js
 				?>
 			<script>
@@ -710,7 +710,7 @@ class Quick_Business_Website{
 					$upload_tracking[] = $clickedID;
 					update_option( $clickedID , $uploaded_file['url'] );
 					
-			 if(!empty($uploaded_file['error'])) {echo __('Upload Error: ', 'smartestb') . $uploaded_file['error']; }
+			 if(!empty($uploaded_file['error'])) {echo __('Upload Error: ', 'quick-business-website') . $uploaded_file['error']; }
 			 else { echo $uploaded_file['url']; } // Is the Response
 		}
 		elseif($save_type == 'image_reset'){
@@ -1165,11 +1165,11 @@ class Quick_Business_Website{
 	            $uploader .= '<input class="smartestb-input" name="'. $id .'" id="'. $id .'_upload" type="text" value="'. $val .'" />';
 		}
 		
-		$uploader .= '<div class="upload_button_div"><span class="button image_upload_button" id="'.$id.'">'. __('Upload Image', 'smartestb'). '</span>';
+		$uploader .= '<div class="upload_button_div"><span class="button image_upload_button" id="'.$id.'">'. __('Upload Image', 'quick-business-website'). '</span>';
 		
 		if(!empty($upload)) {$hide = '';} else { $hide = 'hide';}
 		
-		$uploader .= '<span class="button image_reset_button '. $hide.'" id="reset_'. $id .'" title="' . $id . '">'. __('Remove', 'smartestb'). '</span>';
+		$uploader .= '<span class="button image_reset_button '. $hide.'" id="reset_'. $id .'" title="' . $id . '">'. __('Remove', 'quick-business-website'). '</span>';
 		$uploader .='</div>' . "\n";
 	    $uploader .= '<div class="clear"></div>' . "\n";
 		if(!empty($upload)){
@@ -1267,11 +1267,11 @@ class Quick_Business_Website{
 	public function after_setup() {
 	
 		$bn = stripslashes_deep(esc_attr(get_option('smartestb_business_name')));if(!$bn) {$bn = get_bloginfo('name'); }
-		$atitle = sprintf(__('About %s','smartestb'), $bn);
+		$atitle = sprintf(__('About %s','quick-business-website'), $bn);
 
 		// if not disabled in options 
 		if(get_option('smartestb_stop_about') == 'false') {
-			$this->insert_post( 'page', esc_sql( _x('about', 'page_slug', 'smartestb') ), 'smartest_about_page_id', $atitle, '' );		}
+			$this->insert_post( 'page', esc_sql( _x('about', 'page_slug', 'quick-business-website') ), 'smartest_about_page_id', $atitle, '' );		}
 		// Activate Smartest Reviews
 		if (!class_exists('SMARTESTReviewsBusiness') && (get_option('smartestb_add_reviews') == 'true')) {
 			include_once QUICKBUSINESSWEBSITE_PATH . 'modules/smartest-reviews/smartest-reviews.php';
@@ -1417,33 +1417,33 @@ class Quick_Business_Website{
 	
 					//register cpt staff
 			    	$args = array(
-			        	'label' => __('Staff','smartestb'),
-			        	'singular_label' => __('Staff','smartestb'),
+			        	'label' => __('Staff','quick-business-website'),
+			        	'singular_label' => __('Staff','quick-business-website'),
 			        	'public' => true,
 			        	'show_ui' => true,
 			        	'capability_type' => 'post',
 			        	'hierarchical' => false,
 			        	'rewrite' => array(
-								'slug' => __('staff', 'smartestb'),
+								'slug' => __('staff', 'quick-business-website'),
 								'with_front' => false,
 	
 						),
 			        	'exclude_from_search' => false,
 		        		'labels' => array(
-							'name' => __( 'Staff','smartestb' ),
-							'singular_name' => __( 'Staff','smartestb' ),
-							'add_new' => __( 'Add New','smartestb' ),
-							'add_new_item' => __( 'Add New Staff','smartestb' ),
-							'all_items' => __( 'All Staff','smartestb' ),
-							'edit' => __( 'Edit','smartestb' ),
-							'edit_item' => __( 'Edit Staff','smartestb' ),
-							'new_item' => __( 'New Staff','smartestb' ),
-							'view' => __( 'View Staff','smartestb' ),
-							'view_item' => __( 'View Staff','smartestb' ),
-							'search_items' => __( 'Search Staff','smartestb' ),
-							'not_found' => __( 'No staff found','smartestb' ),
-							'not_found_in_trash' => __( 'No staff found in Trash','smartestb' ),
-							'parent' => __( 'Parent Staff','smartestb' ),
+							'name' => __( 'Staff','quick-business-website' ),
+							'singular_name' => __( 'Staff','quick-business-website' ),
+							'add_new' => __( 'Add New','quick-business-website' ),
+							'add_new_item' => __( 'Add New Staff','quick-business-website' ),
+							'all_items' => __( 'All Staff','quick-business-website' ),
+							'edit' => __( 'Edit','quick-business-website' ),
+							'edit_item' => __( 'Edit Staff','quick-business-website' ),
+							'new_item' => __( 'New Staff','quick-business-website' ),
+							'view' => __( 'View Staff','quick-business-website' ),
+							'view_item' => __( 'View Staff','quick-business-website' ),
+							'search_items' => __( 'Search Staff','quick-business-website' ),
+							'not_found' => __( 'No staff found','quick-business-website' ),
+							'not_found_in_trash' => __( 'No staff found in Trash','quick-business-website' ),
+							'parent' => __( 'Parent Staff','quick-business-website' ),
 						),
 			        	'supports' => array('title','editor','thumbnail','excerpt'),
 					'has_archive' => true,
@@ -1457,33 +1457,33 @@ class Quick_Business_Website{
 				if($news == 'true') { 
 					//register cpt news
 			    	$args = array(
-			        	'label' => __('Announcements','smartestb'),
-			        	'singular_label' => __('Announcement','smartestb'),
+			        	'label' => __('Announcements','quick-business-website'),
+			        	'singular_label' => __('Announcement','quick-business-website'),
 			        	'public' => true,
 			        	'show_ui' => true,
 			        	'capability_type' => 'post',
 			        	'hierarchical' => false,
 			        	'rewrite' => array(
-								'slug' => __('news','smartestb'),
+								'slug' => __('news','quick-business-website'),
 								'with_front' => false,
 	
 						),
 			        	'exclude_from_search' => false,
 		        		'labels' => array(
-							'name' => __( 'Announcements','smartestb' ),
-							'singular_name' => __( 'Announcement','smartestb' ),
-							'add_new' => __( 'Add New','smartestb' ),
-							'add_new_item' => __( 'Add New Announcement','smartestb' ),
-							'all_items' => __( 'All Announcements','smartestb' ),
-							'edit' => __( 'Edit','smartestb' ),
-							'edit_item' => __( 'Edit Announcement','smartestb' ),
-							'new_item' => __( 'New Announcement','smartestb' ),
-							'view' => __( 'View Announcement','smartestb' ),
-							'view_item' => __( 'View Announcement','smartestb' ),
-							'search_items' => __( 'Search Announcements','smartestb' ),
-							'not_found' => __( 'No announcement found','smartestb' ),
-							'not_found_in_trash' => __( 'No announcements found in Trash','smartestb' ),
-							'parent' => __( 'Parent Announcement','smartestb' ),
+							'name' => __( 'Announcements','quick-business-website' ),
+							'singular_name' => __( 'Announcement','quick-business-website' ),
+							'add_new' => __( 'Add New','quick-business-website' ),
+							'add_new_item' => __( 'Add New Announcement','quick-business-website' ),
+							'all_items' => __( 'All Announcements','quick-business-website' ),
+							'edit' => __( 'Edit','quick-business-website' ),
+							'edit_item' => __( 'Edit Announcement','quick-business-website' ),
+							'new_item' => __( 'New Announcement','quick-business-website' ),
+							'view' => __( 'View Announcement','quick-business-website' ),
+							'view_item' => __( 'View Announcement','quick-business-website' ),
+							'search_items' => __( 'Search Announcements','quick-business-website' ),
+							'not_found' => __( 'No announcement found','quick-business-website' ),
+							'not_found_in_trash' => __( 'No announcements found in Trash','quick-business-website' ),
+							'parent' => __( 'Parent Announcement','quick-business-website' ),
 						),
 			        	'supports' => array('title','editor','thumbnail'),
 					'has_archive' => true,
@@ -1499,33 +1499,33 @@ class Quick_Business_Website{
 				if($services == 'true') { 
 					//register cpt services
 			    	$args = array(
-			        	'label' => __('Services','smartestb'),
-			        	'singular_label' => __('Service','smartestb'),
+			        	'label' => __('Services','quick-business-website'),
+			        	'singular_label' => __('Service','quick-business-website'),
 			        	'public' => true,
 			        	'show_ui' => true,
 			        	'capability_type' => 'post',
 			        	'hierarchical' => false,
 			        	'rewrite' => array(
-								'slug' => __('services','smartestb'),
+								'slug' => __('services','quick-business-website'),
 								'with_front' => false,
 	
 						),
 			        	'exclude_from_search' => false,
 		        		'labels' => array(
-							'name' => __( 'Services','smartestb' ),
-							'singular_name' => __( 'Service','smartestb' ),
-							'add_new' => __( 'Add New','smartestb' ),
-							'all_items' => __( 'All Services','smartestb' ),
-							'add_new_item' => __( 'Add New Service','smartestb' ),
-							'edit' => __( 'Edit','smartestb' ),
-							'edit_item' => __( 'Edit Service','smartestb' ),
-							'new_item' => __( 'New Service','smartestb' ),
-							'view' => __( 'View Services','smartestb' ),
-							'view_item' => __( 'View Service','smartestb' ),
-							'search_items' => __( 'Search Services','smartestb' ),
-							'not_found' => __( 'No services found','smartestb' ),
-							'not_found_in_trash' => __( 'No services found in Trash','smartestb' ),
-							'parent' => __( 'Parent Service','smartestb' ),
+							'name' => __( 'Services','quick-business-website' ),
+							'singular_name' => __( 'Service','quick-business-website' ),
+							'add_new' => __( 'Add New','quick-business-website' ),
+							'all_items' => __( 'All Services','quick-business-website' ),
+							'add_new_item' => __( 'Add New Service','quick-business-website' ),
+							'edit' => __( 'Edit','quick-business-website' ),
+							'edit_item' => __( 'Edit Service','quick-business-website' ),
+							'new_item' => __( 'New Service','quick-business-website' ),
+							'view' => __( 'View Services','quick-business-website' ),
+							'view_item' => __( 'View Service','quick-business-website' ),
+							'search_items' => __( 'Search Services','quick-business-website' ),
+							'not_found' => __( 'No services found','quick-business-website' ),
+							'not_found_in_trash' => __( 'No services found in Trash','quick-business-website' ),
+							'parent' => __( 'Parent Service','quick-business-website' ),
 						),
 			        	'supports' => array('title','editor','thumbnail'),
 					'has_archive' => true,
@@ -1550,17 +1550,17 @@ class Quick_Business_Website{
 	 */
 	function set_taxonomies() {
 		$category_labels = array(
-			'name' => __( 'Categories', 'smartestb' ),
-			'singular_name' =>__( 'Category', 'smartestb' ),
-			'search_items' => __( 'Search Categories', 'smartestb' ),
-			'all_items' => __( 'All Categories', 'smartestb' ),
-			'parent_item' => __( 'Parent Category', 'smartestb' ),
-			'parent_item_colon' => __( 'Parent Category:', 'smartestb' ),
-			'edit_item' => __( 'Edit Category', 'smartestb' ),
-			'update_item' => __( 'Update Category', 'smartestb' ),
-			'add_new_item' => __( 'Add New Category', 'smartestb' ),
-			'new_item_name' => __( 'New Category Name', 'smartestb' ),
-			'menu_name' => __( 'Categories', 'smartestb' ),
+			'name' => __( 'Categories', 'quick-business-website' ),
+			'singular_name' =>__( 'Category', 'quick-business-website' ),
+			'search_items' => __( 'Search Categories', 'quick-business-website' ),
+			'all_items' => __( 'All Categories', 'quick-business-website' ),
+			'parent_item' => __( 'Parent Category', 'quick-business-website' ),
+			'parent_item_colon' => __( 'Parent Category:', 'quick-business-website' ),
+			'edit_item' => __( 'Edit Category', 'quick-business-website' ),
+			'update_item' => __( 'Update Category', 'quick-business-website' ),
+			'add_new_item' => __( 'Add New Category', 'quick-business-website' ),
+			'new_item_name' => __( 'New Category Name', 'quick-business-website' ),
+			'menu_name' => __( 'Categories', 'quick-business-website' ),
 		);
 		
 		$category_args = apply_filters( 'smartestb_service_category_args', array(
@@ -1587,7 +1587,7 @@ class Quick_Business_Website{
 	public function staff_menu_link($items, $args) {
 			$newitems = $items;
 			if( get_option('smartestb_show_staff') == 'true' ) {
-			        $newitems .= '<li class="staff"><a title="'. __('Staff', 'smartestb'). '" href="'. get_post_type_archive_link( 'smartest_staff' ) .'">'. __('Staff', 'smartestb'). '</a></li>';
+			        $newitems .= '<li class="staff"><a title="'. __('Staff', 'quick-business-website'). '" href="'. get_post_type_archive_link( 'smartest_staff' ) .'">'. __('Staff', 'quick-business-website'). '</a></li>';
 		    }
 			return $newitems;
 	}
@@ -1599,7 +1599,7 @@ class Quick_Business_Website{
 	public function services_menu_link($items, $args) {
 			$newitems = $items;
 			if( get_option('smartestb_show_services') == 'true' ) {
-			        $newitems .= '<li class="services"><a title="'. __('Services', 'smartestb'). '" href="'. get_post_type_archive_link( 'smartest_services' ) .'">'. __('Services', 'smartestb'). '</a>';
+			        $newitems .= '<li class="services"><a title="'. __('Services', 'quick-business-website'). '" href="'. get_post_type_archive_link( 'smartest_services' ) .'">'. __('Services', 'quick-business-website'). '</a>';
 
 			// if service cat tax terms exist, do sub-menu
 			$service_cats = get_terms('smartest_service_category');
@@ -1624,7 +1624,7 @@ class Quick_Business_Website{
 	public function news_menu_link($items, $args) {
 			$newitems = $items;
 		    if( get_option('smartestb_show_news') == 'true' ) {
-		        $newitems .= '<li class="news"><a title="'. __('News', 'smartestb'). '" href="'. get_post_type_archive_link( 'smartest_news' ) .'">'. __('News', 'smartestb'). '</a></li>';
+		        $newitems .= '<li class="news"><a title="'. __('News', 'quick-business-website'). '" href="'. get_post_type_archive_link( 'smartest_news' ) .'">'. __('News', 'quick-business-website'). '</a></li>';
 			 }
 		    return $newitems;
 	}
@@ -1635,7 +1635,7 @@ class Quick_Business_Website{
 	public function page_menu_staff( $menu ) {
 		$newmenu = $menu;
 		if( get_option('smartestb_show_staff') == 'true' ) {
-			$newitems = '<li class="staff"><a title="'. __('Staff', 'smartestb') . '" href="'. get_post_type_archive_link( 'smartest_staff' ) .'">'. __('Staff', 'smartestb'). '</a></li>';
+			$newitems = '<li class="staff"><a title="'. __('Staff', 'quick-business-website') . '" href="'. get_post_type_archive_link( 'smartest_staff' ) .'">'. __('Staff', 'quick-business-website'). '</a></li>';
 		    $newmenu = str_replace( '</ul></div>', $newitems . '</ul></div>', $newmenu );
 		    }
 	    return $newmenu;
@@ -1649,7 +1649,7 @@ class Quick_Business_Website{
 	public function page_menu_services( $menu ) {
 		$newmenu = $menu;
 		if( get_option('smartestb_show_services') == 'true' ) {
-			$newitems = '<li class="services"><a title="' . __('Services', 'smartestb') . '" href="'. get_post_type_archive_link( 'smartest_services' ) .'">'. __('Services', 'smartestb'). '</a>';
+			$newitems = '<li class="services"><a title="' . __('Services', 'quick-business-website') . '" href="'. get_post_type_archive_link( 'smartest_services' ) .'">'. __('Services', 'quick-business-website'). '</a>';
 			// if service cat tax terms exist, do sub-menu
 			$service_cats = get_terms('smartest_service_category');
 			$count = count($service_cats);
@@ -1673,7 +1673,7 @@ class Quick_Business_Website{
 	public function page_menu_news( $menu ) {
 		$newmenu = $menu;
 	    if( get_option('smartestb_show_news') == 'true' ) {
-	        $newitems = '<li id="testing" class="news"><a title="' . __('News', 'smartestb') . '" href="'. get_post_type_archive_link( 'smartest_news' ) .'">'. __('News', 'smartestb'). '</a></li>';
+	        $newitems = '<li id="testing" class="news"><a title="' . __('News', 'quick-business-website') . '" href="'. get_post_type_archive_link( 'smartest_news' ) .'">'. __('News', 'quick-business-website'). '</a></li>';
 		    $newmenu = str_replace( '</ul></div>', $newitems . '</ul></div>', $newmenu );
 		 }
 	    return $newmenu;
@@ -1689,46 +1689,46 @@ class Quick_Business_Website{
 		$prefix = '_smab_';
 		$meta_boxes[] = array(
 			'id'         => 'staff_details',
-			'title'      => __('Details', 'smartestb'),
+			'title'      => __('Details', 'quick-business-website'),
 			'pages'      => array( 'smartest_staff', ), // Post type
 			'context'    => 'normal',
 			'priority'   => 'high',
 			'show_names' => true,
 			'fields'     => array(
 				array(
-					'name' => __( 'Job Title', 'smartestb' ),
-					'desc' => __( 'The staff member\'s job title. Optional', 'smartestb' ),
+					'name' => __( 'Job Title', 'quick-business-website' ),
+					'desc' => __( 'The staff member\'s job title. Optional', 'quick-business-website' ),
 					'id'   => $prefix . 'staff_job_title',
 					'type' => 'text_medium',
 				),
 				array(
-					'name' => __( 'Sort Order Number', 'smartestb' ),
-					'desc' => __( 'Give this person a number to order them on the list on the staff page and in the staff widget. Number 1 appears 1st on the list, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would help to leave room in between to insert new staff members later without having to change everyone\'s current number.', 'smartestb' ),
+					'name' => __( 'Sort Order Number', 'quick-business-website' ),
+					'desc' => __( 'Give this person a number to order them on the list on the staff page and in the staff widget. Number 1 appears 1st on the list, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would help to leave room in between to insert new staff members later without having to change everyone\'s current number.', 'quick-business-website' ),
 					'id'   => $prefix . 'staff-order-number',
 					'type' => 'text',
 					'std' => 9999
 				),
 				array(
-					'name' => __('Facebook Profile ID', 'smartestb'),
-					'desc' => __('The staff member\'s Facebook profile ID. Optional', 'smartestb'),
+					'name' => __('Facebook Profile ID', 'quick-business-website'),
+					'desc' => __('The staff member\'s Facebook profile ID. Optional', 'quick-business-website'),
 					'id'   => $prefix . 'staff_facebook',
 					'type' => 'text_medium',
 				),
 				array(
-					'name' => __('Twitter Username', 'smartestb'),
-					'desc' => __('The staff member\'s Twitter username. Optional', 'smartestb'),
+					'name' => __('Twitter Username', 'quick-business-website'),
+					'desc' => __('The staff member\'s Twitter username. Optional', 'quick-business-website'),
 					'id'   => $prefix . 'staff_twitter',
 					'type' => 'text_medium',
 				),
 				array(
-					'name' => __('Google Plus Profile ID', 'smartestb'),
-					'desc' => __('The staff member\'s Google Plus profile ID. Optional', 'smartestb'),
+					'name' => __('Google Plus Profile ID', 'quick-business-website'),
+					'desc' => __('The staff member\'s Google Plus profile ID. Optional', 'quick-business-website'),
 					'id'   => $prefix . 'staff_gplus',
 					'type' => 'text_medium',
 				),
 				array(
-					'name' => __('Linkedin Profile', 'smartestb'),
-					'desc' => __('The part of the profile address after "www.linkedin.com/". Optional', 'smartestb'),
+					'name' => __('Linkedin Profile', 'quick-business-website'),
+					'desc' => __('The part of the profile address after "www.linkedin.com/". Optional', 'quick-business-website'),
 					'id'   => $prefix . 'staff_linkedin',
 					'type' => 'text_medium',
 				),
@@ -1736,15 +1736,15 @@ class Quick_Business_Website{
 		);
 		$meta_boxes[] = array(
 			'id'         => 'featured_svcs',
-			'title'      => __('Featured Services', 'smartestb'),
+			'title'      => __('Featured Services', 'quick-business-website'),
 			'pages'      => array( 'smartest_services', ), // Post type
 			'context'    => 'side',
 			'priority'   => 'default',//high, core, default, low
 			'show_names' => true,
 			'fields'     => array(
 				array(
-					'name' => __('Feature this?', 'smartestb'),
-					'desc' => __('Check this box to feature this service in the list of featured services on the home page and in the Featured Services widget.', 'smartestb'),
+					'name' => __('Feature this?', 'quick-business-website'),
+					'desc' => __('Check this box to feature this service in the list of featured services on the home page and in the Featured Services widget.', 'quick-business-website'),
 					'id'   => $prefix . 'services_featured',
 					'type' => 'checkbox',
 				),
@@ -1753,15 +1753,15 @@ class Quick_Business_Website{
 	if( get_option('smartestb_enable_service_sort') == 'true'  ) { 
 		$meta_boxes[] = array(
 			'id'         => 'services-sort-order',
-			'title'      => __( 'Set a Sort-Order', 'smartestb' ),
+			'title'      => __( 'Set a Sort-Order', 'quick-business-website' ),
 			'pages'      => array( 'smartest_services' ),
 			'context'    => 'normal',
 			'priority'   => 'high',//high, core, default, low
 			'show_names' => true,
 			'fields'     => array(
 				array(
-					'name' => __( 'Sort Order Number', 'smartestb' ),
-					'desc' => __( 'Give this service a number to order them on the list on the services page and in the services widget. Number 1 appears 1st on the list, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would help to leave room in between to insert new staff members later without having to change all current numbers.', 'smartestb' ),
+					'name' => __( 'Sort Order Number', 'quick-business-website' ),
+					'desc' => __( 'Give this service a number to order them on the list on the services page and in the services widget. Number 1 appears 1st on the list, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would help to leave room in between to insert new staff members later without having to change all current numbers.', 'quick-business-website' ),
 					'id'   => $prefix . 'service-order-number',
 					'type' => 'text',
 					'std' => 9999
@@ -1771,15 +1771,15 @@ class Quick_Business_Website{
 	}
 		$meta_boxes[] = array(
 			'id'         => 'featured_news',
-			'title'      => __('Featured News', 'smartestb'),
+			'title'      => __('Featured News', 'quick-business-website'),
 			'pages'      => array( 'smartest_news', ),
 			'context'    => 'side',
 			'priority'   => 'default',
 			'show_names' => true,
 			'fields'     => array(
 				array(
-					'name' => __('Feature this?', 'smartestb'),
-					'desc' => __('Check this box to feature this announcement in the Featured Announcements widget.', 'smartestb'),
+					'name' => __('Feature this?', 'quick-business-website'),
+					'desc' => __('Check this box to feature this announcement in the Featured Announcements widget.', 'quick-business-website'),
 					'id'   => $prefix . 'news_featured',
 					'type' => 'checkbox',
 				),
@@ -1806,7 +1806,7 @@ class Quick_Business_Website{
 	public function change_enter_title( $title ){
 		$screen = get_current_screen();
 		if  ( 'smartest_staff' == $screen->post_type ) {
-			$title = __('Enter staff member\'s name here', 'smartestb');} return $title;
+			$title = __('Enter staff member\'s name here', 'quick-business-website');} return $title;
 	}
 
 	/** 
@@ -1853,9 +1853,9 @@ class Quick_Business_Website{
 	public function smar_manage_edit_staff_columns( $columns ) {
 		$columns = array(
 			'cb' => '<input type="checkbox" />',
-			'title' => __('Name', 'smartestb'),
-			'jobtitle' => __('Job Title', 'smartestb'),
-			'date' => __('Date', 'smartestb')
+			'title' => __('Name', 'quick-business-website'),
+			'jobtitle' => __('Job Title', 'quick-business-website'),
+			'date' => __('Date', 'quick-business-website')
 		);
 	
 		return $columns;
@@ -1882,10 +1882,10 @@ class Quick_Business_Website{
 	public function smar_manage_edit_services_columns( $columns ) {
 		$columns = array(
 			'cb' => '<input type="checkbox" />',
-			'title' => __('Title', 'smartestb'),
-			'taxonomy-smartest_service_category' => __('Categories', 'smartestb'),
-			'featureds' => __('Featured', 'smartestb'),
-			'date' => __('Date', 'smartestb')
+			'title' => __('Title', 'quick-business-website'),
+			'taxonomy-smartest_service_category' => __('Categories', 'quick-business-website'),
+			'featureds' => __('Featured', 'quick-business-website'),
+			'date' => __('Date', 'quick-business-website')
 		);
 		return $columns;
 	}
@@ -1900,7 +1900,7 @@ class Quick_Business_Website{
 				$sf = get_post_meta( $post_id, '_smab_services_featured', true );
 				
 				if ( $sf )
-					_e('Featured', 'smartestb');
+					_e('Featured', 'quick-business-website');
 				break;
 			default :
 				break;
@@ -1913,9 +1913,9 @@ class Quick_Business_Website{
 	public function smar_manage_edit_news_columns( $columns ) {
 		$columns = array(
 			'cb' => '<input type="checkbox" />',
-			'title' => __('Title', 'smartestb'),
-			'featuredn' => __('Featured', 'smartestb'),
-			'date' => __('Date', 'smartestb')
+			'title' => __('Title', 'quick-business-website'),
+			'featuredn' => __('Featured', 'quick-business-website'),
+			'date' => __('Date', 'quick-business-website')
 		);
 		return $columns;
 	}
@@ -1929,7 +1929,7 @@ class Quick_Business_Website{
 			case 'featuredn' :
 				$sf = get_post_meta( $post_id, '_smab_news_featured', true );
 				if ( $sf )
-					_e('Featured', 'smartestb');
+					_e('Featured', 'quick-business-website');
 				break;
 			default :
 				break;
@@ -2009,13 +2009,13 @@ class Quick_Business_Website{
 			}
 			$staffcontent .= '<ul id="qbw-staff-socials">';
 			if (get_post_meta($post->ID, '_smab_staff_twitter', true)) {
-					$staffcontent .= '<li><a class="' . $twit. '" href="https://twitter.com/' . get_post_meta($post->ID, '_smab_staff_twitter', true) . '" title="'. __('Twitter', 'smartestb') . '"></a></li>';
+					$staffcontent .= '<li><a class="' . $twit. '" href="https://twitter.com/' . get_post_meta($post->ID, '_smab_staff_twitter', true) . '" title="'. __('Twitter', 'quick-business-website') . '"></a></li>';
 			} if (get_post_meta($post->ID, '_smab_staff_gplus', true)) {
-					$staffcontent .= '<li><a class="' . $goog .'" href="https://plus.google.com/' . get_post_meta($post->ID, '_smab_staff_gplus', true) . '" title="'. __('Google Plus', 'smartestb') . '" rel="author"></a></li>';
+					$staffcontent .= '<li><a class="' . $goog .'" href="https://plus.google.com/' . get_post_meta($post->ID, '_smab_staff_gplus', true) . '" title="'. __('Google Plus', 'quick-business-website') . '" rel="author"></a></li>';
 			} if (get_post_meta($post->ID, '_smab_staff_facebook', true)) {
-					$staffcontent .= '<li><a class="' . $face. '" href="https://facebook.com/' . get_post_meta($post->ID, '_smab_staff_facebook', true) . '" title="'. __('Facebook', 'smartestb') . '"></a></li>';
+					$staffcontent .= '<li><a class="' . $face. '" href="https://facebook.com/' . get_post_meta($post->ID, '_smab_staff_facebook', true) . '" title="'. __('Facebook', 'quick-business-website') . '"></a></li>';
 			} if (get_post_meta($post->ID, '_smab_staff_linkedin', true)) {
-					$staffcontent .= '<li><a class="' . $link .'" href="http://www.linkedin.com/' . get_post_meta($post->ID, '_smab_staff_linkedin', true) . '" title="'. __('LinkedIn', 'smartestb') . '"></a></li>';
+					$staffcontent .= '<li><a class="' . $link .'" href="http://www.linkedin.com/' . get_post_meta($post->ID, '_smab_staff_linkedin', true) . '" title="'. __('LinkedIn', 'quick-business-website') . '"></a></li>';
 			}
 			$staffcontent .= '</ul></div>' . $content;
 			return $staffcontent;
@@ -2049,22 +2049,22 @@ class Quick_Business_Website{
 				$yout = 'youtube';
 			}
 			if ( get_option('smartestb_business_twitter') ) {
-				$contactcontent .= '<li><a class="' . $twit . '" href="https://twitter.com/' . get_option('smartestb_business_twitter') . '" title="'. __('Twitter', 'smartestb') . '"></a></li>';
+				$contactcontent .= '<li><a class="' . $twit . '" href="https://twitter.com/' . get_option('smartestb_business_twitter') . '" title="'. __('Twitter', 'quick-business-website') . '"></a></li>';
 			} 
 			if ( get_option('smartestb_business_gplus') ) {
-				$contactcontent .= '<li><a class="' . $goog . '" href="https://plus.google.com/' . get_option('smartestb_business_gplus') . '" title="'. __('Google Plus', 'smartestb') . '" rel="publisher"></a></li>';
+				$contactcontent .= '<li><a class="' . $goog . '" href="https://plus.google.com/' . get_option('smartestb_business_gplus') . '" title="'. __('Google Plus', 'quick-business-website') . '" rel="publisher"></a></li>';
 			} 
 			if ( get_option('smartestb_business_facebook') ) {
-				$contactcontent .= '<li><a class="' . $face . '" href="https://facebook.com/' . get_option('smartestb_business_facebook') . '" title="'. __('Facebook', 'smartestb') . '"></a></li>';
+				$contactcontent .= '<li><a class="' . $face . '" href="https://facebook.com/' . get_option('smartestb_business_facebook') . '" title="'. __('Facebook', 'quick-business-website') . '"></a></li>';
 			}
 			if ( get_option('smartestb_business_youtube') ) {
-				$contactcontent .= '<li><a class="' . $yout. '" href="https://youtube.com/user/' . get_option('smartestb_business_youtube') . '" title="'. __('Youtube', 'smartestb') . '"></a></li>';
+				$contactcontent .= '<li><a class="' . $yout. '" href="https://youtube.com/user/' . get_option('smartestb_business_youtube') . '" title="'. __('Youtube', 'quick-business-website') . '"></a></li>';
 			}
 			if ( get_option('smartestb_business_socialurl1') ) {
-				$contactcontent .= '<li><a class="item-add" target="_blank" href="'. get_option('smartestb_business_socialurl1') . '" title="' . __( 'Connect', 'smartestb' ) . '">' . get_option('smartestb_business_sociallabel1') . '</a></li>';
+				$contactcontent .= '<li><a class="item-add" target="_blank" href="'. get_option('smartestb_business_socialurl1') . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . get_option('smartestb_business_sociallabel1') . '</a></li>';
 			} 
 			if ( get_option('smartestb_business_socialurl2') ) {
-				$contactcontent .= '<li><a class="item-add" target="_blank" href="'. get_option('smartestb_business_socialurl2') . '" title="' . __( 'Connect', 'smartestb' ) . '">' . get_option('smartestb_business_sociallabel2') . '</a></li>';
+				$contactcontent .= '<li><a class="item-add" target="_blank" href="'. get_option('smartestb_business_socialurl2') . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . get_option('smartestb_business_sociallabel2') . '</a></li>';
 			} 
 			$contactcontent .= '</ul><strong><span itemprop="name">' . get_option('smartestb_business_name') . '</span></strong><br /><br />';
 			if (get_option('smartestb_hours')) { 
@@ -2102,14 +2102,14 @@ class Quick_Business_Website{
 				$contactcontent .= '<p>';
 			
 				if ( get_option('smartestb_phone_number') ) {
-					$contactcontent .= '' . __('Telephone:', 'smartestb') . ' <span itemprop="telephone">'. get_option('smartestb_phone_number') . '</span>';
+					$contactcontent .= '' . __('Telephone:', 'quick-business-website') . ' <span itemprop="telephone">'. get_option('smartestb_phone_number') . '</span>';
 				}
 				if ( get_option('smartestb_fax_numb') ) {
-					$contactcontent .= '<br />' . __('FAX:', 'smartestb') . ' <span itemprop="faxNumber">' . get_option('smartestb_fax_numb') . '</span>';
+					$contactcontent .= '<br />' . __('FAX:', 'quick-business-website') . ' <span itemprop="faxNumber">' . get_option('smartestb_fax_numb') . '</span>';
 				
 				} 
 				if ( get_option('smartestb_show_contactemail') == 'true' ) {
-					$contactcontent .= '<br />' . __('Email:', 'smartestb') . ' <a href="mailto:' . get_bloginfo('admin_email') . '"><span itemprop="email">' . get_bloginfo('admin_email') . '</span></a><br />';
+					$contactcontent .= '<br />' . __('Email:', 'quick-business-website') . ' <a href="mailto:' . get_bloginfo('admin_email') . '"><span itemprop="email">' . get_bloginfo('admin_email') . '</span></a><br />';
 				}
 				$contactcontent .= '</p>';
 			}
@@ -2195,7 +2195,7 @@ class Quick_Business_Website{
 }
 }
 if ( defined('THEME_FRAMEWORK') && ( THEME_FRAMEWORK == 'Smartest Business Framework' ) ) {
-		$msg =  '<strong>' . __( 'You cannot activate Quick Business Website', 'smartestb') . '</strong> ' . __( 'plugin when using Smartest Themes because they clash. But Smartest Themes have everything the Quick Business Website plugin has, and more. QBW plugin will not be activated! To use the plugin, please change your Theme, first.', 'smartestb');
+		$msg =  '<strong>' . __( 'You cannot activate Quick Business Website', 'quick-business-website') . '</strong> ' . __( 'plugin when using Smartest Themes because they clash. But Smartest Themes have everything the Quick Business Website plugin has, and more. QBW plugin will not be activated! To use the plugin, please change your Theme, first.', 'quick-business-website');
 		wp_die($msg, 'Plugin Clashes With Theme', array(back_link => true));
 } else {
  	register_deactivation_hook(__FILE__, array('Quick_Business_Website', 'deactivate')); 
