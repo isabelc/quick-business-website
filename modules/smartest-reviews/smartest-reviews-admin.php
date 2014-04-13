@@ -438,8 +438,8 @@ class SMARTESTReviewsBusinessAdmin
                                     }
                                     $show_val = $d;
                                     $d2 = date("Y-m-d H:i:s",strtotime($val));
-                                    $update_col = mysql_real_escape_string($col);
-                                    $update_val = mysql_real_escape_string($d2);
+                                    $update_col = esc_sql($col);
+                                    $update_val = esc_sql($d2);
                                     break;
                                     
                                 default:
@@ -469,14 +469,14 @@ class SMARTESTReviewsBusinessAdmin
                                             $custom_name = $custom_fields[$custom_num];
                                             $old_value[$custom_name] = $val;
                                             $new_value = serialize($old_value);											
-                                            $update_col = mysql_real_escape_string('custom_fields');
-                                            $update_val = mysql_real_escape_string($new_value);
+                                            $update_col = esc_sql('custom_fields');
+                                            $update_val = esc_sql($new_value);
                                         }
                                     }
                                     else /* updating regular fields */
                                     {									
-                                        $update_col = mysql_real_escape_string($col);
-                                        $update_val = mysql_real_escape_string($val);
+                                        $update_col = esc_sql($col);
+                                        $update_val = esc_sql($val);
                                     }
 
                                     $show_val = $val;
