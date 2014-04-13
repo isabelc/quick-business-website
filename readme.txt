@@ -2,9 +2,9 @@
 Contributors: SmartestThemes, isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=isa%40smartestthemes%2ecom
 Tags: business, business website, staff, services, announcements, company, quick site
-Requires at least: 3.4
+Requires at least: 3.6
 Tested up to: 3.9
-Stable Tag: 1.4.2
+Stable Tag: 1.4.3
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -71,6 +71,9 @@ The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-
 5. Contact page showing contact form and business info 
 
 == Changelog ==
+
+= 1.4.3=
+* Maintenance: replaced mysql_real_escape_string with esc_sql for compliance with PHP 5.5+ and WP 3.9.
 
 = 1.4.2 =
 * New: textdomain has changed to quick-business-website. You must update your language files with the new filename for translations to work.
