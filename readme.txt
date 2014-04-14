@@ -72,7 +72,7 @@ The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-
 
 == Changelog ==
 
-= 1.4.3=
+= 1.4.3 =
 * Maintenance: replaced mysql_real_escape_string with esc_sql for compliance with PHP 5.5+ and WP 3.9.
 
 = 1.4.2 =
