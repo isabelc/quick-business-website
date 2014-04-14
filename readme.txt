@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=isa%4
 Tags: business, business website, staff, services, announcements, company, quick site
 Requires at least: 3.6
 Tested up to: 3.9
-Stable Tag: 1.4.3
+Stable tag: 1.4.3
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
