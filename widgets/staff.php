@@ -61,7 +61,7 @@ class SmartestStaff extends WP_Widget {
 
 <?php			echo '<a href="'.get_permalink().'" title="'. the_title_attribute( 'echo=0' ) .'">'; ?>
 
-<img src="<?php echo $smallimage['url']; ?>" width="<?php echo $smallimage['width']; ?>" />
+<img src="<?php echo $smallimage['url']; ?>" width="<?php echo $smallimage['width']; ?>" height="<?php echo $smallimage['height']; ?>" />
 </a>
 
 </figure>

@@ -80,7 +80,7 @@ class SmartestFeaturedServices extends WP_Widget {
 					$thumb = get_post_thumbnail_id(); 
 					global $Quick_Business_Website;
 					$smallimage = $Quick_Business_Website->vt_resize( $thumb, '', 152, 96, true); ?>
-					<img src="<?php echo $smallimage['url']; ?>" width="<?php echo $smallimage['width']; ?>" />
+					<img src="<?php echo $smallimage['url']; ?>" width="<?php echo $smallimage['width']; ?>" height="<?php echo $smallimage['height']; ?>" />
 <?php
 				echo '</a></figure>';
 				}
