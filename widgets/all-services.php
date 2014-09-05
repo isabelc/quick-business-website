@@ -26,13 +26,13 @@ class SmartestServices extends WP_Widget {
 	 * @param array $instance Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
-		extract( $args );
-		$title = apply_filters('widget_title', $instance['title']);
+		
+		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Services', 'quick-business-website' ) : $instance['title'], $instance, $this->id_base );
 		$service_category_term_id = $instance['service_category'];
 		$service_category = !empty($service_category_term_id) ? $service_category_term_id : '';
 
-		echo $before_widget;
-		if ( ! empty( $title ) )
+		echo $args['before_widget'];
+		if ( $title )
 			echo '<h3 class="widget-title">'. $title . '</h3>';
 		
 		// if cat is selected, do tax query
@@ -42,7 +42,7 @@ class SmartestServices extends WP_Widget {
 
 				// custom sort order is enabled
 
-				$args = array( 
+				$query_args = array( 
 					'posts_per_page' => -1, 
 					'post_type' => 'smartest_services',
 					'tax_query' => array(
@@ -59,7 +59,7 @@ class SmartestServices extends WP_Widget {
 			} else { 
 
 				// default sort order
-				$args = array( 
+				$query_args = array( 
 					'posts_per_page' => -1, 
 					'post_type' => 'smartest_services',
 					'tax_query' => array(
@@ -81,7 +81,7 @@ class SmartestServices extends WP_Widget {
 			if( get_option('smartestb_enable_service_sort') == 'true'  ) {
 
 				// custom sort order is enabled
-				$args = array( 
+				$query_args = array( 
 					'posts_per_page' => -1, 
 					'post_type' => 'smartest_services',
 					'orderby' => 'meta_value_num',
@@ -90,14 +90,14 @@ class SmartestServices extends WP_Widget {
 
 			} else {
 				// default sort order
-				$args = array( 
+				$query_args = array( 
 					'posts_per_page' => -1, 
 					'post_type' => 'smartest_services',
 					'orderby' => 'title',
 					'order' => 'ASC' );
 			}
 		}
-		$sbfservices = new WP_Query( $args );
+		$sbfservices = new WP_Query( $query_args );
 		if ( $sbfservices->have_posts() ) {
 			echo '<ul class="serviceslist">';
 			while ( $sbfservices->have_posts() ) {
@@ -110,7 +110,7 @@ class SmartestServices extends WP_Widget {
 
 		} // endif
 		wp_reset_postdata();
-		echo $after_widget;
+		echo $args['after_widget'];
 	}// end widget
 
 	/**

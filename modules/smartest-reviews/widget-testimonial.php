@@ -20,12 +20,12 @@ class SmartestReviewsTestimonial extends WP_Widget {
 	 * Front-end display of widget.
 	 */
 	public function widget( $args, $instance ) {
-		extract( $args );
-		// these are our widget options
-		$title = apply_filters('widget_title', $instance['title']);
+	
+		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Testimonials', 'quick-business-website' ) : $instance['title'], $instance, $this->id_base );
 		$number = isset( $instance['number'] ) ? $instance['number'] : '';
-		echo $before_widget;
-		if ( ! empty( $title ) )
+		
+		echo $args['before_widget'];
+		if ( $title )
 			echo '<h3 class="widget-title">'. $title . '</h3>';
 		global $wpdb;
 		// get the permalink by page id.
@@ -54,7 +54,7 @@ class SmartestReviewsTestimonial extends WP_Widget {
 			}
 			echo '<a href="'.$reviews_pageurl.'">'.__('More...', 'quick-business-website').'</a>';
 		}
-		echo $after_widget;
+		echo $args['after_widget'];
 	}// end widget
 
 	/**

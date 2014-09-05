@@ -33,19 +33,21 @@ class SmartestStaff extends WP_Widget {
 	 * @param array $instance Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
-		extract( $args );
+		
 		wp_enqueue_style('sst');
-		$title = apply_filters('widget_title', $instance['title']);
-		echo $before_widget;
-		if ( ! empty( $title ) )
+	
+		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Staff', 'quick-business-website' ) : $instance['title'], $instance, $this->id_base );
+
+		echo $args['before_widget'];
+		if ( $title )
 			echo '<h3 class="widget-title">'. $title . '</h3>';
-                $args = array(
+                $query_args = array(
                     'posts_per_page' => -1,
                     'post_type' => 'smartest_staff',
                     'orderby' => 'meta_value_num',
                     'meta_key' => '_smab_staff-order-number',
                     'order' => 'ASC' );
-                $qbwstaff = new WP_Query( $args );
+                $qbwstaff = new WP_Query( $query_args );
                 if ( $qbwstaff->have_posts() ) {
                     while ( $qbwstaff->have_posts() ) {
                         $qbwstaff->the_post();
@@ -79,7 +81,7 @@ class SmartestStaff extends WP_Widget {
                 }
                 wp_reset_postdata();
 
-		echo $after_widget;
+		echo $args['after_widget'];
 
 	}// end widget
 
