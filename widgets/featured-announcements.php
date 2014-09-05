@@ -64,19 +64,16 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 					$smallimage = $Quick_Business_Website->vt_resize( $thumb, '', 40, 65, true);
 					echo '<figure id="sfafig"><a href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">';
 					?>
-					<img class="thumb" src="<?php echo $smallimage['url']; ?>" width="<?php echo $smallimage['width']; ?>" height="<?php echo $smallimage['height']; ?>" />
+					<img class="thumb" src="<?php echo $smallimage['url']; ?>" width="<?php echo $smallimage['width']; ?>" height="<?php echo $smallimage['height']; ?>" alt=<?php the_title_attribute(); ?>" />
 		
 					<?php echo '</a></figure>';
 						
 				} else {
 				
-						// @test!!
-				
 					// if not stopped with option smartestb_stop_theme_icon
 					if(get_option('smartestb_stop_theme_icon') != 'true') {
-							$smallimage = array('url' => get_template_directory_uri(). '/images/newsicon.png', 'width' => '40px', 'cl' => 'icon');
 							echo '<figure class="img-indent"><a href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">'; ?>
-							<img class="icon" src="<?php echo plugins_url('/images/news.svg', dirname(__FILE__)); ?>" width="40px" />
+							<img class="icon" src="<?php echo plugins_url('/images/news.svg', dirname(__FILE__)); ?>" width="40px" height="40" />
 							<?php echo '</a></figure>';
 					}
 	
