@@ -62,7 +62,7 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 					$thumb = get_post_thumbnail_id();
 					global $Quick_Business_Website;
 					$smallimage = $Quick_Business_Website->vt_resize( $thumb, '', 40, 65, true);
-					echo '<figure id="sfafig"><a href="'.get_permalink().'" title="'.get_the_title().'">';
+					echo '<figure id="sfafig"><a href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">';
 					?>
 					<img class="thumb" src="<?php echo $smallimage['url']; ?>" width="<?php echo $smallimage['width']; ?>" />
 		
@@ -72,16 +72,16 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 					// if not stopped with option smartestb_stop_theme_icon
 					if(get_option('smartestb_stop_theme_icon') != 'true') {
 							$smallimage = array('url' => get_template_directory_uri(). '/images/newsicon.png', 'width' => '40px', 'cl' => 'icon');
-							echo '<figure class="img-indent"><a href="'.get_permalink().'" title="'.get_the_title().'">'; ?>
+							echo '<figure class="img-indent"><a href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">'; ?>
 							<img class="icon" src="<?php echo plugins_url('/images/news.svg', dirname(__FILE__)); ?>" width="40px" />
 							<?php echo '</a></figure>';
 					}
 	
 				}
 				echo '<div id="sfacontent">';
-				echo '<h4><a href="'.get_permalink().'" title="'.get_the_title().'">'.get_the_title().'</a></h4>';
+				echo '<h4><a href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">'.get_the_title().'</a></h4>';
 				echo '<p>'. get_the_excerpt(). '</p>';
-				echo '<a class="button" href="'.get_permalink().'" title="'.get_the_title().'">Read More</a>';
+				echo '<a class="button" href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">Read More</a>';
 				echo '</div>';
 				echo '</div>';	
 		 

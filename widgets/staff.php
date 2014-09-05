@@ -59,7 +59,7 @@ class SmartestStaff extends WP_Widget {
 				$smallimage = $Quick_Business_Website->vt_resize( $thumb, '', 48, 72, false); ?>
 				<figure id="ssfig">
 
-<?php			echo '<a href="'.get_permalink().'" title="'.get_the_title().'">'; ?>
+<?php			echo '<a href="'.get_permalink().'" title="'. the_title_attribute( 'echo=0' ) .'">'; ?>
 
 <img src="<?php echo $smallimage['url']; ?>" width="<?php echo $smallimage['width']; ?>" />
 </a>
@@ -68,16 +68,14 @@ class SmartestStaff extends WP_Widget {
 <?php } ?>
 
 	<div id="sstcontent">
-<?php echo '<h5><a href="'.get_permalink().'" title="'.get_the_title().'">'.get_the_title().'</a></h5></div></div>';
+<?php echo '<h5><a href="'.get_permalink().'" title="'. the_title_attribute( 'echo=0' ) .'">'.get_the_title().'</a></h5></div></div>';
 
                     } // endwhile;
                    
 
                 } // end if have posts   
                 else {
-
-                        '<h2>No posts found!</h2>';
-
+					echo '<h2>' . __('No posts found!</h2>', 'quick-business-website') . '</h2>';
                 }
                 wp_reset_postdata();
 

@@ -54,7 +54,7 @@ class SmartestAnnouncements extends WP_Widget {
 			echo '<ul>';
 			while ( $sbfnews->have_posts() ) {
 				$sbfnews->the_post();
-				echo '<li><a href="'.get_permalink().'" title="'.get_the_title().'">'.get_the_title().'</a><br />';
+				echo '<li><a href="'.get_permalink().'" title="'. the_title_attribute( 'echo=0' ) .'">'.get_the_title().'</a><br />';
 				$datetime = get_the_date('Y-m-d');
 				printf ( '<time datetime="%s">%s</time>', $datetime, get_the_date() );
 				echo '</li>';	

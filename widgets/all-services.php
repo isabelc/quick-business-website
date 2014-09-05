@@ -103,7 +103,7 @@ class SmartestServices extends WP_Widget {
 			while ( $sbfservices->have_posts() ) {
 				$sbfservices->the_post();
 
-				echo '<li><a href="'.get_permalink().'" title="'.get_the_title().'">'.get_the_title().'</a></li>';
+				echo '<li><a href="'.get_permalink().'" title="'. the_title_attribute( 'echo=0' ) .'">'.get_the_title().'</a></li>';
 
 			} // endwhile
 			echo '</ul>';
