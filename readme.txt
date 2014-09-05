@@ -1,7 +1,7 @@
 === Quick Business Website ===
 Contributors: SmartestThemes, isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=isa%40smartestthemes%2ecom
-Tags: business, business website, staff, services, announcements, company, quick site
+Tags: business, business website, company, quick website, quick site, staff, services, announcements
 Requires at least: 3.6
 Tested up to: 3.9
 Stable tag: 1.4.3
@@ -20,7 +20,6 @@ Get a complete business website up with a few clicks. When you activate this plu
 - a section to showcase your Services
 - an Announcements section to post sales, events, news, or anything
 - 6 Quick Business Website widgets
-- Table buttons in your post editor to easily create tables (makes it easy to create a pricelist)
 - the wp-login.php page will show your blogname with a link to your home page, instead of "WordPress" linking to WordPress.
 - Backend branding tweaks: You can upload your own logo for your clients to see in the backend. You can change or remove the footer text in the WP Admin area. You can remove the WordPress links from Admin/tool bar.
 - You can add your Google Analytics or other scripts via the options panel, without touching your code.
@@ -72,7 +71,11 @@ The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-
 
 == Changelog ==
 
-= 1.4.3=
+= 1.5 =
+* New - Removed the MCE table-editing buttons from the WP editor.
+* Maintenance - Removed PHP notices from widgets that appeared while adding widgets in the live customizer.
+
+= 1.4.3 =
 * Maintenance: replaced mysql_real_escape_string with esc_sql for compliance with PHP 5.5+ and WP 3.9.
 
 = 1.4.2 =

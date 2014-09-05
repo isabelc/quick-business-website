@@ -2209,9 +2209,4 @@ if ( defined('THEME_FRAMEWORK') && ( THEME_FRAMEWORK == 'Smartest Business Frame
 	 * @since 1.0
 	 */
 	include QUICKBUSINESSWEBSITE_PATH . 'modules/contact/contact.php';
-	/**
- 	 * Include the MCE table buttons library to add table-editing buttons to the WP editor
-	 * @since 1.0
-	 */
-	include QUICKBUSINESSWEBSITE_PATH . 'lib/mce-table/mce_table_buttons.php';
 }
