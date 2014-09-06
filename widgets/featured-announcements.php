@@ -56,13 +56,13 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 		if ( $sbffa->have_posts() ) {
 			while ( $sbffa->have_posts() ) {
 				$sbffa->the_post();
-				echo '<div id="sfawrap">';
+				echo '<div class="sfawrap">';
 				if ( has_post_thumbnail() ) {
 				
 					$thumb = get_post_thumbnail_id();
 					global $Quick_Business_Website;
 					$smallimage = $Quick_Business_Website->vt_resize( $thumb, '', 40, 65, true);
-					echo '<figure id="sfafig"><a href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">';
+					echo '<figure class="sfafig"><a href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">';
 					?>
 					<img class="thumb" src="<?php echo $smallimage['url']; ?>" width="<?php echo $smallimage['width']; ?>" height="<?php echo $smallimage['height']; ?>" alt=<?php the_title_attribute(); ?>" />
 		
@@ -78,7 +78,7 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 					}
 	
 				}
-				echo '<div id="sfacontent">';
+				echo '<div class="sfacontent">';
 				echo '<h4><a href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">'.get_the_title().'</a></h4>';
 				echo '<p>'. get_the_excerpt(). '</p>';
 				echo '<a class="button" href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">Read More</a>';

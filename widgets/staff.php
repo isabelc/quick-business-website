@@ -51,13 +51,13 @@ class SmartestStaff extends WP_Widget {
                 if ( $qbwstaff->have_posts() ) {
                     while ( $qbwstaff->have_posts() ) {
                         $qbwstaff->the_post();
-					echo '<div id="sstwrap">';
+					echo '<div class="sstwrap">';
 		
 			if ( has_post_thumbnail() ) {
 				$thumb = get_post_thumbnail_id(); 
 				global $Quick_Business_Website;
 				$smallimage = $Quick_Business_Website->vt_resize( $thumb, '', 48, 72, false); ?>
-				<figure id="ssfig">
+				<figure class="ssfig">
 
 <?php			echo '<a href="'.get_permalink().'" title="'. the_title_attribute( 'echo=0' ) .'">'; ?>
 
@@ -67,7 +67,7 @@ class SmartestStaff extends WP_Widget {
 </figure>
 <?php } ?>
 
-	<div id="sstcontent">
+	<div class="sstcontent">
 <?php echo '<h5><a href="'.get_permalink().'" title="'. the_title_attribute( 'echo=0' ) .'">'.get_the_title().'</a></h5></div></div>';
 
                     } // endwhile;

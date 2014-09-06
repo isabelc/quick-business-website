@@ -73,6 +73,16 @@ The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-
 
 = 1.5 =
 * New - Removed the MCE table-editing buttons from the WP editor.
+* Fix - Added missing alt and height attributes to images in Featured Services widget, Featured News widget, and Staff widget.
+* Fix - The CSS id #sstcontent has changed to a class. If you have any custom CSS that targets #sstcontent, you must change it to .sstcontent.
+* Fix - The CSS id #sstwrap has changed to a class. If you have any custom CSS that targets #sstwrap, you must change it to .sstwrap.
+* Fix - The CSS id #ssfig has changed to a class. If you have any custom CSS that targets #ssfig, you must change it to .ssfig.
+* Fix - The CSS id #sfswrap has changed to a class. If you have any custom CSS that targets #sfswrap, you must change it to .sfswrap.
+* Fix - The CSS id #sfsfig has changed to a class. If you have any custom CSS that targets #sfsfig, you must change it to .sfsfig.
+* Fix - The CSS id #sfscontent has changed to a class. If you have any custom CSS that targets #sfscontent, you must change it to .sfscontent.
+* Fix - The CSS id #sfawrap has changed to a class. If you have any custom CSS that targets #sfawrap, you must change it to .sfawrap.
+* Fix - The CSS id #sfafig has changed to a class. If you have any custom CSS that targets #sfafig, you must change it to .sfafig.
+* Fix - The CSS id #sfacontent has changed to a class. If you have any custom CSS that targets #sfacontent, you must change it to .sfacontent.
 * Maintenance - Removed PHP notices from widgets that appeared while adding widgets in the live customizer.
 
 = 1.4.3 =
