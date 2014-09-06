@@ -12,7 +12,6 @@ Get a complete business website up with a few clicks. When you activate this plu
 - a section to showcase your Services
 - an Announcements section to post sales, events, news, or anything
 - 6 Quick Business Website widgets
-- Table buttons in your post editor to easily create tables (makes it easy to create a pricelist)
 - the wp-login.php page will show your blogname with a link to your home page, instead of "WordPress" linking to WordPress.
 - Backend branding tweaks: You can upload your own logo for your clients to see in the backend. You can change or remove the footer text in the WP Admin area. You can remove the WordPress links from Admin/tool bar.
 - You can add your Google Analytics or other scripts via the options panel, without touching your code.
