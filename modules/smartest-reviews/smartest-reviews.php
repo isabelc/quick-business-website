@@ -51,9 +51,9 @@ class SMARTESTReviewsBusiness {
     }
 
     function addmenu() {
-        add_options_page(__('Smartest Reviews', 'quick-business-website'), '<img src="' . $this->getpluginurl() . 'star.png" />&nbsp;'. __('Smartest Reviews', 'quick-business-website'), 'manage_options', 'smar_options', array(&$this, 'admin_options'));
+        add_options_page(__('Reviews', 'quick-business-website'), '<img src="' . $this->getpluginurl() . 'star.png" />&nbsp;'. __('Reviews', 'quick-business-website'), 'manage_options', 'smar_options', array(&$this, 'admin_options'));
 		if(get_option('smartestb_add_reviews') == 'true') {       
-			add_menu_page(__('Smartest Reviews', 'quick-business-website'), __('Smartest Reviews', 'quick-business-website'), 'edit_others_posts', 'smar_view_reviews', array(&$this, 'admin_view_reviews'), $this->getpluginurl() . 'star.png', 62);
+			add_menu_page(__('Reviews', 'quick-business-website'), __('Reviews', 'quick-business-website'), 'edit_others_posts', 'smar_view_reviews', array(&$this, 'admin_view_reviews'), $this->getpluginurl() . 'star.png', 62);
 		}
    }
     function admin_options() {
@@ -573,18 +573,21 @@ $smartestb_options = get_option('smartestb_options');
                     }
 					
                     foreach ($this->options['field_custom'] as $i => $val) {  
-                        if ( isset($custom_fields_unserialized[$val]) ) {
-                            $show = $this->options['show_custom'][$i];							
-                            if ($show == 1 && $custom_fields_unserialized[$val] != '') {
-                                $custom_shown .= "<div class='smar_fl'>" . $val . ': ' . $custom_fields_unserialized[$val] . '&nbsp;&bull;&nbsp;</div>';
-                            }
-                        }
+						if ( $val ) {
+							if ( ! empty($custom_fields_unserialized[$val]) ) {
+							
+								$show = $this->options['show_custom'][$i];
+								if ($show == 1 && $custom_fields_unserialized[$val] != '') {
+									$custom_shown .= "<div class='smar_fl'>" . $val . ': ' . $custom_fields_unserialized[$val] . '&nbsp;&bull;&nbsp;</div>';
+								}
+							
+							}
+						}
                     }//foreach ($this->options['field_custom
-
                     $custom_shown = preg_replace("%&bull;&nbsp;</div>$%si","</div><div class='smar_clear'></div>",$custom_shown);
                 }// if 0 hide
 
-                $name_block = '' .'<div class="smar_fl smar_rname">' .'<abbr title="' . $this->iso8601(strtotime($review->date_time)) . '" itemprop="dateCreated">' . date("M d, Y", strtotime($review->date_time)) . '</abbr>&nbsp;' .'<span class="' . $hide_name . '">'. __('by', 'quick-business-website').'</span>&nbsp;' . '<span class="isa_vcard" id="hreview-smar-reviewer-' . $review->id . '">' . '<span class="' . $hide_name . '" itemprop="author">' . $review->reviewer_name . '</span>' . '</span>' . '<div class="smar_clear"></div>' .
+                $name_block = '' .'<div class="smar_fl smar_rname">' .'<abbr title="' . $this->iso8601(strtotime($review->date_time)) . '" itemprop="datePublished">' . date("M d, Y", strtotime($review->date_time)) . '</abbr>&nbsp;' .'<span class="' . $hide_name . '">'. __('by', 'quick-business-website').'</span>&nbsp;' . '<span class="isa_vcard" id="hreview-smar-reviewer-' . $review->id . '">' . '<span class="' . $hide_name . '" itemprop="author">' . $review->reviewer_name . '</span>' . '</span>' . '<div class="smar_clear"></div>' .
  $custom_shown . '</div>';
 
                     $reviews_content .= '<div itemprop="review" itemscope itemtype="http://schema.org/Review" id="hreview-' . $review->id . '"><' . $title_tag . ' itemprop="description" class="summary ' . $hidesummary . '">' . $review->review_title . '</' . $title_tag . '><div class="smar_fl smar_sc"><div class="smar_rating">' . $this->output_rating($review->review_rating, false) . '</div></div>' . $name_block . '<div class="smar_clear smar_spacing1"></div><blockquote itemprop="reviewBody" class="description"><p>' . $review->review_text . ' '.__('Rating:', 'quick-business-website').' <span itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating"><span itemprop="ratingValue">'.$review->review_rating.'</span></span>  '.__('out of 5.', 'quick-business-website').'</p></blockquote>' . $review_response . '</div><hr />';

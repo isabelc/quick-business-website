@@ -1554,17 +1554,17 @@ class Quick_Business_Website{
 	 */
 	function set_taxonomies() {
 		$category_labels = array(
-			'name' => __( 'Categories', 'quick-business-website' ),
-			'singular_name' =>__( 'Category', 'quick-business-website' ),
-			'search_items' => __( 'Search Categories', 'quick-business-website' ),
-			'all_items' => __( 'All Categories', 'quick-business-website' ),
-			'parent_item' => __( 'Parent Category', 'quick-business-website' ),
-			'parent_item_colon' => __( 'Parent Category:', 'quick-business-website' ),
-			'edit_item' => __( 'Edit Category', 'quick-business-website' ),
-			'update_item' => __( 'Update Category', 'quick-business-website' ),
-			'add_new_item' => __( 'Add New Category', 'quick-business-website' ),
-			'new_item_name' => __( 'New Category Name', 'quick-business-website' ),
-			'menu_name' => __( 'Categories', 'quick-business-website' ),
+			'name' => __( 'Service Categories', 'quick-business-website' ),
+			'singular_name' =>__( 'Service Category', 'quick-business-website' ),
+			'search_items' => __( 'Search Service Categories', 'quick-business-website' ),
+			'all_items' => __( 'All Service Categories', 'quick-business-website' ),
+			'parent_item' => __( 'Parent Service Category', 'quick-business-website' ),
+			'parent_item_colon' => __( 'Parent Service Category:', 'quick-business-website' ),
+			'edit_item' => __( 'Edit Service Category', 'quick-business-website' ),
+			'update_item' => __( 'Update Service Category', 'quick-business-website' ),
+			'add_new_item' => __( 'Add New Service Category', 'quick-business-website' ),
+			'new_item_name' => __( 'New Service Category Name', 'quick-business-website' ),
+			'menu_name' => __( 'Service Categories', 'quick-business-website' ),
 		);
 		
 		$category_args = apply_filters( 'smartestb_service_category_args', array(
@@ -1887,7 +1887,7 @@ class Quick_Business_Website{
 		$columns = array(
 			'cb' => '<input type="checkbox" />',
 			'title' => __('Title', 'quick-business-website'),
-			'taxonomy-smartest_service_category' => __('Categories', 'quick-business-website'),
+			'taxonomy-smartest_service_category' => __('Service Categories', 'quick-business-website'),
 			'featureds' => __('Featured', 'quick-business-website'),
 			'date' => __('Date', 'quick-business-website')
 		);

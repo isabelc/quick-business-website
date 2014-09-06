@@ -83,7 +83,14 @@ The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-
 * Fix - The CSS id #sfawrap has changed to a class. If you have any custom CSS that targets #sfawrap, you must change it to .sfawrap.
 * Fix - The CSS id #sfafig has changed to a class. If you have any custom CSS that targets #sfafig, you must change it to .sfafig.
 * Fix - The CSS id #sfacontent has changed to a class. If you have any custom CSS that targets #sfacontent, you must change it to .sfacontent.
+
+* Tweak - Changed Service Categories menu label to properly read Service Categories instead of just Categories.
+* Tweak - Changed the Reviews microdata property from dateCreated to datePublished. 
+
 * Maintenance - Removed PHP notices from widgets that appeared while adding widgets in the live customizer.
+* Maintenance - Removed PHP notices from Reviews list.
+* Maintenance - Updated Font Awesome icons version.
+* Maintenance - unused vcard selector from reviews.css.
 
 = 1.4.3 =
 * Maintenance: replaced mysql_real_escape_string with esc_sql for compliance with PHP 5.5+ and WP 3.9.
