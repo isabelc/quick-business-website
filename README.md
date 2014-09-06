@@ -28,3 +28,5 @@ When you get your first review, your site will then automatically have:
 
 
 For more info, see the [Instruction Guide](http://smartestthemes.com/docs/category/quick-business-website---wordpress-plugin/).
+
+Get [the plugin](http://wordpress.org/plugins/quick-business-website/) on WordPress.
