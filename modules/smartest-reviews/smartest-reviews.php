@@ -1028,9 +1028,12 @@ function do_the_content($original_content) {
 
 	function enqueue_scripts() {
 		if( get_option('smartestb_add_reviews') == 'true'  ) { // isa depend
-			wp_register_style('smartest-reviews', $this->getpluginurl() . 'smartest-reviews.css', array(), $this->plugin_version);wp_enqueue_style('smartest-reviews');
+			wp_register_style('smartest-reviews', $this->getpluginurl() . 'smartest-reviews.css', array(), $this->plugin_version);
 			wp_register_script('smartest-reviews', $this->getpluginurl() . 'smartest-reviews.js', array('jquery'), $this->plugin_version);
+
 			if( is_page(get_option('smartest_reviews_page_id'))) {
+			
+				wp_enqueue_style('smartest-reviews');
 		        wp_enqueue_script('smartest-reviews');
 				$loc = array(
 					'hidebutton' => __('Click here to hide form', 'quick-business-website'),
