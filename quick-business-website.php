@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: http://smartestthemes.com/docs/category/quick-business-website-wordpress-plugin/
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 1.5.1-beta1
+Version: 1.5.1
 Author: Smartest Themes
 Author URI: http://smartestthemes.com
 License: GPL2
@@ -2199,7 +2199,6 @@ class Quick_Business_Website{
 if ( 
 	( defined('THEME_FRAMEWORK') && ( THEME_FRAMEWORK == 'Smartest Business Framework' ) )
 	|| 
-	
 	( defined('SMARTEST_FRAMEWORK') && ( SMARTEST_FRAMEWORK == 'Business Framework' ) )
 	) {
 		$msg =  '<strong>' . __( 'You cannot activate Quick Business Website', 'quick-business-website') . '</strong> ' . __( 'plugin when using Smartest Themes because they clash. But Smartest Themes have everything the Quick Business Website plugin has, and more. QBW plugin will not be activated! To use the plugin, please change your Theme, first.', 'quick-business-website');
