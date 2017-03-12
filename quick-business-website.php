@@ -1498,11 +1498,6 @@ class Quick_Business_Website{
 		wp_register_style( 'frame', plugins_url( 'css/frame.css' , __FILE__ ) );
 		wp_enqueue_style( 'frame' );
 		wp_enqueue_style('font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css');
-		wp_register_script( 'responsive', plugins_url( 'js/responsive.js' , __FILE__ ), array('jquery') );
-		// not on reviews page
-		if( !is_page( get_option('smartest_reviews_page_id') ) ) {	
-			wp_enqueue_script('responsive');
-		}
 	}
 
 	/**
