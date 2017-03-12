@@ -407,8 +407,6 @@ class Quick_Business_Website{
 		$fr = plugins_url( '/', __FILE__ );
 		add_action('admin_head', 'smartestb_admin_head');
 		wp_enqueue_script('jquery-ui-core');
-		wp_register_script('jquery-input-mask', $fr. 'js/jquery.maskedinput-1.3.1.min.js', array( 'jquery' ));
-		wp_enqueue_script('jquery-input-mask');
 	
 		function smartestb_admin_head() { 
 			$fr = plugins_url( '/', __FILE__ );
@@ -419,11 +417,6 @@ class Quick_Business_Website{
 				//JQUERY DATEPICKER
 				jQuery('.smartestb-input-calendar').each(function (){
 					jQuery('#' + jQuery(this).attr('id')).datepicker({showOn: 'button', buttonImage: '<?php echo $fr; ?>images/calendar.gif', buttonImageOnly: true});
-				});
-				
-				//JQUERY TIME INPUT MASK
-				jQuery('.smartestb-input-time').each(function (){
-					jQuery('#' + jQuery(this).attr('id')).mask("99-9999999");
 				});
 				
 				//Color Picker
