@@ -3,8 +3,6 @@
  * Contact form shortcode that can be inserted on any page or post, with both jquery client-side and php server-side validation 
  * @package		Quick Business Website
  * @subpackage	Contact Module
- * @author		Smartest Themes <isa@smartestthemes.com>
- * @license		http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 // set some strings
 if (isset($_POST['smartestb_sbfc_name']))     $value_name     = htmlentities($_POST['smartestb_sbfc_name']);

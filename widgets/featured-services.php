@@ -3,9 +3,6 @@
  * Adds Featured Services widget to show selected services
  *
  * @package		Quick Business Website
- * @extends		WP_Widget
- * @author		Smartest Themes <isa@smartestthemes.com>
- * @license		http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 
 class SmartestFeaturedServices extends WP_Widget {

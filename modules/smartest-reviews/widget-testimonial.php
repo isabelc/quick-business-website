@@ -4,9 +4,6 @@
  *
  * @package		Quick Business Website
  * @subpackage 	Smartest Reviews Module
- * @extends 	WP_Widget
- * @author		Smartest Themes <isa@smartestthemes.com>
- * @license		http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 class SmartestReviewsTestimonial extends WP_Widget {
 	public function __construct() {

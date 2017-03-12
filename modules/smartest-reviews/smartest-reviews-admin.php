@@ -4,8 +4,6 @@
  * 
  * @package		Quick Business Website
  * @subpackage	Smartest Reviews Module
- * @author		Smartest Themes <isa@smartestthemes.com>
- * @license		http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 class SMARTESTReviewsBusinessAdmin
 {	var $parentClass = '';

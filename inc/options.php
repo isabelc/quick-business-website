@@ -1,9 +1,6 @@
 <?php
 /**
  * Quick Business Website Options
- * @package	Quick Business Website
- * @author	Smartest Themes <isa@smartestthemes.com>
- * @license	http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 function smartestb_options(){
 $slink = '<a href="'.admin_url('options-general.php').'">'. __('Settings', 'quick-business-website').'</a>';

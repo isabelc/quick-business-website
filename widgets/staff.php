@@ -2,9 +2,6 @@
 /**
  * Adds Staff widget to list all staff members
  * @package		Quick Business Website
- * @extends		WP_Widget
- * @author		Smartest Themes <isa@smartestthemes.com>
- * @license		http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 
 class SmartestStaff extends WP_Widget {

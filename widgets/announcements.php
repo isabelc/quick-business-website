@@ -3,9 +3,6 @@
  * Adds Announcements widget
  * 
  * @package		Quick Business Website
- * @extends		WP_Widget
- * @author		Smartest Themes <isa@smartestthemes.com>
- * @license		http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 
 class SmartestAnnouncements extends WP_Widget {

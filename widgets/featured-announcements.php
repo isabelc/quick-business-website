@@ -3,9 +3,6 @@
  * Adds Featured Announcements widget to show selected announcements
  *
  * @package		Quick Business Website
- * @extends		WP_Widget
- * @author		Smartest Themes <isa@smartestthemes.com>
- * @license		http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 
 class SmartestFeaturedAnnounce extends WP_Widget {
