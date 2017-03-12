@@ -301,11 +301,6 @@ $options[] = array( 'name' => __('Disable Contact Page','quick-business-website'
 					'std' => 'false',
 					'type' => 'checkbox');
 
-$options[] = array( 'name' => sprintf( __( 'Disable Extra Items on %s and %s', 'quick-business-website' ), '<code>wp_nav_menu</code>', '<code>wp_page_menu</code>' ),
-					'desc' => sprintf( __('Check this to stop inserting extra menu items, such as "Staff", "Services", and "News", into %s and %s.', 'quick-business-website'), '<code>wp_nav_menu</code>', '<code>wp_page_menu</code>' ),
-					'id' => $shortname.'_stop_menuitems',
-					'std' => 'false',
-					'type' => 'checkbox');
 $options[] = array( 'name' => __('Disable News Icon','quick-business-website'),
 					'desc' => __('If an Announcement (News) post does not have a featured image, a news icon will show up as its featured image on the News page (if your <code>archive.php</code> shows the thumbnail) and in the Featured Announcements widget. Check this to get rid of that icon.', 'quick-business-website'),
 					'id' => $shortname.'_stop_theme_icon',

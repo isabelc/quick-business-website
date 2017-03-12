@@ -70,15 +70,6 @@ class Quick_Business_Website{
 			add_filter ( 'the_content',  array( $this, 'staff_meta_content_filter' ) );
 			add_filter ( 'the_content',  array( $this, 'contact_content_filter' ), 50 );
 			add_filter ( 'the_content',  array( $this, 'about_content_filter' ) );
-			// Adds CPT archives menu items to wp_menu_nav and wp_page_menu, if not disabled. Priority matters.
-			if(get_option('smartestb_stop_menuitems') == 'false') {
-				add_filter( 'wp_nav_menu_items', array( $this, 'staff_menu_link' ), 10, 2);
-				add_filter( 'wp_nav_menu_items', array( $this, 'services_menu_link' ), 15, 2);//prioritize this next
-				add_filter( 'wp_nav_menu_items', array( $this, 'news_menu_link' ), 20, 2);//prioritize this next
-				add_filter( 'wp_page_menu', array( $this, 'page_menu_staff' ), 95 );
-				add_filter( 'wp_page_menu', array( $this, 'page_menu_services' ), 100 );
-				add_filter( 'wp_page_menu', array( $this, 'page_menu_news' ), 105 );
-			}
 			add_filter( 'parse_query', array( $this, 'sort_staff' ) );
 			if( get_option('smartestb_enable_service_sort') == 'true'  ) 
 				add_filter( 'parse_query', array( $this, 'sort_services' ) );
@@ -1157,7 +1148,7 @@ class Quick_Business_Website{
 	}// end machine
 
 	/** 
-	 * Smartest Themes Uploader
+	 * Uploader
 	 * @since 1.0
 	 */
 
@@ -1578,106 +1569,6 @@ class Quick_Business_Website{
 		);
 		register_taxonomy( 'smartest_service_category', array('smartest_services'), $category_args );
 		register_taxonomy_for_object_type( 'smartest_service_category', 'smartest_services' );
-	}
-
-
-	/**  
-	 * Adds Staff archives link menu item to wp_menu_nav.
-	 * @since 1.0
-	 */
-	public function staff_menu_link($items, $args) {
-			$newitems = $items;
-			if( get_option('smartestb_show_staff') == 'true' ) {
-			        $newitems .= '<li class="staff"><a title="'. __('Staff', 'quick-business-website'). '" href="'. get_post_type_archive_link( 'smartest_staff' ) .'">'. __('Staff', 'quick-business-website'). '</a></li>';
-		    }
-			return $newitems;
-	}
-	/**  
-	 * Adds Services archives link menu item to wp_menu_nav.
-	 * @since 1.0
-	 */
-
-	public function services_menu_link($items, $args) {
-			$newitems = $items;
-			if( get_option('smartestb_show_services') == 'true' ) {
-			        $newitems .= '<li class="services"><a title="'. __('Services', 'quick-business-website'). '" href="'. get_post_type_archive_link( 'smartest_services' ) .'">'. __('Services', 'quick-business-website'). '</a>';
-
-			// if service cat tax terms exist, do sub-menu
-			$service_cats = get_terms('smartest_service_category');
-			$count = count($service_cats);
-			if ( $count > 0 ){
-				$newitems .= '<ul class="sub-menu">';
-				foreach ( $service_cats as $service_cat ) {
-					$newitems .= '<li><a title="' . esc_attr( $service_cat->name ) . '" href="'. get_term_link( $service_cat ) .'">' . $service_cat->name . '</a></li>';	
-				}
-				$newitems .= '</ul>';
-			}
-			$newitems .= '</li>';
-		    }
-		    return $newitems;
-	}
-	/** 
-	 * Adds News archives link menu item to wp_menu_nav.
-	 * @since 1.0
-	 */
-
-
-	public function news_menu_link($items, $args) {
-			$newitems = $items;
-		    if( get_option('smartestb_show_news') == 'true' ) {
-		        $newitems .= '<li class="news"><a title="'. __('News', 'quick-business-website'). '" href="'. get_post_type_archive_link( 'smartest_news' ) .'">'. __('News', 'quick-business-website'). '</a></li>';
-			 }
-		    return $newitems;
-	}
-	/** 
-	 * Adds Staff archives link menu item to wp_page_menu.
-	 * @since 1.0
-	 */
-	public function page_menu_staff( $menu ) {
-		$newmenu = $menu;
-		if( get_option('smartestb_show_staff') == 'true' ) {
-			$newitems = '<li class="staff"><a title="'. __('Staff', 'quick-business-website') . '" href="'. get_post_type_archive_link( 'smartest_staff' ) .'">'. __('Staff', 'quick-business-website'). '</a></li>';
-		    $newmenu = str_replace( '</ul></div>', $newitems . '</ul></div>', $newmenu );
-		    }
-	    return $newmenu;
-	}
-
-	/** 
-	 * Adds Services archives link menu item to wp_page_menu.
-	 * @since 1.0
-	 */
-
-	public function page_menu_services( $menu ) {
-		$newmenu = $menu;
-		if( get_option('smartestb_show_services') == 'true' ) {
-			$newitems = '<li class="services"><a title="' . __('Services', 'quick-business-website') . '" href="'. get_post_type_archive_link( 'smartest_services' ) .'">'. __('Services', 'quick-business-website'). '</a>';
-			// if service cat tax terms exist, do sub-menu
-			$service_cats = get_terms('smartest_service_category');
-			$count = count($service_cats);
-			if ( $count > 0 ){
-				$newitems .= '<ul class="sub-menu">';
-				foreach ( $service_cats as $service_cat ) {
-					$newitems .= '<li><a title="' . esc_attr( $service_cat->name ) . '" href="'. get_term_link( $service_cat ) .'">' . $service_cat->name . '</a></li>';	
-				}
-				$newitems .= '</ul>';
-			}
-			$newitems .= '</li>';
-		    $newmenu = str_replace( '</ul></div>', $newitems . '</ul></div>', $newmenu );
-	    }
-	    return $newmenu;
-	}
-	/**  
-	 * Adds News archives link menu item to wp_page_menu.
-	 * @since 1.0
-	 */
-
-	public function page_menu_news( $menu ) {
-		$newmenu = $menu;
-	    if( get_option('smartestb_show_news') == 'true' ) {
-	        $newitems = '<li id="testing" class="news"><a title="' . __('News', 'quick-business-website') . '" href="'. get_post_type_archive_link( 'smartest_news' ) .'">'. __('News', 'quick-business-website'). '</a></li>';
-		    $newmenu = str_replace( '</ul></div>', $newitems . '</ul></div>', $newmenu );
-		 }
-	    return $newmenu;
 	}
 
 	/** 
