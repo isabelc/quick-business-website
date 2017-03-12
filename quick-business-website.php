@@ -62,7 +62,6 @@ class Quick_Business_Website{
 			add_action( 'manage_smartest_services_posts_custom_column', array( $this, 'smar_manage_services_columns' ), 10, 2 );
 			add_filter( 'manage_edit-smartest_news_columns', array( $this, 'smar_manage_edit_news_columns') );
 			add_action( 'manage_smartest_news_posts_custom_column', array( $this, 'smar_manage_news_columns' ), 10, 2 );
-			add_filter('smartestb_options_branding', array( $this, 'custom_options_page_logo' ) );
 			add_filter( 'admin_footer_text', array( $this, 'remove_footer_admin') ); 
 			add_action( 'wp_before_admin_bar_render', array( $this, 'admin_bar') ); 
 			add_action( 'wp_enqueue_scripts', array( $this, 'framework_enq') ); 
@@ -197,13 +196,7 @@ class Quick_Business_Website{
 				die;
 			}
 	    }
-	
-		if(get_option('framework_smartestb_backend_icon')) { $icon = get_option('framework_smartestb_backend_icon'); } 
-			else { 
-				$icon = plugins_url( 'images/smartestb-icon.png' , __FILE__ );
-				}
-		
-		$sto=add_menu_page( sprintf(__('%s Options', 'quick-business-website'), $title), $title, 'activate_plugins', 'smartestbthemes', array($this, 'options_page'), $icon, 45);
+		$sto=add_menu_page( sprintf(__('%s Options', 'quick-business-website'), $title), $title, 'activate_plugins', 'smartestbthemes', array($this, 'options_page'), 'dashicons-welcome-widgets-menus', 45);
 		add_action( 'admin_head-'. $sto, array($this, 'frame_load') );
 		$this->add_admin_menu_separator(44);
 	
@@ -291,14 +284,16 @@ class Quick_Business_Website{
 	 */
 	public function options_page(){
 	    $options = get_option('smartestb_template');      
-		$fDIR = plugins_url( '/', __FILE__ ); ?>
+		$qbw_dir = plugins_url( '/', __FILE__ ); ?>
 	<div class="wrap" id="smartestb_container">
 	<div id="smartestb-popup-save" class="smartestb-save-popup"><div class="smartestb-save-save"><?php _e('Options Updated', 'quick-business-website'); ?></div></div>
 	<div id="smartestb-popup-reset" class="smartestb-save-popup"><div class="smartestb-save-reset"><?php _e('Options Reset', 'quick-business-website'); ?></div></div>
 	    <form action="" enctype="multipart/form-data" id="smartestbform">
 	        <div id="header">
 	           <div class="logo">
-			<?php echo apply_filters('smartestb_options_branding', '<img alt="Smartest Themes" src="'. $fDIR. 'images/st_logo_admin.png" />'); ?>
+				<?php if ( $custom_logo_id = get_theme_mod( 'custom_logo' ) ) {
+					echo wp_get_attachment_image( $custom_logo_id, 'full' );
+				} ?>
 	          </div>
 	             <div class="theme-info">
 					<span class="theme" style="margin-top:10px;"><?php _e('Quick Business Website', 'quick-business-website'); ?>
@@ -324,7 +319,7 @@ class Quick_Business_Website{
 
 <a href="http://smartestthemes.com/downloads/" target="_blank" title="Smartest Themes">
 
-<div class="dashicons dashicons-desktop"></div> <?php _e( 'See our Business Themes', 'quick-business-website' ); ?></a></li><li class="right"><img style="display:none" src="<?php echo $fDIR; ?>images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." />
+<div class="dashicons dashicons-desktop"></div> <?php _e( 'See our Business Themes', 'quick-business-website' ); ?></a></li><li class="right"><img style="display:none" src="<?php echo $qbw_dir; ?>images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." />
 	<input type="submit" value="<?php _e('Save All Changes', 'quick-business-website'); ?>" class="button submit-button" /></li>
 				</ul> 
 	<!--[if IE]>
@@ -382,7 +377,7 @@ class Quick_Business_Website{
 			<div class="ie">
 			<![endif]-->
 	        <div class="save_bar_top">
-	        <img style="display:none" src="<?php echo $fDIR; ?>images/loading-bottom.gif" class="ajax-loading-img ajax-loading-img-bottom" alt="Working..." />
+	        <img style="display:none" src="<?php echo $qbw_dir; ?>images/loading-bottom.gif" class="ajax-loading-img ajax-loading-img-bottom" alt="Working..." />
 	        <input type="submit" value="<?php _e('Save All Changes', 'quick-business-website'); ?>" class="button submit-button" />        
 	        </form>
 	     
@@ -1937,22 +1932,6 @@ class Quick_Business_Website{
 				break;
 			default :
 				break;
-		}
-	}
-	/**
-	 * Options Page Branding: use custom logo on theme options page header
-	 * @since 1.4.1
-	 */
-	function custom_options_page_logo() {
-		// backwards compat. if option = 'false' string, update it to ''. @todo remove in 2.0
-		$backlogo = get_option('smartestb_options_logo');
-		if( 'false' == $backlogo ) {
-			delete_option( 'smartestb_options_logo' );
-		}
-		if (get_option('smartestb_options_logo')) {
-			return '<img alt="logo" src="'.get_option('smartestb_options_logo').'" class="custom-bb-logo"/>';
-		} else { 
-			return '<img alt="Smartest Themes" src="'. plugins_url( '/', __FILE__ ) .'images/st_logo_admin.png" />';
 		}
 	}
 	/** 

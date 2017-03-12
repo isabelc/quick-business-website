@@ -22,7 +22,7 @@ $options = array();
 $options[] = array( 'name' => __('Welcome','quick-business-website'),
 						'type' => 'heading'
 						);
-$options[] = array( 'name' => __('Welcome to Quick Business Website by Smartest Themes!','quick-business-website'),
+$options[] = array( 'name' => __('Welcome to Quick Business Website','quick-business-website'),
 						'type' => 'info',
 						'std' => __( 'On the left are tabs to customize your site, but everything is optional.<br /><br />To make your website more complete, enter these two tabs on the left:<br /><br />1. The <strong>About Page</strong> tab.<br />2. The <strong>Business Info</strong> tab.<br /><br />Then, take a moment to browse all the tabs so you can see what options are available. <br /><br />To get started, first click the \'<strong>Save all Changes</strong>\' button to save the plugin defaults.', 'quick-business-website' ) );
 
