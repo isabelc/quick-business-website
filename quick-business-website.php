@@ -186,9 +186,9 @@ class Quick_Business_Website{
 	*/
 	public function add_admin() {
 	    global $query_string;
-	    $title = __('Quick Business Website', 'quick-business-website');      
-	    if ( isset($_REQUEST['page']) && $_REQUEST['page'] == 'smartestbthemes' ) {
-			if (isset($_REQUEST['smartestb_save']) && 'reset' == $_REQUEST['smartestb_save']) {
+	    $title = __( 'Quick Business Website', 'quick-business-website' );
+	    if ( isset( $_REQUEST['page']) && $_REQUEST['page'] == 'smartestbthemes' ) {
+			if ( isset( $_REQUEST['smartestb_save'] ) && 'reset' == $_REQUEST['smartestb_save']) {
 	
 				$options =  get_option('smartestb_template'); 
 				$this->reset_options($options,'smartestbthemes');
@@ -196,8 +196,8 @@ class Quick_Business_Website{
 				die;
 			}
 	    }
-		$sto=add_menu_page( sprintf(__('%s Options', 'quick-business-website'), $title), $title, 'activate_plugins', 'smartestbthemes', array($this, 'options_page'), 'dashicons-welcome-widgets-menus', 45);
-		add_action( 'admin_head-'. $sto, array($this, 'frame_load') );
+		$sto = add_menu_page( sprintf(__('%s Options', 'quick-business-website'), $title), $title, 'activate_plugins', 'smartestbthemes', array($this, 'options_page'), 'dashicons-welcome-widgets-menus', 45);
+		add_action( 'admin_head-'. $sto, array( $this, 'frame_load' ) );
 		$this->add_admin_menu_separator(44);
 	
 	} // end add_admin
@@ -219,7 +219,7 @@ class Quick_Business_Website{
 			$wp_admin_bar->remove_menu('wp-logo');
 		}
 
-	}// end admin_bar
+	}
 
 	/**
 	 * Reset options page
@@ -459,25 +459,19 @@ class Quick_Business_Website{
 	});
 				</script>
 	
-	<?php	//AJAX Upload
-	
+	<?php
 			/**
-			 * Set localized php vars for js
+			 * Set localized vars for js
 			 */
-			$upl = __('Uploading', 'quick-business-website');
-			$upi = __('Upload Image', 'quick-business-website');
 			$okr = __('Click OK to reset back to default settings. All custom QBW plugin settings will be lost!', 'quick-business-website');
 			 // deliver the vars to js
 				?>
 			<script>
 				var localized_label = {
-						uploading : "<?php echo $upl ?>",
-						uploadimage : "<?php echo $upi ?>",
-						reset : "<?php echo $okr ?>",
+					reset : "<?php echo $okr ?>",
 				}
 			</script>
 			
-			<script type="text/javascript" src="<?php echo $fr; ?>js/ajaxupload.js"></script>
 			<script type="text/javascript">
 				jQuery(document).ready(function(){
 	
@@ -566,86 +560,6 @@ class Quick_Business_Website{
 				
 				});
 			
-				//AJAX Upload
-				jQuery('.image_upload_button').each(function(){
-				
-				var clickedObject = jQuery(this);
-				var clickedID = jQuery(this).attr('id');	
-				new AjaxUpload(clickedID, {
-					  action: '<?php echo admin_url("admin-ajax.php"); ?>',
-					  name: clickedID, // File upload name
-					  data: { // Additional data to send
-							action: 'smartestb_ajax_post_action',
-							type: 'upload',
-							data: clickedID },
-					  autoSubmit: true, // Submit file after selection
-					  responseType: false,
-					  onChange: function(file, extension){},
-					  onSubmit: function(file, extension){
-							clickedObject.text(localized_label.uploading); // change button text, when user selects file	
-							this.disable(); // If you want to allow uploading only 1 file at time, you can disable upload button
-							interval = window.setInterval(function(){
-								var text = clickedObject.text();
-								if (text.length < 13){	clickedObject.text(text + '.'); }
-								else { clickedObject.text(localized_label.uploading); } 
-							}, 200);
-					  },
-					  onComplete: function(file, response) {
-					   
-						window.clearInterval(interval);
-						clickedObject.text(localized_label.uploadimage);
-						this.enable(); // enable upload button
-						
-						// If there was an error
-						if(response.search('Upload Error') > -1){
-							var buildReturn = '<span class="upload-error">' + response + '</span>';
-							jQuery(".upload-error").remove();
-							clickedObject.parent().after(buildReturn);
-						
-						}
-						else{
-							var buildReturn = '<img class="hide smartestb-option-image" id="image_'+clickedID+'" src="'+response+'" alt="" />';
-	
-							jQuery(".upload-error").remove();
-							jQuery("#image_" + clickedID).remove();	
-							clickedObject.parent().after(buildReturn);
-							jQuery('img#image_'+clickedID).fadeIn();
-							clickedObject.next('span').fadeIn();
-							clickedObject.parent().prev('input').val(response);
-						}
-					  }
-					});
-				
-				});
-				
-				//AJAX Remove (clear option value)
-				jQuery('.image_reset_button').click(function(){
-				
-						var clickedObject = jQuery(this);
-						var clickedID = jQuery(this).attr('id');
-						var theID = jQuery(this).attr('title');	
-		
-						var ajax_url = '<?php echo admin_url("admin-ajax.php"); ?>';
-					
-						var data = {
-							action: 'smartestb_ajax_post_action',
-							type: 'image_reset',
-							data: theID
-						};
-						
-						jQuery.post(ajax_url, data, function(response) {
-							var image_to_remove = jQuery('#image_' + theID);
-							var button_to_hide = jQuery('#reset_' + theID);
-							image_to_remove.fadeOut(500,function(){ jQuery(this).remove(); });
-							button_to_hide.fadeOut();
-							clickedObject.parent().prev('input').val('');
-		
-						});
-						
-						return false; 
-						
-					});   	 	
-			
 				//Save everything else
 				jQuery('#smartestbform').submit(function(){
 					
@@ -698,34 +612,10 @@ class Quick_Business_Website{
 	 * @since 1.0
 	 */
 	public function ajax_callback() {
-	
 		global $wpdb;
 		$save_type = $_POST['type'];
-		if($save_type == 'upload'){
-			
-			$clickedID = $_POST['data']; // Acts as the name
-			$filename = $_FILES[$clickedID];
-	       	$filename['name'] = preg_replace('/[^a-zA-Z0-9._\-]/', '', $filename['name']); 
-			
-			$override['test_form'] = false;
-			$override['action'] = 'wp_handle_upload';    
-			$uploaded_file = wp_handle_upload($filename,$override);
-			 
-					$upload_tracking[] = $clickedID;
-					update_option( $clickedID , $uploaded_file['url'] );
-					
-			 if(!empty($uploaded_file['error'])) {echo __('Upload Error: ', 'quick-business-website') . $uploaded_file['error']; }
-			 else { echo $uploaded_file['url']; } // Is the Response
-		}
-		elseif($save_type == 'image_reset'){
-				
-				$id = $_POST['data']; // Acts as the name
-				global $wpdb;
-				$query = "DELETE FROM $wpdb->options WHERE option_name LIKE '$id'";
-				$wpdb->query($query);
 		
-		}	
-		elseif ($save_type == 'options') {
+		if ( $save_type == 'options' ) {// @test 
 	
 			$data = $_POST['data'];
 			parse_str($data,$output);
@@ -770,44 +660,24 @@ class Quick_Business_Website{
 								}
 							}                 
 						}
-						elseif($new_value == '' && $type == 'checkbox'){ // Checkbox Save
-							
-							update_option($id,'false');
+						elseif( $new_value == '' && $type == 'checkbox' ) { // Checkbox Save
+							update_option( $id,'false' );
 						}
-						elseif ($new_value == 'true' && $type == 'checkbox'){ // Checkbox Save
-							
-							update_option($id,'true');
-	
+						elseif ( $new_value == 'true' && $type == 'checkbox' ) { // Checkbox Save
+							update_option( $id,'true' );
 						}
-						elseif($type == 'multicheck'){ // Multi Check Save
-							
-							$option_options = $option_array['options'];
-							
-							foreach ($option_options as $options_id => $options_value){
-								
-								$multicheck_id = $id . "_" . $options_id;
-								
-								if(!isset($output[$multicheck_id])){
-								  update_option($multicheck_id,'false');
-								}
-								else{
-								   update_option($multicheck_id,'true'); 
-								}
-							}
-						} 
-						elseif($type != 'upload_min'){
-						
-							update_option($id,stripslashes($new_value));
+						else {
+							update_option( $id, stripslashes( $new_value ) );
 						}
 					}
 				}	
 			}
-		}
+		// }// @test remove
 		
 		
-		if( $save_type == 'options'){
+		// if( $save_type == 'options'){// @test del
 			/* Create, Encrypt and Update the Saved Settings */
-			global $wpdb;
+			// global $wpdb;
 			$smartestb_options = array();
 			$query_inner = '';
 			$count = 0;
@@ -874,7 +744,7 @@ class Quick_Business_Website{
 			update_option('smartestb_settings_encode',$output);
 			// this makes it finally flush, but only if you save twice. Isa
 			flush_rewrite_rules();
-		}
+		}// @test
 		die();
 	}
 
@@ -882,30 +752,44 @@ class Quick_Business_Website{
 	 * Generate the options
 	 * @since 1.0
 	 */
-	public function machine($options) {
+	public function machine( $options ) {
 	    $counter = 0;
 		$menu = '';
 		$output = '';
-		foreach ($options as $value) {
-		   
+		foreach ( $options as $value ) {
 			$counter++;
 			$val = '';
+
+
+			/************************************************************
+			*
+			* @todo now types:
+			
+			
+			checkbox
+			heading
+			info
+			text
+			textarea
+
+			*
+			************************************************************/
+			
 			//Start Heading
-			 if ( $value['type'] != "heading" )
-			 {
+			if ( $value['type'] != "heading" ) {
 			 	$class = ''; if(isset( $value['class'] )) { $class = $value['class']; }
 				$output .= '<div class="section section-'.$value['type'].' '. $class .'">'."\n";
 				if ( !empty($value['name']) ) {
 					$output .= '<h3 class="heading">'. $value['name'] .'</h3>'."\n";
 				}
 				$output .= '<div class="option">'."\n" . '<div class="controls">'."\n";
-			 } 
+			} 
 			 //End Heading
 			$select_value = '';                                   
 			switch ( $value['type'] ) {
 			
 			case 'text':
-		if( !empty($value['std']) ) {
+			if ( ! empty( $value['std'] ) ) {
 				$val = esc_attr($value['std']);
 			}
 				$std = esc_attr(get_option($value['id']));
@@ -938,37 +822,6 @@ class Quick_Business_Website{
 				 $output .= '</select>';
 				
 			break;
-			case 'select2':
-				$output .= '<select class="smartestb-input" name="'. $value['id'] .'" id="'. $value['id'] .'">';
-				$select_value = get_option($value['id']);
-				foreach ($value['options'] as $option => $name) {
-					$selected = '';
-					 if($select_value != '') {
-						 if ( $select_value == $option) { $selected = ' selected="selected"';} 
-				     } else {
-						 if ( isset($value['std']) )
-							 if ($value['std'] == $option) { $selected = ' selected="selected"'; }
-					 }
-					  
-					 $output .= '<option'. $selected .' value="'.$option.'">';
-					 $output .= $name;
-					 $output .= '</option>';
-				 
-				 } 
-				 $output .= '</select>';
-			break;
-			case 'calendar':
-				$val = $value['std'];
-				$std = get_option($value['id']);
-				if ( $std != "") { $val = $std; }
-	            $output .= '<input class="smartestb-input-calendar" type="text" name="'.$value['id'].'" id="'.$value['id'].'" value="'.$val.'">';
-			break;
-			case 'time':
-				$val = $value['std'];
-				$std = get_option($value['id']);
-				if ( $std != "") { $val = $std; }
-				$output .= '<input class="smartestb-input-time" name="'. $value['id'] .'" id="'. $value['id'] .'" type="text" value="'. $val .'" />';
-			break;
 			case 'textarea':
 				$cols = '8';
 				$ta_value = '';
@@ -986,42 +839,10 @@ class Quick_Business_Website{
 					if( $std != "") { $ta_value = esc_attr( $std ); }
 					$output .= '<textarea class="smartestb-input" name="'. $value['id'] .'" id="'. $value['id'] .'" cols="'. $cols .'" rows="8">'.stripslashes($ta_value).'</textarea>';
 			break;
-			case "radio":
-				 $select_value = get_option( $value['id']);
-				 foreach ($value['options'] as $key => $option) 
-				 { 
-	
-					 $checked = '';
-					   if($select_value != '') {
-							if ( $select_value == $key) { $checked = ' checked'; } 
-					   } else {
-						if ($value['std'] == $key) { $checked = ' checked'; }
-					   }
-					$output .= '<input class="smartestb-input smartestb-radio" type="radio" name="'. $value['id'] .'" value="'. $key .'" '. $checked .' />' . $option .'<br />';
-				
-				}
-			break;
-			case "radio2":
-				$select_value = get_option( $value['id']);
-				foreach ($value['options'] as $key => $option)
-				{
-				$checked = '';
-				if($select_value != '') {
-				if ( $select_value == $option[2]) { $checked = ' checked'; }
-				} else {
-				$std_radio2 = isset($value['std']) ? $value['std'] : '';
-				if ($option[2] == $std_radio2 ) { $checked = ' checked'; }
-				}
-				$output .= '<input class="smartestb-input smartestb-radio" type="radio" name="'. $value['id'] .'" value="'. $option[2] .'" '. $checked .' />' . $option[0];
-				// image
-				$output .= '<img alt="demo" class="demoimg" src="' . $option[1] . '" />';
-				$output .= '<br />';
-				}
-			break;
 			case "checkbox": 
-		if( !empty($value['std']) ) {
-				$std = $value['std'];
-		}
+			if ( ! empty( $value['std'] ) ) {
+					$std = $value['std'];
+			}
 			   $saved_std = get_option($value['id']);
 			   $checked = '';
 				if(!empty($saved_std)) {
@@ -1041,70 +862,6 @@ class Quick_Business_Website{
 				$output .= '<input type="checkbox" class="checkbox smartestb-input" name="'.  $value['id'] .'" id="'. $value['id'] .'" value="true" '. $checked .' />';
 	
 			break;
-			case "multicheck":
-				$std =  $value['std'];         
-				foreach ($value['options'] as $key => $option) {
-				$smartestb_key = $value['id'] . '_' . $key;
-				$saved_std = get_option($smartestb_key);
-				if(!empty($saved_std)) 
-				{ 
-					  if($saved_std == 'true'){
-						 $checked = 'checked="checked"';  
-					  } 
-					  else{
-						  $checked = '';     
-					  }    
-				} 
-				elseif( $std == $key) {
-				   $checked = 'checked="checked"';
-				}
-				else {
-					$checked = '';                                                                                    }
-				$output .= '<input type="checkbox" class="checkbox smartestb-input" name="'. $smartestb_key .'" id="'. $smartestb_key .'" value="true" '. $checked .' /><label for="'. $smartestb_key .'">'. $option .'</label><br />';
-											
-				}
-			break;
-			case "upload":
-				$output .= $this->the_uploader($value['id'],$value['std'],null);
-			break;
-			case "upload_min":
-				$output .= $this->the_uploader($value['id'],$value['std'],'min');
-			break;
-			case "color":
-				$val = $value['std'];
-				$stored  = get_option( $value['id'] );
-				if ( $stored != "") { $val = $stored; }
-				$output .= '<div id="' . $value['id'] . '_picker" class="colorSelector"><div></div></div>';
-				$output .= '<input class="smartestb-color" name="'. $value['id'] .'" id="'. $value['id'] .'" type="text" value="'. $val .'" />';
-			break;   
-	
-			case "images":
-				$i = 0;
-				$select_value = get_option( $value['id']);
-					   
-				foreach ($value['options'] as $key => $option) 
-				 { 
-				 $i++;
-	
-					 $checked = '';
-					 $selected = '';
-					   if($select_value != '') {
-							if ( $select_value == $key) { $checked = ' checked'; $selected = 'smartestb-radio-img-selected'; } 
-					    } else {
-							if ($value['std'] == $key) { $checked = ' checked'; $selected = 'smartestb-radio-img-selected'; }
-							elseif ($i == 1  && !isset($select_value)) { $checked = ' checked'; $selected = 'smartestb-radio-img-selected'; }
-							elseif ($i == 1  && $value['std'] == '') { $checked = ' checked'; $selected = 'smartestb-radio-img-selected'; }
-							else { $checked = ''; }
-						}	
-					
-					$output .= '<span>';
-					$output .= '<input type="radio" id="smartestb-radio-img-' . $value['id'] . $i . '" class="checkbox smartestb-radio-img-radio" value="'.$key.'" name="'. $value['id'].'" '.$checked.' />';
-					$output .= '<div class="smartestb-radio-img-label">'. $key .'</div>';
-					$output .= '<img src="'.$option.'" alt="" class="smartestb-radio-img-img '. $selected .'" onClick="document.getElementById(\'smartestb-radio-img-'. $value['id'] . $i.'\').checked = true;" />';
-					$output .= '</span>';
-					
-				}
-			break; 
 			case "info":
 				$default = $value['std'];
 				$output .= $default;
@@ -1155,42 +912,10 @@ class Quick_Business_Website{
 	}// end machine
 
 	/** 
-	 * Uploader
-	 * @since 1.0
-	 */
-
-	public function the_uploader($id,$std,$mod){
-		$uploader = '';
-	    $upload = get_option($id);
-		
-		if($mod != 'min') { 
-				$val = $std;
-	            if ( get_option( $id ) != "") { $val = get_option($id); }
-	            $uploader .= '<input class="smartestb-input" name="'. $id .'" id="'. $id .'_upload" type="text" value="'. $val .'" />';
-		}
-		
-		$uploader .= '<div class="upload_button_div"><span class="button image_upload_button" id="'.$id.'">'. __('Upload Image', 'quick-business-website'). '</span>';
-		
-		if(!empty($upload)) {$hide = '';} else { $hide = 'hide';}
-		
-		$uploader .= '<span class="button image_reset_button '. $hide.'" id="reset_'. $id .'" title="' . $id . '">'. __('Remove', 'quick-business-website'). '</span>';
-		$uploader .='</div>' . "\n";
-	    $uploader .= '<div class="clear"></div>' . "\n";
-		if(!empty($upload)){
-	    	$uploader .= '<a class="smartestb-uploaded-image" href="'. $upload . '">';
-	    	$uploader .= '<img class="smartestb-option-image" id="image_'.$id.'" src="'.$upload.'" alt="" />';
-	    	$uploader .= '</a>';
-			}
-		$uploader .= '<div class="clear"></div>' . "\n"; 
-		return $uploader;
-	} // end the_uploader
-
-	/** 
 	 * Create Admin Menu Separator
 	 * @since 1.0
 	 */
 	function add_admin_menu_separator($position) {
-	
 		global $menu;
 		$index = 0;
 	
@@ -1204,7 +929,7 @@ class Quick_Business_Website{
 		}
 	
 		ksort( $menu );
-	}// end add_admin_menu_separator
+	}
 	
 	/** 
 	 * Style the custom text logo on wp-login.php
