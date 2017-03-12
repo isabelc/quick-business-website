@@ -185,11 +185,7 @@ $options[] = array(
 /* Branding */
 $options[] = array( 'name' => __('Backend Branding','quick-business-website'),'class' => 'branding',
 					'type' => 'heading');
-$options[] = array( 'name' => __('Replace This Page\'s Logo','quick-business-website'),
-					'desc' => __('See the "Smartest Themes" logo at the top of this page? Upload a logo here to replace this page\'s logo. Or specify the image address of your online logo, like http://yoursite.com/logo.png','quick-business-website'),
-					'id' => $shortname.'_options_logo',
-					'std' => '',
-					'type' => 'upload');
+
 $options[] = array( 'name' => __('Custom WP Admin Footer Text','quick-business-website'),
                     'desc' => __('By default, the text at the bottom of this page is "Thank you for creating with WordPress." Replace it with your own custom text here.','quick-business-website'),
                     'id' => $shortname.'_admin_footer',
