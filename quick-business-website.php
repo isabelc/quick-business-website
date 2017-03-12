@@ -53,6 +53,7 @@ class Quick_Business_Website{
 			add_action( 'after_setup_theme', array( $this, 'after_setup' ) );
 			add_action( 'init', array( $this, 'create_business_cpts') );
 			add_action( 'init', array( $this, 'set_taxonomies' ), 0 );
+			add_action( 'init', array( $this, 'textdomain' ) );
 			add_filter( 'cmb_meta_boxes', array( $this, 'metaboxes') );
 			add_action( 'init', array( $this, 'initialize_cmb_meta_boxes' ), 9999 );
 			add_filter( 'enter_title_here', array( $this, 'change_enter_title') );
@@ -113,17 +114,24 @@ class Quick_Business_Website{
 	 $actions['settings'] = '<a href="admin.php?page=smartestbthemes">'. __('Settings', 'quick-business-website'). '</a>';
 	return $actions; 
 	}
-	/** 
-	* Include plugin options and load textdomain
+	/**
+	* Include plugin options
 	*
 	* @since 1.0
 	* @return void
 	*/
 	public function load() {
-		load_plugin_textdomain( 'quick-business-website', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
 		include QUICKBUSINESSWEBSITE_PATH . 'inc/options.php';
 		add_action( 'init', 'smartestb_options' );
 	}
+	/**
+	* Load textdomain
+	*
+	* @since 2.0
+	*/
+	public function textdomain() {
+		load_plugin_textdomain( 'quick-business-website', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
+	}	
 	/** 
 	* Store plugin name as options
 	*
