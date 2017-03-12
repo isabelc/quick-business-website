@@ -404,55 +404,14 @@ class Quick_Business_Website{
 	 * @since 1.0
 	 */
 	public function frame_load() {
-		$fr = plugins_url( '/', __FILE__ );
 		add_action('admin_head', 'smartestb_admin_head');
-		wp_enqueue_script('jquery-ui-core');
+		wp_enqueue_script('jquery-ui-core');// @test need
 	
 		function smartestb_admin_head() { 
 			$fr = plugins_url( '/', __FILE__ );
 			?>
 			<link rel="stylesheet" type="text/css" href="<?php echo $fr; ?>admin-style.css" media="screen" />
-			<script>jQuery(document).ready(function(){
-				
-				//JQUERY DATEPICKER
-				jQuery('.smartestb-input-calendar').each(function (){
-					jQuery('#' + jQuery(this).attr('id')).datepicker({showOn: 'button', buttonImage: '<?php echo $fr; ?>images/calendar.gif', buttonImageOnly: true});
-				});
-				
-				//Color Picker
-				<?php $options = get_option('smartestb_template');
-				
-				foreach($options as $option){ 
-				if($option['type'] == 'color'){//12.12
-	
-						$option_id = $option['id'];
-						$color = get_option($option_id);
-	
-					?>
-					 jQuery('#<?php echo $option_id; ?>_picker').children('div').css('backgroundColor', '<?php echo $color; ?>');    
-					 jQuery('#<?php echo $option_id; ?>_picker').ColorPicker({
-						color: '<?php echo $color; ?>',
-						onShow: function (colpkr) {
-							jQuery(colpkr).fadeIn(500);
-							return false;
-						},
-						onHide: function (colpkr) {
-							jQuery(colpkr).fadeOut(500);
-							return false;
-						},
-						onChange: function (hsb, hex, rgb) {
-							//jQuery(this).css('border','1px solid red');
-							jQuery('#<?php echo $option_id; ?>_picker').children('div').css('backgroundColor', '#' + hex);
-							jQuery('#<?php echo $option_id; ?>_picker').next('input').attr('value','#' + hex);
-							
-						}
-					  });
-				  <?php } } ?>
-			 
-	});
-				</script>
-	
-	<?php
+		<?php
 			/**
 			 * Set localized vars for js
 			 */
@@ -500,15 +459,7 @@ class Quick_Business_Website{
 	           					
 						}
 					}
-					
-					jQuery('.smartestb-radio-img-img').click(function(){
-						jQuery(this).parent().parent().find('.smartestb-radio-img-img').removeClass('smartestb-radio-img-selected');
-						jQuery(this).addClass('smartestb-radio-img-selected');
-						
-					});
-					jQuery('.smartestb-radio-img-label').hide();
-					jQuery('.smartestb-radio-img-img').show();
-					jQuery('.smartestb-radio-img-radio').hide();
+				
 					jQuery('#smartestb-nav li:first').addClass('current');
 					jQuery('#smartestb-nav li a').click(function(evt){
 					
@@ -752,22 +703,6 @@ class Quick_Business_Website{
 		foreach ( $options as $value ) {
 			$counter++;
 			$val = '';
-
-
-			/************************************************************
-			*
-			* @todo now types:
-			
-			
-			checkbox
-			heading
-			info
-			text
-			textarea
-
-			*
-			************************************************************/
-			
 			//Start Heading
 			if ( $value['type'] != "heading" ) {
 			 	$class = ''; if(isset( $value['class'] )) { $class = $value['class']; }
