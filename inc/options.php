@@ -122,25 +122,6 @@ $options[] = array( 'name' => __('Add Reviews Section?','quick-business-website'
 					'id' => $shortname.'_add_reviews',
 					'std' => 'true',
 					'type' => 'checkbox');
-/*  About Page */
-$options[] = array( 'name' => __('About Page','quick-business-website'),'class' => 'aboutcircle',
-					'type' => 'heading');
-$options[] = array( 'name' => __('About Your Business','quick-business-website'),
-						'desc' => __('The \'About Page\' is a page about your business. Type what you want your visitors to read here. It may be a history, a sales pitch, or anything you like. To enlarge the text area, drag the lower right corner down.', 'quick-business-website'),
-					'id' => $shortname.'_about_page',
-					'std' => '',
-					'type' => 'textarea');
-$options[] = array( 'name' => __('About Page Picture','quick-business-website'),
-					'desc' => __('Upload a picture for your About page, or specify the image address of an online picture, like http://yoursite.com/picture.png','quick-business-website'),
-					'id' => $shortname.'_about_picture',
-					'std' => '',
-					'type' => 'upload');
-$options[] = array( 'name' => __('Disable About Page','quick-business-website'),
-					'desc' => __('Check this to disable the About page altogether. Beware: this will permanently delete the About page from your website.', 'quick-business-website'),
-					'id' => $shortname.'_stop_about',
-					'std' => 'false',
-					'type' => 'checkbox');
-
 /* Social Media */
 $options[] = array( 'name' => __('Social Media','quick-business-website'),'class' => 'smartsocial',
 					'type' => 'heading');

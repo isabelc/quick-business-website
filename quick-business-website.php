@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: http://smartestthemes.com/docs/category/quick-business-website-wordpress-plugin/
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 1.5.1
+Version: 2.0.alpha.2
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -70,7 +70,6 @@ class Quick_Business_Website{
 			add_action( 'wp_enqueue_scripts', array( $this, 'framework_enq') ); 
 			add_filter ( 'the_content',  array( $this, 'staff_meta_content_filter' ) );
 			add_filter ( 'the_content',  array( $this, 'contact_content_filter' ), 50 );
-			add_filter ( 'the_content',  array( $this, 'about_content_filter' ) );
 			add_filter( 'parse_query', array( $this, 'sort_staff' ) );
 			if( get_option('smartestb_enable_service_sort') == 'true'  ) 
 				add_filter( 'parse_query', array( $this, 'sort_services' ) );
@@ -1259,25 +1258,16 @@ class Quick_Business_Website{
 	
 	} // end insert_post
 	/** 
-	 * Create about page, storing page id in variable, and Activate Smartest Reviews.
+	 * Activate Smartest Reviews.
 	 *	 
 	 * @uses insert_post()
 	 * @since 1.0
 	 */
 	public function after_setup() {
-	
-		$bn = stripslashes_deep(esc_attr(get_option('smartestb_business_name')));if(!$bn) {$bn = get_bloginfo('name'); }
-		$atitle = sprintf(__('About %s','quick-business-website'), $bn);
-
-		// if not disabled in options 
-		if(get_option('smartestb_stop_about') == 'false') {
-			$this->insert_post( 'page', esc_sql( _x('about', 'page_slug', 'quick-business-website') ), 'smartest_about_page_id', $atitle, '' );		}
-		// Activate Smartest Reviews
-		if (!class_exists('SMARTESTReviewsBusiness') && (get_option('smartestb_add_reviews') == 'true')) {
+		if ( ! class_exists( 'SMARTESTReviewsBusiness' ) && ( get_option( 'smartestb_add_reviews' ) == 'true')) {
 			include_once QUICKBUSINESSWEBSITE_PATH . 'modules/smartest-reviews/smartest-reviews.php';
 		}
-	
-	} // end after_setup
+	}
 	/* 
 	 * Resize images dynamically using wp built in functions
 	 * Victor Teixeira
@@ -1533,10 +1523,9 @@ class Quick_Business_Website{
 			        );
 		    	register_post_type( 'smartest_services' , $args );
 				}// end if show services enabled
-		if(get_option('smartestb_stop_about') == 'true') {
-			wp_delete_post(get_option('smartest_about_page_id'), true);
-		}
-		if(get_option('smartestb_add_reviews') == 'false') {
+
+		// If Reviews are disabled, delete the page
+		if ( get_option( 'smartestb_add_reviews' ) == 'false' ) {
 			wp_delete_post(get_option('smartest_reviews_page_id'), true);
 		}
 
@@ -2004,38 +1993,6 @@ class Quick_Business_Website{
 		}
 
 	}// end contact_content_filter
-
-	/**
-	 * Add About page content to about page
-	 *
-	 * @uses is_page()
-	 * @uses wpautop()
-	 * @since 1.0
-	 */
-	public function about_content_filter( $content ) {
-	
-		if( is_page( get_option('smartest_about_page_id') ) ) {
-
-			global $smartestb_options;
-
-			$aboutcontent = '<div id="qbw-about">';
-			
-			if ( get_option('smartestb_about_picture') ) { 
-				$img_url = get_option('smartestb_about_picture');
-				$aboutcontent .= '<figure id="qbw-about-pic"><a href="' . $img_url . '" title="' . the_title_attribute('echo=0') . '" ><img src="' . $img_url . '" alt="' . the_title_attribute('echo=0') . '" /></a></figure>';
-			}
-			if ( get_option('smartestb_about_page') ) {
-				$text = stripslashes_deep(get_option('smartestb_about_page'));
-				$aboutcontent .= wpautop($text); 
-			}
-			$aboutcontent .= '</div>' . $content ;
-			return $aboutcontent;
-		} else {
-			// regular content
-			return $content;
-		}
-
-	}// end about_content_filter
 
 	/**
 	 * Sort staff archive by staff order number key
