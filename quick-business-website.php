@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: http://smartestthemes.com/docs/category/quick-business-website-wordpress-plugin/
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 2.0.alpha.2
+Version: 2.0.alpha.3
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -649,7 +649,7 @@ class Quick_Business_Website {
 			update_option( 'qbw_settings_encode',$output);
 			// this makes it finally flush, but only if you save twice. Isa
 			flush_rewrite_rules();
-		}// @test
+		}
 		die();
 	}
 
@@ -1673,6 +1673,34 @@ class Quick_Business_Website {
 
 			// delete uneeded options
 			delete_option( 'qbw_smartestb_plugin_name' );
+
+			/************************************************************
+			*
+			* For backwards compatibility, prepend our About page with the
+			* About page image if they had one
+			* since our About page option is now removed.
+			*
+			************************************************************/
+			// if they had an About page image and the About page was not disabled
+			if ( ( $img_url = get_option( 'qbw_about_picture') ) && get_option( 'qbw_stop_about' ) != 'true' ) {
+
+				// only if our About page exists
+				$about_page_id = get_option( 'qbw_about_page_id' );
+				if ( ! empty( $about_page_id ) ) {
+
+					$content = get_post_field( 'post_content', $about_page_id );
+
+					// get the image HTML
+					$prepend = '<div id="qbw-about"><figure id="qbw-about-pic"><a href="' . $img_url . '"><img src="' . $img_url . '" alt="' . the_title_attribute('echo=0') . '" /></a></figure></div>';
+
+						$about_page = array(
+							'ID' => $about_page_id,
+							'post_content' => $prepend . $content,
+						);
+						// Update the page
+						wp_update_post( $about_page );
+				}
+			}
 
 			// Set flag to run upgrade only once
 			update_option( 'qbw_upgrade_two', 'completed' );
