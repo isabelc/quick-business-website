@@ -37,28 +37,24 @@ else {
 function qbw_uninstall() {
 	// Make sure that the user wants to remove all the data.
 	if ( get_option( 'qbw_delete_data' ) == 'true' ) {
-
-		wp_delete_post(get_option('smartest_reviews_page_id'), true);
+		global $wpdb;
+		// Delete pages
+		wp_delete_post(get_option('qbw_reviews_page_id'), true);
 		wp_delete_post(get_option('qbw_contact_page_id'), true);
-		wp_delete_post(get_option('smartest_about_page_id'), true);// for backwards compatibilty
-
-		$options = array(
-			'qbw_options',
-			'smartest_reviews_page_id',
-			'qbw_contact_page_id',
-			'smartest_about_page_id',
-
-			// @todo ...
-			
-			);
-
-
-		foreach ( $options as $option ) {
-			delete_option( $option );
+		wp_delete_post(get_option('qbw_about_page_id'), true);// for backwards compatibilty
+		// get all options with our prefix
+		$query = $wpdb->get_results( "select * from " . $wpdb->options . " where option_name like 'qbw_%'" );
+		// delete options
+		if ( ! empty( $query[0] ) ) {
+			foreach ( $query as $option ) {
+				delete_option( $option->option_name );
+			}
 		}
 
+
 		// @todo delete reviews
-		
+
+	
 	}
 }
 
