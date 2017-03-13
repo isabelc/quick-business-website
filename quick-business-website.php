@@ -285,7 +285,7 @@ class Quick_Business_Website {
 	 */
 	public function options_page(){
 	    $options = get_option( 'qbw_template');      
-		$qbw_dir = plugins_url( '/', __FILE__ ); ?>
+		?>
 	<div class="wrap" id="smartestb_container">
 	<div id="smartestb-popup-save" class="smartestb-save-popup"><div class="smartestb-save-save"><?php _e('Options Updated', 'quick-business-website'); ?></div></div>
 	<div id="smartestb-popup-reset" class="smartestb-save-popup"><div class="smartestb-save-reset"><?php _e('Options Reset', 'quick-business-website'); ?></div></div>
@@ -320,7 +320,7 @@ class Quick_Business_Website {
 
 <a href="http://smartestthemes.com/downloads/" target="_blank" title="Smartest Themes">
 
-<div class="dashicons dashicons-desktop"></div> <?php _e( 'See our Business Themes', 'quick-business-website' ); ?></a></li><li class="right"><img style="display:none" src="<?php echo $qbw_dir; ?>images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." />
+<div class="dashicons dashicons-desktop"></div> <?php _e( 'See our Business Themes', 'quick-business-website' ); ?></a></li><li class="right"><img style="display:none" src="<?php echo QUICKBUSINESSWEBSITE_URL; ?>images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." />
 	<input type="submit" value="<?php _e('Save All Changes', 'quick-business-website'); ?>" class="button submit-button" /></li>
 				</ul> 
 	<!--[if IE]>
@@ -378,7 +378,7 @@ class Quick_Business_Website {
 			<div class="ie">
 			<![endif]-->
 	        <div class="save_bar_top">
-	        <img style="display:none" src="<?php echo $qbw_dir; ?>images/loading-bottom.gif" class="ajax-loading-img ajax-loading-img-bottom" alt="Working..." />
+	        <img style="display:none" src="<?php echo QUICKBUSINESSWEBSITE_URL; ?>images/loading-bottom.gif" class="ajax-loading-img ajax-loading-img-bottom" alt="Working..." />
 	        <input type="submit" value="<?php _e('Save All Changes', 'quick-business-website'); ?>" class="button submit-button" />        
 	        </form>
 	     
@@ -408,13 +408,9 @@ class Quick_Business_Website {
 		add_action('admin_head', 'qbw_admin_head');
 		wp_enqueue_script('jquery-ui-core');// @test need
 	
-		function qbw_admin_head() { 
-			$fr = plugins_url( '/', __FILE__ );
-			?>
-<!-- 			<link rel="stylesheet" type="text/css" href="<?php echo $fr; ?>admin-style.css" media="screen" /> -->
-		<?php
+		function qbw_admin_head() {
 			/**
-			 * Set localized vars for js
+			 * Localized string for js
 			 */
 			$okr = __('Click OK to reset back to default settings. All custom QBW plugin settings will be lost!', 'quick-business-website');
 			 // deliver the vars to js
@@ -1559,7 +1555,8 @@ class Quick_Business_Website {
 
 			// delete uneeded options
 			delete_option( 'qbw_smartestb_plugin_name' );
-
+			delete_option( 'qbw_stop_theme_icon' );
+			
 			/************************************************************
 			*
 			* For backwards compatibility, prepend our About page with the

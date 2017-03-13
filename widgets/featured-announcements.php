@@ -56,15 +56,6 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 					the_post_thumbnail( 'thumbnail', array( 'class' => 'qbw-fa-thumb' ) );
 					echo '</a></figure>';
 						
-				} else {
-				
-					// if not stopped with option qbw_stop_theme_icon @todo remove icons maybe
-					if(get_option( 'qbw_stop_theme_icon') != 'true') {
-							echo '<figure class="img-indent"><a href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">'; ?>
-							<img class="icon" src="<?php echo plugins_url('/images/news.svg', dirname(__FILE__)); ?>" width="40px" height="40" />
-							<?php echo '</a></figure>';
-					}
-	
 				}
 				echo '<div class="sfacontent">';
 				echo '<h4><a href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">'.get_the_title().'</a></h4>';
