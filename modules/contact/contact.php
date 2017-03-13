@@ -189,11 +189,11 @@ if(get_option( 'qbw_stop_contact') == 'true') {
  * enqueue CSS and validation script
  */
 function sbfc_enqueue_scripts() {
-	wp_register_script('sbfc-validate', plugins_url( '/sbfc-validate.js', __FILE__ ), array('jquery'));
-	wp_register_style('contactstyle', plugins_url( '/contact.css', __FILE__) );
-	if (is_page(get_option('qbw_contact_page_id'))){
-		wp_enqueue_script('sbfc-validate');
-		wp_enqueue_style('contactstyle');
+	wp_register_script( 'qbw-contact-validate', QUICKBUSINESSWEBSITE_URL . 'modules/contact/validate.js', array('jquery' ) );
+	wp_register_style( 'qbw-contact', QUICKBUSINESSWEBSITE_URL . 'modules/contact/contact.css' );
+	if ( is_page( get_option( 'qbw_contact_page_id' ) ) ) {
+		wp_enqueue_script( 'qbw-contact-validate' );
+		wp_enqueue_style( 'qbw-contact' );
 	}
 }
 add_action('wp_enqueue_scripts', 'sbfc_enqueue_scripts');
