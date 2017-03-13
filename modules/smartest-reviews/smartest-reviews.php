@@ -35,17 +35,17 @@ class SMARTESTReviewsBusiness {
         */
         $this->dbtable = $wpdb->prefix . $this->dbtable;
 		$this->plugin_version = get_option('qbw_smartestb_plugin_version');
-        add_action('the_content', array(&$this, 'do_the_content'), 10); /* prio 10 prevents a conflict with some odd themes */
-        add_action('init', array(&$this, 'init'));
-        add_action('admin_init', array(&$this, 'admin_init'));
-		add_action( 'widgets_init', array(&$this, 'register_widget'));
-		add_action('template_redirect',array(&$this, 'template_redirect')); /* handle redirects and form posts, and add style/script if needed */
-	    add_action('admin_menu', array(&$this, 'addmenu'));
-        add_action('wp_ajax_update_field', array(&$this, 'admin_view_reviews'));
-	    add_action('save_post', array(&$this, 'admin_save_post'), 10, 2);
-		add_action( 'admin_init', array(&$this, 'create_reviews_page'));//isa, admin_init in frame but for stand-alone plugin hook to after_setup_theme
-		add_action('wp_enqueue_scripts', array(&$this, 'enqueue_scripts'));
-		add_action('admin_enqueue_scripts', array(&$this, 'admin_scripts'));
+        add_action('the_content', array( $this, 'do_the_content'), 10); /* prio 10 prevents a conflict with some odd themes */
+        add_action('init', array( $this, 'init'));
+        add_action('admin_init', array( $this, 'admin_init'));
+		add_action( 'widgets_init', array( $this, 'register_widget'));
+		add_action('template_redirect',array( $this, 'template_redirect')); /* handle redirects and form posts, and add style/script if needed */
+	    add_action('admin_menu', array( $this, 'addmenu'));
+        add_action('wp_ajax_update_field', array( $this, 'admin_view_reviews'));
+	    add_action('save_post', array( $this, 'admin_save_post'), 10, 2);
+		add_action( 'admin_init', array( $this, 'create_reviews_page'));//isa, admin_init in frame but for stand-alone plugin hook to after_setup_theme
+		add_action('wp_enqueue_scripts', array( $this, 'enqueue_scripts'));
+		add_action('admin_enqueue_scripts', array( $this, 'admin_scripts'));
     }
 
     function addmenu() {
@@ -1067,8 +1067,8 @@ function do_the_content($original_content) {
 		global $SMARTESTReviewsBusinessAdmin;
         $SMARTESTReviewsBusinessAdmin->enqueue_admin_stuff();
 	}
-	function getpluginurl() {
-		return trailingslashit(plugins_url( '' , __FILE__ ));
+	function getpluginurl() {// @todo use const
+		return trailingslashit( plugins_url( '' , __FILE__ ) );
 
     }
 }
