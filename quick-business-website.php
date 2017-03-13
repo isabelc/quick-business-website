@@ -41,25 +41,14 @@ class Quick_Business_Website {
 			if ( ! defined( 'QUICKBUSINESSWEBSITE_PATH' ) ) {
 				define( 'QUICKBUSINESSWEBSITE_PATH', plugin_dir_path( __FILE__) );
 			}
-			// @test now
 			if ( ! defined( 'QUICKBUSINESSWEBSITE_URL' ) ) {
 				define( 'QUICKBUSINESSWEBSITE_URL', plugin_dir_url( __FILE__) );
 			}
-
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
 			add_action( 'plugins_loaded', array( $this, 'load' ) );
 			add_action( 'wp_ajax_smartestb_ajax_post_action', array( $this, 'ajax_callback' ) );
 			add_action( 'admin_menu', array( $this, 'add_admin' ) );
-
-
-			/************************************************************
-			*
-			* @todo  now
-			*
-			************************************************************/
-			
 			add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_scripts' ) );
-
 			add_filter( 'plugin_action_links', array( $this, 'settings_link' ), 2, 2 );
 			add_action( 'login_head', array( $this, 'login_logo' ) );
 			add_filter( 'login_headerurl',
@@ -69,8 +58,7 @@ class Quick_Business_Website {
 			add_action( 'init', array( $this, 'create_business_cpts') );
 			add_action( 'init', array( $this, 'set_taxonomies' ), 0 );
 			add_action( 'init', array( $this, 'textdomain' ) );
-			add_filter( 'cmb_meta_boxes', array( $this, 'metaboxes') );
-			add_action( 'init', array( $this, 'initialize_cmb_meta_boxes' ), 9999 );
+			add_action( 'init', array( $this, 'metaboxes') );
 			add_filter( 'enter_title_here', array( $this, 'change_enter_title') );
 			add_action( 'widgets_init', array( $this, 'register_widgets') );
 			add_action( 'wp_head', array( $this, 'add_customscripts' ), 12 );
@@ -213,12 +201,9 @@ class Quick_Business_Website {
 			wp_register_style( 'qbw-admin', QUICKBUSINESSWEBSITE_URL . 'css/qbw-admin.css' );
 			wp_enqueue_style( 'qbw-admin' );
 		}
-
-		/************************************************************
-		*
-		* @todo load 
-		*
-		************************************************************/
+	
+		// metabox style
+		wp_register_style( 'qbw-metabox', QUICKBUSINESSWEBSITE_URL . 'css/qbw-metabox.css' );
 		
 	}
 	/**
@@ -911,7 +896,7 @@ class Quick_Business_Website {
 			include_once QUICKBUSINESSWEBSITE_PATH . 'modules/smartest-reviews/smartest-reviews.php';
 		}
 	}
-	/* 
+	/* @todo remove this
 	 * Resize images dynamically using wp built in functions
 	 * Victor Teixeira
 	 * Modified by Isabel Castillo
@@ -1213,11 +1198,8 @@ class Quick_Business_Website {
 
 	/** 
 	 * Custom metaboxes and fields for staff cpt: order number, occupational title & social links. For services and news: featured.
-	 * @param  array $meta_boxes
-	 * @return array
-	 * @since 1.0
 	 */
-	public function metaboxes( array $meta_boxes ) {
+	public function metaboxes() {
 		$prefix = '_smab_';
 		$meta_boxes[] = array(
 			'id'         => 'staff_details',
@@ -1317,17 +1299,16 @@ class Quick_Business_Website {
 				),
 			)
 		);
-		return $meta_boxes;
-	} // end metaboxes()
 
-	/** @todo need
-	 * Initialize the metabox class.
-	 * @since 1.0
-	 */
-	public function initialize_cmb_meta_boxes() {
-		if ( ! class_exists( 'cmb_Meta_Box' ) )
-			require_once QUICKBUSINESSWEBSITE_PATH . 'lib/metabox/init.php';
-	}
+		if ( ! class_exists( 'QBW_Metabox' ) ) {
+			require_once QUICKBUSINESSWEBSITE_PATH . 'inc/class-qbw-metabox.php';
+		}
+
+		foreach ( $meta_boxes as $meta_box ) {
+			$my_box = new QBW_Metabox( $meta_box );
+		}
+
+	} // end metaboxes()
 
 	/** 
 	 * Do 'Enter Staff member's name here' instead of 'Enter title here' for smartest_staff custom post type
