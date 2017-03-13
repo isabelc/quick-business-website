@@ -38,14 +38,29 @@ class Quick_Business_Website {
 	}
 
 	private function __construct() {
-			if( ! defined('QUICKBUSINESSWEBSITE_PATH')) {
-				define( 'QUICKBUSINESSWEBSITE_PATH', plugin_dir_path(__FILE__) );
+			if ( ! defined( 'QUICKBUSINESSWEBSITE_PATH' ) ) {
+				define( 'QUICKBUSINESSWEBSITE_PATH', plugin_dir_path( __FILE__) );
 			}
+			// @test now
+			if ( ! defined( 'QUICKBUSINESSWEBSITE_URL' ) ) {
+				define( 'QUICKBUSINESSWEBSITE_URL', plugin_dir_url( __FILE__) );
+			}
+
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
 			add_action( 'plugins_loaded', array( $this, 'load' ) );
 			add_action( 'wp_ajax_smartestb_ajax_post_action', array( $this, 'ajax_callback' ) );
 			add_action( 'admin_menu', array( $this, 'add_admin' ) );
-			add_filter('plugin_action_links', array( $this, 'settings_link' ), 2, 2);
+
+
+			/************************************************************
+			*
+			* @todo  now
+			*
+			************************************************************/
+			
+			add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_scripts' ) );
+
+			add_filter( 'plugin_action_links', array( $this, 'settings_link' ), 2, 2 );
 			add_action( 'login_head', array( $this, 'login_logo' ) );
 			add_filter( 'login_headerurl',
 			    create_function(false,"return get_home_url();"));
@@ -188,7 +203,24 @@ class Quick_Business_Website {
 		$this->add_admin_menu_separator(44);
 	
 	}
+	/**
+	 * Load admin CSS
+	 */
+	public function load_admin_scripts() {
+		global $pagenow;
+		$page = isset( $_GET['page'] ) ? strtolower( sanitize_text_field( $_GET['page'] ) ) : false;
+		if ( 'admin.php' == $pagenow && 'quickbusinesswebsite' == $page ) {
+			wp_register_style( 'qbw-admin', QUICKBUSINESSWEBSITE_URL . 'css/qbw-admin.css' );
+			wp_enqueue_style( 'qbw-admin' );
+		}
 
+		/************************************************************
+		*
+		* @todo load 
+		*
+		************************************************************/
+		
+	}
 	/**
 	 * Add link to plugin options to admin tool bar. Also, remove WordPress links from admin/tool bar, if enabled for branding.
 	 * @since 1.0
@@ -394,7 +426,7 @@ class Quick_Business_Website {
 		function qbw_admin_head() { 
 			$fr = plugins_url( '/', __FILE__ );
 			?>
-			<link rel="stylesheet" type="text/css" href="<?php echo $fr; ?>admin-style.css" media="screen" />
+<!-- 			<link rel="stylesheet" type="text/css" href="<?php echo $fr; ?>admin-style.css" media="screen" /> -->
 		<?php
 			/**
 			 * Set localized vars for js
@@ -1250,7 +1282,7 @@ class Quick_Business_Website {
 				),
 			)
 		);
-	if( get_option( 'qbw_enable_service_sort') == 'true'  ) { 
+	if( get_option( 'qbw_enable_service_sort') == 'true'  ) {// @test need?
 		$meta_boxes[] = array(
 			'id'         => 'services-sort-order',
 			'title'      => __( 'Set a Sort-Order', 'quick-business-website' ),
@@ -1288,9 +1320,7 @@ class Quick_Business_Website {
 		return $meta_boxes;
 	} // end metaboxes()
 
-
-
-	/** 
+	/** @todo need
 	 * Initialize the metabox class.
 	 * @since 1.0
 	 */
@@ -1449,13 +1479,13 @@ class Quick_Business_Website {
 		}
 	}
 	/** 
-	 * Register stylesheet and responsive script
+	 * Register front-end stylesheet
 	 * @since 1.0
 	 */
 	public function framework_enq() {
-		wp_register_style( 'frame', plugins_url( 'css/frame.css' , __FILE__ ) );
-		wp_enqueue_style( 'frame' );
-		wp_enqueue_style('font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css');
+		wp_register_style( 'qbw', QUICKBUSINESSWEBSITE_URL . 'css/qbw.css' );
+		wp_enqueue_style( 'qbw' );
+		wp_enqueue_style('font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css');// @todo need
 	}
 
 	/**

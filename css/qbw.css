@@ -17,6 +17,7 @@
 	width: 18px;
 	height: 18px;
 	text-decoration:none;
+	box-shadow: unset;
 	background: url(../images/social_18.png) no-repeat;
 }
 #qbw-staff-socials li a.item-1 {
