@@ -254,23 +254,6 @@ $options[] = array( 'name' => __( 'Custom content after results', 'quick-busines
 					'std' => '',
 					'type' => 'textarea');
 
-/* Scripts */
-
-$options[] = array( 'name' => __('Scripts','quick-business-website'),'class' => 'scripts',
-					'type' => 'heading');
-					
-$options[] = array( 'name' => __('Add Analytics Code','quick-business-website'),
-                    'desc' => __('Paste your analytics script here.','quick-business-website'),
-                    'id' => $shortname.'_script_analytics',
-                    'std' => '',
-                    'type' => 'textarea');
-
-$options[] = array( 'name' => __('Additional Scripts To Load','quick-business-website'),
-                    'desc' => __('Paste any scripts here to be loaded into wp_head. Remember your script tags.','quick-business-website'),
-                    'id' => $shortname.'_scripts_head',
-                    'std' => '',
-                    'type' => 'textarea');
-
 /* Advanced */
 $options[] = array( 'name' => __('Advanced','quick-business-website'),'class' => 'settings',
 					'type' => 'heading');

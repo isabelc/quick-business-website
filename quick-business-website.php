@@ -61,7 +61,6 @@ class Quick_Business_Website {
 			add_action( 'init', array( $this, 'metaboxes') );
 			add_filter( 'enter_title_here', array( $this, 'change_enter_title') );
 			add_action( 'widgets_init', array( $this, 'register_widgets') );
-			add_action( 'wp_head', array( $this, 'add_customscripts' ), 12 );
 			add_filter( 'manage_edit-smartest_staff_columns', array( $this, 'smar_manage_edit_staff_columns') );
 			add_action( 'manage_smartest_staff_posts_custom_column', array( $this, 'smar_manage_staff_columns' ), 10, 2 );
 			add_filter( 'manage_edit-smartest_services_columns', array( $this, 'smar_manage_edit_services_columns') );
@@ -1172,22 +1171,7 @@ class Quick_Business_Website {
 			register_widget('SmartestStaff'); 
 		}
 	
-	} // end register_widgets
-	/** 
-	 * insert custom scripts from options
-	 * @since 1.0
-	 */
-	public function add_customscripts() {
-		$gascript =  get_option( 'qbw_script_analytics');
-		$oscripts =  get_option( 'qbw_scripts_head');
-		if (isset($gascript) && $gascript != '') {
-			echo stripslashes($gascript)."\r\n";
-		}
-		if (isset($oscripts) && $oscripts != '') {
-			echo stripslashes($oscripts)."\r\n";
-		}
-	
-	} // end add_customscripts
+	}// end register_widgets
 	/**
 	 * Add job title column to staff admin
 	 * @since 1.0
