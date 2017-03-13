@@ -1,4 +1,6 @@
-﻿.sfawrap{
+﻿/* Styles for QBW Featured Announcements widget 
+-------------------------------------------------------------- */
+.sfawrap{
 	width:100%;
 	overflow:hidden;
 	position:relative;
@@ -7,6 +9,9 @@
 .sfawrap figure{
 	float:left;
 	margin:0 20px 0 0
+}
+.qbw-fa-thumb {
+	max-width: 60px;height: auto;
 }
 /* Thin out for TwentyFourteen thin sidebars */
 #primary-sidebar .sfawrap figure, #footer-sidebar .sfawrap figure {

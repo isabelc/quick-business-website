@@ -12,6 +12,9 @@
 	width:25%;
 	max-width:100px
 }
+.qbw-fs-thumb {
+	max-width:90%;height: auto;
+}
 /* Thin out for TwentyFourteen thin sidebars */
 #footer-sidebar .sfsfig, #primary-sidebar .sfsfig, .front-widgets .sfsfig{
 	width:auto;

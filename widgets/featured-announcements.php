@@ -1,12 +1,11 @@
 <?php
 /**
- * Adds Featured Announcements widget to show selected announcements
+ * Adds Featured Announcements widget to show selected announcements @todo update all widget css filenames. and classnames!
  *
  * @package		Quick Business Website
  */
 
 class SmartestFeaturedAnnounce extends WP_Widget {
-
 	/**
 	 * Register widget
 	 */
@@ -33,13 +32,12 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 	 * @param array $instance Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
-		
 		wp_enqueue_style('sfa');
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Featured News', 'quick-business-website' ) : $instance['title'], $instance, $this->id_base );
 		
 		echo $args['before_widget'];
 		if ( $title )
-			echo '<h3 class="widget-title">'. $title . '</h3>';
+			echo '<h3 class="widget-title">' . $title . '</h3>';
 		$query_args = array(
 			'post_type' => 'smartest_news',
 			'meta_query' => array(
@@ -55,19 +53,13 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 				$sbffa->the_post();
 				echo '<div class="sfawrap">';
 				if ( has_post_thumbnail() ) {
-				
-					$thumb = get_post_thumbnail_id();
-					global $Quick_Business_Website;
-					$smallimage = $Quick_Business_Website->vt_resize( $thumb, '', 40, 65, true);
 					echo '<figure class="sfafig"><a href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">';
-					?>
-					<img class="thumb" src="<?php echo $smallimage['url']; ?>" width="<?php echo $smallimage['width']; ?>" height="<?php echo $smallimage['height']; ?>" alt=<?php the_title_attribute(); ?>" />
-		
-					<?php echo '</a></figure>';
+					the_post_thumbnail( 'thumbnail', array( 'class' => 'qbw-fa-thumb' ) );
+					echo '</a></figure>';
 						
 				} else {
 				
-					// if not stopped with option qbw_stop_theme_icon
+					// if not stopped with option qbw_stop_theme_icon @todo remove icons maybe
 					if(get_option( 'qbw_stop_theme_icon') != 'true') {
 							echo '<figure class="img-indent"><a href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">'; ?>
 							<img class="icon" src="<?php echo plugins_url('/images/news.svg', dirname(__FILE__)); ?>" width="40px" height="40" />
