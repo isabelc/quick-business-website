@@ -329,48 +329,10 @@ class Quick_Business_Website {
 			</div>
 	        <div id="main">
 		        <div id="smartestb-nav">
-					<ul>
-						<?php echo $return[1] ?>
-						<li><a class="theme-support" title="Support" href="#smartestb-option-themesupport"><span class="smartestb-nav-icon"></span><?php _e('Plugin Support', 'quick-business-website'); ?></a></li>
-						
-					</ul>		
+					<ul><?php echo $return[1] ?></ul>		
 				</div>
 				<div id="content">
 		         <?php echo $return[0]; /* Settings */ ?>
-		         <!-- ADD SUPPORT SECTION -->
-		         <div class="group" id="smartestb-option-themesupport" style="display:block;">
-		         <h2><?php _e('Plugin Support', 'quick-business-website'); ?></h2>
-		         <div class="section support-section">
-		         <p class="support-content"><?php _e('Stuck?  Need some help?  Found a bug?', 'quick-business-website'); ?></p>
-		         </div>
-		         <div class="support-divider"></div>
-		         <div class="section support-section">
-		         <div class="support-section-icon comments_blue_75"></div>
-<!-- 		         <h4 class="support-section-title"><?php _e('Support Forum', 'quick-business-website'); ?></h4> -->
-		         <p class="support-content"><?php _e('Get help or report a bug at the forum. There we focus on answering your questions and helping you to use the default functionality of this plugin.', 'quick-business-website'); ?></p>
-	<div class="section support-section">
-		         <a class="support-button" target="_blank" title="Support Forum" href="http://wordpress.org/support/plugin/quick-business-website"><?php _e('Go To Support Forum', 'quick-business-website'); echo ' &raquo;'; ?> </a>
-		         </div>
-		         <div class="clear"></div>
-		         </div>
-		         <div class="support-divider"></div>
-
-
-
-<div class="section support-section">
-		         <div class="support-section-icon info_75"></div>
-<!-- 		         <h4 class="support-section-title"><?php _e('Instruction Guides', 'quick-business-website'); ?></h4> -->
-		         <p class="support-content"><?php _e('The Instruction Guides give detailed instructions for certain tasks.', 'quick-business-website'); ?></p>
-	<div class="section support-section">
-		         <a class="support-button" target="_blank" title="Instruction Guides" href="http://smartestthemes.com/docs/category/quick-business-website---wordpress-plugin/"><?php _e('Go To Instruction Guides', 'quick-business-website'); echo ' &raquo;'; ?> </a>
-		         </div>
-		         <div class="clear"></div>
-		         </div>
-		         <div class="support-divider"></div>
-
-
-
-		         </div><!-- END SUPPORT SECTION -->
 		        </div>
 		        <div class="clear"></div>
 	        </div>
