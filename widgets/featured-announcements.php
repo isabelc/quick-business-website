@@ -21,8 +21,7 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 	 * Register stylesheet.
 	 */
 	public function featnews_css() {
-			wp_register_style('sfa', 
-			plugins_url('/sfa.css', __FILE__));
+		wp_register_style( 'qbw-feat-news', QUICKBUSINESSWEBSITE_URL . 'css/qbw-feat-news.css' );
 	} 
 
 	/**
@@ -32,7 +31,7 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 	 * @param array $instance Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
-		wp_enqueue_style('sfa');
+		wp_enqueue_style( 'qbw-feat-news' );
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Featured News', 'quick-business-website' ) : $instance['title'], $instance, $this->id_base );
 		
 		echo $args['before_widget'];

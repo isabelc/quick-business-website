@@ -18,8 +18,7 @@ class SmartestFeaturedServices extends WP_Widget {
 	 * Register stylesheet.
 	 */
 	public function featsvcs_css() {
-			wp_register_style('sfs',
-			plugins_url('/sfs.css', __FILE__));
+		wp_register_style( 'qbw-feat-services', QUICKBUSINESSWEBSITE_URL . 'css/qbw-feat-services.css' );
 	} 
 	/**
 	 * Front-end display of widget.
@@ -28,7 +27,7 @@ class SmartestFeaturedServices extends WP_Widget {
 	 * @param array $instance Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
-		wp_enqueue_style('sfs');
+		wp_enqueue_style( 'qbw-feat-services' );
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Featured Services', 'quick-business-website' ) : $instance['title'], $instance, $this->id_base );
 		echo $args['before_widget'];
 		if ( $title )

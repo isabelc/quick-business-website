@@ -11,9 +11,9 @@ class SmartestAnnouncements extends WP_Widget {
 	 */
 	public function __construct() {
 		parent::__construct(
-	 		'smartest_announcements', // Base ID
-			__('QBW Announcements', 'quick-business-website'), // Name
-			array( 'description' => __( 'Display the latest Announcements.', 'quick-business-website' ), ) // Args
+	 		'smartest_announcements',
+			__('QBW Announcements', 'quick-business-website'),
+			array( 'description' => __( 'Display the latest Announcements.', 'quick-business-website' ), )
 		);
 		add_action('wp_enqueue_scripts', array($this, 'ann_css'));
 	}
@@ -22,8 +22,7 @@ class SmartestAnnouncements extends WP_Widget {
 	 * Register stylesheet.
 	 */
 	public function ann_css() {
-			wp_register_style('san', 
-			plugins_url('/sa.css', __FILE__));
+		wp_register_style( 'qbw-announcements', QUICKBUSINESSWEBSITE_URL . 'css/qbw-announcements.css' );
 	} 
 
 	/**
@@ -33,8 +32,7 @@ class SmartestAnnouncements extends WP_Widget {
 	 * @param array $instance Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
-		
-		wp_enqueue_style('san');
+		wp_enqueue_style( 'qbw-announcements' );
 		
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Latest News', 'quick-business-website' ) : $instance['title'], $instance, $this->id_base );
 		$number = isset( $instance['number'] ) ? $instance['number'] : 3;

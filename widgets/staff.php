@@ -20,8 +20,7 @@ class SmartestStaff extends WP_Widget {
 	 * Register stylesheet.
 	 */
 	public function smar_staff_css() {
-			wp_register_style('sst',
-			plugins_url('/sst.css', __FILE__));
+		wp_register_style( 'qbw-staff', QUICKBUSINESSWEBSITE_URL . 'css/qbw-staff.css' );
 	} 
 
 	/**
@@ -30,8 +29,7 @@ class SmartestStaff extends WP_Widget {
 	 * @param array $instance Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
-		
-		wp_enqueue_style('sst');
+		wp_enqueue_style( 'qbw-staff' );
 	
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Staff', 'quick-business-website' ) : $instance['title'], $instance, $this->id_base );
 
