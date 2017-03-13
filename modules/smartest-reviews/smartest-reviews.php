@@ -71,7 +71,7 @@ class SMARTESTReviewsBusiness {
     }
     function get_jumplink_for_review($review,$page) {
        /* $page will be 1 for shortcode usage since it pulls most recent, which SHOULD all be on page 1 */
-       $link = get_permalink( get_option('smartest_reviews_page_id') );
+       $link = get_permalink( get_option( 'qbw_reviews_page_id' ) );
         if (strpos($link,'?') === false) {
             $link = trailingslashit($link) . "?smarp=$page#hreview-$review->id";
         } else {
@@ -165,7 +165,7 @@ class SMARTESTReviewsBusiness {
         /* upgrade to 2.0.0 */
         if ($current_dbversion < 200) {
             /* change all current reviews to use the selected page id */
-            $pageID = intval(get_option('smartest_reviews_page_id'));
+            $pageID = intval(get_option( 'qbw_reviews_page_id' ));
             $wpdb->query("UPDATE `$this->dbtable` SET `page_id`=$pageID WHERE `page_id`=0");
             $this->options['dbversion'] = 200;
             $current_dbversion = 200;
@@ -239,7 +239,7 @@ class SMARTESTReviewsBusiness {
             return $this->got_aggregate;
         }
         global $wpdb;
-        $pageID = get_option('smartest_reviews_page_id');
+        $pageID = get_option( 'qbw_reviews_page_id' );
         $row = $wpdb->get_results("SELECT COUNT(*) AS `total`,AVG(review_rating) AS `aggregate_rating`,MAX(review_rating) AS `max_rating` FROM `$this->dbtable` WHERE `status`=1");
 
         /* make sure we have at least one review before continuing below */
@@ -290,7 +290,7 @@ class SMARTESTReviewsBusiness {
     function aggregate_footer() {// for home page
         $qbw_options = get_option( 'qbw_options');
 		// gather agg data
-		$postID = get_option('smartest_reviews_page_id');
+		$postID = get_option( 'qbw_reviews_page_id' );
 		$arr_Reviews = $this->get_reviews('', $this->options['reviews_per_page'], 1);
 	 	$reviews = $arr_Reviews[0];// 12.5 prob dont need
 		$total_reviews = intval($arr_Reviews[1]);
@@ -473,7 +473,7 @@ else {$show = false; }
 
         /* trying to access a page that does not exists -- send to main page */
         if ( isset($this->p->smarp) && $this->p->smarp != 1 && count($reviews) == 0 ) {
-            $url = get_permalink(get_option('smartest_reviews_page_id'));
+            $url = get_permalink(get_option( 'qbw_reviews_page_id' ));
             $this->smar_redirect($url);
         }
         
@@ -500,7 +500,7 @@ else {$show = false; }
         } elseif ($qbw_options['qbw_add_reviews'] == 'false') {
 				$reviews_content .= '<p>'.__('Reviews are not available.', 'quick-business-website').'</p>';
         } else {// isa depend itemtype, phone, addy
-	   		$postid = get_option('smartest_reviews_page_id');
+	   		$postid = get_option( 'qbw_reviews_page_id' );
             $this->get_aggregate_reviews($postid);
             $summary = $this->got_aggregate["text"];
             $best_score = 5;
@@ -620,14 +620,13 @@ else {$show = false; }
     }
 
 /**
- * Create reviews page, storing page id.
+ * If enabled in settings, create reviews page, storing page id.
  * @uses insert_post()
  */
 function create_reviews_page() {
-	// if set in theme options
-	if(get_option( 'qbw_add_reviews') == 'true') {// isa depend
+	if ( get_option( 'qbw_add_reviews' ) == 'true' ) {
 		global $Quick_Business_Website;
-		$Quick_Business_Website->insert_post('page', esc_sql( _x('reviews', 'page_slug', 'quick-business-website') ), 'smartest_reviews_page_id', __('Reviews', 'quick-business-website'), '[SMAR_INSERT]' );
+		$Quick_Business_Website->insert_post('page', esc_sql( _x('reviews', 'page_slug', 'quick-business-website') ), 'qbw_reviews_page_id', __('Reviews', 'quick-business-website'), '[SMAR_INSERT]' );
 	}
 
 }
@@ -1026,7 +1025,7 @@ function do_the_content($original_content) {
 			wp_register_style('smartest-reviews', $this->getpluginurl() . 'smartest-reviews.css', array(), $this->plugin_version);
 			wp_register_script('smartest-reviews', $this->getpluginurl() . 'smartest-reviews.js', array('jquery'), $this->plugin_version);
 
-			if( is_page(get_option('smartest_reviews_page_id'))) {
+			if( is_page(get_option( 'qbw_reviews_page_id' ))) {
 			
 				wp_enqueue_style('smartest-reviews');
 		        wp_enqueue_script('smartest-reviews');
@@ -1050,7 +1049,7 @@ function do_the_content($original_content) {
 	 * widget
 	 */
 	function register_widget() {
-		if( get_option( 'qbw_add_reviews') == 'true'  ) { // isa depend 
+		if( get_option( 'qbw_add_reviews') == 'true'  ) {
 			register_widget('SmartestReviewsTestimonial');
 		}
 	}

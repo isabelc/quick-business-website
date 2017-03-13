@@ -26,8 +26,8 @@ You should have received a copy of the GNU General Public License
 along with Quick Business Website; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-if(!class_exists('Quick_Business_Website')) {
-class Quick_Business_Website{
+if ( ! class_exists( 'Quick_Business_Website' ) ) {
+class Quick_Business_Website {
 	private static $instance = null;
 
 	public static function get_instance() {
@@ -74,24 +74,16 @@ class Quick_Business_Website{
 			if ( get_option( 'qbw_enable_service_sort') == 'true'  ) { 
 				add_filter( 'parse_query', array( $this, 'sort_services' ) );
 			}
-
-			/************************************************************
-			*
-			* @todo @test
-			*
-			************************************************************/
-			// add_action( 'admin_init', array( $this, 'upgrade_options' ) );
-
+			add_action( 'admin_init', array( $this, 'upgrade_options' ) );
 
     }
 
 	/** 
-	* Only upon plugin activation, setup options, delete Old Contact page to not clash with new one, and flush rewrite rules for custom post types.
+	* Only upon plugin activation, setup options and flush rewrite rules for custom post types.
 	*
 	* @since 1.0
 	*/
-	public static function activate() { 
-		$del_old_page = wp_delete_post(get_option('smartest_contact_page_id'), true);
+	public static function activate() {
 		add_action( 'admin_head', array( __CLASS__, 'option_setup' ) );
 		global $wp_rewrite;
 		$wp_rewrite->flush_rules();
@@ -1148,7 +1140,7 @@ class Quick_Business_Website{
 
 		// If Reviews are disabled, delete the page
 		if ( get_option( 'qbw_add_reviews' ) == 'false' ) {
-			wp_delete_post(get_option('smartest_reviews_page_id'), true);
+			wp_delete_post(get_option('qbw_reviews_page_id'), true);
 		}
 
 	} // end create_business_cpts
@@ -1650,60 +1642,41 @@ class Quick_Business_Website{
 	/**
 	 * Upgrade options
 	 * @since 2.0
-	 * @todo At some point in the future, remove this and delete the test_qbw_upgrade_two option on uninstall.
+	 * @todo At some point in the future, remove this and delete the qbw_upgrade_two option on uninstall.
 	 */
 	public function upgrade_options() {
 		// Run this update only once
-		// if ( get_option( 'test_qbw_upgrade_two' ) != 'completed' ) {// @todo update name, remove test
+		if ( get_option( 'qbw_upgrade_two' ) != 'completed' ) {
 
-		global $wpdb;
+			global $wpdb;
+			$old_prefixes = array( 'smartestb_', 'smartest_' );
+			foreach ( $old_prefixes as $old_prefix ) {
+				$value = $old_prefix . '%';
+				// get all options with our old prefix
+				$query = $wpdb->get_results(
+					$wpdb->prepare("select * from " . $wpdb->options . " where option_name like %s", $value )
+				);
 
-		// get all options with our old prefix
-		$query = $wpdb->get_results( "select * from " . $wpdb->options . " where option_name like 'smartestb_%'" );
-
-
-		// isa_log($query);// @test now
-
-		// Migrate options to new name
-		if ( ! empty( $query[0] ) ) {
-			
-			$prefix = 'smartestb_';
-			$len = strlen( $prefix );
-
-			foreach ( $query as $option ) {
-
-				// remove prefix
-				$basename = substr( $option->option_name, $len );
-
-				isa_log('YES!!!!! NEW OPTION WILL BE ... ');
-				isa_log( $basename );
-				// save option with new prefix
-				update_option( 'qbw_' . $basename );
-
-				// delete old option
-				delete_option( $option );
-
+				// Migrate options to new name
+				if ( ! empty( $query[0] ) ) {
+					$len = strlen( $old_prefix );
+					foreach ( $query as $option ) {
+						// remove old_prefix
+						$basename = substr( $option->option_name, $len );
+						// save option with new prefix
+						update_option( 'qbw_' . $basename, $option->option_value );
+						// delete old option
+						delete_option( $option->option_name );
+					}
+				}
 			}
+
+			// delete uneeded options
+			delete_option( 'qbw_smartestb_plugin_name' );
+
+			// Set flag to run upgrade only once
+			update_option( 'qbw_upgrade_two', 'completed' );
 		}
-
-		// $query = $wpdb->get_results( "select * from " . $wpdb->options . " where option_name like 'qbw_%'" );
-		// isa_log($query);// @test now
-
-
-		/************************************************************
-		*
-		* @todo must do same for get_option('smartest_
-		*
-		************************************************************/
-
-		// delete uneeded options
-		delete_option( 'qbw_smartestb_plugin_name' );
-			
-
-		// 	update_option( 'test_qbw_upgrade_two', 'completed' );
-		// }
-
-
 
 	}
 

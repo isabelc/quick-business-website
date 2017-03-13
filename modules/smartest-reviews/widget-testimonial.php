@@ -26,7 +26,7 @@ class SmartestReviewsTestimonial extends WP_Widget {
 			echo '<h3 class="widget-title">'. $title . '</h3>';
 		global $wpdb;
 		// get the permalink by page id.
-		$reviews_pageurl = get_permalink(get_option('smartest_reviews_page_id'));
+		$reviews_pageurl = get_permalink(get_option('qbw_reviews_page_id'));
 		$pre = $wpdb->base_prefix;
 		if ( is_multisite() ) { 
 			global $blog_id;
