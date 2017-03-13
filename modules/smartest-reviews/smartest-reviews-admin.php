@@ -367,11 +367,11 @@ class SMARTESTReviewsBusinessAdmin
         
         echo '
         <div id="smar_respond_1" class="wrap">
-            <h2>'. __('Smartest Reviews - Options', 'quick-business-website'). '</h2>';
+            <h2>' . __( 'Smartest Reviews - Options', 'quick-business-website' ). '</h2>';
             if ($msg) { echo '<h3 style="color:#a00;">'.$msg.'</h3>'; }
 
 			// set var used below
-			$linkp = '<a href="'. admin_url('admin.php?page=smartestbthemes').'">Preferences</a>';
+			$linkp = '<a href="'. esc_url( admin_url('admin.php?page=quickbusinesswebsite') ) . '">' . __( 'Preferences', 'quick-business-website' ) . '</a>';
 
             echo '<div class="metabox-holder">
             <div class="postbox" style="width:700px;">

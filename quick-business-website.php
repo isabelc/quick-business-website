@@ -98,7 +98,7 @@ class Quick_Business_Website {
 	function settings_link($actions, $file) {
 	$qbw_path    = plugin_basename(__FILE__);
 	if(false !== strpos($file, $qbw_path))
-	 $actions['settings'] = '<a href="admin.php?page=smartestbthemes">'. __('Settings', 'quick-business-website'). '</a>';// @todo rename page
+	 $actions['settings'] = '<a href="admin.php?page=quickbusinesswebsite">'. __('Settings', 'quick-business-website'). '</a>';
 	return $actions; 
 	}
 	/**
@@ -174,20 +174,20 @@ class Quick_Business_Website {
 	public function add_admin() {
 	    global $query_string;
 	    $title = __( 'Quick Business Website', 'quick-business-website' );
-	    if ( isset( $_REQUEST['page']) && $_REQUEST['page'] == 'smartestbthemes' ) {
-			if ( isset( $_REQUEST['smartestb_save'] ) && 'reset' == $_REQUEST['smartestb_save']) {
+	    if ( isset( $_REQUEST['page'] ) && 'quickbusinesswebsite' == $_REQUEST['page'] ) {
+			if ( isset( $_REQUEST['smartestb_save'] ) && 'reset' == $_REQUEST['smartestb_save'] ) {
 	
-				$options =  get_option( 'qbw_template'); 
-				$this->reset_options($options,'smartestbthemes');
-				header("Location: admin.php?page=smartestbthemes&reset=true");
+				$options = get_option( 'qbw_template'); 
+				$this->reset_options( $options, 'quickbusinesswebsite' );
+				header( "Location: admin.php?page=quickbusinesswebsite&reset=true" );
 				die;
 			}
 	    }
-		$sto = add_menu_page( sprintf(__('%s Options', 'quick-business-website'), $title), $title, 'activate_plugins', 'smartestbthemes', array($this, 'options_page'), 'dashicons-welcome-widgets-menus', 45);
+		$sto = add_menu_page( sprintf( __( '%s Options', 'quick-business-website' ), $title ), $title, 'activate_plugins', 'quickbusinesswebsite', array( $this, 'options_page' ), 'dashicons-welcome-widgets-menus', 45);
 		add_action( 'admin_head-'. $sto, array( $this, 'frame_load' ) );
 		$this->add_admin_menu_separator(44);
 	
-	} // end add_admin
+	}
 
 	/**
 	 * Add link to plugin options to admin tool bar. Also, remove WordPress links from admin/tool bar, if enabled for branding.
@@ -199,7 +199,7 @@ class Quick_Business_Website {
 	        'parent' => 'appearance',
 	        'id' => 'qbw-options',
 	        'title' => __( 'Quick Business Website Options', 'quick-business-website' ),
-	        'href' => admin_url( 'admin.php?page=smartestbthemes')
+	        'href' => admin_url( 'admin.php?page=quickbusinesswebsite' )
 	    ) );
 		if ( get_option( 'qbw_remove_wplinks' ) == 'true' ) {
 			$wp_admin_bar->remove_menu( 'wp-logo' );
@@ -211,17 +211,15 @@ class Quick_Business_Website {
 	 * Reset options page
 	 * @since 1.0
 	 */
-
-	public function reset_options($options,$page = ''){
-	
+	public function reset_options( $options, $page = '' ){
 		global $wpdb;
 		$query_inner = '';
 		$count = 0;
 		
 		$excludes = array( 'blogname' , 'blogdescription' );
 		
-		foreach($options as $option){
-				
+		foreach( $options as $option ) {
+
 			if(isset($option['id'])){ 
 				$count++;
 				$option_id = $option['id'];
@@ -256,7 +254,7 @@ class Quick_Business_Website {
 		}
 		
 		//When Options page is reset - Add the qbw_options option
-		if($page == 'smartestbthemes'){
+		if ( 'quickbusinesswebsite' == $page ) {
 			$query_inner .= " OR option_name = 'qbw_options'";
 		}
 		$query = "DELETE FROM $wpdb->options WHERE $query_inner";
@@ -506,10 +504,9 @@ class Quick_Business_Website {
 					
 						 //var data = {data : serializedReturn};
 						var data = {
-							<?php if(isset($_REQUEST['page']) && $_REQUEST['page'] == 'smartestbthemes'){ ?>
+							<?php if ( isset( $_REQUEST['page'] ) && 'quickbusinesswebsite' == $_REQUEST['page'] ) { ?>
 							type: 'options',
 							<?php } ?>
-	
 	
 							action: 'smartestb_ajax_post_action',
 							data: serializedReturn
