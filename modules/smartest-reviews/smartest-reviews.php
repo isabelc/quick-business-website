@@ -49,9 +49,9 @@ class SMARTESTReviewsBusiness {
     }
 
     function addmenu() {
-        add_options_page(__('Reviews', 'quick-business-website'), '<img src="' . $this->getpluginurl() . 'star.png" />&nbsp;'. __('Reviews', 'quick-business-website'), 'manage_options', 'smar_options', array(&$this, 'admin_options'));
+        add_options_page(__('Reviews', 'quick-business-website'), '<img src="' . $this->get_reviews_module_url() . 'star.png" />&nbsp;'. __('Reviews', 'quick-business-website'), 'manage_options', 'smar_options', array(&$this, 'admin_options'));
 		if(get_option( 'qbw_add_reviews') == 'true') {       
-			add_menu_page(__('Reviews', 'quick-business-website'), __('Reviews', 'quick-business-website'), 'edit_others_posts', 'smar_view_reviews', array(&$this, 'admin_view_reviews'), $this->getpluginurl() . 'star.png', 62);
+			add_menu_page(__('Reviews', 'quick-business-website'), __('Reviews', 'quick-business-website'), 'edit_others_posts', 'smar_view_reviews', array(&$this, 'admin_view_reviews'), $this->get_reviews_module_url() . 'star.png', 62);
 		}
    }
     function admin_options() {
@@ -1022,8 +1022,8 @@ function do_the_content($original_content) {
 
 	function enqueue_scripts() {
 		if( get_option( 'qbw_add_reviews') == 'true'  ) { // isa depend
-			wp_register_style('smartest-reviews', $this->getpluginurl() . 'smartest-reviews.css', array(), $this->plugin_version);
-			wp_register_script('smartest-reviews', $this->getpluginurl() . 'smartest-reviews.js', array('jquery'), $this->plugin_version);
+			wp_register_style('smartest-reviews', $this->get_reviews_module_url() . 'smartest-reviews.css', array(), $this->plugin_version);
+			wp_register_script('smartest-reviews', $this->get_reviews_module_url() . 'smartest-reviews.js', array('jquery'), $this->plugin_version);
 
 			if( is_page(get_option( 'qbw_reviews_page_id' ))) {
 			
@@ -1055,8 +1055,7 @@ function do_the_content($original_content) {
 	}
     function include_admin() {
         global $SMARTESTReviewsBusinessAdmin;
-		require_once plugin_dir_path( __FILE__ ) . 'smartest-reviews-admin.php';
-
+		require_once QUICKBUSINESSWEBSITE_PATH . 'modules/smartest-reviews/smartest-reviews-admin.php';
     }
     function admin_init() {
         global $SMARTESTReviewsBusinessAdmin;
@@ -1067,9 +1066,8 @@ function do_the_content($original_content) {
 		global $SMARTESTReviewsBusinessAdmin;
         $SMARTESTReviewsBusinessAdmin->enqueue_admin_stuff();
 	}
-	function getpluginurl() {// @todo use const
-		return trailingslashit( plugins_url( '' , __FILE__ ) );
-
+	function get_reviews_module_url() {
+        return QUICKBUSINESSWEBSITE_URL . 'modules/smartest-reviews/';
     }
 }
 if (!defined('IN_SMAR')) {global $SMARTESTReviewsBusiness;
