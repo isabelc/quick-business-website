@@ -35,7 +35,7 @@ class SmartestServices extends WP_Widget {
 		// if cat is selected, do tax query
 		if ( ! empty ($service_category) ) {
 
-			if( get_option('smartestb_enable_service_sort') == 'true'  ) {
+			if ( get_option( 'qbw_enable_service_sort') == 'true'  ) {
 
 				// custom sort order is enabled
 
@@ -75,7 +75,7 @@ class SmartestServices extends WP_Widget {
 
 			// no tax query
 
-			if( get_option('smartestb_enable_service_sort') == 'true'  ) {
+			if( get_option( 'qbw_enable_service_sort') == 'true'  ) {
 
 				// custom sort order is enabled
 				$query_args = array( 

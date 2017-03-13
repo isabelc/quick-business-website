@@ -50,7 +50,7 @@ class SMARTESTReviewsBusiness {
 
     function addmenu() {
         add_options_page(__('Reviews', 'quick-business-website'), '<img src="' . $this->getpluginurl() . 'star.png" />&nbsp;'. __('Reviews', 'quick-business-website'), 'manage_options', 'smar_options', array(&$this, 'admin_options'));
-		if(get_option('smartestb_add_reviews') == 'true') {       
+		if(get_option( 'qbw_add_reviews') == 'true') {       
 			add_menu_page(__('Reviews', 'quick-business-website'), __('Reviews', 'quick-business-website'), 'edit_others_posts', 'smar_view_reviews', array(&$this, 'admin_view_reviews'), $this->getpluginurl() . 'star.png', 62);
 		}
    }
@@ -288,7 +288,7 @@ class SMARTESTReviewsBusiness {
     }
 
     function aggregate_footer() {// for home page
-		global $smartestb_options;	
+        $qbw_options = get_option( 'qbw_options');
 		// gather agg data
 		$postID = get_option('smartest_reviews_page_id');
 		$arr_Reviews = $this->get_reviews('', $this->options['reviews_per_page'], 1);
@@ -311,46 +311,46 @@ else {$show = false; }
 						$isabiz_declare = ' itemscope itemtype="http://schema.org/LocalBusiness"';// isa depend
 		                $aggregate_footer_output = '<div id="smar_respond_1"><div id="smar_hcard_s"' . $isabiz_declare . ' class="isa_vcard">';
 
-$smartestb_options = get_option('smartestb_options');
-	$bn = stripslashes_deep(esc_attr($smartestb_options['smartestb_business_name']));if(!$bn) {$bn = get_bloginfo('name'); }
+
+	$bn = stripslashes_deep(esc_attr($qbw_options['qbw_business_name']));if(!$bn) {$bn = get_bloginfo('name'); }
 
               $aggregate_footer_output .= '<a itemprop="name" href="' . site_url('/')
  . '">' . $bn . '</a><br />';
 		                if (// isa depend addy
-			                        $smartestb_options['smartestb_address_street'] != '' || 
-			                        $smartestb_options['smartestb_address_city'] != '' ||
-			                        $smartestb_options['smartestb_address_state'] != '' ||
-			                        $smartestb_options['smartestb_address_zip'] != '' ||
-			                        $smartestb_options['smartestb_address_country'] != ''
+			                        $qbw_options['qbw_address_street'] != '' || 
+			                        $qbw_options['qbw_address_city'] != '' ||
+			                        $qbw_options['qbw_address_state'] != '' ||
+			                        $qbw_options['qbw_address_zip'] != '' ||
+			                        $qbw_options['qbw_address_country'] != ''
 			                   )
 			                {
 			                    $aggregate_footer_output .= '<span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">';
-			                    if ($smartestb_options['smartestb_address_street'] != '') {
-			                        $aggregate_footer_output .= '<span itemprop="streetAddress">' . $smartestb_options['smartestb_address_street'] . '</span>&nbsp;';
+			                    if ($qbw_options['qbw_address_street'] != '') {
+			                        $aggregate_footer_output .= '<span itemprop="streetAddress">' . $qbw_options['qbw_address_street'] . '</span>&nbsp;';
 			                    }
 
-								if ($smartestb_options['smartestb_address_suite'] != '') {
-											                        $aggregate_footer_output .= ' ' . $smartestb_options['smartestb_address_suite'] . '&nbsp;';
+								if ($qbw_options['qbw_address_suite'] != '') {
+											                        $aggregate_footer_output .= ' ' . $qbw_options['qbw_address_suite'] . '&nbsp;';
 											                    }
 
-			                    if ($smartestb_options['smartestb_address_city'] != '') {
-			                        $aggregate_footer_output .='<span itemprop="addressLocality">' . $smartestb_options['smartestb_address_city'] . '</span>,&nbsp;';
+			                    if ($qbw_options['qbw_address_city'] != '') {
+			                        $aggregate_footer_output .='<span itemprop="addressLocality">' . $qbw_options['qbw_address_city'] . '</span>,&nbsp;';
 			                    }
-			                    if ($smartestb_options['smartestb_address_state'] != '') {
-			                        $aggregate_footer_output .='<span itemprop="addressRegion">' . $smartestb_options['smartestb_address_state'] . '</span>,&nbsp;';
+			                    if ($qbw_options['qbw_address_state'] != '') {
+			                        $aggregate_footer_output .='<span itemprop="addressRegion">' . $qbw_options['qbw_address_state'] . '</span>,&nbsp;';
 			                    }
-			                    if ($smartestb_options['smartestb_address_zip'] != '') {
-			                        $aggregate_footer_output .='<span class="postal-code" itemprop="postalCode">' . $smartestb_options['smartestb_address_zip'] . '</span>&nbsp;';
+			                    if ($qbw_options['qbw_address_zip'] != '') {
+			                        $aggregate_footer_output .='<span class="postal-code" itemprop="postalCode">' . $qbw_options['qbw_address_zip'] . '</span>&nbsp;';
 			                    }
-			                    if ($smartestb_options['smartestb_address_country'] != '') {
-			                        $aggregate_footer_output .='<span itemprop="addressCountry">' . $smartestb_options['smartestb_address_country'] . '</span>&nbsp;';
+			                    if ($qbw_options['qbw_address_country'] != '') {
+			                        $aggregate_footer_output .='<span itemprop="addressCountry">' . $qbw_options['qbw_address_country'] . '</span>&nbsp;';
 			                    }
 			
 			                    $aggregate_footer_output .= '</span>';
 			                }
 			
-			                if ( $smartestb_options['smartestb_phone_number'] != '') {// isa depend
-			                    $aggregate_footer_output .= '<br />&nbsp;&bull;&nbsp<span itemprop="telephone">' . $smartestb_options['smartestb_phone_number'] . '</span>';
+			                if ( $qbw_options['qbw_phone_number'] != '') {// isa depend
+			                    $aggregate_footer_output .= '<br />&nbsp;&bull;&nbsp<span itemprop="telephone">' . $qbw_options['qbw_phone_number'] . '</span>';
 			                }
 
 
@@ -468,10 +468,8 @@ $smartestb_options = get_option('smartestb_options');
         $hidesummary = '';
         $title_tag = $this->options['title_tag'];
 
-		// Populate Smartest Themes options in array for use
-		global $smartestb_options;
-		$smartestb_options = get_option('smartestb_options');
-		$bn = stripslashes_deep(esc_attr($smartestb_options['smartestb_business_name']));if(!$bn) {$bn = get_bloginfo('name'); }
+		$qbw_options = get_option( 'qbw_options');
+		$bn = stripslashes_deep(esc_attr($qbw_options['qbw_business_name']));if(!$bn) {$bn = get_bloginfo('name'); }
 
         /* trying to access a page that does not exists -- send to main page */
         if ( isset($this->p->smarp) && $this->p->smarp != 1 && count($reviews) == 0 ) {
@@ -490,16 +488,16 @@ $smartestb_options = get_option('smartestb_options');
 				$reviews_content .= ' itemscope itemtype="http://schema.org/LocalBusiness">
 							<span class="isa_vcard" id="hreview-smar-hcard-for-' . $review->id . '">
                                 <a itemprop="name" href="' . site_url('/') . '">' . $bn . '</a>
-                                <span itemprop="telephone">' . $smartestb_options['smartestb_phone_number'] . '</span>
+                                <span itemprop="telephone">' . $qbw_options['qbw_phone_number'] . '</span>
                                 <span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-                    <span itemprop="streetAddress">' . $smartestb_options['smartestb_address_street'] . ' ' .$smartestb_options['smartestb_address_suite'] . '</span>
-                                    <span itemprop="addressLocality">' . $smartestb_options['smartestb_address_city'] . '</span>
-                                    <span itemprop="addressRegion">' . $smartestb_options['smartestb_address_state'] . '</span> <span itemprop="postalCode">' . $smartestb_options['smartestb_address_zip'] . '</span>
-                                    <span itemprop="addressCountry">' . $smartestb_options['smartestb_address_country'] . '</span></span></span><hr />';
+                    <span itemprop="streetAddress">' . $qbw_options['qbw_address_street'] . ' ' .$qbw_options['qbw_address_suite'] . '</span>
+                                    <span itemprop="addressLocality">' . $qbw_options['qbw_address_city'] . '</span>
+                                    <span itemprop="addressRegion">' . $qbw_options['qbw_address_state'] . '</span> <span itemprop="postalCode">' . $qbw_options['qbw_address_zip'] . '</span>
+                                    <span itemprop="addressCountry">' . $qbw_options['qbw_address_country'] . '</span></span></span><hr />';
         }
         if (count($reviews) == 0) {
             $reviews_content .= '<p>'. __('There are no reviews yet. Be the first to leave yours!', 'quick-business-website').'</p>';
-        } elseif ($smartestb_options['smartestb_add_reviews'] == 'false') {
+        } elseif ($qbw_options['qbw_add_reviews'] == 'false') {
 				$reviews_content .= '<p>'.__('Reviews are not available.', 'quick-business-website').'</p>';
         } else {// isa depend itemtype, phone, addy
 	   		$postid = get_option('smartest_reviews_page_id');
@@ -510,12 +508,12 @@ $smartestb_options = get_option('smartestb_options');
 			$reviews_content .= '<div itemscope itemtype="http://schema.org/LocalBusiness"><br />
 							<span class="isa_vcard">
                                 <a itemprop="name" href="' . site_url('/') . '">' . $bn . '</a><br />
-                                <span itemprop="telephone">' . $smartestb_options['smartestb_phone_number'] . '</span><br />
+                                <span itemprop="telephone">' . $qbw_options['qbw_phone_number'] . '</span><br />
                                 <span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-                                    <span itemprop="streetAddress">' . $smartestb_options['smartestb_address_street'] . ' ' .$smartestb_options['smartestb_address_suite'] . '</span><br />
-                                    <span itemprop="addressLocality">' . $smartestb_options['smartestb_address_city'] . '</span>
-                                    <span itemprop="addressRegion">' . $smartestb_options['smartestb_address_state'] . '</span> <span itemprop="postalCode">' . $smartestb_options['smartestb_address_zip'] . '</span>
-                                    <span itemprop="addressCountry">' . $smartestb_options['smartestb_address_country'] . '</span>
+                                    <span itemprop="streetAddress">' . $qbw_options['qbw_address_street'] . ' ' .$qbw_options['qbw_address_suite'] . '</span><br />
+                                    <span itemprop="addressLocality">' . $qbw_options['qbw_address_city'] . '</span>
+                                    <span itemprop="addressRegion">' . $qbw_options['qbw_address_state'] . '</span> <span itemprop="postalCode">' . $qbw_options['qbw_address_zip'] . '</span>
+                                    <span itemprop="addressCountry">' . $qbw_options['qbw_address_country'] . '</span>
                                 </span>
                             </span><hr />';
 		
@@ -627,7 +625,7 @@ $smartestb_options = get_option('smartestb_options');
  */
 function create_reviews_page() {
 	// if set in theme options
-	if(get_option('smartestb_add_reviews') == 'true') {// isa depend
+	if(get_option( 'qbw_add_reviews') == 'true') {// isa depend
 		global $Quick_Business_Website;
 		$Quick_Business_Website->insert_post('page', esc_sql( _x('reviews', 'page_slug', 'quick-business-website') ), 'smartest_reviews_page_id', __('Reviews', 'quick-business-website'), '[SMAR_INSERT]' );
 	}
@@ -967,9 +965,8 @@ function do_the_content($original_content) {
 
         $wpdb->query($query);
 
-		global $smartestb_options;
-		$smartestb_options = get_option('smartestb_options');
-		$bn = stripslashes_deep($smartestb_options['smartestb_business_name']);if(!$bn) {$bn = get_bloginfo('name'); }
+		$qbw_options = get_option( 'qbw_options');
+		$bn = stripslashes_deep($qbw_options['qbw_business_name']);if(!$bn) {$bn = get_bloginfo('name'); }
         $admin_linkpre = get_admin_url().'admin.php?page=smar_view_reviews';
         $admin_link = sprintf(__('Link to admin approval page: %s', 'quick-business-website'), $admin_linkpre);
 		$ac = sprintf(__('A new review has been posted on %1$s\'s website.','quick-business-website'),$bn) . "\n\n" .
@@ -1025,7 +1022,7 @@ function do_the_content($original_content) {
     }
 
 	function enqueue_scripts() {
-		if( get_option('smartestb_add_reviews') == 'true'  ) { // isa depend
+		if( get_option( 'qbw_add_reviews') == 'true'  ) { // isa depend
 			wp_register_style('smartest-reviews', $this->getpluginurl() . 'smartest-reviews.css', array(), $this->plugin_version);
 			wp_register_script('smartest-reviews', $this->getpluginurl() . 'smartest-reviews.js', array('jquery'), $this->plugin_version);
 
@@ -1053,7 +1050,7 @@ function do_the_content($original_content) {
 	 * widget
 	 */
 	function register_widget() {
-		if( get_option('smartestb_add_reviews') == 'true'  ) { // isa depend 
+		if( get_option( 'qbw_add_reviews') == 'true'  ) { // isa depend 
 			register_widget('SmartestReviewsTestimonial');
 		}
 	}

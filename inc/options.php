@@ -2,7 +2,7 @@
 /**
  * Quick Business Website Options
  */
-function smartestb_options(){
+function qbw_options(){
 $slink = '<a href="'.admin_url('options-general.php').'">'. __('Settings', 'quick-business-website').'</a>';
 $user_info = get_userdata(1);
 if ($user_info == true) {
@@ -11,9 +11,9 @@ if ($user_info == true) {
 	$admin_name = __( 'Site Administrator', 'quick-business-website' );
 }
 $currtime = date("l, F jS, Y @ g:i a");
-$shortname = 'smartestb'; // @new shortname per framework
-global $smartestb_options;
-$smartestb_options = get_option('smartestb_options');
+$shortname = 'qbw';
+global $qbw_options;
+$qbw_options = get_option( 'qbw_options');
 $options = array();
 /* WELCOME */
 $options[] = array( 'name' => __('Welcome','quick-business-website'),
@@ -272,10 +272,13 @@ $options[] = array( 'name' => __('Additional Scripts To Load','quick-business-we
                     'type' => 'textarea');
 
 /* Advanced */
-
 $options[] = array( 'name' => __('Advanced','quick-business-website'),'class' => 'settings',
 					'type' => 'heading');
-				
+$options[] = array( 'name' => __('Delete All Data On Uninstall','quick-business-website'),
+					'desc' => sprintf( __( 'Check this box if you would like Quick Business Website to completely remove all of its data when the plugin is deleted. This would include all Services, Staff, Announcement posts, Reviews, the Contact and Reviews page, and all settings. (This refers to when you delete the plugin. This does not refer to simply deactivating the plugin. Nothing is lost upon simple deactivation.)', 'quick-business-website' ) ),
+					'id' => $shortname.'_delete_data',
+					'std' => 'false',
+					'type' => 'checkbox');
 $options[] = array( 'name' => __('Disable Contact Page','quick-business-website'),
 					'desc' => sprintf( __( 'Check this to disable the Contact page. This will delete the automatically-created Contact page. You will still be able to use the shortcode to add a contact form: %s', 'quick-business-website' ), '<code>[smartest_themes_contact_form]</code>' ),
 					'id' => $shortname.'_stop_contact',
@@ -292,7 +295,7 @@ $options[] = array( 'name' => __('Backwards Compatibility: Use Old Social Icons'
 					'id' => $shortname.'_old_social_icons',
 					'std' => 'false',
 					'type' => 'checkbox');
-update_option('smartestb_template',$options);      
-update_option('smartestb_shortname',$shortname);
+update_option( 'qbw_template',$options);      
+update_option( 'qbw_shortname',$shortname);
 }
 ?>

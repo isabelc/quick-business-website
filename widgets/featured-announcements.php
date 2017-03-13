@@ -67,8 +67,8 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 						
 				} else {
 				
-					// if not stopped with option smartestb_stop_theme_icon
-					if(get_option('smartestb_stop_theme_icon') != 'true') {
+					// if not stopped with option qbw_stop_theme_icon
+					if(get_option( 'qbw_stop_theme_icon') != 'true') {
 							echo '<figure class="img-indent"><a href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">'; ?>
 							<img class="icon" src="<?php echo plugins_url('/images/news.svg', dirname(__FILE__)); ?>" width="40px" height="40" />
 							<?php echo '</a></figure>';

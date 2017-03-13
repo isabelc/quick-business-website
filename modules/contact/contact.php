@@ -15,7 +15,7 @@ $value_response = isset($value_response) ? $value_response : '';
 $value_message  = isset($value_message) ? $value_message : '';
 $value_phone		= isset($_POST['sbfc_phone']) ? htmlentities($_POST['sbfc_phone']) : '';
 
-if ( get_option('smartestb_sbfc_required_phone') == 'true' ) {
+if ( get_option( 'qbw_sbfc_required_phone') == 'true' ) {
 	$require_phone = ' class="required"';
 } else {
 	$require_phone = '';
@@ -47,7 +47,6 @@ function sbfc_malicious_input($input) {
  * check for spam
  */
 function sbfc_spam_question($input) {
-	global $smartestb_options;
 	$response = '2';
 	$response = stripslashes(trim($response));
 	return ($input == $response);
@@ -89,7 +88,7 @@ function sbfc_input_filter() {
 	$_POST['sbfc_response'] = stripslashes(trim($_POST['sbfc_response']));
 	$_POST['sbfc_phone'] = isset($_POST['sbfc_phone']) ? stripslashes(trim($_POST['sbfc_phone'])) : '';
 
-	global $smartestb_options, $sbfc_strings;
+	global $qbw_options, $sbfc_strings;
 	$pass  = true;
 
 	if(empty($_POST['smartestb_sbfc_name'])) {
@@ -102,7 +101,7 @@ function sbfc_input_filter() {
 		$fail = 'empty';
 		$sbfc_strings['email'] = '<input class="smartestb_sbfc_error" name="smartestb_sbfc_email" id="smartestb_sbfc_email" type="text" size="33" maxlength="99" value="'. htmlentities($_POST['smartestb_sbfc_email']) .'" placeholder="Your email" />';
 	}
-	if ($smartestb_options['smartestb_sbfc_captcha'] == 'true') {
+	if ($qbw_options['qbw_sbfc_captcha'] == 'true') {
 		if (empty($_POST['sbfc_response'])) {
 			$pass = FALSE; 
 			$fail = 'empty';
@@ -119,7 +118,7 @@ function sbfc_input_filter() {
 		$fail = 'empty';
 		$sbfc_strings['message'] = '<textarea class="smartestb_sbfc_error" name="sbfc_message" id="sbfc_message" cols="33" rows="7" placeholder="Your message">'. $_POST['sbfc_message'] .'</textarea>';
 	}
-	if ($smartestb_options['smartestb_sbfc_required_phone'] == 'true') {
+	if ($qbw_options['qbw_sbfc_required_phone'] == 'true') {
 		if (empty($_POST['sbfc_phone'])) {
 			$pass = FALSE; 
 			$fail = 'empty';
@@ -137,7 +136,7 @@ function sbfc_input_filter() {
 			$sbfc_strings['error'] = '<p id="sbfc_isa_error">' . __( 'Please do not include any of the following in the Name or Email fields: linebreaks, or the phrases "mime-version", "content-type", "cc:" or "to:"', 'quick-business-website' ) . '</p>';
 		} elseif($fail == 'empty') {
 
-			$posted_msg = stripslashes($smartestb_options['smartestb_sbfc_error']);
+			$posted_msg = stripslashes( $qbw_options['qbw_sbfc_error'] );// @test option since name change
 			// in case they erase the default in admin
 			$msg = ($posted_msg) ? $posted_msg : __( 'Please complete the required fields.', 'quick-business-website' );
 			$sbfc_strings['error'] = '<p id="sbfc_isa_error">' . $msg . '</p>';
@@ -173,9 +172,9 @@ function smartest_themes_contact_form() {
  * @uses insert_post()
  */
 function sbf_create_contact_page() {
-	if(get_option('smartestb_stop_contact') == 'false') {
+	if(get_option( 'qbw_stop_contact') == 'false') {
 		// CONTACT form is not disabled so do it	
-		$bn = stripslashes_deep(esc_attr(get_option('smartestb_business_name')));
+		$bn = stripslashes_deep(esc_attr(get_option( 'qbw_business_name')));
 		$contitle = sprintf(__('Contact %s','quick-business-website'), $bn);
 		global $Quick_Business_Website;
 		$Quick_Business_Website->insert_post( 'page', esc_sql( _x('contact', 'page_slug', 'quick-business-website') ), 'qbw_contact_page_id', $contitle, '[smartest_themes_contact_form]' );
@@ -183,7 +182,7 @@ function sbf_create_contact_page() {
 }
 add_action('after_setup_theme', 'sbf_create_contact_page');
 // if contact page is disabled, delete the page
-if(get_option('smartestb_stop_contact') == 'true') {
+if(get_option( 'qbw_stop_contact') == 'true') {
 	wp_delete_post(get_option('qbw_contact_page_id'), true);
 }
 /**
@@ -202,12 +201,12 @@ add_action('wp_enqueue_scripts', 'sbfc_enqueue_scripts');
  * process contact form
  */
 function sbfc_process_contact_form($content='') {
-	global $smartestb_options, $sbfc_strings;
+	global $qbw_options, $sbfc_strings;
 	
-	$topic     = stripslashes($smartestb_options['smartestb_sbfc_subject']);
-	$recipient = stripslashes($smartestb_options['smartestb_sbfc_email']);
-	$recipname = stripslashes($smartestb_options['smartestb_sbfc_name']);
-	$success   = stripslashes($smartestb_options['smartestb_sbfc_success']);
+	$topic     = stripslashes($qbw_options['qbw_sbfc_subject']);
+	$recipient = stripslashes($qbw_options['qbw_sbfc_email']);
+	$recipname = stripslashes($qbw_options['qbw_sbfc_name']);
+	$success   = stripslashes($qbw_options['qbw_sbfc_success']);
 	// in case 4 defaults were deleted in admin
 	$topic     = ! empty($topic) ? $topic : __( 'Message sent from your contact form', 'quick-business-website' );
 	$recipient = ! empty($recipient) ? $recipient : get_bloginfo('admin_email');
@@ -218,14 +217,14 @@ function sbfc_process_contact_form($content='') {
 	$email     = $_POST['smartestb_sbfc_email'];
 	$recipsite = get_bloginfo('url');
 	$senderip  = sbfc_get_ip_address();
-	$offset    = $smartestb_options['smartestb_sbfc_offset'];
+	$offset    = $qbw_options['qbw_sbfc_offset'];
 	$agent     = $_SERVER['HTTP_USER_AGENT'];
 	$form      = getenv("HTTP_REFERER");
 	$host      = gethostbyaddr($_SERVER['REMOTE_ADDR']);
 	$date      = date("l, F jS, Y @ g:i a", time() + $offset * 60 * 60);
 
-	$prepend = stripslashes($smartestb_options['smartestb_sbfc_prepend']);
-	$append  = stripslashes($smartestb_options['smartestb_sbfc_append']);
+	$prepend = stripslashes($qbw_options['qbw_sbfc_prepend']);
+	$append  = stripslashes($qbw_options['qbw_sbfc_append']);
 
 	// Get the site domain and get rid of www.
 	$sitename = strtolower( $_SERVER['SERVER_NAME'] );
@@ -293,18 +292,18 @@ $local_agent  $agent
  * display contact form
  */
 function sbfc_display_contact_form() {
-	global $smartestb_options, $sbfc_strings;
+	global $qbw_options, $sbfc_strings;
 
-	$captcha  = $smartestb_options['smartestb_sbfc_captcha'];
-	$offset   = $smartestb_options['smartestb_sbfc_offset'];
-	$include_phone   = isset($smartestb_options['smartestb_sbfc_include_phone']) ? $smartestb_options['smartestb_sbfc_include_phone'] : '';
+	$captcha  = $qbw_options['qbw_sbfc_captcha'];
+	$offset   = $qbw_options['qbw_sbfc_offset'];
+	$include_phone   = isset($qbw_options['qbw_sbfc_include_phone']) ? $qbw_options['qbw_sbfc_include_phone'] : '';
 
-	if ($smartestb_options['smartestb_sbfc_preform'] !== '') {
-		$smartestb_sbfc_preform = $smartestb_options['smartestb_sbfc_preform'];
+	if ($qbw_options['qbw_sbfc_preform'] !== '') {
+		$smartestb_sbfc_preform = $qbw_options['qbw_sbfc_preform'];
 	} else { $smartestb_sbfc_preform = ''; }
 
-	if ($smartestb_options['smartestb_sbfc_appform'] !== '') {
-		$smartestb_sbfc_appform = $smartestb_options['smartestb_sbfc_appform'];
+	if ($qbw_options['qbw_sbfc_appform'] !== '') {
+		$smartestb_sbfc_appform = $qbw_options['qbw_sbfc_appform'];
 	} else { $smartestb_sbfc_appform = ''; }
 
 	if ($captcha == 'true') {

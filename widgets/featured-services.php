@@ -35,7 +35,7 @@ class SmartestFeaturedServices extends WP_Widget {
 		echo $args['before_widget'];
 		if ( $title )
 			echo '<h3 class="widget-title">'. $title . '</h3>';
-		if( get_option('smartestb_enable_service_sort') == 'true'  ) {
+		if( get_option( 'qbw_enable_service_sort') == 'true'  ) {
 
 			// custom sort order is enabled
 

@@ -71,10 +71,19 @@ class Quick_Business_Website{
 			add_filter ( 'the_content',  array( $this, 'staff_meta_content_filter' ) );
 			add_filter ( 'the_content',  array( $this, 'contact_content_filter' ), 50 );
 			add_filter( 'parse_query', array( $this, 'sort_staff' ) );
-			if( get_option('smartestb_enable_service_sort') == 'true'  ) 
+			if ( get_option( 'qbw_enable_service_sort') == 'true'  ) { 
 				add_filter( 'parse_query', array( $this, 'sort_services' ) );
+			}
 
-    } // end __contruct
+			/************************************************************
+			*
+			* @todo @test
+			*
+			************************************************************/
+			// add_action( 'admin_init', array( $this, 'upgrade_options' ) );
+
+
+    }
 
 	/** 
 	* Only upon plugin activation, setup options, delete Old Contact page to not clash with new one, and flush rewrite rules for custom post types.
@@ -87,20 +96,7 @@ class Quick_Business_Website{
 		global $wp_rewrite;
 		$wp_rewrite->flush_rules();
 	}
-	/** 
-	* Upon plugin deactivation, delete created pages and options
-	*
-	* @since 1.0
-	*/
-	public static function deactivate() { 
-		wp_delete_post(get_option('smartest_reviews_page_id'), true);
-		wp_delete_post(get_option('qbw_contact_page_id'), true);
-		wp_delete_post(get_option('smartest_about_page_id'), true);
-		delete_option( 'smartestb_options' );
-		delete_option('smartest_reviews_page_id');
-		delete_option('qbw_contact_page_id');
-		delete_option('smartest_about_page_id');
-	}
+
 	/** 
 	* display settings link on plugin page
 	*
@@ -110,7 +106,7 @@ class Quick_Business_Website{
 	function settings_link($actions, $file) {
 	$qbw_path    = plugin_basename(__FILE__);
 	if(false !== strpos($file, $qbw_path))
-	 $actions['settings'] = '<a href="admin.php?page=smartestbthemes">'. __('Settings', 'quick-business-website'). '</a>';
+	 $actions['settings'] = '<a href="admin.php?page=smartestbthemes">'. __('Settings', 'quick-business-website'). '</a>';// @todo rename page
 	return $actions; 
 	}
 	/**
@@ -121,7 +117,7 @@ class Quick_Business_Website{
 	*/
 	public function load() {
 		include QUICKBUSINESSWEBSITE_PATH . 'inc/options.php';
-		add_action( 'init', 'smartestb_options' );
+		add_action( 'init', 'qbw_options' );
 	}
 	/**
 	* Load textdomain
@@ -140,7 +136,6 @@ class Quick_Business_Website{
 	public function admin_init(){
 		$plugin_data = get_plugin_data( __FILE__, false );
 		update_option( 'qbw_smartestb_plugin_version', $plugin_data['Version'] );
-		update_option( 'qbw_smartestb_plugin_name', $plugin_data['Name'] );
 	}
 	/**  
 	* Setup options panel
@@ -149,10 +144,10 @@ class Quick_Business_Website{
 	*/
 	public function option_setup(){
 		//Update EMPTY options
-		$smartestb_array = array();
-		add_option('smartestb_options',$smartestb_array);
-		$template = get_option('smartestb_template');
-		$saved_options = get_option('smartestb_options');
+		$qbw_array = array();
+		add_option( 'qbw_options',$qbw_array );
+		$template = get_option( 'qbw_template' );
+		$saved_options = get_option( 'qbw_options');
 		foreach($template as $option) {
 			if($option['type'] != 'heading'){
 				$id = isset($option['id']) ? $option['id'] : '';
@@ -164,19 +159,19 @@ class Quick_Business_Website{
 							$c_id = $child['id'];
 							$c_std = $child['std'];
 							update_option($c_id,$c_std);
-							$smartestb_array[$c_id] = $c_std; 
+							$qbw_array[$c_id] = $c_std; 
 						}
 					} else {
 						update_option($id,$std);
-						$smartestb_array[$id] = $std;
+						$qbw_array[$id] = $std;
 					}
 				}
 				else { //So just store the old values over again.
-					$smartestb_array[$id] = $db_option;
+					$qbw_array[$id] = $db_option;
 				}
 			}
 		}
-		update_option('smartestb_options',$smartestb_array);
+		update_option( 'qbw_options',$qbw_array );
 	}// end option_setup
 
 	/** 
@@ -190,7 +185,7 @@ class Quick_Business_Website{
 	    if ( isset( $_REQUEST['page']) && $_REQUEST['page'] == 'smartestbthemes' ) {
 			if ( isset( $_REQUEST['smartestb_save'] ) && 'reset' == $_REQUEST['smartestb_save']) {
 	
-				$options =  get_option('smartestb_template'); 
+				$options =  get_option( 'qbw_template'); 
 				$this->reset_options($options,'smartestbthemes');
 				header("Location: admin.php?page=smartestbthemes&reset=true");
 				die;
@@ -207,16 +202,15 @@ class Quick_Business_Website{
 	 * @since 1.0
 	 */
 	public function admin_bar() {
-		$label =  get_option( 'qbw_smartestb_plugin_name' );
 	    global $wp_admin_bar;
 	    $wp_admin_bar->add_menu( array(
 	        'parent' => 'appearance',
 	        'id' => 'qbw-options',
-	        'title' => $label. __(' Options', 'quick-business-website'),
+	        'title' => __( 'Quick Business Website Options', 'quick-business-website' ),
 	        'href' => admin_url( 'admin.php?page=smartestbthemes')
 	    ) );
-		if ( get_option('smartestb_remove_wplinks') == 'true' ) {
-			$wp_admin_bar->remove_menu('wp-logo');
+		if ( get_option( 'qbw_remove_wplinks' ) == 'true' ) {
+			$wp_admin_bar->remove_menu( 'wp-logo' );
 		}
 
 	}
@@ -269,9 +263,9 @@ class Quick_Business_Website{
 			}
 		}
 		
-		//When Options page is reset - Add the smartestb_options option
+		//When Options page is reset - Add the qbw_options option
 		if($page == 'smartestbthemes'){
-			$query_inner .= " OR option_name = 'smartestb_options'";
+			$query_inner .= " OR option_name = 'qbw_options'";
 		}
 		$query = "DELETE FROM $wpdb->options WHERE $query_inner";
 		$wpdb->query($query);
@@ -283,7 +277,7 @@ class Quick_Business_Website{
 	 * @since 1.0
 	 */
 	public function options_page(){
-	    $options = get_option('smartestb_template');      
+	    $options = get_option( 'qbw_template');      
 		$qbw_dir = plugins_url( '/', __FILE__ ); ?>
 	<div class="wrap" id="smartestb_container">
 	<div id="smartestb-popup-save" class="smartestb-save-popup"><div class="smartestb-save-save"><?php _e('Options Updated', 'quick-business-website'); ?></div></div>
@@ -404,10 +398,10 @@ class Quick_Business_Website{
 	 * @since 1.0
 	 */
 	public function frame_load() {
-		add_action('admin_head', 'smartestb_admin_head');
+		add_action('admin_head', 'qbw_admin_head');
 		wp_enqueue_script('jquery-ui-core');// @test need
 	
-		function smartestb_admin_head() { 
+		function qbw_admin_head() { 
 			$fr = plugins_url( '/', __FILE__ );
 			?>
 			<link rel="stylesheet" type="text/css" href="<?php echo $fr; ?>admin-style.css" media="screen" />
@@ -559,11 +553,11 @@ class Quick_Business_Website{
 		global $wpdb;
 		$save_type = $_POST['type'];
 		
-		if ( $save_type == 'options' ) {// @test 
+		if ( $save_type == 'options' ) {
 	
 			$data = $_POST['data'];
 			parse_str($data,$output);
-	        	$options = get_option('smartestb_template');
+	        	$options = get_option( 'qbw_template');
 			foreach($options as $option_array){
 				$id = isset($option_array['id']) ? $option_array['id'] : '';
 				$old_value = get_option($id);
@@ -575,54 +569,29 @@ class Quick_Business_Website{
 		
 				if(isset($option_array['id'])) { // Non - Headings...
 					
-					//Import of prior saved options
-					if($id == 'framework_smartestb_import_options'){
-						
-						//Decode and over write options.
-						$new_import = $new_value;
-						$new_import = unserialize($new_import);
-						if(!empty($new_import)) {
-							foreach($new_import as $id2 => $value2){
-								if(is_serialized($value2)) {
-									update_option($id2,unserialize($value2));
-								} else {
-									update_option($id2,$value2);
-								}
-							}
-						}
-						
-					} else {
+					$type = $option_array['type'];
 				
-						$type = $option_array['type'];
-						
-						if ( is_array($type)){
-							foreach($type as $array){
-								if($array['type'] == 'text'){
-									$id = $array['id'];
-									$new_value = $output[$id];
-									update_option( $id, stripslashes($new_value));// isa, may conflict w url inputs that need slashes
-								}
-							}                 
-						}
-						elseif( $new_value == '' && $type == 'checkbox' ) { // Checkbox Save
-							update_option( $id,'false' );
-						}
-						elseif ( $new_value == 'true' && $type == 'checkbox' ) { // Checkbox Save
-							update_option( $id,'true' );
-						}
-						else {
-							update_option( $id, stripslashes( $new_value ) );
-						}
+					if ( is_array($type)){
+						foreach($type as $array){
+							if($array['type'] == 'text'){
+								$id = $array['id'];
+								$new_value = $output[$id];
+								update_option( $id, stripslashes($new_value));// isa, may conflict w url inputs that need slashes
+							}
+						}                 
+					}
+					elseif( $new_value == '' && $type == 'checkbox' ) { // Checkbox Save
+						update_option( $id,'false' );
+					}
+					elseif ( $new_value == 'true' && $type == 'checkbox' ) { // Checkbox Save
+						update_option( $id,'true' );
+					}
+					else {
+						update_option( $id, stripslashes( $new_value ) );
 					}
 				}	
 			}
-		// }// @test remove
-		
-		
-		// if( $save_type == 'options'){// @test del
 			/* Create, Encrypt and Update the Saved Settings */
-			// global $wpdb;
-			$smartestb_options = array();
 			$query_inner = '';
 			$count = 0;
 	
@@ -667,7 +636,7 @@ class Quick_Business_Website{
 					if(is_serialized($value)) {
 						
 						$value = unserialize($value);
-						$smartestb_array_option = $value;
+						$qbw_array_option = $value;
 						$temp_options = '';
 						foreach($value as $v){
 							if(isset($v))
@@ -675,17 +644,17 @@ class Quick_Business_Website{
 							
 						}	
 						$value = $temp_options;
-						$smartestb_array[$name] = $smartestb_array_option;
+						$qbw_array[$name] = $qbw_array_option;
 					} else {
-						$smartestb_array[$name] = $value;
+						$qbw_array[$name] = $value;
 					}
 					
 					$output .= '<li><strong>' . $name . '</strong> - ' . $value . '</li>';
 			}
 			$output .= "</ul>";
 			
-			update_option('smartestb_options',$smartestb_array);
-			update_option('smartestb_settings_encode',$output);
+			update_option( 'qbw_options',$qbw_array);
+			update_option( 'qbw_settings_encode',$output);
 			// this makes it finally flush, but only if you save twice. Isa
 			flush_rewrite_rules();
 		}// @test
@@ -871,7 +840,7 @@ class Quick_Business_Website{
 	 * @since 1.0
 	 */
 	public function wp_login_title() {
-		$bn = stripslashes_deep(esc_attr(get_option('smartestb_business_name')));
+		$bn = stripslashes_deep(esc_attr(get_option( 'qbw_business_name')));
 		if ( empty($bn) )
 			$bn = get_bloginfo('name');
 		return $bn;
@@ -917,7 +886,7 @@ class Quick_Business_Website{
 	 * @since 1.0
 	 */
 	public function after_setup() {
-		if ( ! class_exists( 'SMARTESTReviewsBusiness' ) && ( get_option( 'smartestb_add_reviews' ) == 'true')) {
+		if ( ! class_exists( 'SMARTESTReviewsBusiness' ) && ( get_option( 'qbw_add_reviews' ) == 'true')) {
 			include_once QUICKBUSINESSWEBSITE_PATH . 'modules/smartest-reviews/smartest-reviews.php';
 		}
 	}
@@ -1050,9 +1019,9 @@ class Quick_Business_Website{
 	 */
 	
 	public function create_business_cpts() {
-		$staff = get_option('smartestb_show_staff');
-		$news = get_option('smartestb_show_news');
-		$services = get_option('smartestb_show_services');
+		$staff = get_option( 'qbw_show_staff');
+		$news = get_option( 'qbw_show_news');
+		$services = get_option( 'qbw_show_services');
 		
 				// if add staff enabled
 				
@@ -1178,7 +1147,7 @@ class Quick_Business_Website{
 				}// end if show services enabled
 
 		// If Reviews are disabled, delete the page
-		if ( get_option( 'smartestb_add_reviews' ) == 'false' ) {
+		if ( get_option( 'qbw_add_reviews' ) == 'false' ) {
 			wp_delete_post(get_option('smartest_reviews_page_id'), true);
 		}
 
@@ -1292,7 +1261,7 @@ class Quick_Business_Website{
 				),
 			)
 		);
-	if( get_option('smartestb_enable_service_sort') == 'true'  ) { 
+	if( get_option( 'qbw_enable_service_sort') == 'true'  ) { 
 		$meta_boxes[] = array(
 			'id'         => 'services-sort-order',
 			'title'      => __( 'Set a Sort-Order', 'quick-business-website' ),
@@ -1357,17 +1326,17 @@ class Quick_Business_Website{
 	 */
 	public function register_widgets() {
 	
-		if( get_option('smartestb_show_news') == 'true'  ) { 
+		if( get_option( 'qbw_show_news') == 'true'  ) { 
 			include QUICKBUSINESSWEBSITE_PATH . 'widgets/announcements.php';
 			include QUICKBUSINESSWEBSITE_PATH . 'widgets/featured-announcements.php';
 			register_widget('SmartestAnnouncements'); register_widget('SmartestFeaturedAnnounce');
 		}
-		if( get_option('smartestb_show_services') == 'true'  ) { 
+		if( get_option( 'qbw_show_services') == 'true'  ) { 
 			include QUICKBUSINESSWEBSITE_PATH . 'widgets/all-services.php';
 			include QUICKBUSINESSWEBSITE_PATH . 'widgets/featured-services.php';
 			register_widget('SmartestServices'); register_widget('SmartestFeaturedServices'); 
 		}
-		if( get_option('smartestb_show_staff') == 'true'  ) { 
+		if( get_option( 'qbw_show_staff') == 'true'  ) { 
 			include QUICKBUSINESSWEBSITE_PATH . 'widgets/staff.php';
 			register_widget('SmartestStaff'); 
 		}
@@ -1378,8 +1347,8 @@ class Quick_Business_Website{
 	 * @since 1.0
 	 */
 	public function add_customscripts() {
-		$gascript =  get_option('smartestb_script_analytics');
-		$oscripts =  get_option('smartestb_scripts_head');
+		$gascript =  get_option( 'qbw_script_analytics');
+		$oscripts =  get_option( 'qbw_scripts_head');
 		if (isset($gascript) && $gascript != '') {
 			echo stripslashes($gascript)."\r\n";
 		}
@@ -1482,9 +1451,9 @@ class Quick_Business_Website{
 	 * @since Quick Business Website 1.0
 	 */
 	public function remove_footer_admin () {
-		if ( (get_option('smartestb_admin_footer') != '') &&  (get_option('smartestb_remove_adminfooter') == 'false')) {
-			echo get_option('smartestb_admin_footer');
-		} elseif ( get_option('smartestb_remove_adminfooter') == 'true' ) {
+		if ( (get_option( 'qbw_admin_footer') != '') &&  (get_option( 'qbw_remove_adminfooter') == 'false')) {
+			echo get_option( 'qbw_admin_footer');
+		} elseif ( get_option( 'qbw_remove_adminfooter') == 'true' ) {
 			echo '';
 		} else {
 			echo 'Thank you for creating with <a href="http://wordpress.org/">WordPress</a>.';
@@ -1515,7 +1484,7 @@ class Quick_Business_Website{
 			if (get_post_meta($post->ID, '_smab_staff_job_title', true)) {
 				$staffcontent .= '<h5>' . get_post_meta($post->ID, '_smab_staff_job_title', true) . '</h5>';
 			}
-			if (get_option('smartestb_old_social_icons') == 'false') {
+			if (get_option( 'qbw_old_social_icons') == 'false') {
 				$twit = 'fa-twitter';
 				$goog = 'fa-google';
 				$face = 'fa-facebook';
@@ -1552,11 +1521,10 @@ class Quick_Business_Website{
 	 */
 	public function contact_content_filter( $content ) {
 		if( is_page( get_option('qbw_contact_page_id') ) ) {
-			global $smartestb_options;
 			$contactcontent = '<div id="qbw-col-wrap"><div class="qbw-one-half">' . $content . '</div><div id="qbw-contact-info" class="qbw-one-half"  itemscope itemtype="http://schema.org/LocalBusiness">';
 			// social box
 			$contactcontent .= '<ul id="qbw-staff-socials">';
-			if (get_option('smartestb_old_social_icons') == 'false') {
+			if (get_option( 'qbw_old_social_icons') == 'false') {
 				$twit = 'fa-twitter';
 				$goog = 'fa-google';
 				$face = 'fa-facebook';
@@ -1567,67 +1535,67 @@ class Quick_Business_Website{
 				$face = 'item-3';
 				$yout = 'youtube';
 			}
-			if ( get_option('smartestb_business_twitter') ) {
-				$contactcontent .= '<li><a class="' . $twit . '" href="https://twitter.com/' . get_option('smartestb_business_twitter') . '" title="'. __('Twitter', 'quick-business-website') . '"></a></li>';
+			if ( get_option( 'qbw_business_twitter') ) {
+				$contactcontent .= '<li><a class="' . $twit . '" href="https://twitter.com/' . get_option( 'qbw_business_twitter') . '" title="'. __('Twitter', 'quick-business-website') . '"></a></li>';
 			} 
-			if ( get_option('smartestb_business_gplus') ) {
-				$contactcontent .= '<li><a class="' . $goog . '" href="https://plus.google.com/' . get_option('smartestb_business_gplus') . '" title="'. __('Google Plus', 'quick-business-website') . '" rel="publisher"></a></li>';
+			if ( get_option( 'qbw_business_gplus') ) {
+				$contactcontent .= '<li><a class="' . $goog . '" href="https://plus.google.com/' . get_option( 'qbw_business_gplus') . '" title="'. __('Google Plus', 'quick-business-website') . '" rel="publisher"></a></li>';
 			} 
-			if ( get_option('smartestb_business_facebook') ) {
-				$contactcontent .= '<li><a class="' . $face . '" href="https://facebook.com/' . get_option('smartestb_business_facebook') . '" title="'. __('Facebook', 'quick-business-website') . '"></a></li>';
+			if ( get_option( 'qbw_business_facebook') ) {
+				$contactcontent .= '<li><a class="' . $face . '" href="https://facebook.com/' . get_option( 'qbw_business_facebook') . '" title="'. __('Facebook', 'quick-business-website') . '"></a></li>';
 			}
-			if ( get_option('smartestb_business_youtube') ) {
-				$contactcontent .= '<li><a class="' . $yout. '" href="https://youtube.com/user/' . get_option('smartestb_business_youtube') . '" title="'. __('Youtube', 'quick-business-website') . '"></a></li>';
+			if ( get_option( 'qbw_business_youtube') ) {
+				$contactcontent .= '<li><a class="' . $yout. '" href="https://youtube.com/user/' . get_option( 'qbw_business_youtube') . '" title="'. __('Youtube', 'quick-business-website') . '"></a></li>';
 			}
-			if ( get_option('smartestb_business_socialurl1') ) {
-				$contactcontent .= '<li><a class="item-add" target="_blank" href="'. get_option('smartestb_business_socialurl1') . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . get_option('smartestb_business_sociallabel1') . '</a></li>';
+			if ( get_option( 'qbw_business_socialurl1') ) {
+				$contactcontent .= '<li><a class="item-add" target="_blank" href="'. get_option( 'qbw_business_socialurl1') . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . get_option( 'qbw_business_sociallabel1') . '</a></li>';
 			} 
-			if ( get_option('smartestb_business_socialurl2') ) {
-				$contactcontent .= '<li><a class="item-add" target="_blank" href="'. get_option('smartestb_business_socialurl2') . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . get_option('smartestb_business_sociallabel2') . '</a></li>';
+			if ( get_option( 'qbw_business_socialurl2') ) {
+				$contactcontent .= '<li><a class="item-add" target="_blank" href="'. get_option( 'qbw_business_socialurl2') . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . get_option( 'qbw_business_sociallabel2') . '</a></li>';
 			} 
-			$contactcontent .= '</ul><strong><span itemprop="name">' . get_option('smartestb_business_name') . '</span></strong><br /><br />';
-			if (get_option('smartestb_hours')) { 
-				$contactcontent .= '<div id="qbw-contact-hours"><strong>Business Hours: </strong><br />' . wpautop(get_option('smartestb_hours')) . '</div>';
+			$contactcontent .= '</ul><strong><span itemprop="name">' . get_option( 'qbw_business_name') . '</span></strong><br /><br />';
+			if (get_option( 'qbw_hours')) { 
+				$contactcontent .= '<div id="qbw-contact-hours"><strong>Business Hours: </strong><br />' . wpautop(get_option( 'qbw_hours')) . '</div>';
 			} 
-			if ( get_option('smartestb_google_map') ) {
-				$contactcontent .= '<div id="qbw-goomap">'. get_option('smartestb_google_map'). '</div>';
+			if ( get_option( 'qbw_google_map') ) {
+				$contactcontent .= '<div id="qbw-goomap">'. get_option( 'qbw_google_map'). '</div>';
 			}
-			if(get_option('smartestb_address_street')) { // do addy box
-				$contactcontent .= '<p id="qbw-addy-box" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"><span itemprop="streetAddress">' . get_option('smartestb_address_street') . '</span>&nbsp;';
+			if(get_option( 'qbw_address_street')) { // do addy box
+				$contactcontent .= '<p id="qbw-addy-box" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"><span itemprop="streetAddress">' . get_option( 'qbw_address_street') . '</span>&nbsp;';
 
 			}
-			if (get_option('smartestb_address_suite') != '') {
-				$contactcontent .= ' ' . get_option('smartestb_address_suite') . '&nbsp;';
+			if (get_option( 'qbw_address_suite') != '') {
+				$contactcontent .= ' ' . get_option( 'qbw_address_suite') . '&nbsp;';
 			}
-			if (get_option('smartestb_address_city') != '') {
-				$contactcontent .='<br /><span itemprop="addressLocality">' . get_option('smartestb_address_city') . '</span>';
+			if (get_option( 'qbw_address_city') != '') {
+				$contactcontent .='<br /><span itemprop="addressLocality">' . get_option( 'qbw_address_city') . '</span>';
 			}
-			if ( (get_option('smartestb_address_city') != '') && (get_option('smartestb_address_state') != '') ) {
+			if ( (get_option( 'qbw_address_city') != '') && (get_option( 'qbw_address_state') != '') ) {
 				$contactcontent .= ', ';
 			}
-			if (get_option('smartestb_address_state') != '') {
-				$contactcontent .='<span itemprop="addressRegion">' . get_option('smartestb_address_state') . '</span>&nbsp;';
+			if (get_option( 'qbw_address_state') != '') {
+				$contactcontent .='<span itemprop="addressRegion">' . get_option( 'qbw_address_state') . '</span>&nbsp;';
 				}
-			if (get_option('smartestb_address_zip') != '') {
-				$contactcontent .=' <span class="postal-code" itemprop="postalCode">' . get_option('smartestb_address_zip') . '</span>&nbsp;';
+			if (get_option( 'qbw_address_zip') != '') {
+				$contactcontent .=' <span class="postal-code" itemprop="postalCode">' . get_option( 'qbw_address_zip') . '</span>&nbsp;';
 			}
-			if (get_option('smartestb_address_country') != '') {
-				$contactcontent .='<br /><span itemprop="addressCountry">' . get_option('smartestb_address_country') . '</span>&nbsp;';
+			if (get_option( 'qbw_address_country') != '') {
+				$contactcontent .='<br /><span itemprop="addressCountry">' . get_option( 'qbw_address_country') . '</span>&nbsp;';
 			}
-			if(get_option('smartestb_address_street')) {
+			if(get_option( 'qbw_address_street')) {
 				$contactcontent .= '</p>'; // close #qbw-addy-box
 			} // end addy-box
-			if ( get_option('smartestb_phone_number') || get_option('smartestb_fax_numb') || ( get_option('smartestb_show_contactemail') == 'true' ) ) {
+			if ( get_option( 'qbw_phone_number') || get_option( 'qbw_fax_numb') || ( get_option( 'qbw_show_contactemail') == 'true' ) ) {
 				$contactcontent .= '<p>';
 			
-				if ( get_option('smartestb_phone_number') ) {
-					$contactcontent .= '' . __('Telephone:', 'quick-business-website') . ' <span itemprop="telephone">'. get_option('smartestb_phone_number') . '</span>';
+				if ( get_option( 'qbw_phone_number') ) {
+					$contactcontent .= '' . __('Telephone:', 'quick-business-website') . ' <span itemprop="telephone">'. get_option( 'qbw_phone_number') . '</span>';
 				}
-				if ( get_option('smartestb_fax_numb') ) {
-					$contactcontent .= '<br />' . __('FAX:', 'quick-business-website') . ' <span itemprop="faxNumber">' . get_option('smartestb_fax_numb') . '</span>';
+				if ( get_option( 'qbw_fax_numb') ) {
+					$contactcontent .= '<br />' . __('FAX:', 'quick-business-website') . ' <span itemprop="faxNumber">' . get_option( 'qbw_fax_numb') . '</span>';
 				
 				} 
-				if ( get_option('smartestb_show_contactemail') == 'true' ) {
+				if ( get_option( 'qbw_show_contactemail') == 'true' ) {
 					$contactcontent .= '<br />' . __('Email:', 'quick-business-website') . ' <a href="mailto:' . get_bloginfo('admin_email') . '"><span itemprop="email">' . get_bloginfo('admin_email') . '</span></a><br />';
 				}
 				$contactcontent .= '</p>';
@@ -1679,6 +1647,66 @@ class Quick_Business_Website{
 		}
 		return $query;
 	}
+	/**
+	 * Upgrade options
+	 * @since 2.0
+	 * @todo At some point in the future, remove this and delete the test_qbw_upgrade_two option on uninstall.
+	 */
+	public function upgrade_options() {
+		// Run this update only once
+		// if ( get_option( 'test_qbw_upgrade_two' ) != 'completed' ) {// @todo update name, remove test
+
+		global $wpdb;
+
+		// get all options with our old prefix
+		$query = $wpdb->get_results( "select * from " . $wpdb->options . " where option_name like 'smartestb_%'" );
+
+
+		// isa_log($query);// @test now
+
+		// Migrate options to new name
+		if ( ! empty( $query[0] ) ) {
+			
+			$prefix = 'smartestb_';
+			$len = strlen( $prefix );
+
+			foreach ( $query as $option ) {
+
+				// remove prefix
+				$basename = substr( $option->option_name, $len );
+
+				isa_log('YES!!!!! NEW OPTION WILL BE ... ');
+				isa_log( $basename );
+				// save option with new prefix
+				update_option( 'qbw_' . $basename );
+
+				// delete old option
+				delete_option( $option );
+
+			}
+		}
+
+		// $query = $wpdb->get_results( "select * from " . $wpdb->options . " where option_name like 'qbw_%'" );
+		// isa_log($query);// @test now
+
+
+		/************************************************************
+		*
+		* @todo must do same for get_option('smartest_
+		*
+		************************************************************/
+
+		// delete uneeded options
+		delete_option( 'qbw_smartestb_plugin_name' );
+			
+
+		// 	update_option( 'test_qbw_upgrade_two', 'completed' );
+		// }
+
+
+
+	}
+
 }
 }
 if ( 
@@ -1689,7 +1717,6 @@ if (
 		$msg =  '<strong>' . __( 'You cannot activate Quick Business Website', 'quick-business-website') . '</strong> ' . __( 'plugin when using Smartest Themes because they clash. But Smartest Themes have everything the Quick Business Website plugin has, and more. QBW plugin will not be activated! To use the plugin, please change your Theme, first.', 'quick-business-website');
 		wp_die($msg, 'Plugin Clashes With Theme', array('back_link' => true));
 } else {
- 	register_deactivation_hook(__FILE__, array('Quick_Business_Website', 'deactivate')); 
 	register_activation_hook(__FILE__, array('Quick_Business_Website', 'activate'));
 	$Quick_Business_Website = Quick_Business_Website::get_instance();
 
