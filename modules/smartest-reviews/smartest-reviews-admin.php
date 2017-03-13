@@ -98,24 +98,14 @@ class SMARTESTReviewsBusinessAdmin
             }
     }
 	function enqueue_admin_stuff() {
-			$pluginurl = $this->parentClass->getpluginurl();
+		$pluginurl = $this->parentClass->getpluginurl();
             if (isset($this->p->page) && ( $this->p->page == 'smar_view_reviews' || $this->p->page == 'smar_options' ) ) {
                 wp_register_script('smartest-reviews-admin',$pluginurl.'smartest-reviews-admin.js',array('jquery'));
 				wp_register_style('smartest-reviews-admin',$pluginurl.'smartest-reviews-admin.css');  
 				wp_enqueue_script('smartest-reviews-admin');wp_enqueue_style('smartest-reviews-admin');
-            }
+        }
 	}
 
-	/* v4 uuid */
-	function gen_uuid() {
-            return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-                mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
-                mt_rand( 0, 0xffff ),
-                mt_rand( 0, 0x0fff ) | 0x4000,
-                mt_rand( 0, 0x3fff ) | 0x8000,
-                mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
-            );
-	}
     function update_options() {
         /* we still process and validate this internally, instead of using the Settings API */
         global $wpdb;
