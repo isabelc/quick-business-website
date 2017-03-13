@@ -308,19 +308,14 @@ class Quick_Business_Website {
 	<div class="ie">
 	<![endif]-->
 				<ul>
-			
+<!-- @todo url... -->
+<li class="smar-ui-icon"><a href="#@todo" target="_blank" rel="nofollow">
+<div class="dashicons dashicons-book-alt"></div> <?php _e( 'Documentation', 'quick-business-website' ); ?></a></li>
 
-<li id="smar-ui-icon">
-
-<a href="http://wordpress.org/support/view/plugin-reviews/quick-business-website" target="_blank" title="Rate This Plugin">
-
+<li class="smar-ui-icon"><a href="https://wordpress.org/support/plugin/quick-business-website/reviews/" target="_blank" title="Rate This Plugin">
 <div class="dashicons dashicons-star-filled"></div> <?php _e( 'Rate This Plugin', 'quick-business-website' ); ?></a></li>
 
-<li id="smar-ui-icon">
-
-<a href="http://smartestthemes.com/downloads/" target="_blank" title="Smartest Themes">
-
-<div class="dashicons dashicons-desktop"></div> <?php _e( 'See our Business Themes', 'quick-business-website' ); ?></a></li><li class="right"><img style="display:none" src="<?php echo QUICKBUSINESSWEBSITE_URL; ?>images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." />
+<li class="right"><img style="display:none" src="<?php echo QUICKBUSINESSWEBSITE_URL; ?>images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." />
 	<input type="submit" value="<?php _e('Save All Changes', 'quick-business-website'); ?>" class="button submit-button" /></li>
 				</ul> 
 	<!--[if IE]>
