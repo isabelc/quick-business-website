@@ -285,11 +285,6 @@ $options[] = array( 'name' => __('Disable Contact Page','quick-business-website'
 					'std' => 'false',
 					'type' => 'checkbox');
 
-$options[] = array( 'name' => __('Disable News Icon','quick-business-website'),
-					'desc' => __('If an Announcement (News) post does not have a featured image, a news icon will show up as its featured image on the News page (if your <code>archive.php</code> shows the thumbnail) and in the Featured Announcements widget. Check this to get rid of that icon.', 'quick-business-website'),
-					'id' => $shortname.'_stop_theme_icon',
-					'std' => 'false',
-					'type' => 'checkbox');
 $options[] = array( 'name' => __('Backwards Compatibility: Use Old Social Icons','quick-business-website'),
 					'desc' => __('As of version 1.4.1, we use new icons for the social buttons that are Retina-ready for high resolution screens, and they change color to match your links color. Check this box to use the OLD social icons instead.', 'quick-business-website'),
 					'id' => $shortname.'_old_social_icons',
