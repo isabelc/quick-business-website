@@ -229,7 +229,6 @@ function sbfc_process_contact_form($content='') {
 	$host      = gethostbyaddr($_SERVER['REMOTE_ADDR']);
 	$date      = date("l, F jS, Y @ g:i a", time() + $offset * 60 * 60);
 
-	$prepend = stripslashes($qbw_options['qbw_sbfc_prepend']);
 	$append  = stripslashes($qbw_options['qbw_sbfc_append']);
 
 	// Get the site domain and get rid of www.

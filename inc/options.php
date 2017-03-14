@@ -2,7 +2,7 @@
 /**
  * Quick Business Website Options
  */
-function qbw_options(){
+function qbw_options() {
 $slink = '<a href="'.admin_url('options-general.php').'">'. __('Settings', 'quick-business-website').'</a>';
 $user_info = get_userdata(1);
 if ($user_info == true) {
@@ -90,7 +90,7 @@ $options[] = array( 'name' => __('Google Map','quick-business-website'),
 
 					$options[] = array( 'name' => __('Business Hours','quick-business-website'),
 						'desc' => __('Optional. Enter your hours here if you want to display them. Example:<br /><br />Monday - Friday: 7:30 am - 6:00<br />Saturday: 7:30 am - Noon<br /><br />', 'quick-business-website'),
-					'id' => $shortname.'_hours',
+					'id' => $shortname.'_hours',// @todo add wpautop to display
 					'std' => '',
 					'type' => 'textarea');
 /* Preferences */
@@ -190,7 +190,7 @@ $options[] = array( 'name' => __( 'Contact Form','quick-business-website' ),
 					'type' => 'heading');
 $options[] = array( 'name' => __( 'Your Name', 'quick-business-website' ),
                     'desc' => __( 'How would you like to be addressed in messages sent from the contact form?', 'quick-business-website' ),
-                    'id' => $shortname.'_sbfc_name',
+                    'id' => $shortname.'_sbfc_name',// @todo delete setting, not needed
 					'std' => $admin_name,
                     'type' => 'text');
 $options[] = array( 'name' => __( 'Your Email', 'quick-business-website' ),
@@ -207,12 +207,12 @@ $options[] = array( 'name' => __( 'Success Message', 'quick-business-website' ),
                     'desc' => __( 'When the form is sucessfully submitted, this message will be displayed to the sender. Default is "Success! Your message has been sent."', 'quick-business-website' ),
                     'id' => $shortname.'_sbfc_success',
 					'std' => '<strong>' . __( 'Success! ', 'quick-business-website' ) . '</strong> ' . __( 'Your message has been sent.', 'quick-business-website'),
-                    'type' => 'textarea');
+                    'type' => 'textarea');// @todo revove tags, simplify to just message.
 $options[] = array( 'name' => __( 'Error Message', 'quick-business-website' ),
                     'desc' => __( 'If the user skips a required field, this message will be displayed. Default is "Please complete the required fields."', 'quick-business-website' ),
                     'id' => $shortname.'_sbfc_error',
 					'std' => '<strong>' . __( 'Please complete the required fields.', 'quick-business-website' ) . '</strong>',
-                    'type' => 'textarea');
+                    'type' => 'textarea');// @todo remove tags
 $options[] = array( 'name' => __( 'Enable Captcha', 'quick-business-website' ),
 					'desc' => __( 'Check this box if you want to enable the captcha (challenge question/answer).', 'quick-business-website' ),
 					'id' => $shortname.'_sbfc_captcha',
@@ -241,18 +241,13 @@ $options[] = array( 'name' => __( 'Custom content before the form', 'quick-busin
 $options[] = array( 'name' => __( 'Custom content after the form', 'quick-business-website' ),
 					'desc' => __( 'Add some text/markup to appear <em>after</em> the contact form (optional).', 'quick-business-website' ),
 					'id' => $shortname.'_sbfc_appform',
-					'std' => '<div style="clear:both;">&nbsp;</div>',
-					'type' => 'textarea');
-$options[] = array( 'name' => __( 'Custom content before results', 'quick-business-website' ),
-					'desc' => __( 'Add some text/markup to appear <em>before</em> the success message (optional).', 'quick-business-website' ),
-					'id' => $shortname.'_sbfc_prepend',
-					'std' => '',
+					'std' => '<div style="clear:both;">&nbsp;</div>',// @todo remove this
 					'type' => 'textarea');
 $options[] = array( 'name' => __( 'Custom content after results', 'quick-business-website' ),
 					'desc' => '<strong>' . __( 'Custom content after results.', 'quick-business-website' ) . '</strong> ' . __( 'Add some text/markup to appear <em>after</em> the success message (optional).', 'quick-business-website' ),
 					'id' => $shortname.'_sbfc_append',
 					'std' => '',
-					'type' => 'textarea');
+					'type' => 'textarea');// @todo MAYBE eliminate option, not needed. see how low it appears,
 
 /* Advanced */
 $options[] = array( 'name' => __('Advanced','quick-business-website'),'class' => 'settings',
@@ -263,7 +258,7 @@ $options[] = array( 'name' => __('Delete All Data On Uninstall','quick-business-
 					'std' => 'false',
 					'type' => 'checkbox');
 $options[] = array( 'name' => __('Disable Contact Page','quick-business-website'),
-					'desc' => sprintf( __( 'Check this to disable the Contact page. This will delete the automatically-created Contact page. You will still be able to use the shortcode to add a contact form: %s', 'quick-business-website' ), '<code>[smartest_themes_contact_form]</code>' ),
+					'desc' => sprintf( __( 'Check this to disable the Contact page. This will delete the automatically-created Contact page. You will still be able to use the shortcode to add a contact form: %s', 'quick-business-website' ), '<code>[qbw_contact_form]</code>' ),
 					'id' => $shortname.'_stop_contact',
 					'std' => 'false',
 					'type' => 'checkbox');
@@ -274,6 +269,5 @@ $options[] = array( 'name' => __('Backwards Compatibility: Use Old Social Icons'
 					'std' => 'false',
 					'type' => 'checkbox');
 update_option( 'qbw_template',$options);      
-update_option( 'qbw_shortname',$shortname);
 }
 ?>

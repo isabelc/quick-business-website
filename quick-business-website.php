@@ -536,7 +536,7 @@ class Quick_Business_Website {
  			}
 
 			// For some ids, allow also images
- 			elseif ( in_array( $option['id'], array( 'qbw_sbfc_preform', 'qbw_sbfc_appform', 'qbw_sbfc_prepend', 'qbw_sbfc_append' ) ) ) {
+ 			elseif ( in_array( $option['id'], array( 'qbw_sbfc_preform', 'qbw_sbfc_appform', 'qbw_sbfc_append' ) ) ) {
  				$allowed_tags['img'] = array(
 						'src' => array(),
 						'width' => array(),
