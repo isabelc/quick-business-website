@@ -78,6 +78,8 @@ class Quick_Business_Website {
 			}
 			add_action( 'admin_init', array( $this, 'upgrade_options' ) );
 			add_action( 'qbw_settings_checkbox_save', array( $this, 'set_services_sort_order' ), 10, 2 );
+			add_filter( 'qbw_sanitize_setting', array( $this, 'sanitize_setting' ), 10, 2 );
+
     }
 
 	/** 
@@ -504,6 +506,70 @@ class Quick_Business_Website {
 	}// end frame_load
 
 	/**
+	 * Sanitize settings before saving
+	 * @param string $value The new value to be saved
+	 * @param array $option Array of option details including id and type
+	 */
+	public function sanitize_setting( $value, $option ) {
+		if ( 'text' == $option['type'] ) {
+			$value = sanitize_text_field( $value );
+		} elseif ( 'textarea' == $option['type'] ) {
+
+			$allowed_tags = array(
+				'a' => array(
+					'href' => array(),
+					'title' => array()
+				),
+				'br' => array(),
+				'em' => array(),
+				'strong' => array(),
+			);			
+ 
+			// No tags allowed on these ids
+ 			if ( in_array( $option['id'], array( 'qbw_sbfc_error', 'qbw_hours' ) ) ) {
+ 				$value = implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $value ) ) );
+ 			}
+
+			// For some ids, only allow limited tags
+ 			elseif ( in_array( $option['id'], array( 'qbw_admin_footer', 'qbw_sbfc_success' ) ) ) {
+ 				$value = wp_kses( $value, $allowed_tags );
+ 			}
+
+			// For some ids, allow also images
+ 			elseif ( in_array( $option['id'], array( 'qbw_sbfc_preform', 'qbw_sbfc_appform', 'qbw_sbfc_prepend', 'qbw_sbfc_append' ) ) ) {
+ 				$allowed_tags['img'] = array(
+						'src' => array(),
+						'width' => array(),
+						'height' => array(),
+						'alt' => array(),
+						'title' => array()
+					);
+ 				$value = wp_kses( $value, $allowed_tags );
+ 			}
+		
+ 			elseif ( 'qbw_google_map' == $option['id'] ) {
+				$allowed_tags = array(
+					'iframe' => array(
+						'src' => array(),
+						'width' => array(),
+						'height' => array(),
+						'frameborder' => array(),
+						'style' => array(),
+						'allowfullscreen' => array(),
+					)
+				);
+				$value = wp_kses( $value, $allowed_tags );
+
+ 			}
+
+
+		} // end textarea
+
+		return $value;
+
+	}
+
+	/**
 	 * Make sure all services have a sort order when the sort setting is enabled.
 	 * @param string $id The ID of the setting being saved
 	 * @param string $value The setting value
@@ -536,7 +602,7 @@ class Quick_Business_Website {
 		if ( 'options' == $save_type ) {
 	
 			$data = $_POST['data'];
-			parse_str( $data,$output );
+			parse_str( $data, $output );
 	        $options = get_option( 'qbw_template' );
 			foreach ( $options as $option_array ) {
 				$id = isset( $option_array['id'] ) ? $option_array['id'] : '';
@@ -549,29 +615,17 @@ class Quick_Business_Website {
 		
 				if ( isset( $option_array['id'] ) ) { // Non - Headings...
 					
-					$type = $option_array['type'];
-				
-					if ( is_array( $type ) ) {
-						foreach( $type as $array ) {
-							if ( $array['type'] == 'text' ) {
-								$id = $array['id'];
-								isa_log('made it to array type setting for id = ');// @test remove
-								isa_log($id);// @test remove
-								$new_value = sanitize_text_field( $output[$id] );
-								update_option( $id, $new_value );// @test without stripslashes()
-							}
-						}                 
-					}
-					elseif( '' == $new_value && 'checkbox' == $type ) { // Checkbox Save
-						update_option( $id, 'false' );
-					}
-					elseif ( 'true' == $new_value && 'checkbox' == $type ) { // Checkbox Save
-						update_option( $id, 'true' );
-						do_action( 'qbw_settings_checkbox_save', $id, $new_value );// @test now
+					if ( 'checkbox' == $option_array['type'] ) { // Checkbox Save
+						if ( 'true' == $new_value ) {
+							update_option( $id, 'true' );
+							do_action( 'qbw_settings_checkbox_save', $id, $new_value );
+						} else {
+							update_option( $id, 'false' );
+						}
 					}
 					else {
-						$new_value = sanitize_text_field( $new_value );
-						update_option( $id, $new_value );// @test without stripslashes(). Test google maps. test business hours display.
+						$new_value = apply_filters( 'qbw_sanitize_setting', $new_value, $option_array );
+						update_option( $id, $new_value );
 					}
 
 					
@@ -581,7 +635,6 @@ class Quick_Business_Website {
 			$query_inner = '';
 			$count = 0;
 	
-// @test remove			// print_r($options);
 			foreach($options as $option){
 				
 				if(isset($option['id'])){ 
@@ -1363,11 +1416,11 @@ class Quick_Business_Website {
 	 * @uses is_page()
 	 */
 	public function contact_content_filter( $content ) {
-		if( is_page( get_option('qbw_contact_page_id') ) ) {
+		if( is_page( get_option( 'qbw_contact_page_id' ) ) ) {
 			$contactcontent = '<div id="qbw-col-wrap"><div class="qbw-one-half">' . $content . '</div><div id="qbw-contact-info" class="qbw-one-half"  itemscope itemtype="http://schema.org/LocalBusiness">';
 			// social box
 			$contactcontent .= '<ul id="qbw-staff-socials">';
-			if (get_option( 'qbw_old_social_icons') == 'false') {
+			if ( get_option( 'qbw_old_social_icons' ) == 'false') {
 				$twit = 'fa-twitter';
 				$goog = 'fa-google';
 				$face = 'fa-facebook';
@@ -1378,6 +1431,7 @@ class Quick_Business_Website {
 				$face = 'item-3';
 				$yout = 'youtube';
 			}
+
 			if ( get_option( 'qbw_business_twitter') ) {
 				$contactcontent .= '<li><a class="' . $twit . '" href="https://twitter.com/' . get_option( 'qbw_business_twitter') . '" title="'. __('Twitter', 'quick-business-website') . '"></a></li>';
 			} 
@@ -1396,34 +1450,34 @@ class Quick_Business_Website {
 			if ( get_option( 'qbw_business_socialurl2') ) {
 				$contactcontent .= '<li><a class="item-add" target="_blank" href="'. get_option( 'qbw_business_socialurl2') . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . get_option( 'qbw_business_sociallabel2') . '</a></li>';
 			} 
-			$contactcontent .= '</ul><strong><span itemprop="name">' . get_option( 'qbw_business_name') . '</span></strong><br /><br />';
-			if (get_option( 'qbw_hours')) { 
+			$contactcontent .= '</ul><strong><span itemprop="name">' . esc_html( stripslashes( get_option( 'qbw_business_name') ) ) . '</span></strong><br /><br />';
+			if ( get_option( 'qbw_hours' ) ) { 
 				$contactcontent .= '<div id="qbw-contact-hours"><strong>Business Hours: </strong><br />' . wpautop(get_option( 'qbw_hours')) . '</div>';
 			} 
 			if ( get_option( 'qbw_google_map') ) {
 				$contactcontent .= '<div id="qbw-goomap">'. get_option( 'qbw_google_map'). '</div>';
 			}
-			if(get_option( 'qbw_address_street')) { // do addy box
-				$contactcontent .= '<p id="qbw-addy-box" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"><span itemprop="streetAddress">' . get_option( 'qbw_address_street') . '</span>&nbsp;';
+			if ( get_option( 'qbw_address_street' ) ) { // do addy box
+				$contactcontent .= '<p id="qbw-addy-box" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"><span itemprop="streetAddress">' . esc_html( stripslashes( get_option( 'qbw_address_street') ) ) . '</span>&nbsp;';
 
 			}
 			if (get_option( 'qbw_address_suite') != '') {
-				$contactcontent .= ' ' . get_option( 'qbw_address_suite') . '&nbsp;';
+				$contactcontent .= ' ' . esc_html( stripslashes( get_option( 'qbw_address_suite') ) ) . '&nbsp;';
 			}
 			if (get_option( 'qbw_address_city') != '') {
-				$contactcontent .='<br /><span itemprop="addressLocality">' . get_option( 'qbw_address_city') . '</span>';
+				$contactcontent .='<br /><span itemprop="addressLocality">' . esc_html( stripslashes( get_option( 'qbw_address_city') ) ) . '</span>';
 			}
-			if ( (get_option( 'qbw_address_city') != '') && (get_option( 'qbw_address_state') != '') ) {
+			if ( (get_option( 'qbw_address_city') != '') && ( esc_html( stripslashes( get_option( 'qbw_address_state') ) ) != '') ) {
 				$contactcontent .= ', ';
 			}
 			if (get_option( 'qbw_address_state') != '') {
-				$contactcontent .='<span itemprop="addressRegion">' . get_option( 'qbw_address_state') . '</span>&nbsp;';
+				$contactcontent .='<span itemprop="addressRegion">' . esc_html( stripslashes( get_option( 'qbw_address_state') ) ) . '</span>&nbsp;';
 				}
 			if (get_option( 'qbw_address_zip') != '') {
-				$contactcontent .=' <span class="postal-code" itemprop="postalCode">' . get_option( 'qbw_address_zip') . '</span>&nbsp;';
+				$contactcontent .=' <span class="postal-code" itemprop="postalCode">' . esc_html( stripslashes( get_option( 'qbw_address_zip') ) ) . '</span>&nbsp;';
 			}
 			if (get_option( 'qbw_address_country') != '') {
-				$contactcontent .='<br /><span itemprop="addressCountry">' . get_option( 'qbw_address_country') . '</span>&nbsp;';
+				$contactcontent .='<br /><span itemprop="addressCountry">' . esc_html( stripslashes( get_option( 'qbw_address_country') ) ) . '</span>&nbsp;';
 			}
 			if(get_option( 'qbw_address_street')) {
 				$contactcontent .= '</p>'; // close #qbw-addy-box
