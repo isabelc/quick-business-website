@@ -77,7 +77,7 @@ class Quick_Business_Website {
 				add_filter( 'parse_query', array( $this, 'sort_services' ) );
 			}
 			add_action( 'admin_init', array( $this, 'upgrade_options' ) );
-
+			add_action( 'qbw_settings_checkbox_save', array( $this, 'set_services_sort_order' ), 10, 2 );
     }
 
 	/** 
@@ -127,7 +127,7 @@ class Quick_Business_Website {
 	* @since 1.0
 	* @return void
 	*/
-	public function admin_init(){
+	public function admin_init() {
 		$plugin_data = get_plugin_data( __FILE__, false );
 		update_option( 'qbw_smartestb_plugin_version', $plugin_data['Version'] );
 	}
@@ -136,7 +136,7 @@ class Quick_Business_Website {
 	*
 	* @since 1.0
 	*/
-	public function option_setup(){
+	public function option_setup() {
 		//Update EMPTY options
 		$qbw_array = array();
 		add_option( 'qbw_options',$qbw_array );
@@ -166,7 +166,7 @@ class Quick_Business_Website {
 			}
 		}
 		update_option( 'qbw_options',$qbw_array );
-	}// end option_setup
+	}
 
 	/** 
 	*  add admin options page
@@ -282,7 +282,7 @@ class Quick_Business_Website {
 	 *
 	 * @since 1.0
 	 */
-	public function options_page(){
+	public function options_page() {
 	    $options = get_option( 'qbw_template');      
 		?>
 	<div class="wrap" id="smartestb_container">
@@ -504,56 +504,84 @@ class Quick_Business_Website {
 	}// end frame_load
 
 	/**
-	 * ajax callback
+	 * Make sure all services have a sort order when the sort setting is enabled.
+	 * @param string $id The ID of the setting being saved
+	 * @param string $value The setting value
+	 * @since 2.0
+	 */
+	public function set_services_sort_order( $id, $value ) {
+		// Is the services sort setting being enabled?
+		if ( 'qbw_enable_service_sort' == $id && 'true' == $value ) {
+			$args = array( 'post_type' => 'smartest_services', 'posts_per_page' => -1 );
+			$all_services = get_posts( $args );
+			foreach ( $all_services as $service ) {
+				$sort_order_value_check = get_post_meta( $service->ID, '_smab_service-order-number', true );
+				// if sort order value is not set, assign a default value of 99999
+				if ( '' == $sort_order_value_check ) {
+					update_post_meta( $service->ID, '_smab_service-order-number', 99999 );
+				}
+			}
+			wp_reset_postdata();
+		}
+	}
+
+	/**
+	 * Ajax handler to save settings.
 	 * @since 1.0
 	 */
 	public function ajax_callback() {
 		global $wpdb;
 		$save_type = $_POST['type'];
 		
-		if ( $save_type == 'options' ) {
+		if ( 'options' == $save_type ) {
 	
 			$data = $_POST['data'];
-			parse_str($data,$output);
-	        	$options = get_option( 'qbw_template');
-			foreach($options as $option_array){
-				$id = isset($option_array['id']) ? $option_array['id'] : '';
-				$old_value = get_option($id);
+			parse_str( $data,$output );
+	        $options = get_option( 'qbw_template' );
+			foreach ( $options as $option_array ) {
+				$id = isset( $option_array['id'] ) ? $option_array['id'] : '';
+				$old_value = get_option( $id );
 				$new_value = '';
 				
-				if(isset($output[$id])){
-					$new_value = $output[$option_array['id']];
+				if ( isset( $output[ $id ] ) ) {
+					$new_value = $output[ $option_array['id'] ];
 				}
 		
-				if(isset($option_array['id'])) { // Non - Headings...
+				if ( isset( $option_array['id'] ) ) { // Non - Headings...
 					
 					$type = $option_array['type'];
 				
-					if ( is_array($type)){
-						foreach($type as $array){
-							if($array['type'] == 'text'){
+					if ( is_array( $type ) ) {
+						foreach( $type as $array ) {
+							if ( $array['type'] == 'text' ) {
 								$id = $array['id'];
-								$new_value = $output[$id];
-								update_option( $id, stripslashes($new_value));// isa, may conflict w url inputs that need slashes
+								isa_log('made it to array type setting for id = ');// @test remove
+								isa_log($id);// @test remove
+								$new_value = sanitize_text_field( $output[$id] );
+								update_option( $id, $new_value );// @test without stripslashes()
 							}
 						}                 
 					}
-					elseif( $new_value == '' && $type == 'checkbox' ) { // Checkbox Save
-						update_option( $id,'false' );
+					elseif( '' == $new_value && 'checkbox' == $type ) { // Checkbox Save
+						update_option( $id, 'false' );
 					}
-					elseif ( $new_value == 'true' && $type == 'checkbox' ) { // Checkbox Save
-						update_option( $id,'true' );
+					elseif ( 'true' == $new_value && 'checkbox' == $type ) { // Checkbox Save
+						update_option( $id, 'true' );
+						do_action( 'qbw_settings_checkbox_save', $id, $new_value );// @test now
 					}
 					else {
-						update_option( $id, stripslashes( $new_value ) );
+						$new_value = sanitize_text_field( $new_value );
+						update_option( $id, $new_value );// @test without stripslashes(). Test google maps. test business hours display.
 					}
+
+					
 				}	
 			}
 			/* Create, Encrypt and Update the Saved Settings */
 			$query_inner = '';
 			$count = 0;
 	
-			print_r($options);
+// @test remove			// print_r($options);
 			foreach($options as $option){
 				
 				if(isset($option['id'])){ 
@@ -612,8 +640,8 @@ class Quick_Business_Website {
 			$output .= "</ul>";
 			
 			update_option( 'qbw_options',$qbw_array);
-			update_option( 'qbw_settings_encode',$output);
-			// this makes it finally flush, but only if you save twice. Isa
+			update_option( 'qbw_settings_encode',$output);// @test need.
+
 			flush_rewrite_rules();
 		}
 		die();
@@ -1094,7 +1122,7 @@ class Quick_Business_Website {
 				),
 			)
 		);
-	if( get_option( 'qbw_enable_service_sort') == 'true'  ) {// @test need?
+	if ( get_option( 'qbw_enable_service_sort') == 'true'  ) {
 		$meta_boxes[] = array(
 			'id'         => 'services-sort-order',
 			'title'      => __( 'Set a Sort-Order', 'quick-business-website' ),
@@ -1281,7 +1309,7 @@ class Quick_Business_Website {
 	public function framework_enq() {
 		wp_register_style( 'qbw', QUICKBUSINESSWEBSITE_URL . 'css/qbw.css' );
 		wp_enqueue_style( 'qbw' );
-		wp_enqueue_style('font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css');// @todo need
+		wp_enqueue_style('font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css');
 	}
 
 	/**
@@ -1462,6 +1490,7 @@ class Quick_Business_Website {
 		}
 		return $query;
 	}
+
 	/**
 	 * Upgrade options
 	 * @since 2.0
