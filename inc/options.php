@@ -10,7 +10,6 @@ if ($user_info == true) {
 } else {
 	$admin_name = __( 'Site Administrator', 'quick-business-website' );
 }
-$currtime = date("l, F jS, Y @ g:i a");
 $shortname = 'qbw';
 global $qbw_options;
 $qbw_options = get_option( 'qbw_options');
@@ -90,11 +89,11 @@ $options[] = array( 'name' => __('Google Map','quick-business-website'),
 
 					$options[] = array( 'name' => __('Business Hours','quick-business-website'),
 						'desc' => __('Optional. Enter your hours here if you want to display them. Example:<br /><br />Monday - Friday: 7:30 am - 6:00<br />Saturday: 7:30 am - Noon<br /><br />', 'quick-business-website'),
-					'id' => $shortname.'_hours',// @todo add wpautop to display
+					'id' => $shortname.'_hours',
 					'std' => '',
 					'type' => 'textarea');
-/* Preferences */
 
+/* Preferences */
 $options[] = array( 'name' => __('Preferences','quick-business-website'),'class' => 'pencil',
 					'type' => 'heading');
 					
@@ -188,41 +187,32 @@ $options[] = array( 'type' => 'info',
 $options[] = array( 'name' => __( 'Contact Form','quick-business-website' ),
 					'class' => 'mail',
 					'type' => 'heading');
-$options[] = array( 'name' => __( 'Your Name', 'quick-business-website' ),
-                    'desc' => __( 'How would you like to be addressed in messages sent from the contact form?', 'quick-business-website' ),
-                    'id' => $shortname.'_sbfc_name',// @todo delete setting, not needed
-					'std' => $admin_name,
-                    'type' => 'text');
 $options[] = array( 'name' => __( 'Your Email', 'quick-business-website' ),
-                    'desc' => __( 'Where would you like to receive messages sent from the contact form? If blank, the default is the admin email set in `Settings -> General`', 'quick-business-website' ),
+                    'desc' => __( 'Where would you like to receive messages sent from the contact form? If blank, the default is the email set in your WordPress General Settings.', 'quick-business-website' ),
                     'id' => $shortname.'_sbfc_email',
 					'std' => '',
                     'type' => 'text');
-$options[] = array( 'name' => __( 'Default Subject', 'quick-business-website' ),
-                    'desc' => __( 'What should be the default subject line for the contact messages? Default is "Message sent from your contact form".', 'quick-business-website' ),
+$options[] = array( 'name' => __( 'Email Subject', 'quick-business-website' ),
+                    'desc' => __( 'What should be the subject line for the email that is sent to you when someone fills out your contact form? Default is "Message sent from your contact form".', 'quick-business-website' ),
                     'id' => $shortname.'_sbfc_subject',
 					'std' => __( 'Message sent from your contact form', 'quick-business-website' ),
                     'type' => 'text');
 $options[] = array( 'name' => __( 'Success Message', 'quick-business-website' ),
-                    'desc' => __( 'When the form is sucessfully submitted, this message will be displayed to the sender. Default is "Success! Your message has been sent."', 'quick-business-website' ),
+                    'desc' => __( 'When the form is sucessfully submitted, this message will be displayed to the user. Default is "Success! Your message has been sent."', 'quick-business-website' ),
                     'id' => $shortname.'_sbfc_success',
-					'std' => '<strong>' . __( 'Success! ', 'quick-business-website' ) . '</strong> ' . __( 'Your message has been sent.', 'quick-business-website'),
-                    'type' => 'textarea');// @todo revove tags, simplify to just message.
+					'std' => __( 'Success! Your message has been sent.', 'quick-business-website' ),
+                    'type' => 'textarea');
 $options[] = array( 'name' => __( 'Error Message', 'quick-business-website' ),
                     'desc' => __( 'If the user skips a required field, this message will be displayed. Default is "Please complete the required fields."', 'quick-business-website' ),
                     'id' => $shortname.'_sbfc_error',
-					'std' => '<strong>' . __( 'Please complete the required fields.', 'quick-business-website' ) . '</strong>',
-                    'type' => 'textarea');// @todo remove tags
+					'std' => __( 'Please complete the required fields.', 'quick-business-website' ),
+                    'type' => 'textarea');
 $options[] = array( 'name' => __( 'Enable Captcha', 'quick-business-website' ),
 					'desc' => __( 'Check this box if you want to enable the captcha (challenge question/answer).', 'quick-business-website' ),
 					'id' => $shortname.'_sbfc_captcha',
 					'std' => 'true',
 					'type' => 'checkbox');
-$options[] = array( 'name' => __( 'Time Offset', 'quick-business-website' ), 
-                    'desc' => sprintf( __( 'Please specify the time offset from the "Current time" listed below. For example, +1 or -1. If no offset, enter "0" (zero).<br />Current time: %s <br /><br />', 'quick-business-website' ), $currtime ),
-                    'id' => $shortname.'_sbfc_offset',
-					'std' => '',
-                    'type' => 'text');
+
 $options[] = array( 'name' => __( 'Add Phone Number Field', 'quick-business-website' ),
 					'desc' => __( 'Check this box to add a phone number field to the contact form.', 'quick-business-website' ),
 					'id' => $shortname.'_sbfc_include_phone',
@@ -241,13 +231,13 @@ $options[] = array( 'name' => __( 'Custom content before the form', 'quick-busin
 $options[] = array( 'name' => __( 'Custom content after the form', 'quick-business-website' ),
 					'desc' => __( 'Add some text/markup to appear <em>after</em> the contact form (optional).', 'quick-business-website' ),
 					'id' => $shortname.'_sbfc_appform',
-					'std' => '<div style="clear:both;">&nbsp;</div>',// @todo remove this
+					'std' => '',
 					'type' => 'textarea');
 $options[] = array( 'name' => __( 'Custom content after results', 'quick-business-website' ),
-					'desc' => '<strong>' . __( 'Custom content after results.', 'quick-business-website' ) . '</strong> ' . __( 'Add some text/markup to appear <em>after</em> the success message (optional).', 'quick-business-website' ),
+					'desc' => __( 'Add some text/markup to appear <em>after</em> the success message, after the form has been submitted (optional).', 'quick-business-website' ),
 					'id' => $shortname.'_sbfc_append',
 					'std' => '',
-					'type' => 'textarea');// @todo MAYBE eliminate option, not needed. see how low it appears,
+					'type' => 'textarea');
 
 /* Advanced */
 $options[] = array( 'name' => __('Advanced','quick-business-website'),'class' => 'settings',
