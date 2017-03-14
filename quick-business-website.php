@@ -1416,94 +1416,152 @@ class Quick_Business_Website {
 	 * @uses is_page()
 	 */
 	public function contact_content_filter( $content ) {
-		if( is_page( get_option( 'qbw_contact_page_id' ) ) ) {
-			$contactcontent = '<div id="qbw-col-wrap"><div class="qbw-one-half">' . $content . '</div><div id="qbw-contact-info" class="qbw-one-half"  itemscope itemtype="http://schema.org/LocalBusiness">';
-			// social box
-			$contactcontent .= '<ul id="qbw-staff-socials">';
-			if ( get_option( 'qbw_old_social_icons' ) == 'false') {
-				$twit = 'fa-twitter';
-				$goog = 'fa-google';
-				$face = 'fa-facebook';
-				$yout = 'fa-youtube';
-			} else {
-				$twit = 'item-1';
-				$goog = 'item-2';
-				$face = 'item-3';
-				$yout = 'youtube';
-			}
-
-			if ( get_option( 'qbw_business_twitter') ) {
-				$contactcontent .= '<li><a class="' . $twit . '" href="https://twitter.com/' . get_option( 'qbw_business_twitter') . '" title="'. __('Twitter', 'quick-business-website') . '"></a></li>';
-			} 
-			if ( get_option( 'qbw_business_gplus') ) {
-				$contactcontent .= '<li><a class="' . $goog . '" href="https://plus.google.com/' . get_option( 'qbw_business_gplus') . '" title="'. __('Google Plus', 'quick-business-website') . '" rel="publisher"></a></li>';
-			} 
-			if ( get_option( 'qbw_business_facebook') ) {
-				$contactcontent .= '<li><a class="' . $face . '" href="https://facebook.com/' . get_option( 'qbw_business_facebook') . '" title="'. __('Facebook', 'quick-business-website') . '"></a></li>';
-			}
-			if ( get_option( 'qbw_business_youtube') ) {
-				$contactcontent .= '<li><a class="' . $yout. '" href="https://youtube.com/user/' . get_option( 'qbw_business_youtube') . '" title="'. __('Youtube', 'quick-business-website') . '"></a></li>';
-			}
-			if ( get_option( 'qbw_business_socialurl1') ) {
-				$contactcontent .= '<li><a class="item-add" target="_blank" href="'. get_option( 'qbw_business_socialurl1') . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . get_option( 'qbw_business_sociallabel1') . '</a></li>';
-			} 
-			if ( get_option( 'qbw_business_socialurl2') ) {
-				$contactcontent .= '<li><a class="item-add" target="_blank" href="'. get_option( 'qbw_business_socialurl2') . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . get_option( 'qbw_business_sociallabel2') . '</a></li>';
-			} 
-			$contactcontent .= '</ul><strong><span itemprop="name">' . esc_html( stripslashes( get_option( 'qbw_business_name') ) ) . '</span></strong><br /><br />';
-			if ( get_option( 'qbw_hours' ) ) { 
-				$contactcontent .= '<div id="qbw-contact-hours"><strong>Business Hours: </strong><br />' . wpautop(get_option( 'qbw_hours')) . '</div>';
-			} 
-			if ( get_option( 'qbw_google_map') ) {
-				$contactcontent .= '<div id="qbw-goomap">'. get_option( 'qbw_google_map'). '</div>';
-			}
-			if ( get_option( 'qbw_address_street' ) ) { // do addy box
-				$contactcontent .= '<p id="qbw-addy-box" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"><span itemprop="streetAddress">' . esc_html( stripslashes( get_option( 'qbw_address_street') ) ) . '</span>&nbsp;';
-
-			}
-			if (get_option( 'qbw_address_suite') != '') {
-				$contactcontent .= ' ' . esc_html( stripslashes( get_option( 'qbw_address_suite') ) ) . '&nbsp;';
-			}
-			if (get_option( 'qbw_address_city') != '') {
-				$contactcontent .='<br /><span itemprop="addressLocality">' . esc_html( stripslashes( get_option( 'qbw_address_city') ) ) . '</span>';
-			}
-			if ( (get_option( 'qbw_address_city') != '') && ( esc_html( stripslashes( get_option( 'qbw_address_state') ) ) != '') ) {
-				$contactcontent .= ', ';
-			}
-			if (get_option( 'qbw_address_state') != '') {
-				$contactcontent .='<span itemprop="addressRegion">' . esc_html( stripslashes( get_option( 'qbw_address_state') ) ) . '</span>&nbsp;';
-				}
-			if (get_option( 'qbw_address_zip') != '') {
-				$contactcontent .=' <span class="postal-code" itemprop="postalCode">' . esc_html( stripslashes( get_option( 'qbw_address_zip') ) ) . '</span>&nbsp;';
-			}
-			if (get_option( 'qbw_address_country') != '') {
-				$contactcontent .='<br /><span itemprop="addressCountry">' . esc_html( stripslashes( get_option( 'qbw_address_country') ) ) . '</span>&nbsp;';
-			}
-			if(get_option( 'qbw_address_street')) {
-				$contactcontent .= '</p>'; // close #qbw-addy-box
-			} // end addy-box
-			if ( get_option( 'qbw_phone_number') || get_option( 'qbw_fax_numb') || ( get_option( 'qbw_show_contactemail') == 'true' ) ) {
-				$contactcontent .= '<p>';
-			
-				if ( get_option( 'qbw_phone_number') ) {
-					$contactcontent .= '' . __('Telephone:', 'quick-business-website') . ' <span itemprop="telephone">'. get_option( 'qbw_phone_number') . '</span>';
-				}
-				if ( get_option( 'qbw_fax_numb') ) {
-					$contactcontent .= '<br />' . __('FAX:', 'quick-business-website') . ' <span itemprop="faxNumber">' . get_option( 'qbw_fax_numb') . '</span>';
-				
-				} 
-				if ( get_option( 'qbw_show_contactemail') == 'true' ) {
-					$contactcontent .= '<br />' . __('Email:', 'quick-business-website') . ' <a href="mailto:' . get_bloginfo('admin_email') . '"><span itemprop="email">' . get_bloginfo('admin_email') . '</span></a><br />';
-				}
-				$contactcontent .= '</p>';
-			}
-			$contactcontent .= '</div></div>';
-			return $contactcontent;
-			
-		} else {
-			// regular content
+		if ( ! is_page( get_option( 'qbw_contact_page_id' ) ) ) {
 			return $content;
 		}
+
+		$contactcontent = '<div id="qbw-col-wrap"><div class="qbw-one-half">' . $content . '</div><div id="qbw-contact-info" class="qbw-one-half"  itemscope itemtype="http://schema.org/LocalBusiness">';
+		// social box
+		$contactcontent .= '<ul id="qbw-staff-socials">';
+		if ( get_option( 'qbw_old_social_icons' ) == 'false') {
+			$twit = 'fa-twitter';
+			$goog = 'fa-google';
+			$face = 'fa-facebook';
+			$yout = 'fa-youtube';
+		} else {
+			$twit = 'item-1';
+			$goog = 'item-2';
+			$face = 'item-3';
+			$yout = 'youtube';
+		}
+
+		$keys = array(
+			'qbw_business_twitter',
+			'qbw_business_gplus',
+			'qbw_business_facebook',
+			'qbw_business_youtube',
+			'qbw_business_socialurl1',
+			'qbw_business_sociallabel1',
+			'qbw_business_socialurl2',
+			'qbw_business_sociallabel2',
+			'qbw_business_name',
+			'qbw_hours',
+			'qbw_google_map',
+			'qbw_address_street',
+			'qbw_address_suite',
+			'qbw_address_city',
+			'qbw_address_state',
+			'qbw_address_zip',
+			'qbw_address_country',
+			'qbw_phone_number',
+			'qbw_fax_numb',
+			'qbw_show_contactemail',
+		);
+
+		$options = get_option( 'qbw_options' );
+
+		// Escape all things
+
+		foreach ( $keys as $key ) {
+
+			if ( in_array( $key, array( 'qbw_business_socialurl1', 'qbw_business_socialurl2' ) ) ) {
+				${$key} = isset( $options[ $key ] ) ?
+						esc_url( $options[ $key ] ) :
+						'';
+			} elseif( 'qbw_google_map' == $key ) {
+
+				${$key} = isset( $options[ $key ] ) ?
+						wp_kses( $options[ $key ], array(
+										'iframe' => array(
+											'src' => array(),
+											'width' => array(),
+											'height' => array(),
+											'frameborder' => array(),
+											'style' => array(),
+											'allowfullscreen' => array(),
+										)
+										)
+					) :
+					'';
+
+			} else {
+				${$key} = isset( $options[ $key ] ) ?
+						esc_html( stripslashes( $options[ $key ] ) ) :
+						'';
+			}
+		}
+
+		if ( $qbw_business_twitter ) {
+			$contactcontent .= '<li><a class="' . $twit . '" href="https://twitter.com/' . $qbw_business_twitter . '" title="'. __('Twitter', 'quick-business-website') . '"></a></li>';
+		}
+		if ( $qbw_business_gplus ) {
+			$contactcontent .= '<li><a class="' . $goog . '" href="https://plus.google.com/' . $qbw_business_gplus . '" title="'. __('Google Plus', 'quick-business-website') . '" rel="publisher"></a></li>';
+		} 
+		if ( $qbw_business_facebook ) {
+			$contactcontent .= '<li><a class="' . $face . '" href="https://facebook.com/' . $qbw_business_facebook . '" title="'. __('Facebook', 'quick-business-website') . '"></a></li>';
+		}
+
+
+			if ( $qbw_business_youtube ) {
+				$contactcontent .= '<li><a class="' . $yout. '" href="https://youtube.com/user/' . $qbw_business_youtube . '" title="'. __('Youtube', 'quick-business-website') . '"></a></li>';
+			}
+			if ( $qbw_business_socialurl1 ) {
+				$contactcontent .= '<li><a class="item-add" target="_blank" href="'. $qbw_business_socialurl1 . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . $qbw_business_sociallabel1 . '</a></li>';
+			} 
+			if ( $qbw_business_socialurl2 ) {
+				$contactcontent .= '<li><a class="item-add" target="_blank" href="'. $qbw_business_socialurl2 . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . $qbw_business_sociallabel2 . '</a></li>';
+			} 
+			$contactcontent .= '</ul><strong><span itemprop="name">' . $qbw_business_name . '</span></strong><br /><br />';
+			if ( $qbw_hours ) {
+				$contactcontent .= '<div id="qbw-contact-hours"><strong>Business Hours: </strong><br />' . wpautop( $qbw_hours ) . '</div>';
+			} 
+			if ( $qbw_google_map ) {
+				$contactcontent .= '<div id="qbw-goomap">'. $qbw_google_map. '</div>';
+			}
+			if ( $qbw_address_street ) { // do addy box
+				$contactcontent .= '<p id="qbw-addy-box" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"><span itemprop="streetAddress">' . $qbw_address_street . '</span>&nbsp;';
+			}
+			if ( $qbw_address_suite ) {
+				$contactcontent .= ' ' . $qbw_address_suite . '&nbsp;';
+			}
+			if ( $qbw_address_city ) {
+				$contactcontent .='<br /><span itemprop="addressLocality">' . $qbw_address_city . '</span>';
+			}
+			if ( $qbw_address_city && $qbw_address_state ) {
+				$contactcontent .= ', ';
+			}
+			if ( $qbw_address_state ) {
+				$contactcontent .='<span itemprop="addressRegion">' . $qbw_address_state . '</span>&nbsp;';
+				}
+			if ( $qbw_address_zip ) {
+				$contactcontent .=' <span class="postal-code" itemprop="postalCode">' . $qbw_address_zip . '</span>&nbsp;';
+			}
+			if ( $qbw_address_country ) {
+				$contactcontent .='<br /><span itemprop="addressCountry">' . $qbw_address_country . '</span>&nbsp;';
+			}
+			if ( $qbw_address_street ) {
+				$contactcontent .= '</p>'; // close #qbw-addy-box
+			} // end addy-box
+
+		if ( $qbw_phone_number || $qbw_fax_numb || ( 'true' == $qbw_show_contactemail ) ) {
+				$contactcontent .= '<p>';
+			
+				if ( $qbw_phone_number ) {
+					$contactcontent .= '' . __('Telephone:', 'quick-business-website') . ' <span itemprop="telephone">'. $qbw_phone_number . '</span>';
+				}
+				if ( $qbw_fax_numb ) {
+					$contactcontent .= '<br />' . __('FAX:', 'quick-business-website') . ' <span itemprop="faxNumber">' . $qbw_fax_numb . '</span>';
+				
+				} 
+				if ( 'true' == $qbw_show_contactemail ) {
+					$email = esc_html( get_bloginfo( 'admin_email' ) );
+					$contactcontent .= '<br />' . __('Email:', 'quick-business-website') . ' <a href="mailto:' . $email . '"><span itemprop="email">' . $email . '</span></a><br />';
+				}
+				$contactcontent .= '</p>';
+		}
+		$contactcontent .= '</div></div>';
+
+		return $contactcontent;
 
 	}// end contact_content_filter
 
