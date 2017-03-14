@@ -150,15 +150,22 @@ function sbfc_input_filter() {
  * shortcode to display contact form
  */
 function sbfc_shortcode() {
-	if (sbfc_input_filter()) {
+	if ( sbfc_input_filter() ) {
 		return sbfc_process_contact_form();
 	} else {
 		return sbfc_display_contact_form();
 	}
 }
-add_shortcode('smartest_themes_contact_form','sbfc_shortcode');
+add_shortcode( 'qbw_contact_form','sbfc_shortcode' );
+/**
+ * @todo at some point, remove this shortcode
+ * @deprecated since version 2.0
+ */
+add_shortcode( 'smartest_themes_contact_form','sbfc_shortcode' );
 /**
  * template tag to display contact form
+ * @todo at some point, remove this shortcode
+ * @deprecated since version 2.0
  */
 function smartest_themes_contact_form() {
 	if (sbfc_input_filter()) {
@@ -172,14 +179,13 @@ function smartest_themes_contact_form() {
  * @uses insert_post()
  */
 function sbf_create_contact_page() {
-	if(get_option( 'qbw_stop_contact') == 'false') {
-		// CONTACT form is not disabled so do it	
-		$bn = stripslashes_deep(esc_attr(get_option( 'qbw_business_name')));
+	if ( get_option( 'qbw_stop_contact') == 'false' ) {
+		$bn = stripslashes_deep( esc_attr( get_option( 'qbw_business_name' ) ) );
 		$contitle = sprintf(__('Contact %s','quick-business-website'), $bn);
 		global $Quick_Business_Website;
-		$Quick_Business_Website->insert_post( 'page', esc_sql( _x('contact', 'page_slug', 'quick-business-website') ), 'qbw_contact_page_id', $contitle, '[smartest_themes_contact_form]' );
+		$Quick_Business_Website->insert_post( 'page', esc_sql( _x('contact', 'page_slug', 'quick-business-website') ), 'qbw_contact_page_id', $contitle, '[qbw_contact_form]' );
 	}
-}
+} 
 add_action('after_setup_theme', 'sbf_create_contact_page');
 // if contact page is disabled, delete the page
 if(get_option( 'qbw_stop_contact') == 'true') {

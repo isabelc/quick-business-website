@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: http://smartestthemes.com/docs/category/quick-business-website-wordpress-plugin/
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 2.0.alpha.3
+Version: 2.0.alpha.4
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -901,8 +901,10 @@ class Quick_Business_Website {
 		global $wpdb;
 		$option_value = get_option( $option );
 
-		if ( $option_value > 0 && get_post( $option_value ) )
+		// Don't do anything if post exists.
+		if ( $option_value > 0 && get_post( $option_value ) ) {
 			return;
+		}
 		$page_data = array(
 	        'post_status' 		=> 'publish',
 	        'post_type' 		=> $potype,// was 'page',
@@ -917,7 +919,7 @@ class Quick_Business_Website {
 	
 	    update_option( $option, $page_id );
 	
-	} // end insert_post
+	}
 	/** 
 	 * Activate Smartest Reviews.
 	 *	 
@@ -1604,7 +1606,7 @@ class Quick_Business_Website {
 	}
 
 	/**
-	 * Upgrade options
+	 * Upgrade options for version 2.0
 	 * @since 2.0
 	 * @todo At some point in the future, remove this and delete the qbw_upgrade_two option on uninstall.
 	 */
@@ -1667,9 +1669,48 @@ class Quick_Business_Website {
 				}
 			}
 
+			/************************************************************
+			*
+			* For backwards compatibility, update the Contact From shortcode
+			*
+			************************************************************/
+
+			// if our Contact page exists and is not disabled
+			if ( ( $contact_page_id = get_option( 'qbw_contact_page_id') ) && get_option( 'qbw_stop_contact' ) != 'true' ) {
+
+				$content = get_post_field( 'post_content', $contact_page_id );
+
+				// Update the shortcode
+				$updated_content = str_replace( '[smartest_themes_contact_form]', '[qbw_contact_form]', $content );
+
+				$contact_page = array(
+					'ID' => $contact_page_id,
+					'post_content' => $updated_content
+				);
+				// Update the page
+				wp_update_post( $contact_page );
+			}
+
 			// Set flag to run upgrade only once
 			update_option( 'qbw_upgrade_two', 'completed' );
 		}
+
+
+		/************************************************************
+		*
+		* @todo Begin
+		*
+		************************************************************/
+		
+		// @todo move inside after testing...
+
+
+		
+		/************************************************************
+		*
+		* @todo End
+		*
+		************************************************************/
 
 	}
 
