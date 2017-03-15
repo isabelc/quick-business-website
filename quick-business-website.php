@@ -527,7 +527,7 @@ class Quick_Business_Website {
 
 			// For some ids, allow also images
  			elseif ( in_array( $option['id'], array( 'qbw_sbfc_preform', 'qbw_sbfc_appform', 'qbw_sbfc_append' ) ) ) {
- 				$value = qbw_kses( $value, 'img' );
+ 				$value = qbw_kses( $value, true );
  			}
 
 		} // end textarea
