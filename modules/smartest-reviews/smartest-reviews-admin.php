@@ -7,7 +7,7 @@
  */
 class SMARTESTReviewsBusinessAdmin {
 	var $parentClass = '';
-	function SMARTESTReviewsBusinessAdmin($parentClass) {
+	function __construct( $parentClass ) {
 			define('IN_SMAR_ADMIN',1);
 			
 			$this->parentClass = &$parentClass;
@@ -208,7 +208,7 @@ class SMARTESTReviewsBusinessAdmin {
 		if ($this->options['show_fields']['ftitle'] == 1) { $sf['ftitle'] = 'checked'; }
 		
 		echo '
-		<div class="postbox" style="width:700px;"><h3>'. __('Display Options', 'quick-business-website') .'</h3><div id="smar_ad">
+		<div class="postbox" style="width:700px;"><div id="smar_ad">
 			   <form method="post" action=""><div style="background:#eaf2fa;padding:6px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
 						<legend>'. __('General Settings', 'quick-business-website').'</legend>
 					</div>                    
@@ -287,12 +287,6 @@ class SMARTESTReviewsBusinessAdmin {
 						<small>'. __('If this option is unchecked, there will be no visible way for visitors to submit reviews.', 'quick-business-website'). '</small>
 						<br /><br />
 						<label for="goto_leave_text">'. __('Button text used to show review form: ', 'quick-business-website'). '</label><input style="width:250px;" type="text" id="goto_leave_text" name="goto_leave_text" value="'.$this->options['goto_leave_text'].'" />
-						<br />
-						<small>'. __('This button will be shown above the first review.', 'quick-business-website'). '</small>
-						<br /><br />
-						<label for="leave_text">'. __('Text to be displayed above review form: ', 'quick-business-website'). '</label><input style="width:250px;" type="text" id="goto_leave_text" name="goto_leave_text" value="'.$this->options['goto_leave_text'].'" />
-						<br />
-						<small>'. __('This will be shown as a heading immediately above the review form.', 'quick-business-website'). '</small>
 						<br /><br />
 						<label for="submit_button_text">'. __('Text to use for review form submit button: ', 'quick-business-website'). '</label><input style="width:200px;" type="text" id="submit_button_text" name="submit_button_text" value="'.$this->options['submit_button_text'].'" />
 						<br />
@@ -343,19 +337,10 @@ class SMARTESTReviewsBusinessAdmin {
 		
 		echo '
 		<div id="smar_respond_1" class="wrap">
-			<h2>' . __( 'Smartest Reviews - Options', 'quick-business-website' ). '</h2>';
+			<h2>' . __( 'Reviews - Options', 'quick-business-website' ). '</h2>';
 			if ($msg) { echo '<h3 style="color:#a00;">'.$msg.'</h3>'; }
+			echo '<div class="metabox-holder">';
 
-			// set var used below
-			$linkp = '<a href="'. esc_url( admin_url('admin.php?page=quickbusinesswebsite') ) . '">' . __( 'Preferences', 'quick-business-website' ) . '</a>';
-
-			echo '<div class="metabox-holder">
-			<div class="postbox" style="width:700px;">
-				<h3 style="cursor:default;">'. __('About Smartest Reviews', 'quick-business-website'). '</h3>
-				<div style="padding:10px; background:#ffffff;">
-					<p>'. __('Smartest Reviews allows your customers and visitors to leave reviews or testimonials of your business. It also enables cross-page aggregate ratings. This pulls aggregate ratings data from the Reviews page into your home page to create rich snippets for search engines on your home page and your Reviews page. Reviews are Schema.org Microdata enabled.', 'quick-business-website'). '<br /><br />'
-					. sprintf(__('Activate Reviews by checking %s in %s.', 'quick-business-website'), '<code>Add Reviews Section</code>', $linkp).
-'</p><br /> </div> </div>';
 		$this->show_options();
 		echo '<br /></div>';
 	}
