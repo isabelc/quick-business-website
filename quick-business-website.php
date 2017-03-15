@@ -888,14 +888,14 @@ class Quick_Business_Website {
 	
 	}
 	/** 
-	 * Activate Smartest Reviews.
+	 * Activate Reviews.
 	 *	 
 	 * @uses insert_post()
 	 * @since 1.0
 	 */
 	public function after_setup() {
-		if ( ! class_exists( 'SMARTESTReviewsBusiness' ) && ( get_option( 'qbw_add_reviews' ) == 'true')) {
-			include_once QUICKBUSINESSWEBSITE_PATH . 'modules/smartest-reviews/smartest-reviews.php';
+		if ( ! class_exists( 'QBW_Reviews' ) && ( get_option( 'qbw_add_reviews' ) == 'true')) {
+			include_once QUICKBUSINESSWEBSITE_PATH . 'modules/reviews/reviews.php';
 		}
 	}
 

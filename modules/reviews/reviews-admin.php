@@ -1,14 +1,14 @@
 <?php
 /**
- * Smartest Reviews Admin Interface
+ * QBW Reviews Admin Interface
  * 
  * @package		Quick Business Website
- * @subpackage	Smartest Reviews Module
+ * @subpackage	Reviews Module
  */
-class SMARTESTReviewsBusinessAdmin {
+class QBW_Reviews_Admin {
 	var $parentClass = '';
 	function __construct( $parentClass ) {
-			define('IN_SMAR_ADMIN',1);
+			define( 'QBW_REVIEWS_ADMIN', 1 );
 			
 			$this->parentClass = &$parentClass;
 			foreach ($this->parentClass as $col => $val) {
@@ -87,9 +87,10 @@ class SMARTESTReviewsBusinessAdmin {
 	function enqueue_admin_stuff() {
 		$pluginurl = $this->parentClass->get_reviews_module_url();
 		if (isset($this->p->page) && ( $this->p->page == 'smar_view_reviews' || $this->p->page == 'smar_options' ) ) {
-			wp_register_script('smartest-reviews-admin',$pluginurl.'smartest-reviews-admin.js',array('jquery'));
-			wp_register_style('smartest-reviews-admin',$pluginurl.'smartest-reviews-admin.css');  
-			wp_enqueue_script('smartest-reviews-admin');wp_enqueue_style('smartest-reviews-admin');
+			wp_register_script('qbw-reviews-admin',$pluginurl . 'reviews-admin.js',array('jquery'));
+			wp_register_style('qbw-reviews-admin',$pluginurl . 'reviews-admin.css');  
+			wp_enqueue_script('qbw-reviews-admin');
+			wp_enqueue_style('qbw-reviews-admin');
 		}
 	}
 
@@ -553,7 +554,7 @@ class SMARTESTReviewsBusinessAdmin {
 		?>
 		<div id="smar_respond_1" class="wrap">
 			<div class="icon32" id="icon-edit-comments"><br /></div>
-			<h2><?php _e('Smartest Reviews', 'quick-business-website'); ?> - <?php echo sprintf(__('%s Reviews', 'quick-business-website'), $status_text); ?></h2>
+			<h2><?php _e('Reviews', 'quick-business-website'); ?> - <?php echo sprintf(__('%s Reviews', 'quick-business-website'), $status_text); ?></h2>
 			  <ul class="subsubsub">
 				<li class="all"><a <?php if ($this->p->review_status == -1) { echo 'class="current"'; } ?> href="?page=smar_view_reviews&amp;review_status=-1"><?php _e('All', 'quick-business-website'); ?></a> |</li>
 				<li class="moderated"><a <?php if ($this->p->review_status == 0) { echo 'class="current"'; } ?> href="?page=smar_view_reviews&amp;review_status=0"><?php _e('Pending ', 'quick-business-website'); ?>
@@ -732,8 +733,8 @@ class SMARTESTReviewsBusinessAdmin {
 		<?php
 	}
 }
-if (!defined('IN_SMAR_ADMIN')) {
-	global $SMARTESTReviewsBusiness, $SMARTESTReviewsBusinessAdmin;
-	$SMARTESTReviewsBusinessAdmin = new SMARTESTReviewsBusinessAdmin($SMARTESTReviewsBusiness);
+if ( ! defined( 'QBW_REVIEWS_ADMIN' ) ) {
+	global $QBW_Reviews, $QBW_Reviews_Admin;
+	$QBW_Reviews_Admin = new QBW_Reviews_Admin( $QBW_Reviews );
 }
 ?>

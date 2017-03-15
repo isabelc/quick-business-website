@@ -2,12 +2,15 @@
 /**
  * Get reviews from visitors, and aggregate ratings and stars for your business in search results.
  * 
- *  Adds Microdata markup (Schema.org) for rich snippets. Includes Testimonial widget. Optional: pulls aggregaterating to home page. Option to not pull it to home page, and just have a reviews page. Requires Smartest Themes for full functionality.
+ * Adds Structured data markup (Schema.org) for rich snippets.
+ * Includes Testimonial widget. 
+ * Optional: pulls aggregaterating to home page. Option to not pull it to home page, 
+ * and just have a reviews page.
  * 
  * @package		Quick Business Website
- * @subpackage	Smartest Reviews Module
+ * @subpackage	Reviews Module
  */
-class SMARTESTReviewsBusiness {
+class QBW_Reviews {
 	var $dbtable = 'smareviewsb';
 	var $force_active_page = false;
 	var $got_aggregate = false;
@@ -22,7 +25,7 @@ class SMARTESTReviewsBusiness {
 	function __construct() {
 		global $wpdb;
 
-		define( 'IN_SMAR', 1 );
+		define( 'QBW_REVIEWS', 1 );
 		$this->dbtable = $wpdb->prefix . $this->dbtable;
 		$this->plugin_version = get_option('qbw_smartestb_plugin_version');
 		add_action('the_content', array( $this, 'do_the_content'), 10); /* prio 10 prevents a conflict with some odd themes */
@@ -45,19 +48,19 @@ class SMARTESTReviewsBusiness {
 		}
    }
 	function admin_options() {
-		global $SMARTESTReviewsBusinessAdmin;
+		global $QBW_Reviews_Admin;
 		$this->include_admin();
-		$SMARTESTReviewsBusinessAdmin->real_admin_options();
+		$QBW_Reviews_Admin->real_admin_options();
 	}
    function admin_save_post($post_id, $post) {
-	   global $SMARTESTReviewsBusinessAdmin;
+	   global $QBW_Reviews_Admin;
 		$this->include_admin();
-	   $SMARTESTReviewsBusinessAdmin->real_admin_save_post($post_id);
+	   $QBW_Reviews_Admin->real_admin_save_post($post_id);
 	}
 	function admin_view_reviews() {
-		global $SMARTESTReviewsBusinessAdmin;
+		global $QBW_Reviews_Admin;
 		$this->include_admin();
-		$SMARTESTReviewsBusinessAdmin->real_admin_view_reviews();
+		$QBW_Reviews_Admin->real_admin_view_reviews();
 	}
 	function get_jumplink_for_review($review,$page) {
 	   /* $page will be 1 for shortcode usage since it pulls most recent, which SHOULD all be on page 1 */
@@ -141,9 +144,9 @@ class SMARTESTReviewsBusiness {
 		if ($current_dbversion == $plugin_db_version) {
 			return false;
 		}
-		global $SMARTESTReviewsBusinessAdmin;
+		global $QBW_Reviews_Admin;
 		$this->include_admin(); /* include admin functions */
-		$SMARTESTReviewsBusinessAdmin->createUpdateReviewtable(); /* creates AND updates table */
+		$QBW_Reviews_Admin->createUpdateReviewtable(); /* creates AND updates table */
 		/* initial installation */
 		if ($current_dbversion == 0) {
 		   $this->options['dbversion'] = $plugin_db_version;
@@ -1009,13 +1012,13 @@ function do_the_content($original_content) {
 
 	function enqueue_scripts() {
 		if( get_option( 'qbw_add_reviews') == 'true'  ) { // isa depend
-			wp_register_style('smartest-reviews', $this->get_reviews_module_url() . 'smartest-reviews.css', array(), $this->plugin_version);
-			wp_register_script('smartest-reviews', $this->get_reviews_module_url() . 'smartest-reviews.js', array('jquery'), $this->plugin_version);
+			wp_register_style('qbw-reviews', $this->get_reviews_module_url() . 'reviews.css', array(), $this->plugin_version);
+			wp_register_script('qbw-reviews', $this->get_reviews_module_url() . 'reviews.js', array('jquery'), $this->plugin_version);
 
 			if( is_page(get_option( 'qbw_reviews_page_id' ))) {
 			
-				wp_enqueue_style('smartest-reviews');
-				wp_enqueue_script('smartest-reviews');
+				wp_enqueue_style('qbw-reviews');
+				wp_enqueue_script('qbw-reviews');
 				$loc = array(
 					'hidebutton' => __('Click here to hide form', 'quick-business-website'),
 					'email' => __('The email address provided is not valid.', 'quick-business-website'),
@@ -1027,7 +1030,7 @@ function do_the_content($original_content) {
 					'rating' => __('Please select a star rating from 1 to 5.', 'quick-business-website'),
 					'website' => __('The website provided is not valid. Be sure to include', 'quick-business-website')
 					);
-				wp_localize_script( 'smartest-reviews', 'smartlocal', $loc);
+				wp_localize_script( 'qbw-reviews', 'smartlocal', $loc);
 			}
 
 		}
@@ -1037,29 +1040,30 @@ function do_the_content($original_content) {
 	 */
 	function register_widget() {
 		if( get_option( 'qbw_add_reviews') == 'true'  ) {
-			register_widget('SmartestReviewsTestimonial');
+			register_widget('QBW_Reviews_Testimonial');
 		}
 	}
 	function include_admin() {
-		global $SMARTESTReviewsBusinessAdmin;
-		require_once QUICKBUSINESSWEBSITE_PATH . 'modules/smartest-reviews/smartest-reviews-admin.php';
+		global $QBW_Reviews_Admin;
+		require_once QUICKBUSINESSWEBSITE_PATH . 'modules/reviews/reviews-admin.php';
 	}
 	function admin_init() {
-		global $SMARTESTReviewsBusinessAdmin;
+		global $QBW_Reviews_Admin;
 		$this->include_admin(); /* include admin functions */
-		$SMARTESTReviewsBusinessAdmin->real_admin_init();
+		$QBW_Reviews_Admin->real_admin_init();
 	}
 	function admin_scripts() {
-		global $SMARTESTReviewsBusinessAdmin;
-		$SMARTESTReviewsBusinessAdmin->enqueue_admin_stuff();
+		global $QBW_Reviews_Admin;
+		$QBW_Reviews_Admin->enqueue_admin_stuff();
 	}
 	function get_reviews_module_url() {
-		return QUICKBUSINESSWEBSITE_URL . 'modules/smartest-reviews/';
+		return QUICKBUSINESSWEBSITE_URL . 'modules/reviews/';
 	}
 }
-if (!defined('IN_SMAR')) {global $SMARTESTReviewsBusiness;
-$SMARTESTReviewsBusiness = new SMARTESTReviewsBusiness();
-add_action ('after_setup_theme', array(&$SMARTESTReviewsBusiness,'activate'));
+if ( ! defined( 'QBW_REVIEWS' ) ) {
+	global $QBW_Reviews;
+	$QBW_Reviews = new QBW_Reviews();
+	add_action( 'after_setup_theme', array( $QBW_Reviews, 'activate' ) );
 }
 /* get widget */
 include_once('widget-testimonial.php');

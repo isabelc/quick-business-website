@@ -1,11 +1,11 @@
 <?php
 /**
- * Adds Smartest Reviews Testimonial widget
+ * Adds Reviews Testimonial widget
  *
  * @package		Quick Business Website
- * @subpackage 	Smartest Reviews Module
+ * @subpackage 	Reviews Module
  */
-class SmartestReviewsTestimonial extends WP_Widget {
+class QBW_Reviews_Testimonial extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 	 		'smartest_reviews_testimonial',
@@ -52,7 +52,7 @@ class SmartestReviewsTestimonial extends WP_Widget {
 			echo '<a href="'.$reviews_pageurl.'">'.__('More...', 'quick-business-website').'</a>';
 		}
 		echo $args['after_widget'];
-	}// end widget
+	}
 
 	/**
 	 * Sanitize widget form values as they are saved.
