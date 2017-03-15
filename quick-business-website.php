@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: http://smartestthemes.com/docs/category/quick-business-website-wordpress-plugin/
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 2.0.alpha.4
+Version: 2.0.alpha.5
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -512,7 +512,10 @@ class Quick_Business_Website {
 	 */
 	public function sanitize_setting( $value, $option ) {
 		if ( 'text' == $option['type'] ) {
-			$value = sanitize_text_field( $value );
+			$value = ( 'qbw_sbfc_email' == $option['id'] ) ?
+					sanitize_email( $value ) :
+					sanitize_text_field( $value );
+
 		} elseif ( 'textarea' == $option['type'] ) {
 
 			// No tags allowed on these ids
@@ -1503,8 +1506,9 @@ class Quick_Business_Website {
 				
 				} 
 				if ( 'true' == $qbw_show_contactemail ) {
-					$email = esc_html( get_bloginfo( 'admin_email' ) );
+					$email = antispambot( esc_html( get_bloginfo( 'admin_email' ) ) );
 					$contactcontent .= '<br />' . __('Email:', 'quick-business-website') . ' <a href="mailto:' . $email . '"><span itemprop="email">' . $email . '</span></a><br />';
+
 				}
 				$contactcontent .= '</p>';
 		}
@@ -1641,23 +1645,6 @@ class Quick_Business_Website {
 			// Set flag to run upgrade only once
 			update_option( 'qbw_upgrade_two', 'completed' );
 		}
-
-
-		/************************************************************
-		*
-		* @todo Begin
-		*
-		************************************************************/
-		
-		// @todo move inside after testing...
-
-
-		
-		/************************************************************
-		*
-		* @todo End
-		*
-		************************************************************/
 
 	}
 
