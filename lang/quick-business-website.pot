@@ -43,10 +43,6 @@ msgstr ""
 msgid "Options Reset"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:321
-msgid "Rate This Plugin"
-msgstr ""
-
 #: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:327
 msgid "See our Business App Themes"
 msgstr ""
@@ -631,17 +627,6 @@ msgid ""
 "change your email address in %s."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:88
-msgid "Google Map"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:89
-#, php-format
-msgid ""
-"If you want to show a Google Map for your business address, paste here your "
-"HTML embed code from %s."
-msgstr ""
-
 #: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:94
 msgid "Business Hours"
 msgstr ""
@@ -835,15 +820,6 @@ msgstr ""
 msgid "Contact Form"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:217
-msgid "Your Name"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:218
-msgid ""
-"How would you like to be addressed in messages sent from the contact form?"
-msgstr ""
-
 #: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:222
 msgid "Your Email"
 msgstr ""
@@ -911,18 +887,6 @@ msgstr ""
 #: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:243
 msgid ""
 "Check this box if you want to enable the captcha (challenge question/answer)."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:247
-msgid "Time Offset"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:248
-#, php-format
-msgid ""
-"Please specify the time offset from the \"Current time\" listed below. For "
-"example, +1 or -1. If no offset, enter \"0\" (zero).<br />Current time: %s "
-"<br /><br />"
 msgstr ""
 
 #: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:252
