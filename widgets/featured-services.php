@@ -88,7 +88,7 @@ class SmartestFeaturedServices extends WP_Widget {
 		wp_reset_postdata();
 		echo $args['after_widget'];
 
-	}// end widget
+	}
 
 	/**
 	 * Sanitize widget form values as they are saved.
@@ -120,4 +120,4 @@ class SmartestFeaturedServices extends WP_Widget {
 		</p>
 		<?php 
 	}
-}?>
+} ?>

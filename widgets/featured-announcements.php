@@ -1,6 +1,6 @@
 <?php
 /**
- * Adds Featured Announcements widget to show selected announcements @todo update all widget css filenames. and classnames!
+ * Adds Featured Announcements widget.
  *
  * @package		Quick Business Website
  */
