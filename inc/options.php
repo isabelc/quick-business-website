@@ -37,8 +37,7 @@ $options[] = array( 'name' => __('Business Street Address','quick-business-websi
                     'id' => $shortname.'_address_street',
                     'type' => 'text');
 
-$options[] = array(
-                    'desc' => __('Business suite or apartment number','quick-business-website'),
+$options[] = array( 'desc' => __('Business suite or apartment number','quick-business-website'),
                     'id' => $shortname.'_address_suite',
                     'type' => 'text');
 
@@ -233,6 +232,27 @@ $options[] = array( 'name' => __( 'Custom content after results', 'quick-busines
 					'id' => $shortname.'_sbfc_append',
 					'std' => '',
 					'type' => 'textarea');
+$options[] = array( 'name' => __( 'Customize The Form Labels', 'quick-business-website' ),
+					'desc' => __( 'Name field label.', 'quick-business-website' ),
+					'id' => $shortname . '_sbfc_label_name',
+					'std' => __( 'Name (Required)', 'quick-business-website' ),
+					'type' => 'text');
+
+$options[] = array( 'desc' => __( 'Email field label.', 'quick-business-website' ),
+					'id' => $shortname . '_sbfc_label_email',
+					'std' => __( 'Email (Required)', 'quick-business-website' ),
+					'type' => 'text');
+
+$options[] = array( 'desc' => __( 'Message field label.', 'quick-business-website' ),
+					'id' => $shortname . '_sbfc_label_msg',
+					'std' => __( 'Message (Required)', 'quick-business-website' ),
+					'type' => 'text');
+
+$options[] = array( 'desc' => __( 'Submit button label.', 'quick-business-website' ),
+					'id' => $shortname . '_sbfc_label_submit',
+					'std' => __('Send email', 'quick-business-website'),
+					'type' => 'text');
+
 $options[] = array( 'name' => __('Disable Contact Page','quick-business-website'),
 					'desc' => sprintf( __( 'Check this to disable the Contact page. This will delete the automatically-created Contact page. You will still be able to use the shortcode to add a contact form: %s', 'quick-business-website' ), '<code>[qbw_contact_form]</code>' ),
 					'id' => $shortname.'_stop_contact',

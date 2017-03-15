@@ -297,7 +297,22 @@ function sbfc_display_contact_form() {
 	$phone_field = '';
 
 	$captcha = $qbw_options['qbw_sbfc_captcha'];
-	$include_phone = isset($qbw_options['qbw_sbfc_include_phone']) ? $qbw_options['qbw_sbfc_include_phone'] : '';
+	$include_phone = isset( $qbw_options['qbw_sbfc_include_phone'] ) ? $qbw_options['qbw_sbfc_include_phone'] : '';
+	$label_name = isset( $qbw_options['qbw_sbfc_label_name'] ) ?
+				esc_html( $qbw_options['qbw_sbfc_label_name'] ) :
+				__( 'Name (Required)', 'quick-business-website' );
+
+	$label_email = isset( $qbw_options['qbw_sbfc_label_email'] ) ?
+				esc_html( $qbw_options['qbw_sbfc_label_email'] ) :
+				__( 'Email (Required)', 'quick-business-website' );
+
+	$label_message = isset( $qbw_options['qbw_sbfc_label_msg'] ) ?
+				esc_html( $qbw_options['qbw_sbfc_label_msg'] ) :
+				__( 'Message (Required)', 'quick-business-website' );
+
+	$label_submit = isset( $qbw_options['qbw_sbfc_label_submit'] ) ?
+				esc_html( $qbw_options['qbw_sbfc_label_submit'] ) :
+				__('Send email', 'quick-business-website');
 
 	$preform = isset( $qbw_options['qbw_sbfc_preform'] ) ?
 				stripslashes( wpautop( qbw_kses( $qbw_options['qbw_sbfc_preform'], true ) ) ) :
@@ -325,20 +340,20 @@ function sbfc_display_contact_form() {
 	 '<div id="sbfc-contactform-wrap">
 			<form action="'. esc_url( get_permalink() ) .'" method="post" id="sbfc-contactform">
 				<fieldset class="sbfc-name">
-					<label for="smartestb_sbfc_name">'. __( 'Name (Required)', 'quick-business-website' ) .'</label>
+					<label for="smartestb_sbfc_name">'. $label_name .'</label>
 					'. $qbw_form_strings['name'] .'
 				</fieldset>
 				<fieldset class="sbfc-email">
-					<label for="smartestb_sbfc_email">'. __( 'Email (Required)', 'quick-business-website' ) .'</label>
+					<label for="smartestb_sbfc_email">'. $label_email .'</label>
 					'. $qbw_form_strings['email'] .'
 				</fieldset>
 					' . $captcha_box . $phone_field . '
 				<fieldset class="sbfc-message">
-					<label for="sbfc_message">'. __( 'Message (Required)', 'quick-business-website' ) .'</label>
+					<label for="sbfc_message">'. $label_message .'</label>
 					'. $qbw_form_strings['message'] .'
 				</fieldset>
 				<div class="sbfc-submit">
-					<input type="submit" name="Submit" id="sbfc_contact" value="' . __('Send email', 'quick-business-website') . '">
+					<input type="submit" name="Submit" id="sbfc_contact" value="' . $label_submit . '">
 					<input type="hidden" name="sbfc_key" value="process">
 				</div>
 			</form>
