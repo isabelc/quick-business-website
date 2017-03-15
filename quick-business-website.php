@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Quick Business Website
-Plugin URI: http://smartestthemes.com/docs/category/quick-business-website-wordpress-plugin/
+Plugin URI: https://isabelcastillo.com/free-plugins/quick-business-website
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 2.0.alpha.5
+Version: 2.0.alpha.6
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -308,17 +308,14 @@ class Quick_Business_Website {
 	<!--[if IE]>
 	<div class="ie">
 	<![endif]-->
-				<ul>
-<!-- @todo url... -->
-<li class="smar-ui-icon"><a href="#@todo" target="_blank" rel="nofollow">
-<div class="dashicons dashicons-book-alt"></div> <?php _e( 'Documentation', 'quick-business-website' ); ?></a></li>
+			<ul>
+			<li class="smar-ui-icon"><a href="https://isabelcastillo.com/docs/quick-business-website" target="_blank" rel="nofollow"><div class="dashicons dashicons-book-alt"></div> <?php _e( 'Documentation', 'quick-business-website' ); ?></a></li>
 
-<li class="smar-ui-icon"><a href="https://wordpress.org/support/plugin/quick-business-website/reviews/" target="_blank">
-<div class="dashicons dashicons-star-filled"></div> <?php _e( 'Feedback', 'quick-business-website' ); ?></a></li>
+			<li class="smar-ui-icon"><a href="https://wordpress.org/support/plugin/quick-business-website/reviews/" target="_blank"><div class="dashicons dashicons-star-filled"></div> <?php _e( 'Feedback', 'quick-business-website' ); ?></a></li>
 
-<li class="right"><img style="display:none" src="<?php echo QUICKBUSINESSWEBSITE_URL; ?>images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." />
-	<input type="submit" value="<?php _e('Save All Changes', 'quick-business-website'); ?>" class="button submit-button" /></li>
-				</ul> 
+			<li class="right"><img style="display:none" src="<?php echo QUICKBUSINESSWEBSITE_URL; ?>images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." />
+				<input type="submit" value="<?php _e('Save All Changes', 'quick-business-website'); ?>" class="button submit-button" /></li>
+			</ul>
 	<!--[if IE]>
 	</div>
 	<![endif]-->
@@ -1317,7 +1314,7 @@ class Quick_Business_Website {
 		} elseif ( get_option( 'qbw_remove_adminfooter') == 'true' ) {
 			echo '';
 		} else {
-			echo 'Thank you for creating with <a href="http://wordpress.org/">WordPress</a>.';
+			echo 'Thank you for creating with <a href="https://wordpress.org/">WordPress</a>.';
 		}
 	}
 	/** 

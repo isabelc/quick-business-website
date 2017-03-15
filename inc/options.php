@@ -106,7 +106,7 @@ $options[] = array( 'name' => __('Add Services?','quick-business-website'),
 					'id' => $shortname.'_show_services',
 					'std' => 'true',
 					'type' => 'checkbox');
-$options[] = array( 	'desc' => sprintf( __('%s Set Custom Sort-Order? %s Check this to set a custom sort-order for services. Default sort-order is descending order by date of post.','quick-business-website'), '<strong>', '</strong>' ),
+$options[] = array( 	'desc' => __( 'Set Custom Sort-Order? Check this if you want to set a custom sort-order for services. Otherwise, default sort-order is descending order by date of post.', 'quick-business-website'),
 					'id' => $shortname.'_enable_service_sort',
 					'std' => 'false',
 					'type' => 'checkbox');

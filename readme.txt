@@ -1,9 +1,9 @@
 === Quick Business Website ===
-Contributors: SmartestThemes, isabel104
+Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=isa%40smartestthemes%2ecom
 Tags: business, business website, company, quick website, quick site, staff, services, announcements
 Requires at least: 3.6
-Tested up to: 4.0
+Tested up to: 4.8-alpha-40290
 Stable tag: 1.5.1
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -34,32 +34,23 @@ When you get your first review, your site will then automatically have:
 
 - `aggregateRating` Schema.org microdata which will add stars to your website in Google search results, making your site stand out.
 
-For more info, see the [Instruction Guide](http://smartestthemes.com/docs/category/quick-business-website---wordpress-plugin/).
-
-For support, please use the [Support forum](http://wordpress.org/support/plugin/quick-business-website).
-
-Contribute or fork it [on Github](https://github.com/isabelc/quick-business-website).
+For more info, see the [Documentation](https://isabelcastillo.com/docs/quick-business-website).
 
 
 == Installation ==
 
-1. Download the plugin file, `quick-business-website.zip`
-2. Go to "Plugins -> Add New -> Upload" to upload the plugin.
-3. Click to activate the plugin.
-4. Go to the "Quick Business Website" menu page to enter your business information, and click "Save All Changes".
-5. Use the 6 available QBW widgets at "Appearances --> Widgets".
+1.  In your WordPress dashboard, go to "Plugins -> Add New", and search for "Quick Business Website".
+2.  Click to install and then Activate the plugin.
+3. In your WordPress dashboard, go to the "Quick Business Website" page to enter your business information, and click "Save All Changes".
+4. You can use the 6 available QBW widgets at "Appearances --> Widgets".
 
-For more step-by-step instructions, see the [Instruction Guide](http://smartestthemes.com/docs/category/quick-business-website---wordpress-plugin/) which is growing all the time.
+For more step-by-step instructions, see the [Documentation](https://isabelcastillo.com/docs/quick-business-website).
 
 == Frequently Asked Questions ==
 
 = Why do I get a "Not Found" error for staff, news, services, or reviews? =
 
 If you disable either the staff, news, services, or reviews by un-checking the box in the plugin options panel "Preferences" tab, and then you later decide to enable one, you must click "Save All Changes" twice. This flushes the permalink settings. It will have the same effect as going to `Settings -> Permalinks` and clicking "Save Changes" twice. 
-
-= Where can I request support, get help, or report an error? =
-
-The plugin's [Support forum](http://wordpress.org/support/plugin/quick-business-website), or the [Instruction Guide](http://smartestthemes.com/docs/category/quick-business-website---wordpress-plugin/) which is growing all the time.
 
 == Screenshots ==
 
