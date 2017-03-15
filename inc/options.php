@@ -81,13 +81,8 @@ $options[] = array( 'name' => __('Display Business Email Address?','quick-busine
 					'id' => $shortname.'_show_contactemail',
 					'std' => 'false',
 					'type' => 'checkbox');
-$options[] = array( 'name' => __('Google Map','quick-business-website'),
-                    'desc' => sprintf(__( 'If you want to show a Google Map for your business address, paste here your HTML embed code from %s.','quick-business-website'), '<a href="http://maps.google.com/" title="Google Maps" target="_blank">Google Maps</a>' ),
-                    'id' => $shortname.'_google_map',
-                    'std' => '',
-                    'type' => 'textarea');
 
-					$options[] = array( 'name' => __('Business Hours','quick-business-website'),
+$options[] = array( 'name' => __('Business Hours','quick-business-website'),
 						'desc' => __('Optional. Enter your hours here if you want to display them. Example:<br /><br />Monday - Friday: 7:30 am - 6:00<br />Saturday: 7:30 am - Noon<br /><br />', 'quick-business-website'),
 					'id' => $shortname.'_hours',
 					'std' => '',
@@ -238,18 +233,18 @@ $options[] = array( 'name' => __( 'Custom content after results', 'quick-busines
 					'id' => $shortname.'_sbfc_append',
 					'std' => '',
 					'type' => 'textarea');
+$options[] = array( 'name' => __('Disable Contact Page','quick-business-website'),
+					'desc' => sprintf( __( 'Check this to disable the Contact page. This will delete the automatically-created Contact page. You will still be able to use the shortcode to add a contact form: %s', 'quick-business-website' ), '<code>[qbw_contact_form]</code>' ),
+					'id' => $shortname.'_stop_contact',
+					'std' => 'false',
+					'type' => 'checkbox');
 
 /* Advanced */
 $options[] = array( 'name' => __('Advanced','quick-business-website'),'class' => 'settings',
 					'type' => 'heading');
 $options[] = array( 'name' => __('Delete All Data On Uninstall','quick-business-website'),
-					'desc' => sprintf( __( 'Check this box if you would like Quick Business Website to completely remove all of its data when the plugin is deleted. This would include all Services, Staff, Announcement posts, Reviews, the Contact and Reviews page, and all settings. (This refers to when you delete the plugin. This does not refer to simply deactivating the plugin. Nothing is lost upon simple deactivation.)', 'quick-business-website' ) ),
+					'desc' => sprintf( __( 'Check this box if you would like Quick Business Website to completely remove all of its data when the plugin is deleted. This would permanently delete all Services, Staff, Announcement posts, Reviews, the Contact and Reviews page, and all settings. (This will happen when you delete the plugin. This does not happen when simply deactivating the plugin. Nothing is lost upon simple deactivation.)', 'quick-business-website' ) ),
 					'id' => $shortname.'_delete_data',
-					'std' => 'false',
-					'type' => 'checkbox');
-$options[] = array( 'name' => __('Disable Contact Page','quick-business-website'),
-					'desc' => sprintf( __( 'Check this to disable the Contact page. This will delete the automatically-created Contact page. You will still be able to use the shortcode to add a contact form: %s', 'quick-business-website' ), '<code>[qbw_contact_form]</code>' ),
-					'id' => $shortname.'_stop_contact',
 					'std' => 'false',
 					'type' => 'checkbox');
 

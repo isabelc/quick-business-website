@@ -313,8 +313,8 @@ class Quick_Business_Website {
 <li class="smar-ui-icon"><a href="#@todo" target="_blank" rel="nofollow">
 <div class="dashicons dashicons-book-alt"></div> <?php _e( 'Documentation', 'quick-business-website' ); ?></a></li>
 
-<li class="smar-ui-icon"><a href="https://wordpress.org/support/plugin/quick-business-website/reviews/" target="_blank" title="Rate This Plugin">
-<div class="dashicons dashicons-star-filled"></div> <?php _e( 'Rate This Plugin', 'quick-business-website' ); ?></a></li>
+<li class="smar-ui-icon"><a href="https://wordpress.org/support/plugin/quick-business-website/reviews/" target="_blank">
+<div class="dashicons dashicons-star-filled"></div> <?php _e( 'Feedback', 'quick-business-website' ); ?></a></li>
 
 <li class="right"><img style="display:none" src="<?php echo QUICKBUSINESSWEBSITE_URL; ?>images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." />
 	<input type="submit" value="<?php _e('Save All Changes', 'quick-business-website'); ?>" class="button submit-button" /></li>
@@ -515,16 +515,6 @@ class Quick_Business_Website {
 			$value = sanitize_text_field( $value );
 		} elseif ( 'textarea' == $option['type'] ) {
 
-			$allowed_tags = array(
-				'a' => array(
-					'href' => array(),
-					'title' => array()
-				),
-				'br' => array(),
-				'em' => array(),
-				'strong' => array(),
-			);			
- 
 			// No tags allowed on these ids
  			if ( in_array( $option['id'], array( 'qbw_sbfc_error', 'qbw_hours' ) ) ) {
  				$value = implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $value ) ) );
@@ -532,36 +522,13 @@ class Quick_Business_Website {
 
 			// For some ids, only allow limited tags
  			elseif ( in_array( $option['id'], array( 'qbw_admin_footer', 'qbw_sbfc_success' ) ) ) {
- 				$value = wp_kses( $value, $allowed_tags );
+ 				$value = qbw_kses( $value );
  			}
 
 			// For some ids, allow also images
  			elseif ( in_array( $option['id'], array( 'qbw_sbfc_preform', 'qbw_sbfc_appform', 'qbw_sbfc_append' ) ) ) {
- 				$allowed_tags['img'] = array(
-						'src' => array(),
-						'width' => array(),
-						'height' => array(),
-						'alt' => array(),
-						'title' => array()
-					);
- 				$value = wp_kses( $value, $allowed_tags );
+ 				$value = qbw_kses( $value, 'img' );
  			}
-		
- 			elseif ( 'qbw_google_map' == $option['id'] ) {
-				$allowed_tags = array(
-					'iframe' => array(
-						'src' => array(),
-						'width' => array(),
-						'height' => array(),
-						'frameborder' => array(),
-						'style' => array(),
-						'allowfullscreen' => array(),
-					)
-				);
-				$value = wp_kses( $value, $allowed_tags );
-
- 			}
-
 
 		} // end textarea
 
@@ -1448,7 +1415,6 @@ class Quick_Business_Website {
 			'qbw_business_sociallabel2',
 			'qbw_business_name',
 			'qbw_hours',
-			'qbw_google_map',
 			'qbw_address_street',
 			'qbw_address_suite',
 			'qbw_address_city',
@@ -1470,22 +1436,6 @@ class Quick_Business_Website {
 				${$key} = isset( $options[ $key ] ) ?
 						esc_url( $options[ $key ] ) :
 						'';
-			} elseif( 'qbw_google_map' == $key ) {
-
-				${$key} = isset( $options[ $key ] ) ?
-						wp_kses( $options[ $key ], array(
-										'iframe' => array(
-											'src' => array(),
-											'width' => array(),
-											'height' => array(),
-											'frameborder' => array(),
-											'style' => array(),
-											'allowfullscreen' => array(),
-										)
-										)
-					) :
-					'';
-
 			} else {
 				${$key} = isset( $options[ $key ] ) ?
 						esc_html( stripslashes( $options[ $key ] ) ) :
@@ -1517,9 +1467,6 @@ class Quick_Business_Website {
 			if ( $qbw_hours ) {
 				$contactcontent .= '<div id="qbw-contact-hours"><strong>Business Hours: </strong><br />' . wpautop( $qbw_hours ) . '</div>';
 			} 
-			if ( $qbw_google_map ) {
-				$contactcontent .= '<div id="qbw-goomap">'. $qbw_google_map. '</div>';
-			}
 			if ( $qbw_address_street ) { // do addy box
 				$contactcontent .= '<p id="qbw-addy-box" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"><span itemprop="streetAddress">' . $qbw_address_street . '</span>&nbsp;';
 			}
@@ -1726,6 +1673,12 @@ if (
 } else {
 	register_activation_hook(__FILE__, array('Quick_Business_Website', 'activate'));
 	$Quick_Business_Website = Quick_Business_Website::get_instance();
+
+	/**
+ 	 * Include Helper functions
+	 * @since 2.0
+	 */
+	include QUICKBUSINESSWEBSITE_PATH . 'inc/helper-functions.php';
 
 	/**
  	 * Include Contact form with both jquery client-side and php server-side validation
