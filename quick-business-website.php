@@ -911,94 +911,48 @@ class Quick_Business_Website {
 		$staff = get_option( 'qbw_show_staff');
 		$news = get_option( 'qbw_show_news');
 		$services = get_option( 'qbw_show_services');
-		
-				// if add staff enabled
-				
-				if( $staff == 'true'  ) { 
+
+		// if show news enabled, create news cpt
+		if ( $news == 'true') { 
+	    	$args = array(
+	        	'label' => __('Announcements','quick-business-website'),
+	        	'singular_label' => __('Announcement','quick-business-website'),
+	        	'public' => true,
+	        	'show_ui' => true,
+	        	'capability_type' => 'post',
+	        	'hierarchical' => false,
+	        	'rewrite' => array(
+						'slug' => __('news','quick-business-website'),
+						'with_front' => false,
+				),
+	        	'exclude_from_search' => false,
+        		'labels' => array(
+					'name' => __( 'Announcements','quick-business-website' ),
+					'singular_name' => __( 'Announcement','quick-business-website' ),
+					'add_new' => __( 'Add New','quick-business-website' ),
+					'add_new_item' => __( 'Add New Announcement','quick-business-website' ),
+					'all_items' => __( 'All Announcements','quick-business-website' ),
+					'edit' => __( 'Edit','quick-business-website' ),
+					'edit_item' => __( 'Edit Announcement','quick-business-website' ),
+					'new_item' => __( 'New Announcement','quick-business-website' ),
+					'view' => __( 'View Announcement','quick-business-website' ),
+					'view_item' => __( 'View Announcement','quick-business-website' ),
+					'search_items' => __( 'Search Announcements','quick-business-website' ),
+					'not_found' => __( 'No announcement found','quick-business-website' ),
+					'not_found_in_trash' => __( 'No announcements found in Trash','quick-business-website' ),
+					'parent' => __( 'Parent Announcement','quick-business-website' ),
+				),
+	        	'supports' => array('title','editor','thumbnail'),
+				'has_archive' => true,
+				'menu_icon' => 'dashicons-megaphone'
+	        );
 	
-					//register cpt staff
-			    	$args = array(
-			        	'label' => __('Staff','quick-business-website'),
-			        	'singular_label' => __('Staff','quick-business-website'),
-			        	'public' => true,
-			        	'show_ui' => true,
-			        	'capability_type' => 'post',
-			        	'hierarchical' => false,
-			        	'rewrite' => array(
-								'slug' => __('staff', 'quick-business-website'),
-								'with_front' => false,
+		   	register_post_type( 'smartest_news' , $args );
 	
-						),
-			        	'exclude_from_search' => false,
-		        		'labels' => array(
-							'name' => __( 'Staff','quick-business-website' ),
-							'singular_name' => __( 'Staff','quick-business-website' ),
-							'add_new' => __( 'Add New','quick-business-website' ),
-							'add_new_item' => __( 'Add New Staff','quick-business-website' ),
-							'all_items' => __( 'All Staff','quick-business-website' ),
-							'edit' => __( 'Edit','quick-business-website' ),
-							'edit_item' => __( 'Edit Staff','quick-business-website' ),
-							'new_item' => __( 'New Staff','quick-business-website' ),
-							'view' => __( 'View Staff','quick-business-website' ),
-							'view_item' => __( 'View Staff','quick-business-website' ),
-							'search_items' => __( 'Search Staff','quick-business-website' ),
-							'not_found' => __( 'No staff found','quick-business-website' ),
-							'not_found_in_trash' => __( 'No staff found in Trash','quick-business-website' ),
-							'parent' => __( 'Parent Staff','quick-business-website' ),
-						),
-			        	'supports' => array('title','editor','thumbnail','excerpt'),
-					'has_archive' => true,
-					'menu_icon' => 'dashicons-groups',
-			        );
+		}
 	
-		    	register_post_type( 'smartest_staff' , $args );
-	
-				}// end if show staff enabled
-				//if show news enabled, create news cpt
-				if($news == 'true') { 
-					//register cpt news
-			    	$args = array(
-			        	'label' => __('Announcements','quick-business-website'),
-			        	'singular_label' => __('Announcement','quick-business-website'),
-			        	'public' => true,
-			        	'show_ui' => true,
-			        	'capability_type' => 'post',
-			        	'hierarchical' => false,
-			        	'rewrite' => array(
-								'slug' => __('news','quick-business-website'),
-								'with_front' => false,
-	
-						),
-			        	'exclude_from_search' => false,
-		        		'labels' => array(
-							'name' => __( 'Announcements','quick-business-website' ),
-							'singular_name' => __( 'Announcement','quick-business-website' ),
-							'add_new' => __( 'Add New','quick-business-website' ),
-							'add_new_item' => __( 'Add New Announcement','quick-business-website' ),
-							'all_items' => __( 'All Announcements','quick-business-website' ),
-							'edit' => __( 'Edit','quick-business-website' ),
-							'edit_item' => __( 'Edit Announcement','quick-business-website' ),
-							'new_item' => __( 'New Announcement','quick-business-website' ),
-							'view' => __( 'View Announcement','quick-business-website' ),
-							'view_item' => __( 'View Announcement','quick-business-website' ),
-							'search_items' => __( 'Search Announcements','quick-business-website' ),
-							'not_found' => __( 'No announcement found','quick-business-website' ),
-							'not_found_in_trash' => __( 'No announcements found in Trash','quick-business-website' ),
-							'parent' => __( 'Parent Announcement','quick-business-website' ),
-						),
-			        	'supports' => array('title','editor','thumbnail'),
-					'has_archive' => true,
-					'menu_icon' => 'dashicons-exerpt-view'
-	
-			        );
-	
-		    	register_post_type( 'smartest_news' , $args );
-	
-				}// end if show news enabled
-	
-				//if show services enabled, create services cpt
-				if($services == 'true') { 
-					//register cpt services
+		//if show services enabled, create services cpt
+		if ( $services == 'true' ) { 
 			    	$args = array(
 			        	'label' => __('Services','quick-business-website'),
 			        	'singular_label' => __('Service','quick-business-website'),
@@ -1032,8 +986,47 @@ class Quick_Business_Website {
 					'has_archive' => true,
 					'menu_icon' => 'dashicons-portfolio'
 			        );
-		    	register_post_type( 'smartest_services' , $args );
-				}// end if show services enabled
+	    	register_post_type( 'smartest_services' , $args );
+		}// end if show services enabled
+
+		// if add staff enabled
+		if ( $staff == 'true'  ) {
+	    	$args = array(
+	        	'label' => __('Staff','quick-business-website'),
+	        	'singular_label' => __('Staff','quick-business-website'),
+	        	'public' => true,
+	        	'show_ui' => true,
+	        	'capability_type' => 'post',
+	        	'hierarchical' => false,
+	        	'rewrite' => array(
+						'slug' => __('staff', 'quick-business-website'),
+						'with_front' => false,
+				),
+	        	'exclude_from_search' => false,
+        		'labels' => array(
+					'name' => __( 'Staff','quick-business-website' ),
+							'singular_name' => __( 'Staff','quick-business-website' ),
+							'add_new' => __( 'Add New','quick-business-website' ),
+							'add_new_item' => __( 'Add New Staff','quick-business-website' ),
+							'all_items' => __( 'All Staff','quick-business-website' ),
+							'edit' => __( 'Edit','quick-business-website' ),
+							'edit_item' => __( 'Edit Staff','quick-business-website' ),
+							'new_item' => __( 'New Staff','quick-business-website' ),
+							'view' => __( 'View Staff','quick-business-website' ),
+							'view_item' => __( 'View Staff','quick-business-website' ),
+							'search_items' => __( 'Search Staff','quick-business-website' ),
+							'not_found' => __( 'No staff found','quick-business-website' ),
+							'not_found_in_trash' => __( 'No staff found in Trash','quick-business-website' ),
+							'parent' => __( 'Parent Staff','quick-business-website' ),
+						),
+			        	'supports' => array('title','editor','thumbnail','excerpt'),
+					'has_archive' => true,
+					'menu_icon' => 'dashicons-groups',
+			        );
+	
+		   	register_post_type( 'smartest_staff' , $args );
+	
+		}// end if show staff enabled
 
 		// If Reviews are disabled, delete the page
 		if ( get_option( 'qbw_add_reviews' ) == 'false' ) {
