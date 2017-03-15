@@ -5,8 +5,8 @@
  * @package		Quick Business Website
  * @subpackage	Smartest Reviews Module
  */
-class SMARTESTReviewsBusinessAdmin
-{	var $parentClass = '';
+class SMARTESTReviewsBusinessAdmin {
+	var $parentClass = '';
 	function SMARTESTReviewsBusinessAdmin($parentClass) {
 			define('IN_SMAR_ADMIN',1);
 			
@@ -273,8 +273,12 @@ class SMARTESTReviewsBusinessAdmin
 							if ($this->options['ask_custom'][$i] == 1) { $caf = 'checked'; } else { $caf = ''; }
 							if ($this->options['require_custom'][$i] == 1) { $crf = 'checked'; } else { $crf = ''; }
 							if ($this->options['show_custom'][$i] == 1) { $csf = 'checked'; } else { $csf = ''; }
+							$name_value = isset( $this->options['field_custom'][$i] ) ?
+							$this->options['field_custom'][$i] :
+							'';
+
 							echo '
-							<label for="field_custom'.$i.'">'. __('Field Name: ', 'quick-business-website'). '</label><input id="field_custom'.$i.'" name="field_custom['.$i.']" type="text" value="'.$this->options['field_custom'][$i].'" />&nbsp;&nbsp;&nbsp;
+							<label for="field_custom'.$i.'">'. __('Field Name: ', 'quick-business-website'). '</label><input id="field_custom'.$i.'" name="field_custom['.$i.']" type="text" value="' . esc_html( $name_value ) . '" />&nbsp;&nbsp;&nbsp;
 							<input '.$caf.' class="custom_ask" data-id="'.$i.'" id="ask_custom'.$i.'" name="ask_custom['.$i.']" type="checkbox" value="1" />&nbsp;<label for="ask_custom'.$i.'">'. __('Ask', 'quick-business-website'). '</label>&nbsp;&nbsp;&nbsp;
 							<input '.$crf.' class="custom_req" data-id="'.$i.'" id="require_custom'.$i.'" name="require_custom['.$i.']" type="checkbox" value="1" />&nbsp;<label for="require_custom'.$i.'">'. __('Require', 'quick-business-website'). '</label>&nbsp;&nbsp;&nbsp;
 							<input '.$csf.' class="custom_show" data-id="'.$i.'" id="show_custom'.$i.'" name="show_custom['.$i.']" type="checkbox" value="1" />&nbsp;<label for="show_custom'.$i.'">'. __('Show', 'quick-business-website'). '</label><br />
@@ -314,7 +318,7 @@ class SMARTESTReviewsBusinessAdmin
 				<br />
 			</div>
 		</div>';
-		/* settings_fields is for Settings API / WPMU / future WP compatibility */
+
 	}
 	
 	function security() {
