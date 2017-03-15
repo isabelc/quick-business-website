@@ -177,9 +177,6 @@ class SMARTESTReviewsBusiness {
             $this->options['dbversion'] = $plugin_db_version;
             $current_dbversion = $plugin_db_version;
             update_option('smar_options', $this->options);
-            global $SMARTESTReviewsBusinessAdmin;
-            $this->include_admin(); /* include admin functions */
-            $SMARTESTReviewsBusinessAdmin->force_update_cache(); /* update any caches */
             return true;
         }
         return false;

@@ -83,20 +83,7 @@ class SMARTESTReviewsBusinessAdmin {
 			
 			dbDelta($sql);
 		}
-	function force_update_cache() {
-			return; /* testing to increase performance */
-			global $wpdb;
-				
-			/* update all pages */
-			$pages = $wpdb->get_results( "SELECT `ID` FROM $wpdb->posts AS `p`" );
-			foreach ($pages as $page) {
-				$post = get_post($page->ID);
-				if ($post) {
-					clean_post_cache($page->ID);
-					wp_update_post($post);
-				}
-			}
-	}
+
 	function enqueue_admin_stuff() {
 		$pluginurl = $this->parentClass->get_reviews_module_url();
 		if (isset($this->p->page) && ( $this->p->page == 'smar_view_reviews' || $this->p->page == 'smar_options' ) ) {
@@ -181,7 +168,6 @@ class SMARTESTReviewsBusinessAdmin {
 			if ($updated_options['reviews_per_page'] < 1) { $updated_options['reviews_per_page'] = 10; }
 			$msg .= 'Your settings have been saved.';
 			update_option('smar_options', $updated_options);
-			$this->force_update_cache(); /* update any caches */
 		}
 
 		return $msg;
@@ -509,7 +495,6 @@ class SMARTESTReviewsBusinessAdmin {
 				}
 			}
 			
-			$this->force_update_cache(); /* update any caches */            
 			$this->parentClass->smar_redirect("?page=smar_view_reviews&review_status={$this->p->review_status}");
 		}
 		/* end - actions */
