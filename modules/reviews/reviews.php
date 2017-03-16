@@ -44,7 +44,7 @@ class QBW_Reviews {
 	function addmenu() {
 		if ( get_option( 'qbw_add_reviews') == 'true') {
 			add_options_page(__('Reviews', 'quick-business-website'), __('Reviews', 'quick-business-website'), 'manage_options', 'smar_options', array( $this, 'admin_options' ) );
-			add_menu_page( __('Reviews', 'quick-business-website'), __('Reviews', 'quick-business-website'), 'edit_others_posts', 'smar_view_reviews', array( $this, 'admin_view_reviews' ), $this->get_reviews_module_url() . 'star.png', 62);
+			add_menu_page( __('Reviews', 'quick-business-website'), __('Reviews', 'quick-business-website'), 'edit_others_posts', 'qbw_view_reviews', array( $this, 'admin_view_reviews' ), $this->get_reviews_module_url() . 'star.png', 62);
 		}
    }
 	function admin_options() {
@@ -388,7 +388,7 @@ else {$show = false; }
 
 		if ($pages > 1) {
 			if (is_admin()) {
-				$url = '?page=smar_view_reviews&amp;review_status=' . $this->p->review_status . '&amp;';
+				$url = '?page=qbw_view_reviews&amp;review_status=' . $this->p->review_status . '&amp;';
 			} else {
 				$uri = trailingslashit(get_permalink($post->ID));
 				if (strpos($uri, '?') === false) {
@@ -956,7 +956,7 @@ function do_the_content($original_content) {
 
 		$qbw_options = get_option( 'qbw_options');
 		$bn = stripslashes_deep($qbw_options['qbw_business_name']);if(!$bn) {$bn = get_bloginfo('name'); }
-		$admin_linkpre = get_admin_url().'admin.php?page=smar_view_reviews';
+		$admin_linkpre = get_admin_url().'admin.php?page=qbw_view_reviews';
 		$admin_link = sprintf(__('Link to admin approval page: %s', 'quick-business-website'), $admin_linkpre);
 		$ac = sprintf(__('A new review has been posted on %1$s\'s website.','quick-business-website'),$bn) . "\n\n" .
 	__('You will need to login to the admin area and approve this review before it will appear on your site.','quick-business-website') . "\n\n" .$admin_link;

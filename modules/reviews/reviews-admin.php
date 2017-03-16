@@ -86,7 +86,7 @@ class QBW_Reviews_Admin {
 
 	function enqueue_admin_stuff() {
 		$pluginurl = $this->parentClass->get_reviews_module_url();
-		if (isset($this->p->page) && ( $this->p->page == 'smar_view_reviews' || $this->p->page == 'smar_options' ) ) {
+		if (isset($this->p->page) && ( $this->p->page == 'qbw_view_reviews' || $this->p->page == 'smar_options' ) ) {
 			wp_register_script('qbw-reviews-admin',$pluginurl . 'reviews-admin.js',array('jquery'));
 			wp_register_style('qbw-reviews-admin',$pluginurl . 'reviews-admin.css');  
 			wp_enqueue_script('qbw-reviews-admin');
@@ -481,7 +481,7 @@ class QBW_Reviews_Admin {
 				}
 			}
 			
-			$this->parentClass->smar_redirect("?page=smar_view_reviews&review_status={$this->p->review_status}");
+			$this->parentClass->smar_redirect("?page=qbw_view_reviews&review_status={$this->p->review_status}");
 		}
 		/* end - actions */
 		
@@ -556,14 +556,14 @@ class QBW_Reviews_Admin {
 			<div class="icon32" id="icon-edit-comments"><br /></div>
 			<h2><?php _e('Reviews', 'quick-business-website'); ?> - <?php echo sprintf(__('%s Reviews', 'quick-business-website'), $status_text); ?></h2>
 			  <ul class="subsubsub">
-				<li class="all"><a <?php if ($this->p->review_status == -1) { echo 'class="current"'; } ?> href="?page=smar_view_reviews&amp;review_status=-1"><?php _e('All', 'quick-business-website'); ?></a> |</li>
-				<li class="moderated"><a <?php if ($this->p->review_status == 0) { echo 'class="current"'; } ?> href="?page=smar_view_reviews&amp;review_status=0"><?php _e('Pending ', 'quick-business-website'); ?>
+				<li class="all"><a <?php if ($this->p->review_status == -1) { echo 'class="current"'; } ?> href="?page=qbw_view_reviews&amp;review_status=-1"><?php _e('All', 'quick-business-website'); ?></a> |</li>
+				<li class="moderated"><a <?php if ($this->p->review_status == 0) { echo 'class="current"'; } ?> href="?page=qbw_view_reviews&amp;review_status=0"><?php _e('Pending ', 'quick-business-website'); ?>
 					<span class="count">(<span class="pending-count"><?php echo $pending_count;?></span>)</span></a> |
 				</li>
-				<li class="approved"><a <?php if ($this->p->review_status == 1) { echo 'class="current"'; } ?> href="?page=smar_view_reviews&amp;review_status=1"><?php _e('Approved', 'quick-business-website'); ?>
+				<li class="approved"><a <?php if ($this->p->review_status == 1) { echo 'class="current"'; } ?> href="?page=qbw_view_reviews&amp;review_status=1"><?php _e('Approved', 'quick-business-website'); ?>
 					<span class="count">(<span class="pending-count"><?php echo $approved_count;?></span>)</span></a> |
 				</li>
-				<li class="trash"><a <?php if ($this->p->review_status == 2) { echo 'class="current"'; } ?> href="?page=smar_view_reviews&amp;review_status=2"><?php _e('Trash', 'quick-business-website'); ?>
+				<li class="trash"><a <?php if ($this->p->review_status == 2) { echo 'class="current"'; } ?> href="?page=qbw_view_reviews&amp;review_status=2"><?php _e('Trash', 'quick-business-website'); ?>
 					<span class="count">(<span class="pending-count"><?php echo $trash_count;?></span>)</span></a>
 				</li>
 			  </ul>
@@ -573,12 +573,12 @@ class QBW_Reviews_Admin {
 					  <?php if ($this->p->s_orig): ?><span style='color:#c00;font-weight:bold;'><?php _e('RESULTS FOR: ', 'quick-business-website'); ?></span><?php endif; ?>
 					  <label for="comment-search-input" class="screen-reader-text"><?php _e('Search Reviews:', 'quick-business-website'); ?></label> 
 					  <input type="text" value="<?php echo $this->p->s_orig; ?>" name="s" id="comment-search-input" />
-					  <input type="hidden" name="page" value="smar_view_reviews" />
+					  <input type="hidden" name="page" value="qbw_view_reviews" />
 					  <input type="submit" class="button" value="<?php _e('Search Reviews', 'quick-business-website'); ?>" />
 				  </p>
 			  </form>
 
-			  <form method="POST" action="?page=smar_view_reviews" id="comments-form" name="comments-form">
+			  <form method="POST" action="?page=qbw_view_reviews" id="comments-form" name="comments-form">
 			  <input type="hidden" name="review_status" value="<?php echo $this->p->review_status; ?>" />
 			  <div class="tablenav">
 				<div class="alignleft actions">
@@ -607,7 +607,7 @@ class QBW_Reviews_Admin {
 <?php		}
 				  foreach ($reviews as $review) {                    
 					  $rid = $review->id;
-					  $update_path = get_admin_url()."admin-ajax.php?page=smar_view_reviews&r=$rid&action=update_field";
+					  $update_path = get_admin_url()."admin-ajax.php?page=qbw_view_reviews&r=$rid&action=update_field";
 					  $hash = md5( strtolower( trim( $review->reviewer_email ) ) );
 					  $review->review_title = stripslashes($review->review_title);
 					  $review->review_text = stripslashes($review->review_text);
@@ -628,7 +628,7 @@ class QBW_Reviews_Admin {
 							<br />
 							<a href="<?php echo $review->reviewer_url; ?>"><?php echo $review->reviewer_url; ?></a><br />
 							<a href="mailto:<?php echo $review->reviewer_email; ?>"><?php echo $review->reviewer_email; ?></a><br />
-							<a href="?page=smar_view_reviews&amp;s=<?php echo $review->reviewer_ip; ?>"><?php echo $review->reviewer_ip; ?></a><br />
+							<a href="?page=qbw_view_reviews&amp;s=<?php echo $review->reviewer_ip; ?>"><?php echo $review->reviewer_ip; ?></a><br />
 							<?php
 							$custom_count = count($this->options['field_custom']); /* used for insert as well */
 							$custom_unserialized = @unserialize($review->custom_fields);
@@ -692,16 +692,16 @@ class QBW_Reviews_Admin {
 						  </p>
 						  <div class="row-actions">
 							<span class="approve <?php if ($review->status == 0 || $review->status == 2) { echo 'smar_show'; } else { echo 'smar_hide'; }?>"><a title="Mark as Approved"
-							href="?page=smar_view_reviews&amp;action=approvereview&amp;r=<?php echo $rid;?>&amp;review_status=<?php echo $this->p->review_status;?>">
+							href="?page=qbw_view_reviews&amp;action=approvereview&amp;r=<?php echo $rid;?>&amp;review_status=<?php echo $this->p->review_status;?>">
 							<?php _e('Mark as Approved', 'quick-business-website'); ?></a>&nbsp;|&nbsp;</span>
 							<span class="unapprove <?php if ($review->status == 1 || $review->status == 2) { echo 'smar_show'; } else { echo 'smar_hide'; }?>"><a title="Mark as Unapproved"
-							href="?page=smar_view_reviews&amp;action=unapprovereview&amp;r=<?php echo $rid;?>&amp;review_status=<?php echo $this->p->review_status;?>">
+							href="?page=qbw_view_reviews&amp;action=unapprovereview&amp;r=<?php echo $rid;?>&amp;review_status=<?php echo $this->p->review_status;?>">
 							<?php _e('Mark as Unapproved', 'quick-business-website'); ?></a><?php if ($review->status != 2): ?>&nbsp;|&nbsp;<?php endif; ?></span>
 							<span class="trash <?php if ($review->status == 2) { echo 'smar_hide'; } else { echo 'smar_show'; }?>"><a title="Move to Trash" 
-							href= "?page=smar_view_reviews&amp;action=trashreview&amp;r=<?php echo $rid;?>&amp;review_status=<?php echo $this->p->review_status;?>">
+							href= "?page=qbw_view_reviews&amp;action=trashreview&amp;r=<?php echo $rid;?>&amp;review_status=<?php echo $this->p->review_status;?>">
 							<?php _e('Move to Trash', 'quick-business-website'); ?></a><?php if ($review->status != 2): ?>&nbsp;|&nbsp;<?php endif; ?></span>
 							<span class="trash <?php if ($review->status == 2) { echo 'smar_hide'; } else { echo 'smar_show'; }?>"><a title="Delete Forever" 
-							href= "?page=smar_view_reviews&amp;action=deletereview&amp;r=<?php echo $rid;?>&amp;review_status=<?php echo $this->p->review_status;?>">
+							href= "?page=qbw_view_reviews&amp;action=deletereview&amp;r=<?php echo $rid;?>&amp;review_status=<?php echo $this->p->review_status;?>">
 							<?php _e('Delete Forever', 'quick-business-website'); ?></a></span>
 						  </div>
 						</td>
