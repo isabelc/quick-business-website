@@ -43,14 +43,7 @@ function valsmarform_2(newid,oldid,err) {
             err.push(smartlocal.email);
         }
     }
-    
-    if (newid === 'fwebsite' && jQuery("#"+oldid).val() !== "") {
-        myval = jQuery("#"+oldid).val();
-        if (/^\S+:\/\/\S+\.\S+.+$/.test(myval) == false) {
-            err.push(smartlocal.website+" http://");
-        }
-    }
-    
+
     if (newid === "ftext" && jQuery("#"+oldid).val().length < 5) {
         err.push(smartlocal.review);
     }

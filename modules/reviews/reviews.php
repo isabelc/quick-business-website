@@ -751,7 +751,7 @@ function do_the_content($original_content) {
 		foreach ($this->options['ask_custom'] as $i => $val) {
 			if ( isset($this->options['ask_custom'][$i]) ) {
 				if ($val == 1) {
-					if ($this->options['require_custom'][$i] == 1) {
+					if ( isset( $this->options['require_custom'][$i] ) && 1 == $this->options['require_custom'][$i] ) {
 						$req = '*';
 					} else {
 						$req = '';
@@ -905,13 +905,6 @@ function do_the_content($original_content) {
 			}
 		}
 
-		/* only do regex matching if not blank */
-		if ($this->p->fwebsite != '' && $this->options['ask_fields']['fwebsite'] == 1) {
-			if (!preg_match('/^\S+:\/\/\S+\.\S+.+$/', $this->p->fwebsite)) {
-				$errors .= __('The website provided is not valid. Be sure to include http://', 'quick-business-website').'<br />';
-			}
-		}
-
 		if (intval($this->p->fconfirm1) == 1 || intval($this->p->fconfirm3) == 1) {
 			$errors .= __('You have triggered our anti-spam system. Please try again. Code 001.', 'quick-business-website').'<br />';
 		}
@@ -1027,8 +1020,7 @@ function do_the_content($original_content) {
 					'human' => __('You must confirm that you are human.', 'quick-business-website'),
 					'code2' => __('Code 2.', 'quick-business-website'),
 					'code3' => __('Code 3.', 'quick-business-website'),
-					'rating' => __('Please select a star rating from 1 to 5.', 'quick-business-website'),
-					'website' => __('The website provided is not valid. Be sure to include', 'quick-business-website')
+					'rating' => __('Please select a star rating from 1 to 5.', 'quick-business-website')
 					);
 				wp_localize_script( 'qbw-reviews', 'smartlocal', $loc);
 			}
