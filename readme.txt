@@ -34,7 +34,7 @@ When you get your first review, your site will then automatically have:
 
 - `aggregateRating` Schema.org microdata which will add stars to your website in Google search results, making your site stand out.
 
-For more info, see the [Documentation](https://isabelcastillo.com/docs/quick-business-website).
+For more info, see the [Documentation](https://isabelcastillo.com/free-plugins/quick-business-website).
 
 
 == Installation ==
@@ -44,7 +44,7 @@ For more info, see the [Documentation](https://isabelcastillo.com/docs/quick-bus
 3. In your WordPress dashboard, go to the "Quick Business Website" page to enter your business information, and click "Save All Changes".
 4. You can use the 6 available QBW widgets at "Appearances --> Widgets".
 
-For more step-by-step instructions, see the [Documentation](https://isabelcastillo.com/docs/quick-business-website).
+For more detailed instructions, see the [Documentation](https://isabelcastillo.com/free-plugins/quick-business-website#docs-subheading-doc).
 
 == Frequently Asked Questions ==
 
