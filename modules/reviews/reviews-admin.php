@@ -20,46 +20,6 @@ class QBW_Reviews_Admin {
 			$this->parentClass->init();
 			 register_setting( 'smar_options', 'smar_options' );
 	}
-	function real_admin_save_post($post_id) {
-			global $meta_box,$wpdb;
-
-			// check autosave
-			if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-				return $post_id;
-			}
-
-			// check permissions
-		  if ( isset($this->p->post_type) && $this->p->post_type == 'page' ) {
-				if (!current_user_can('edit_page', $post_id)) {
-					return $post_id;
-				}
-			} elseif (!current_user_can('edit_post', $post_id)) {
-				return $post_id;
-			}
-
-			if ( isset($meta_box) && isset($meta_box['fields']) && is_array($meta_box['fields']) )
-			{
-				foreach ($meta_box['fields'] as $field) {
-					
-					if ( isset($this->p->post_title) ) {
-						$old = get_post_meta($post_id, $field['id'], true);
-						
-						if (isset($this->p->$field['id'])) {
-							$new = $this->p->$field['id'];
-							if ($new && $new != $old) {
-								update_post_meta($post_id, $field['id'], $new);
-							} elseif ($new == '' && $old) {
-								delete_post_meta($post_id, $field['id'], $old);
-							}
-						} else {
-							delete_post_meta($post_id, $field['id'], $old);
-						}
-					}
-					
-				}
-			}
-			return $post_id;
-	}
 	function createUpdateReviewTable() {
 			require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
 			$sql = "CREATE TABLE $this->dbtable (
@@ -429,14 +389,14 @@ class QBW_Reviews_Admin {
 											$custom_name = $custom_fields[$custom_num];
 											$old_value[$custom_name] = $val;
 											$new_value = serialize($old_value);											
-											$update_col = mysql_real_escape_string('custom_fields');
-											$update_val = mysql_real_escape_string($new_value);
+											$update_col = esc_sql('custom_fields');
+											$update_val = esc_sql($new_value);
 										}
 									}
 									else /* updating regular fields */
 									{									
-										$update_col = mysql_real_escape_string($col);
-										$update_val = mysql_real_escape_string($val);
+										$update_col = esc_sql($col);
+										$update_val = esc_sql($val);
 									}
 
 									$show_val = $val;

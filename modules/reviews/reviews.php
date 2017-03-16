@@ -35,8 +35,7 @@ class QBW_Reviews {
 		add_action('template_redirect',array( $this, 'template_redirect')); /* handle redirects and form posts, and add style/script if needed */
 		add_action('admin_menu', array( $this, 'addmenu'));
 		add_action('wp_ajax_update_field', array( $this, 'admin_view_reviews'));
-		add_action('save_post', array( $this, 'admin_save_post'), 10, 2);
-		add_action( 'admin_init', array( $this, 'create_reviews_page'));//isa, admin_init in frame but for stand-alone plugin hook to after_setup_theme
+		add_action( 'admin_init', array( $this, 'create_reviews_page'));
 		add_action('wp_enqueue_scripts', array( $this, 'enqueue_scripts'));
 		add_action('admin_enqueue_scripts', array( $this, 'admin_scripts'));
 	}
@@ -51,11 +50,6 @@ class QBW_Reviews {
 		global $QBW_Reviews_Admin;
 		$this->include_admin();
 		$QBW_Reviews_Admin->real_admin_options();
-	}
-   function admin_save_post($post_id, $post) {
-	   global $QBW_Reviews_Admin;
-		$this->include_admin();
-	   $QBW_Reviews_Admin->real_admin_save_post($post_id);
 	}
 	function admin_view_reviews() {
 		global $QBW_Reviews_Admin;
@@ -917,7 +911,7 @@ function do_the_content($original_content) {
 			$errors .= __('You have triggered our anti-spam system. Please try again. Code 003', 'quick-business-website').'<br />';
 		}
 
-	   if (strlen(trim($this->p->ftext)) < 5) {
+		if (strlen(trim($this->p->ftext)) < 5) {
 			$errors .= __('You must include a review. Please make reviews at least 5 letters.', 'quick-business-website').'<br />';
 		}
 
@@ -929,7 +923,7 @@ function do_the_content($original_content) {
 
 		$custom_insert = array();
 
-		 $this->options['ask_custom'] = array(0, 1, 2, 3, 4, 5);
+		$this->options['ask_custom'] = array(0, 1, 2, 3, 4, 5);
 		
 		for ($i = 0; $i < $custom_count; $i++) {		
 			if ($this->options['ask_custom'][$i] == 1) {
@@ -951,11 +945,17 @@ function do_the_content($original_content) {
 		$bn = stripslashes_deep($qbw_options['qbw_business_name']);if(!$bn) {$bn = get_bloginfo('name'); }
 		$admin_linkpre = get_admin_url().'admin.php?page=qbw_view_reviews';
 		$admin_link = sprintf(__('Link to admin approval page: %s', 'quick-business-website'), $admin_linkpre);
-		$ac = sprintf(__('A new review has been posted on %1$s\'s website.','quick-business-website'),$bn) . "\n\n" .
+		$message = sprintf(__('A new review has been posted on %1$s\'s website.','quick-business-website'),$bn) . "\n\n" .
 	__('You will need to login to the admin area and approve this review before it will appear on your site.','quick-business-website') . "\n\n" .$admin_link;
 
-		@wp_mail(get_bloginfo('admin_email'), $bn.': '. sprintf(__('New Review Posted on %1$s', 'quick-business-website'), 
-								date('m/d/Y h:i e') ), $ac );
+
+		/************************************************************
+		*
+		* @todo must reinstate wp_mail after testing
+		*
+		************************************************************/
+		
+		// @wp_mail( get_bloginfo('admin_email'), $bn.': '. sprintf(__('New Review Posted on %1$s', 'quick-business-website'), date('m/d/Y h:i e') ), $message );
 
 		/* returns false for no error */
 		return array(false, '<div>'.__('Thank you for your comments. All submissions are moderated and if approved, yours will appear soon.', 'quick-business-website').'</div>');
