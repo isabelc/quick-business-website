@@ -1,5 +1,4 @@
 jQuery(document).ready(function() {
-    
     jQuery("#comments-form").submit(function(e) {
        var hasbip = jQuery(this).find('input.bip');
        if (hasbip.size() > 0) {
