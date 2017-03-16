@@ -47,10 +47,10 @@ class QBW_Reviews_Admin {
 	function enqueue_admin_stuff() {
 		$pluginurl = $this->parentClass->get_reviews_module_url();
 		if (isset($this->p->page) && ( $this->p->page == 'qbw_view_reviews' || $this->p->page == 'smar_options' ) ) {
-			wp_register_script('qbw-reviews-admin',$pluginurl . 'reviews-admin.js',array('jquery'));
-			wp_register_style('qbw-reviews-admin',$pluginurl . 'reviews-admin.css');  
-			wp_enqueue_script('qbw-reviews-admin');
-			wp_enqueue_style('qbw-reviews-admin');
+			wp_register_script( 'qbw-reviews-admin', $pluginurl . 'reviews-admin.js', array( 'jquery' ) );
+			wp_register_style( 'qbw-reviews-admin', $pluginurl . 'reviews-admin.css' );  
+			wp_enqueue_script( 'qbw-reviews-admin' );
+			wp_enqueue_style( 'qbw-reviews-admin' );
 		}
 	}
 
@@ -59,78 +59,75 @@ class QBW_Reviews_Admin {
 		global $wpdb;
 		$msg ='';
 		$this->security();
-		if (isset($this->p->optin)) {      			
-			if ($this->options['activate'] == 0) {
-				$this->options['activate'] = 1;
-				$this->options['act_email'] = $this->p->email;
-				update_option('smar_options', $this->options);
-				$msg = 'Thank you. Please configure below.';
-			}
-		} else {
-			check_admin_referer('smar_options-options'); /* nonce check */
-			$updated_options = $this->options;
-			/* reset these to 0 so we can grab the settings below */
-			$updated_options['ask_fields']['fname'] = 0;
-			$updated_options['ask_fields']['femail'] = 0;
-			$updated_options['ask_fields']['fwebsite'] = 0;
-			$updated_options['ask_fields']['ftitle'] = 0;
-			$updated_options['require_fields']['fname'] = 0;
-			$updated_options['require_fields']['femail'] = 0;
-			$updated_options['require_fields']['fwebsite'] = 0;
-			$updated_options['require_fields']['ftitle'] = 0;
-			$updated_options['show_fields']['fname'] = 0;
-			$updated_options['show_fields']['femail'] = 0;
-			$updated_options['show_fields']['fwebsite'] = 0;
-			$updated_options['show_fields']['ftitle'] = 0;
-			$updated_options['ask_custom'] = array();
-			$updated_options['field_custom'] = array();
-			$updated_options['require_custom'] = array();
-			$updated_options['show_custom'] = array();
-		
-			/* quick update of all options needed */
-			foreach ($this->p as $col => $val)
-			{
-				if (isset($this->options[$col]))
-				{
-					switch($col)
-					{
-						case 'field_custom': /* we should always hit field_custom before ask_custom, etc */
-							foreach ($val as $i => $name) { $updated_options[$col][$i] = ucwords( strtolower( $name ) ); } /* we are so special */
-							break;
-						case 'ask_custom':
-						case 'require_custom':
-						case 'show_custom':
-							foreach ($val as $i => $v) { $updated_options[$col][$i] = 1; } /* checkbox array with ints */
-							break;
-						case 'ask_fields':
-						case 'require_fields':
-						case 'show_fields':
-							foreach ($val as $v) { $updated_options[$col]["$v"] = 1; } /* checkbox array with names */
-							break;
-						default:
-							$updated_options[$col] = $val; /* a non-array normal field */
-							break;
-					}
+		check_admin_referer('smar_options-options'); /* nonce check */
+		$updated_options = $this->options;
+		/* reset these to 0 so we can grab the settings below */
+		$updated_options['ask_fields']['fname'] = 0;
+		$updated_options['ask_fields']['femail'] = 0;
+		$updated_options['ask_fields']['fwebsite'] = 0;
+		$updated_options['ask_fields']['ftitle'] = 0;
+		$updated_options['require_fields']['fname'] = 0;
+		$updated_options['require_fields']['femail'] = 0;
+		$updated_options['require_fields']['fwebsite'] = 0;
+		$updated_options['require_fields']['ftitle'] = 0;
+		$updated_options['show_fields']['fname'] = 0;
+		$updated_options['show_fields']['femail'] = 0;
+		$updated_options['show_fields']['fwebsite'] = 0;
+		$updated_options['show_fields']['ftitle'] = 0;
+		$updated_options['ask_custom'] = array();
+		$updated_options['field_custom'] = array();
+		$updated_options['require_custom'] = array();
+		$updated_options['show_custom'] = array();
+	
+		/* quick update of all options needed */
+		foreach ($this->p as $col => $val) {
+			if (isset($this->options[$col])) {
+				switch( $col ) {
+					case 'field_custom': /* we should always hit field_custom before ask_custom, etc */
+						foreach ($val as $i => $name) {
+							$updated_options[$col][$i] = sanitize_text_field( ucwords( strtolower( $name ) ) );
+						}
+						break;
+					case 'ask_custom':
+					case 'require_custom':
+					case 'show_custom':
+						foreach ($val as $i => $v) { $updated_options[$col][$i] = 1; } /* checkbox array with ints */
+						break;
+					case 'ask_fields':
+					case 'require_fields':
+					case 'show_fields':
+						foreach ($val as $v) { $updated_options[$col]["$v"] = 1; } /* checkbox array with names */
+						break;
+					default:
+						$updated_options[$col] = $val; /* a non-array normal field */
+						break;
 				}
 			}
-			
-			/* prevent E_NOTICE warnings */
-			if (!isset($this->p->goto_show_button)) { $this->p->goto_show_button = 0; }
-			if (!isset($this->p->show_hcard_on)) { $this->p->show_hcard_on = 0; }
-			if (!isset($this->p->biz_declare)) { $this->p->biz_declare = 0; }
-
-			/* some int validation */
-			$updated_options['form_location'] = intval($this->p->form_location);
-			$updated_options['goto_show_button'] = intval($this->p->goto_show_button);
-			$updated_options['reviews_per_page'] = intval($this->p->reviews_per_page);
-			$updated_options['show_hcard_on'] = intval($this->p->show_hcard_on);
-			$updated_options['biz_declare'] = intval($this->p->biz_declare);
-			
-			if ($updated_options['reviews_per_page'] < 1) { $updated_options['reviews_per_page'] = 10; }
-			$msg .= 'Your settings have been saved.';
-			update_option('smar_options', $updated_options);
 		}
+			
+		/* prevent E_NOTICE warnings */
+		if (!isset($this->p->goto_show_button)) { $this->p->goto_show_button = 0; }
+		if (!isset($this->p->show_hcard_on)) { $this->p->show_hcard_on = 0; }
+		if (!isset($this->p->biz_declare)) { $this->p->biz_declare = 0; }
 
+		/* text validation */
+		$updated_options['goto_leave_text'] = sanitize_text_field( $this->p->goto_leave_text );
+		$updated_options['submit_button_text'] = sanitize_text_field( $this->p->submit_button_text );
+		$updated_options['title_tag'] = sanitize_text_field( $this->p->title_tag );
+
+		/* int validation */
+		$updated_options['form_location'] = intval($this->p->form_location);
+		$updated_options['goto_show_button'] = intval($this->p->goto_show_button);
+		$updated_options['reviews_per_page'] = intval($this->p->reviews_per_page);
+		$updated_options['show_hcard_on'] = intval($this->p->show_hcard_on);
+		$updated_options['biz_declare'] = intval($this->p->biz_declare);
+	
+		if ($updated_options['reviews_per_page'] < 1) {
+			$updated_options['reviews_per_page'] = 10;
+		}
+		$msg .= __( 'Your settings have been saved.', 'quick-business-website' );
+		update_option('smar_options', $updated_options);
+		
 		return $msg;
 	}
 
@@ -168,8 +165,7 @@ class QBW_Reviews_Admin {
 		if ($this->options['show_fields']['fwebsite'] == 1) { $sf['fwebsite'] = 'checked'; }
 		if ($this->options['show_fields']['ftitle'] == 1) { $sf['ftitle'] = 'checked'; }
 		
-		echo '
-		<div class="postbox" style="width:700px;"><div id="smar_ad">
+		echo '<div class="postbox" style="width:700px;"><div id="smar_ad">
 			   <form method="post" action=""><div style="background:#eaf2fa;padding:6px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
 						<legend>'. __('General Settings', 'quick-business-website').'</legend>
 					</div>                    
@@ -181,12 +177,23 @@ class QBW_Reviews_Admin {
 						<small>'. __('Add Schema.org LocalBusiness type declaration on home page. Don\'t check this if you added your own Microdata type and you only want to add on the aggregate rating.', 'quick-business-website').'</small><br />
 						<div class="submit" style="padding:10px 0px 0px 0px;"><input type="submit" class="button-primary" value="'. __('Save Changes', 'quick-business-website') .'" name="Submit"></div>
 </div>         <div style="background:#eaf2fa;padding:6px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;"><legend>'. __('Review Page Settings', 'quick-business-website'). '</legend></div>
-					<div style="padding:10px;padding-bottom:10px;"><label for="reviews_per_page">'. __('Reviews shown per page: ', 'quick-business-website') . '</label><input style="width:40px;" type="text" id="reviews_per_page" name="reviews_per_page" value="'.$this->options['reviews_per_page'].'" />
+					<div style="padding:10px;padding-bottom:10px;"><label for="reviews_per_page">'. __('Reviews shown per page: ', 'quick-business-website') . '</label><input style="width:40px;" type="text" id="reviews_per_page" name="reviews_per_page" value="' . esc_attr( $this->options['reviews_per_page'] ) . '" />
 						<br /><br />
 						<label for="form_location">'. __('Location of Review Form: ', 'quick-business-website'). '</label>
 						<select id="form_location" name="form_location">
-							<option ';if ($this->options['form_location'] == 0) { echo "selected"; } echo ' value="0">'. __('Above Reviews', 'quick-business-website'). '</option>
-							<option ';if ($this->options['form_location'] == 1) { echo "selected"; } echo ' value="1">'. __('Below Reviews', 'quick-business-website'). '</option>                     </select>
+							<option ';
+							if ( $this->options['form_location'] == 0) {
+								echo "selected";
+							}
+							echo ' value="0">'. __('Above Reviews', 'quick-business-website').
+							'</option>
+							<option ';
+							if ($this->options['form_location'] == 1) {
+								echo "selected";
+							}
+							echo ' value="1">'. __('Below Reviews', 'quick-business-website').
+							'</option>
+						</select>
 						<br /><br />
 						<label>'. __('Fields to ask for on review form: ', 'quick-business-website'). '</label>
 						<input data-what="fname" id="ask_fname" name="ask_fields[]" type="checkbox" '.$af['fname'].' value="fname" />&nbsp;<label for="ask_fname"><small>'. __('Name', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
@@ -225,7 +232,7 @@ class QBW_Reviews_Admin {
 							'';
 
 							echo '
-							<label for="field_custom'.$i.'">'. __('Field Name: ', 'quick-business-website'). '</label><input id="field_custom'.$i.'" name="field_custom['.$i.']" type="text" value="' . esc_html( $name_value ) . '" />&nbsp;&nbsp;&nbsp;
+							<label for="field_custom'.$i.'">'. __('Field Name: ', 'quick-business-website'). '</label><input id="field_custom'.$i.'" name="field_custom['.$i.']" type="text" value="' . esc_attr( $name_value ) . '" />&nbsp;&nbsp;&nbsp;
 							<input '.$caf.' class="custom_ask" data-id="'.$i.'" id="ask_custom'.$i.'" name="ask_custom['.$i.']" type="checkbox" value="1" />&nbsp;<label for="ask_custom'.$i.'">'. __('Ask', 'quick-business-website'). '</label>&nbsp;&nbsp;&nbsp;
 							<input '.$crf.' class="custom_req" data-id="'.$i.'" id="require_custom'.$i.'" name="require_custom['.$i.']" type="checkbox" value="1" />&nbsp;<label for="require_custom'.$i.'">'. __('Require', 'quick-business-website'). '</label>&nbsp;&nbsp;&nbsp;
 							<input '.$csf.' class="custom_show" data-id="'.$i.'" id="show_custom'.$i.'" name="show_custom['.$i.']" type="checkbox" value="1" />&nbsp;<label for="show_custom'.$i.'">'. __('Show', 'quick-business-website'). '</label><br />
@@ -247,9 +254,9 @@ class QBW_Reviews_Admin {
 						<br />
 						<small>'. __('If this option is unchecked, there will be no visible way for visitors to submit reviews.', 'quick-business-website'). '</small>
 						<br /><br />
-						<label for="goto_leave_text">'. __('Button text used to show review form: ', 'quick-business-website'). '</label><input style="width:250px;" type="text" id="goto_leave_text" name="goto_leave_text" value="'.$this->options['goto_leave_text'].'" />
+						<label for="goto_leave_text">'. __('Button text used to show review form: ', 'quick-business-website'). '</label><input style="width:250px;" type="text" id="goto_leave_text" name="goto_leave_text" value="'. esc_attr( $this->options['goto_leave_text'] ) .'" />
 						<br /><br />
-						<label for="submit_button_text">'. __('Text to use for review form submit button: ', 'quick-business-website'). '</label><input style="width:200px;" type="text" id="submit_button_text" name="submit_button_text" value="'.$this->options['submit_button_text'].'" />
+						<label for="submit_button_text">'. __('Text to use for review form submit button: ', 'quick-business-website'). '</label><input style="width:200px;" type="text" id="submit_button_text" name="submit_button_text" value="'. esc_attr( $this->options['submit_button_text'] ).'" />
 						<br />
 						<div class="submit" style="padding:10px 0px 0px 0px;"><input type="submit" class="button-primary" value="'. __('Save Changes', 'quick-business-website'). '" name="Submit"></div>
 					</div>';
@@ -263,9 +270,8 @@ class QBW_Reviews_Admin {
 	}
 	
 	function security() {
-		if (!current_user_can('manage_options'))
-		{
-			wp_die( __('You do not have sufficient permissions to access this page.','quick-business-website') );
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( __( 'You do not have sufficient permissions to access this page.', 'quick-business-website' ) );
 		}
 	}
 	
@@ -286,20 +292,17 @@ class QBW_Reviews_Admin {
 		
 		if (!isset($this->p->Submit)) { $this->p->Submit = ''; }
 		
-		if ($this->p->Submit == __('Save Changes', 'quick-business-website')) {
+		if ( isset( $this->p->Submit ) && __('Save Changes', 'quick-business-website') == $this->p->Submit ) {
 			$msg = $this->update_options();
 			$this->parentClass->get_options();
 		}
-		
-		if (isset($this->p->email)) {
-			$msg = $this->update_options();
-			$this->parentClass->get_options();
-		}
-		
+	
 		echo '
 		<div id="smar_respond_1" class="wrap">
 			<h2>' . __( 'Reviews - Options', 'quick-business-website' ). '</h2>';
-			if ($msg) { echo '<h3 style="color:#a00;">'.$msg.'</h3>'; }
+			if ( $msg ) {
+				echo '<h3 style="color:#a00;">' . esc_html( $msg ) . '</h3>';
+			}
 			echo '<div class="metabox-holder">';
 
 		$this->show_options();
@@ -313,7 +316,7 @@ class QBW_Reviews_Admin {
 		$this->p->s_orig = $this->p->s;
 		
 		if (!isset($this->p->review_status)) { $this->p->review_status = 0; }
-		$this->p->review_status = intval($this->p->review_status);
+		$this->p->review_status = (int) $this->p->review_status;
 		
 		/* begin - actions */
 		if (isset($this->p->action)) {
@@ -323,7 +326,7 @@ class QBW_Reviews_Admin {
 
 				switch ($this->p->action) {
 					case 'deletereview':
-						$wpdb->query("DELETE FROM `$this->dbtable` WHERE `id`={$this->p->r} LIMIT 1");
+						$wpdb->query( $wpdb->prepare( "DELETE FROM `$this->dbtable` WHERE `id`= %d LIMIT 1", $this->p->r ) );
 						break;
 					case 'trashreview':
 						$wpdb->query("UPDATE `$this->dbtable` SET `status`=2 WHERE `id`={$this->p->r} LIMIT 1");
@@ -358,8 +361,8 @@ class QBW_Reviews_Admin {
 									}
 									$show_val = $d;
 									$d2 = date("Y-m-d H:i:s",strtotime($val));
-									$update_col = mysql_real_escape_string($col);
-									$update_val = mysql_real_escape_string($d2);
+									$update_col = esc_sql($col);
+									$update_val = esc_sql($d2);
 									break;
 									
 								default:
@@ -407,8 +410,12 @@ class QBW_Reviews_Admin {
 						}
 						
 						if ($update_col !== false && $update_val !== false) {
-							$query = "UPDATE `$this->dbtable` SET `$update_col`='$update_val' WHERE `id`={$this->p->r} LIMIT 1";
-							$wpdb->query($query);
+							$wpdb->query( $wpdb->prepare(
+								"UPDATE `$this->dbtable` SET `$update_col`= %s WHERE `id`= %d LIMIT 1",
+								$update_val,
+								$this->p->r
+    							)
+							);
 							echo $show_val;
 						}
 						
@@ -479,16 +486,14 @@ class QBW_Reviews_Admin {
 			$total_reviews = 0; /* no pagination for searches */
 		}
 		/* end - searching */
-		else
-		{
+		else {
 			$arr_Reviews = $this->parentClass->get_reviews($this->page,$this->options['reviews_per_page'],$this->p->review_status);
 			$reviews = $arr_Reviews[0];
 			$total_reviews = $arr_Reviews[1];
 		}
 		
 		$status_text = "";
-		switch ($this->p->review_status)
-		{
+		switch ($this->p->review_status) {
 			case -1:
 				$status_text = __('Submitted', 'quick-business-website');
 				break;
@@ -518,13 +523,13 @@ class QBW_Reviews_Admin {
 			  <ul class="subsubsub">
 				<li class="all"><a <?php if ($this->p->review_status == -1) { echo 'class="current"'; } ?> href="?page=qbw_view_reviews&amp;review_status=-1"><?php _e('All', 'quick-business-website'); ?></a> |</li>
 				<li class="moderated"><a <?php if ($this->p->review_status == 0) { echo 'class="current"'; } ?> href="?page=qbw_view_reviews&amp;review_status=0"><?php _e('Pending ', 'quick-business-website'); ?>
-					<span class="count">(<span class="pending-count"><?php echo $pending_count;?></span>)</span></a> |
+					<span class="count">(<span class="pending-count"><?php echo esc_html( $pending_count );?></span>)</span></a> |
 				</li>
 				<li class="approved"><a <?php if ($this->p->review_status == 1) { echo 'class="current"'; } ?> href="?page=qbw_view_reviews&amp;review_status=1"><?php _e('Approved', 'quick-business-website'); ?>
-					<span class="count">(<span class="pending-count"><?php echo $approved_count;?></span>)</span></a> |
+					<span class="count">(<span class="pending-count"><?php echo esc_html( $approved_count ); ?></span>)</span></a> |
 				</li>
 				<li class="trash"><a <?php if ($this->p->review_status == 2) { echo 'class="current"'; } ?> href="?page=qbw_view_reviews&amp;review_status=2"><?php _e('Trash', 'quick-business-website'); ?>
-					<span class="count">(<span class="pending-count"><?php echo $trash_count;?></span>)</span></a>
+					<span class="count">(<span class="pending-count"><?php echo esc_html( $trash_count );?></span>)</span></a>
 				</li>
 			  </ul>
 
@@ -532,7 +537,7 @@ class QBW_Reviews_Admin {
 				  <p class="search-box">
 					  <?php if ($this->p->s_orig): ?><span style='color:#c00;font-weight:bold;'><?php _e('RESULTS FOR: ', 'quick-business-website'); ?></span><?php endif; ?>
 					  <label for="comment-search-input" class="screen-reader-text"><?php _e('Search Reviews:', 'quick-business-website'); ?></label> 
-					  <input type="text" value="<?php echo $this->p->s_orig; ?>" name="s" id="comment-search-input" />
+					  <input type="text" value="<?php echo esc_attr( $this->p->s_orig ); ?>" name="s" id="comment-search-input" />
 					  <input type="hidden" name="page" value="qbw_view_reviews" />
 					  <input type="submit" class="button" value="<?php _e('Search Reviews', 'quick-business-website'); ?>" />
 				  </p>
@@ -566,28 +571,29 @@ class QBW_Reviews_Admin {
 <?php echo sprintf(__('There are no %s reviews yet.', 'quick-business-website'), $status_text); ?> <br /><br /></td></tr>
 <?php		}
 				  foreach ($reviews as $review) {                    
-					  $rid = $review->id;
+					  $rid = (int) $review->id;
 					  $update_path = get_admin_url()."admin-ajax.php?page=qbw_view_reviews&r=$rid&action=update_field";
 					  $review->review_title = stripslashes($review->review_title);
 					  $review->review_text = stripslashes($review->review_text);
 					  $review->review_response = stripslashes($review->review_response);
 					  $review->reviewer_name = stripslashes($review->reviewer_name);
 					  if ($review->reviewer_name == '') { $review->reviewer_name = __('Anonymous', 'quick-business-website'); }
+					  $reviewer_ip = esc_html( $review->reviewer_ip );
 					  $review_text = nl2br($review->review_text);
 					  $review_text = str_replace( array("\r\n","\r","\n") , "" , $review_text );
 					  $review_response = nl2br($review->review_response);
 					  $review_response = str_replace( array("\r\n","\r","\n") , "" , $review_response );
 					  $page = get_post($review->page_id); ?>
-					  <tr class="approved" id="review-<?php echo $rid;?>">
+					  <tr class="approved" id="review-<?php echo $rid; ?>">
 						<th class="check-column" scope="row"><input type="checkbox" value="<?php echo $rid;?>" name="delete_reviews[]" /></th>
 						<td class="author column-author">
-							<?php echo get_avatar( sanitize_email( $review->reviewer_email ), 32 ); ?> &nbsp;<span style="font-weight:bold;" class="best_in_place" data-url='<?php echo $update_path; ?>' data-object='json' data-attribute='reviewer_name'><?php echo $review->reviewer_name; ?></span>
+							<?php echo get_avatar( sanitize_email( $review->reviewer_email ), 32 ); ?> &nbsp;<span style="font-weight:bold;" class="best_in_place" data-url='<?php echo esc_url( $update_path ); ?>' data-object='json' data-attribute='reviewer_name'><?php echo esc_html( $review->reviewer_name ); ?></span>
 							<br />
 							<?php if ( ! empty( $review->reviewer_url ) ) { ?>
-								<a href="<?php echo $review->reviewer_url; ?>"><?php echo $review->reviewer_url; ?></a><br />
+								<a href="<?php echo esc_url( $review->reviewer_url ); ?>"><?php echo esc_html( $review->reviewer_url ); ?></a><br />
 							<?php } ?>
 							<a href="mailto:<?php echo $review->reviewer_email; ?>"><?php echo $review->reviewer_email; ?></a><br />
-							<a href="?page=qbw_view_reviews&amp;s=<?php echo $review->reviewer_ip; ?>"><?php echo $review->reviewer_ip; ?></a><br />
+							<a href="?page=qbw_view_reviews&amp;s=<?php echo $reviewer_ip; ?>"><?php echo $reviewer_ip; ?></a><br />
 							<?php
 							$custom_count = count($this->options['field_custom']); /* used for insert as well */
 							$custom_unserialized = @unserialize($review->custom_fields);
@@ -595,12 +601,12 @@ class QBW_Reviews_Admin {
 							{							
 								for ($i = 0; $i < $custom_count; $i++)
 								{
-									$custom_field_name = $this->options['field_custom'][$i];
+									$custom_field_name = esc_html( $this->options['field_custom'][$i] );
 									if ( isset($custom_unserialized[$custom_field_name]) ) {
-										$custom_value = $custom_unserialized[$custom_field_name];
+										$custom_value = esc_html( $custom_unserialized[ $custom_field_name ] );
 										if ($custom_value != '')
 										{
-											echo "$custom_field_name: <span class='best_in_place' data-url='$update_path' data-object='json' data-attribute='custom_$i'>$custom_value</span><br />";
+											echo "$custom_field_name: <span class='best_in_place' data-url='" . esc_url( $update_path ) . "' data-object='json' data-attribute='custom_$i'>$custom_value</span><br />";
 										}
 									}
 								}
@@ -609,45 +615,45 @@ class QBW_Reviews_Admin {
 							<div style="margin-left:-4px;">
 								<div style="height:22px;" class="best_in_place" 
 									 data-collection='[[1,"Rated 1 Star"],[2,"Rated 2 Stars"],[3,"Rated 3 Stars"],[4,"Rated 4 Stars"],[5,"Rated 5 Stars"]]' 
-									 data-url='<?php echo $update_path; ?>' 
+									 data-url='<?php echo esc_url( $update_path ); ?>' 
 									 data-object='json'
 									 data-attribute='review_rating' 
 									 data-callback='make_stars_from_rating'
-									 data-type='select'><?php echo $this->parentClass->output_rating($review->review_rating,false); ?></div>
+									 data-type='select'><?php echo $this->parentClass->output_rating( $review->review_rating, false ); ?></div>
 							</div>
 						</td>
 						<td class="comment column-comment">
 						  <div class="smar-submitted-on">
-							<span class="best_in_place" data-url='<?php echo $update_path; ?>' data-object='json' data-attribute='date_time'><?php 
+							<span class="best_in_place" data-url='<?php echo esc_url( $update_path ); ?>' data-object='json' data-attribute='date_time'><?php 
 							echo date_i18n( get_option( 'date_format' ), strtotime( $review->date_time ) ) . ' at ' . date_i18n( get_option( 'time_format' ), strtotime( $review->date_time ) );// @test locale ?>
 							</span>
-							<?php if ($review->status == 1) : ?>[<a target="_blank" href="<?php echo $this->parentClass->get_jumplink_for_review($review,$this->page); ?>"><?php _e('View Live Review', 'quick-business-website'); ?></a>]<?php endif; ?>
+							<?php if ($review->status == 1) : ?>[<a target="_blank" href="<?php echo esc_url( $this->parentClass->get_jumplink_for_review( $review, $this->page ) ); ?>"><?php _e('View Live Review', 'quick-business-website'); ?></a>]<?php endif; ?>
 						  </div>
 						  <p>
 							  <span style="font-size:13px;font-weight:bold;"><?php _e('Title:', 'quick-business-website'); ?>&nbsp;</span>
 							  <span style="font-size:14px; font-weight:bold;" 
 									class="best_in_place" 
-									data-url='<?php echo $update_path; ?>' 
+									data-url='<?php echo esc_url( $update_path ); ?>' 
 									data-object='json'
-									data-attribute='review_title'><?php echo $review->review_title; ?></span>
+									data-attribute='review_title'><?php echo esc_html( $review->review_title ); ?></span>
 							  <br /><br />
 							  <div class="best_in_place" 
-									data-url='<?php echo $update_path; ?>' 
+									data-url='<?php echo esc_url( $update_path ); ?>' 
 									data-object='json'
 									data-attribute='review_text' 
 									data-callback='callback_review_text'
-									data-type='textarea'><?php echo $review_text; ?></div>
+									data-type='textarea'><?php echo esc_textarea( $review_text ); ?></div>
 							 <div style="font-size:13px;font-weight:bold;">
 								 <br />
 								 <?php _e('Official Response:', 'quick-business-website'); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								 <span style="font-size:11px;font-style:italic;"><?php _e('Leave this blank if you do not want it to be public', 'quick-business-website'); ?></span>
 							 </div>
 							 <div class="best_in_place" 
-									data-url='<?php echo $update_path; ?>'
+									data-url='<?php echo esc_url( $update_path ); ?>'
 									data-object='json'
 									data-attribute='review_response' 
 									data-callback='callback_review_text'
-									data-type='textarea'><?php echo $review_response; ?></div>
+									data-type='textarea'><?php echo esc_textarea( $review_response ); ?></div>
 						  </p>
 						  <div class="row-actions">
 							<span class="approve <?php if ($review->status == 0 || $review->status == 2) { echo 'smar_show'; } else { echo 'smar_hide'; }?>"><a title="Mark as Approved"
