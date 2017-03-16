@@ -608,7 +608,6 @@ class QBW_Reviews_Admin {
 				  foreach ($reviews as $review) {                    
 					  $rid = $review->id;
 					  $update_path = get_admin_url()."admin-ajax.php?page=qbw_view_reviews&r=$rid&action=update_field";
-					  $hash = md5( strtolower( trim( $review->reviewer_email ) ) );
 					  $review->review_title = stripslashes($review->review_title);
 					  $review->review_text = stripslashes($review->review_text);
 					  $review->review_response = stripslashes($review->review_response);
@@ -622,11 +621,11 @@ class QBW_Reviews_Admin {
 					  <tr class="approved" id="review-<?php echo $rid;?>">
 						<th class="check-column" scope="row"><input type="checkbox" value="<?php echo $rid;?>" name="delete_reviews[]" /></th>
 						<td class="author column-author">
-							<img width="32" height="32" class="avatar avatar-32 photo" src=
-							"http://1.gravatar.com/avatar/<?php echo $hash; ?>?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G"
-							alt="" />&nbsp;<span style="font-weight:bold;" class="best_in_place" data-url='<?php echo $update_path; ?>' data-object='json' data-attribute='reviewer_name'><?php echo $review->reviewer_name; ?></span>
+							<?php echo get_avatar( sanitize_email( $review->reviewer_email ), 32 ); ?> &nbsp;<span style="font-weight:bold;" class="best_in_place" data-url='<?php echo $update_path; ?>' data-object='json' data-attribute='reviewer_name'><?php echo $review->reviewer_name; ?></span>
 							<br />
-							<a href="<?php echo $review->reviewer_url; ?>"><?php echo $review->reviewer_url; ?></a><br />
+							<?php if ( ! empty( $review->reviewer_url ) ) { ?>
+								<a href="<?php echo $review->reviewer_url; ?>"><?php echo $review->reviewer_url; ?></a><br />
+							<?php } ?>
 							<a href="mailto:<?php echo $review->reviewer_email; ?>"><?php echo $review->reviewer_email; ?></a><br />
 							<a href="?page=qbw_view_reviews&amp;s=<?php echo $review->reviewer_ip; ?>"><?php echo $review->reviewer_ip; ?></a><br />
 							<?php
@@ -662,7 +661,7 @@ class QBW_Reviews_Admin {
 							<span class="best_in_place" data-url='<?php echo $update_path; ?>' data-object='json' data-attribute='date_time'><?php 
 							echo date_i18n( get_option( 'date_format' ), strtotime( $review->date_time ) ) . ' at ' . date_i18n( get_option( 'time_format' ), strtotime( $review->date_time ) );// @test locale ?>
 							</span>
-							<?php if ($review->status == 1) : ?>[<a target="_blank" href="<?php echo $this->parentClass->get_jumplink_for_review($review,$this->page); ?>"><?php _e('View Review on Page', 'quick-business-website'); ?></a>]<?php endif; ?>
+							<?php if ($review->status == 1) : ?>[<a target="_blank" href="<?php echo $this->parentClass->get_jumplink_for_review($review,$this->page); ?>"><?php _e('View Live Review', 'quick-business-website'); ?></a>]<?php endif; ?>
 						  </div>
 						  <p>
 							  <span style="font-size:13px;font-weight:bold;"><?php _e('Title:', 'quick-business-website'); ?>&nbsp;</span>
