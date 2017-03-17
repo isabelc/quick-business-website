@@ -172,9 +172,9 @@ class QBW_Reviews_Admin {
 <div style="padding:10px;"><input id="show_hcard_on" name="show_hcard_on" type="checkbox" '.$su_checked.' value="1" />&nbsp;
 <label for="show_hcard_on">'. __('Enable Aggregate Rating on Home Page.', 'quick-business-website').'</label>
 <br /><br /> <small>'. __('This will pull data from your Reviews page, then add `aggregateRating` Schema.org Microdata to your home page.', 'quick-business-website'). '</small><br /><br /><input id="biz_declare" name="biz_declare" type="checkbox" '.$bizdeclare_checked.' value="1" />&nbsp;
-<label for="biz_declare">'. __('Declare LocalBusiness Type Microdata on Home page.', 'quick-business-website').'</label>
+<label for="biz_declare">'. __('Add LocalBusiness Structured Data on Home page.', 'quick-business-website').'</label>
 						<br /><br />
-						<small>'. __('Add Schema.org LocalBusiness type declaration on home page. Don\'t check this if you added your own Microdata type and you only want to add on the aggregate rating.', 'quick-business-website').'</small><br />
+						<small>'. __('Remove the checkmark if you already add your own LocalBusiness structured data with some other plugin, and you only want to add on the aggregate rating.', 'quick-business-website').'</small><br />
 						<div class="submit" style="padding:10px 0px 0px 0px;"><input type="submit" class="button-primary" value="'. __('Save Changes', 'quick-business-website') .'" name="Submit"></div>
 </div>         <div style="background:#eaf2fa;padding:6px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;"><legend>'. __('Review Page Settings', 'quick-business-website'). '</legend></div>
 					<div style="padding:10px;padding-bottom:10px;"><label for="reviews_per_page">'. __('Reviews shown per page: ', 'quick-business-website') . '</label><input style="width:40px;" type="text" id="reviews_per_page" name="reviews_per_page" value="' . esc_attr( $this->options['reviews_per_page'] ) . '" />
