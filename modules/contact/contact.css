@@ -1,1 +1,72 @@
-﻿#isa_success,#sbfc_isa_error{border:1px solid;margin:10px 0;padding:16px 10px 16px 72px;background-repeat:no-repeat;background-position:10px center;-moz-border-radius:2px;border-radius:2px}#isa_success{color:#4F8A10;background-color:#DFF2BF;background-image:url(success.png)}#sbfc_isa_error{color:#D8000C;background-color:#FFBABA;background-image:url(error.png)}#sbfc-contactform fieldset{width:100%;overflow:hidden;margin:5px 0;border:0}.clr,#sbfc-contactform fieldset input,#sbfc-contactform textarea{clear:both;display:block;clear:left}#sbfc-contactform fieldset input{min-height:35px}#sbfc-contactform textarea{clear:both;max-width:95%}#sbfc-contactform label{margin-top:8px;line-height:1.8;font-size:90%}#sbfc_isa_success pre{font-size:1em}#sbfc-contactform .smartestb_sbfc_error{border:2px solid #C00}#sbfc-contactform label.error{display:block;color:#222;background:#ffd2d2;padding:0 10px;height:auto!important}@media screen and (max-device-width:1024px){#sbfc-contactform textarea{max-width:70%;margin-left:auto;margin-right:auto}#sbfc-contactform fieldset{display:table-cell}#sbfc-contactform fieldset input{clear:none;width:90%;max-width:90%;margin-left:auto;margin-right:auto;margin-left:auto;margin-right:auto}#sbfc-contactform fieldset{display:table-cell}#sbfc-contactform fieldset input{clear:none;width:90%;max-width:90%;margin-left:auto;margin-right:auto}}@media screen and (max-device-width:568px){#sbfc-contactform textarea{max-width:90%}}
+﻿#sbfc-contactform fieldset {
+    width: 100%;
+    overflow: hidden;
+    margin: 5px 0;
+    border: 0
+}
+.clr,
+#sbfc-contactform fieldset input,
+#sbfc-contactform textarea {
+    clear: both;
+    display: block;
+    clear: left
+}
+#sbfc-contactform fieldset input {
+    min-height: 35px
+}
+#sbfc-contactform textarea {
+    clear: both;
+    max-width: 95%
+}
+#sbfc-contactform label {
+    margin-top: 8px;
+    line-height: 1.8;
+    font-size: 90%
+}
+#qbw_success pre {
+    font-size: 1em
+}
+#sbfc-contactform .smartestb_sbfc_error {
+    border: 2px solid #C00
+}
+#sbfc-contactform label.error {
+    display: block;
+    color: #222;
+    background: #ffd2d2;
+    padding: 0 10px;
+    height: auto!important
+}
+@media screen and (max-device-width: 1024px) {
+    #sbfc-contactform textarea {
+        max-width: 70%;
+        margin-left: auto;
+        margin-right: auto
+    }
+    #sbfc-contactform fieldset {
+        display: table-cell
+    }
+    #sbfc-contactform fieldset input {
+        clear: none;
+        width: 90%;
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-left: auto;
+        margin-right: auto
+    }
+    #sbfc-contactform fieldset {
+        display: table-cell
+    }
+    #sbfc-contactform fieldset input {
+        clear: none;
+        width: 90%;
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto
+    }
+}
+@media screen and (max-device-width: 568px) {
+    #sbfc-contactform textarea {
+        max-width: 90%
+    }
+}

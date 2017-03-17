@@ -127,14 +127,14 @@ function sbfc_input_filter() {
 		return true;
 	} else {
 		if($fail == 'malicious') {
-			$qbw_form_strings['error'] = '<p id="sbfc_isa_error">' . __( 'Please do not include any of the following in the Name or Email fields: linebreaks, or the phrases "mime-version", "content-type", "cc:" or "to:"', 'quick-business-website' ) . '</p>';
+			$qbw_form_strings['error'] = '<p id="qbw_error">' . __( 'Please do not include any of the following in the Name or Email fields: linebreaks, or the phrases "mime-version", "content-type", "cc:" or "to:"', 'quick-business-website' ) . '</p>';
 		} elseif( 'empty' == $fail ) {
 			$posted_msg = stripslashes( $qbw_options['qbw_sbfc_error'] );
 			// in case they erase the default
 			$msg = ( $posted_msg ) ? esc_html( $posted_msg ) : __( 'Please complete the required fields.', 'quick-business-website' );
-			$qbw_form_strings['error'] = '<p id="sbfc_isa_error">' . $msg . '</p>';
+			$qbw_form_strings['error'] = '<p id="qbw_error">' . $msg . '</p>';
 		} elseif( $fail == 'wrong' ) {
-			$qbw_form_strings['error'] = '<p id="sbfc_isa_error">' . __( 'Oops. Incorrect answer for the security question. Please try again.', 'quick-business-website' ) . '<br />' . __( 'Hint: 1 + 1 = 2', 'quick-business-website' ) . '</p>';
+			$qbw_form_strings['error'] = '<p id="qbw_error">' . __( 'Oops. Incorrect answer for the security question. Please try again.', 'quick-business-website' ) . '<br />' . __( 'Hint: 1 + 1 = 2', 'quick-business-website' ) . '</p>';
 		}
 		return false;
 	}
@@ -277,9 +277,17 @@ $i18n_host   $host
 $i18n_agent  $agent
 ");
 	$fullmsg = stripslashes( strip_tags( trim( $fullmsg ) ) );
-	wp_mail( $recipient, $subject, $fullmsg );
+	
 
-	$results = '<div id="sbfc_isa_success"><div id="isa_success">' . $success .
+	/************************************************************
+	*
+	* @todo must reinstate wp_mail after debuggin
+	*
+	************************************************************/
+	
+	//wp_mail( $recipient, $subject, $fullmsg );
+	
+	$results = '<div id="sbfc_success"><div id="qbw_success">' . $success .
 	'</div><pre>' . $i18n_name . ' ' . $from_name . '
 ' . $i18n_email . ' ' . $email   . '
 ' . $i18n_phone . ' ' . $phone   . '

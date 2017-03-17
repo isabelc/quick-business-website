@@ -106,7 +106,30 @@ display:block;width:100%;padding:0;margin:0;
 	padding-left: 0;
 }
 #sbfc-contactform-wrap{margin-bottom:2em;}
-#smar_table_2 tbody tr:nth-child(even),#smar_table_2 tbody tr:nth-child(2n){background-color:inherit}
+#smar_table_2 tbody tr:nth-child(even),
+#smar_table_2 tbody tr:nth-child(2n){
+	background-color:inherit;
+}
+#qbw_success,
+#qbw_error {
+    border: 1px solid;
+    margin: 10px 0;
+    padding: 16px 10px 16px 72px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    -moz-border-radius: 2px;
+    border-radius: 2px
+}
+#qbw_success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    background-image: url('../images/success.png')
+}
+#qbw_error {
+    color: #D8000C;
+    background-color: #FFBABA;
+    background-image: url(../images/error.png)
+}
 @media only screen and (max-device-width:767px){
 	.overflow {
 		overflow: auto;
