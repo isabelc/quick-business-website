@@ -295,6 +295,8 @@ class Quick_Business_Website {
 	           <div class="logo">
 				<?php if ( $custom_logo_id = get_theme_mod( 'custom_logo' ) ) {
 					echo wp_get_attachment_image( $custom_logo_id, 'full' );
+				} elseif ( $site_icon = get_site_icon_url( 32 ) ) {
+					echo '<img src="' . $site_icon . '" width="32" height="32" alt="site icon" />';
 				} ?>
 	          </div>
 	             <div class="theme-info">
