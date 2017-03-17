@@ -36,7 +36,17 @@ function qbw_kses( $content, $img = false ) {
 }
 
 /**
- * Return the structured data markup for the localbusiness address
+ * @test @todo use this everwhere that option qbw_business_name is got.
+ */
+function qbw_get_business_name() {
+	$n = stripslashes( get_option( 'qbw_business_name' ) );
+	if ( empty( $n ) ) {
+		$n = get_bloginfo('name');
+	}
+	return $n;
+}
+/**
+ * Return the Address structured data markup
  */
 function qbw_address_structured_data() {
 	$data = '';
