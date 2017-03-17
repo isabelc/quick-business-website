@@ -254,9 +254,14 @@ class QBW_Reviews_Admin {
 						<br />
 						<small>'. __('If this option is unchecked, there will be no visible way for visitors to submit reviews.', 'quick-business-website'). '</small>
 						<br /><br />
-						<label for="goto_leave_text">'. __('Button text used to show review form: ', 'quick-business-website'). '</label><input style="width:250px;" type="text" id="goto_leave_text" name="goto_leave_text" value="'. esc_attr( $this->options['goto_leave_text'] ) .'" />
+						<label for="goto_leave_text">'. __('Button text for the "show review form" button: ', 'quick-business-website'). '</label><input style="width:250px;" type="text" id="goto_leave_text" name="goto_leave_text" value="'. esc_attr( $this->options['goto_leave_text'] ) .'" />
 						<br /><br />
-						<label for="submit_button_text">'. __('Text to use for review form submit button: ', 'quick-business-website'). '</label><input style="width:200px;" type="text" id="submit_button_text" name="submit_button_text" value="'. esc_attr( $this->options['submit_button_text'] ).'" />
+
+                        <label for="leave_text">'. __('Title to be displayed above review form: ', 'quick-business-website'). '</label><input style="width:250px;" type="text" id="leave_text" name="leave_text" value="' . esc_attr( $this->options['leave_text'] ) . '" />
+                        <br />
+                        <small>'. __('This will be shown as a heading immediately above the review form.', 'quick-business-website'). '</small>
+                        <br /><br />
+						<label for="submit_button_text">'. __('Button text for the submit button: ', 'quick-business-website'). '</label><input style="width:200px;" type="text" id="submit_button_text" name="submit_button_text" value="'. esc_attr( $this->options['submit_button_text'] ).'" />
 						<br />
 						<div class="submit" style="padding:10px 0px 0px 0px;"><input type="submit" class="button-primary" value="'. __('Save Changes', 'quick-business-website'). '" name="Submit"></div>
 					</div>';
