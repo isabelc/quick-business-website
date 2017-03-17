@@ -839,17 +839,14 @@ class Quick_Business_Website {
 	 * @since 1.0
 	 */
 	public function login_logo() {
-			echo'<style type="text/css">.login h1 a {background-position: center top;text-indent: 0px;text-align:center; background-image:none;text-decoration:none;width: 326px;height: 70px;}</style>';
+		echo'<style type="text/css">.login h1 a {background-position: center top;text-indent: 0px;text-align:center; background-image:none;text-decoration:none;width: 326px;height: 70px;}</style>';
 	}
-	/** @todo MOVE THIS TO HELPER-FUNCTIONS AND  use this in reviews whereever needed. but WITHOUT esc_attr, i need it with esc_html instead. or perhaps move esc_ to later. 
-	 * Get the business name. To be used as link title on wp-login.php
+	/**
+	 * Get the business name as an attribute. To be used as link title attribute on wp-login.php
 	 * @since 1.0
 	 */
 	public function wp_login_title() {
-		$bn = stripslashes_deep(esc_attr(get_option( 'qbw_business_name')));
-		if ( empty($bn) )
-			$bn = get_bloginfo('name');
-		return $bn;
+		return esc_attr( qbw_get_business_name() );
 	}
 	
 	/** 
@@ -1382,7 +1379,7 @@ class Quick_Business_Website {
 			return $content;
 		}
 
-		$contactcontent = '<div id="qbw-col-wrap"><div class="qbw-one-half">' . $content . '</div><div id="qbw-contact-info" class="qbw-one-half"  itemscope itemtype="http://schema.org/LocalBusiness">';
+		$contactcontent = '<div id="qbw-col-wrap"><div class="qbw-one-half">' . $content . '</div><div id="qbw-contact-info" class="qbw-one-half" itemscope itemtype="http://schema.org/LocalBusiness">';
 		// social box
 		$contactcontent .= '<ul id="qbw-staff-socials">';
 		if ( get_option( 'qbw_old_social_icons' ) == 'false') {
@@ -1450,13 +1447,14 @@ class Quick_Business_Website {
 		if ( $qbw_business_socialurl2 ) {
 			$contactcontent .= '<li><a class="item-add" target="_blank" href="'. $qbw_business_socialurl2 . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . $qbw_business_sociallabel2 . '</a></li>';
 		} 
-		$contactcontent .= '</ul><strong><span itemprop="name">' . $qbw_business_name . '</span></strong><br /><br />';
+		$contactcontent .= '</ul><strong><span itemprop="name">' . $qbw_business_name . '</span></strong><br />';
+
+		$contactcontent .= qbw_address_structured_data();
+
 		if ( $qbw_hours ) {
 			$contactcontent .= '<div id="qbw-contact-hours"><strong>Business Hours: </strong><br />' . wpautop( $qbw_hours ) . '</div>';
 		} 
 
-		$contactcontent .= qbw_address_structured_data();
-					
 		if ( $qbw_phone_number || $qbw_fax_numb || ( 'true' == $qbw_show_contactemail ) ) {
 			$contactcontent .= '<p>';
 			if ( $qbw_phone_number ) {
