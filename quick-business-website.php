@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: https://isabelcastillo.com/free-plugins/quick-business-website
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 2.0.alpha.7
+Version: 2.0.alpha.8
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -841,7 +841,7 @@ class Quick_Business_Website {
 	public function login_logo() {
 			echo'<style type="text/css">.login h1 a {background-position: center top;text-indent: 0px;text-align:center; background-image:none;text-decoration:none;width: 326px;height: 70px;}</style>';
 	}
-	/** 
+	/** @todo MOVE THIS TO HELPER-FUNCTIONS AND  use this in reviews whereever needed. but WITHOUT esc_attr, i need it with esc_html instead. or perhaps move esc_ to later. 
 	 * Get the business name. To be used as link title on wp-login.php
 	 * @since 1.0
 	 */
@@ -1408,12 +1408,6 @@ class Quick_Business_Website {
 			'qbw_business_sociallabel2',
 			'qbw_business_name',
 			'qbw_hours',
-			'qbw_address_street',
-			'qbw_address_suite',
-			'qbw_address_city',
-			'qbw_address_state',
-			'qbw_address_zip',
-			'qbw_address_country',
 			'qbw_phone_number',
 			'qbw_fax_numb',
 			'qbw_show_contactemail',
@@ -1447,61 +1441,39 @@ class Quick_Business_Website {
 		}
 
 
-			if ( $qbw_business_youtube ) {
-				$contactcontent .= '<li><a class="' . $yout. '" href="https://youtube.com/user/' . $qbw_business_youtube . '" title="'. __('Youtube', 'quick-business-website') . '"></a></li>';
-			}
-			if ( $qbw_business_socialurl1 ) {
-				$contactcontent .= '<li><a class="item-add" target="_blank" href="'. $qbw_business_socialurl1 . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . $qbw_business_sociallabel1 . '</a></li>';
-			} 
-			if ( $qbw_business_socialurl2 ) {
-				$contactcontent .= '<li><a class="item-add" target="_blank" href="'. $qbw_business_socialurl2 . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . $qbw_business_sociallabel2 . '</a></li>';
-			} 
-			$contactcontent .= '</ul><strong><span itemprop="name">' . $qbw_business_name . '</span></strong><br /><br />';
-			if ( $qbw_hours ) {
-				$contactcontent .= '<div id="qbw-contact-hours"><strong>Business Hours: </strong><br />' . wpautop( $qbw_hours ) . '</div>';
-			} 
-			if ( $qbw_address_street ) { // do addy box
-				$contactcontent .= '<p id="qbw-addy-box" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"><span itemprop="streetAddress">' . $qbw_address_street . '</span>&nbsp;';
-			}
-			if ( $qbw_address_suite ) {
-				$contactcontent .= ' ' . $qbw_address_suite . '&nbsp;';
-			}
-			if ( $qbw_address_city ) {
-				$contactcontent .='<br /><span itemprop="addressLocality">' . $qbw_address_city . '</span>';
-			}
-			if ( $qbw_address_city && $qbw_address_state ) {
-				$contactcontent .= ', ';
-			}
-			if ( $qbw_address_state ) {
-				$contactcontent .='<span itemprop="addressRegion">' . $qbw_address_state . '</span>&nbsp;';
-				}
-			if ( $qbw_address_zip ) {
-				$contactcontent .=' <span class="postal-code" itemprop="postalCode">' . $qbw_address_zip . '</span>&nbsp;';
-			}
-			if ( $qbw_address_country ) {
-				$contactcontent .='<br /><span itemprop="addressCountry">' . $qbw_address_country . '</span>&nbsp;';
-			}
-			if ( $qbw_address_street ) {
-				$contactcontent .= '</p>'; // close #qbw-addy-box
-			} // end addy-box
-
-		if ( $qbw_phone_number || $qbw_fax_numb || ( 'true' == $qbw_show_contactemail ) ) {
-				$contactcontent .= '<p>';
-			
-				if ( $qbw_phone_number ) {
-					$contactcontent .= '' . __('Telephone:', 'quick-business-website') . ' <span itemprop="telephone">'. $qbw_phone_number . '</span>';
-				}
-				if ( $qbw_fax_numb ) {
-					$contactcontent .= '<br />' . __('FAX:', 'quick-business-website') . ' <span itemprop="faxNumber">' . $qbw_fax_numb . '</span>';
-				
-				} 
-				if ( 'true' == $qbw_show_contactemail ) {
-					$email = antispambot( esc_html( get_bloginfo( 'admin_email' ) ) );
-					$contactcontent .= '<br />' . __('Email:', 'quick-business-website') . ' <a href="mailto:' . $email . '"><span itemprop="email">' . $email . '</span></a><br />';
-
-				}
-				$contactcontent .= '</p>';
+		if ( $qbw_business_youtube ) {
+			$contactcontent .= '<li><a class="' . $yout. '" href="https://youtube.com/user/' . $qbw_business_youtube . '" title="'. __('Youtube', 'quick-business-website') . '"></a></li>';
 		}
+		if ( $qbw_business_socialurl1 ) {
+			$contactcontent .= '<li><a class="item-add" target="_blank" href="'. $qbw_business_socialurl1 . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . $qbw_business_sociallabel1 . '</a></li>';
+		} 
+		if ( $qbw_business_socialurl2 ) {
+			$contactcontent .= '<li><a class="item-add" target="_blank" href="'. $qbw_business_socialurl2 . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . $qbw_business_sociallabel2 . '</a></li>';
+		} 
+		$contactcontent .= '</ul><strong><span itemprop="name">' . $qbw_business_name . '</span></strong><br /><br />';
+		if ( $qbw_hours ) {
+			$contactcontent .= '<div id="qbw-contact-hours"><strong>Business Hours: </strong><br />' . wpautop( $qbw_hours ) . '</div>';
+		} 
+
+		$contactcontent .= qbw_address_structured_data();
+					
+		if ( $qbw_phone_number || $qbw_fax_numb || ( 'true' == $qbw_show_contactemail ) ) {
+			$contactcontent .= '<p>';
+			if ( $qbw_phone_number ) {
+				$contactcontent .= '' . __('Telephone:', 'quick-business-website') . ' <span itemprop="telephone">'. $qbw_phone_number . '</span>';
+			}
+			if ( $qbw_fax_numb ) {
+				$contactcontent .= '<br />' . __('FAX:', 'quick-business-website') . ' <span itemprop="faxNumber">' . $qbw_fax_numb . '</span>';
+			
+			} 
+			if ( 'true' == $qbw_show_contactemail ) {
+				$email = antispambot( esc_html( get_bloginfo( 'admin_email' ) ) );
+				$contactcontent .= '<br />' . __('Email:', 'quick-business-website') . ' <a href="mailto:' . $email . '"><span itemprop="email">' . $email . '</span></a><br />';
+
+			}
+			$contactcontent .= '</p>';
+		}
+
 		$contactcontent .= '</div></div>';
 
 		return $contactcontent;
