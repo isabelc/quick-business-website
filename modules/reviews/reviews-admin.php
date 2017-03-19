@@ -107,8 +107,6 @@ class QBW_Reviews_Admin {
 			
 		/* prevent E_NOTICE warnings */
 		if (!isset($this->p->goto_show_button)) { $this->p->goto_show_button = 0; }
-		if (!isset($this->p->show_hcard_on)) { $this->p->show_hcard_on = 0; }
-		if (!isset($this->p->biz_declare)) { $this->p->biz_declare = 0; }
 
 		/* text validation */
 		$updated_options['goto_leave_text'] = sanitize_text_field( $this->p->goto_leave_text );
@@ -119,8 +117,6 @@ class QBW_Reviews_Admin {
 		$updated_options['form_location'] = intval($this->p->form_location);
 		$updated_options['goto_show_button'] = intval($this->p->goto_show_button);
 		$updated_options['reviews_per_page'] = intval($this->p->reviews_per_page);
-		$updated_options['show_hcard_on'] = intval($this->p->show_hcard_on);
-		$updated_options['biz_declare'] = intval($this->p->biz_declare);
 	
 		if ($updated_options['reviews_per_page'] < 1) {
 			$updated_options['reviews_per_page'] = 10;
@@ -132,16 +128,6 @@ class QBW_Reviews_Admin {
 	}
 
 	function show_options() {
-		$su_checked = '';
-		if ($this->options['show_hcard_on']) {
-			$su_checked = 'checked';
-		} 
-
-		$bizdeclare_checked = '';
-		if ($this->options['biz_declare']) {
-			$bizdeclare_checked = 'checked';
-		}
-		
 		$goto_show_button_checked = '';
 		if ($this->options['goto_show_button']) {
 			$goto_show_button_checked = 'checked';
@@ -166,17 +152,8 @@ class QBW_Reviews_Admin {
 		if ($this->options['show_fields']['ftitle'] == 1) { $sf['ftitle'] = 'checked'; }
 		
 		echo '<div class="postbox" style="width:700px;"><div id="smar_ad">
-			   <form method="post" action=""><div style="background:#eaf2fa;padding:6px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
-						<legend>'. __('General Settings', 'quick-business-website').'</legend>
-					</div>                    
-<div style="padding:10px;"><input id="show_hcard_on" name="show_hcard_on" type="checkbox" '.$su_checked.' value="1" />&nbsp;
-<label for="show_hcard_on">'. __('Enable Aggregate Rating on Home Page.', 'quick-business-website').'</label>
-<br /><br /> <small>'. __('This will pull data from your Reviews page, then add `aggregateRating` Schema.org Microdata to your home page.', 'quick-business-website'). '</small><br /><br /><input id="biz_declare" name="biz_declare" type="checkbox" '.$bizdeclare_checked.' value="1" />&nbsp;
-<label for="biz_declare">'. __('Add LocalBusiness Structured Data on Home page.', 'quick-business-website').'</label>
-						<br /><br />
-						<small>'. __('Remove the checkmark if you already add your own LocalBusiness structured data with some other plugin, and you only want to add on the aggregate rating.', 'quick-business-website').'</small><br />
-						<div class="submit" style="padding:10px 0px 0px 0px;"><input type="submit" class="button-primary" value="'. __('Save Changes', 'quick-business-website') .'" name="Submit"></div>
-</div>         <div style="background:#eaf2fa;padding:6px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;"><legend>'. __('Review Page Settings', 'quick-business-website'). '</legend></div>
+			   <form method="post" action="">
+				<div style="background:#eaf2fa;padding:6px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;"><legend>'. __('Review Page Settings', 'quick-business-website'). '</legend></div>
 					<div style="padding:10px;padding-bottom:10px;"><label for="reviews_per_page">'. __('Reviews shown per page: ', 'quick-business-website') . '</label><input style="width:40px;" type="text" id="reviews_per_page" name="reviews_per_page" value="' . esc_attr( $this->options['reviews_per_page'] ) . '" />
 						<br /><br />
 						<label for="form_location">'. __('Location of Review Form: ', 'quick-business-website'). '</label>
