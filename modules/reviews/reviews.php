@@ -2,7 +2,7 @@
 /**
  * Get reviews from visitors, and aggregate ratings and stars for your business in search results.
  * 
- * Adds Structured data markup (Schema.org) for rich snippets.
+ * Adds Structured data (Schema.org) for rich snippets.
  * Includes Testimonial widget. 
  * Optional: pulls aggregaterating to home page. Option to not pull it to home page, 
  * and just have a reviews page.
@@ -28,8 +28,6 @@ class QBW_Reviews {
 		$this->dbtable = $wpdb->prefix . $this->dbtable;
 		$this->plugin_version = get_option( 'qbw_smartestb_plugin_version' );
 
-		// @todo possibly remove....
-		// add_action( 'the_content', array( $this, 'do_the_content'), 10 ); /* prio 10 prevents a conflict with some odd themes */
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_action( 'widgets_init', array( $this, 'register_widget' ) );
@@ -86,7 +84,6 @@ class QBW_Reviews {
 			'reviews_per_page' => 10,
 			'show_custom' => array(),
 			'show_fields' => array('fname' => 1, 'femail' => 0, 'fwebsite' => 0, 'ftitle' => 1, 'fage' => 0, 'fgender' => 0),
-			'show_hcard_on' => 1, 'biz_declare' => 1,
 			'submit_button_text' => __('Submit your review', 'quick-business-website'),
 			'title_tag' => 'h2'
 		);
@@ -186,8 +183,6 @@ class QBW_Reviews {
 		$GET_P = "submitsmar_$post->ID";
 		if ( $post->ID > 0 && isset( $this->p->$GET_P ) && $this->p->$GET_P == $this->options['submit_button_text'] ) {
 			$msg = $this->add_review( $post->ID );
-			// $has_error = $msg[0];// @test need? 
-			// $status_msg = $msg[1];// @test just send $msg
 			$url = get_permalink( $post->ID );
 			$cookie = array( 'smar_has_error' => $msg[0], 'smar_status_msg' => $msg[1] );
 			$this->smar_redirect( $url, $cookie );
@@ -203,7 +198,10 @@ class QBW_Reviews {
 		}
 		return $str;
 	}
-	function get_aggregate_reviews() {
+	/**
+	 * Sets the got_aggregate property.
+	 */
+	private function get_aggregate_reviews() {
 		if ($this->got_aggregate !== false) {
 			return $this->got_aggregate;
 		}
@@ -216,7 +214,7 @@ class QBW_Reviews {
 			return false;
 		}
 		$aggregate_rating = $row[0]->aggregate_rating;
-		$max_rating = $row[0]->max_rating;
+		$max_rating = $row[0]->max_rating;// max GIVEN rating, not max allowed rating
 		$total_reviews = $row[0]->total;
 		
 		$this->got_aggregate = array( "aggregate" => $aggregate_rating, "max" => $max_rating, "total" => $total_reviews );
@@ -254,84 +252,31 @@ class QBW_Reviews {
 		return array($reviews, $total_reviews);
 	}
 
-	/** @todo if i go full json-ld, remove microdata markup all over.
-	 * Return the LocalBusiness Structured Data @test now now
-	 */
-	public function business_structured_data() {
-		$qbw_options = get_option( 'qbw_options' );
-		$data = '<div itemscope itemtype="http://schema.org/LocalBusiness"><span class="isa_vcard">
-			<span itemprop="name">' . esc_html( qbw_get_business_name() ) . '</span>';
-
-		if ( ! empty( $qbw_options['qbw_phone_number'] ) ) {
-			$data .= '<br /><span itemprop="telephone">' . esc_html( $qbw_options['qbw_phone_number'] ) . '</span>';
-		}
-		$data .= qbw_address_structured_data();
-		return $data;
-	}
-
 	/**
 	 * Add JSON-LD structured data to the front page, if enabled.
 	 */
 	public function frontpage_structured_data() {
-  		// @test now now
-  		if ( ! is_front_page() ) {
-  			return;
-  		}
-		$metadata = qbw_address_structured_data( true );
+		if ( ! is_front_page() ) {
+			return;
+		}
+		$metadata = qbw_business_structured_data();
+
+		$this->get_aggregate_reviews();
+
+		$average_score = number_format( $this->got_aggregate["aggregate"], 1 );
+	
+		// Add aggregate rating
+		$metadata['aggregateRating'] = array(
+			'@type' => 'AggregateRating',
+			'ratingValue' => $average_score,
+			'bestRating' => 5,
+			'reviewCount' => $this->got_aggregate["total"]
+		);
 		?>
 		<script type="application/ld+json"><?php echo wp_json_encode( $metadata ); ?></script>
 		<?php
 	}
 
-	/**
-	 * The HTML for the aggregate rating for the front page.
-	 * This is only called if is_front_page() is true.
-	 */
-	public function aggregate_footer() {
-		$qbw_options = get_option( 'qbw_options');// @test need? 
-		// gather agg data
-		$arr_Reviews = $this->get_reviews( '', $this->options['reviews_per_page'], 1 );
-		$reviews = $arr_Reviews[0];// 12.5 prob dont need @todo need. can prob get total from got_aggregate. @test this.
-		$total_reviews = intval($arr_Reviews[1]);
-		$this->get_aggregate_reviews();// @test need? 
-		$average_score = number_format( $this->got_aggregate["aggregate"], 1 );
-		$aggregate_footer_output = '';
-		
-		/* Add markup only if the setting to show aggregate rating on front page is enabled & if home page is static */
-
-
-		/************************************************************
-		*
-		* @todo since i'm not duplicate checking for is_front_page(), make sure this doesn't get added to every page and post
-		*
-		************************************************************/
-		if ( 1 == $this->options['show_hcard_on'] && get_option('show_on_front') == 'page' ) {
-
-			$aggregate_footer_output = '<div id="smar_respond_1">';
-
-			// if "Add LocalBusiness Structured Data on Home page" is enabled, do it
-			if ( 1 == $this->options['biz_declare'] ) {
-				$aggregate_footer_output .= $this->business_structured_data();// @test now now
-			} else {
-						
-				$aggregate_footer_output = '<div id="smar_hcard_s" class="isa_vcard">';// Opening wrapper when LocalBusiness Structured Data is disabled
-			}
-
-			// aggregate rating @todo sync to only type this markup once.
-
-			$aggregate_footer_output .= '<br /><span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" id="qbw-reviews-aggregate"> '. __('Average rating:', 'quick-business-website'). ' <span itemprop="ratingValue" class="average">' . esc_html( $average_score ) . '</span> ' . __('out of', 'quick-business-website'). ' <span itemprop="bestRating">5 </span> '. __('based on', 'quick-business-website').' <span itemprop="ratingCount">' . esc_html( $this->got_aggregate["total"] ) . ' </span>';// @test this escaping
-				
-			if ( 1 == $this->got_aggregate["total"] ) {
-				$basedon = __('review.', 'quick-business-website');
-			} else {
-				$basedon = __('reviews.', 'quick-business-website');
-			}
-
-			$aggregate_footer_output .= sprintf(__('%s', 'quick-business-website'), $basedon). '</span>';
-			$aggregate_footer_output .= '</div><!-- .isa_vcard--></div><!-- #smar_respond_1 -->';
-		}
-		return $aggregate_footer_output;
-	}
 	public function iso8601($time=false) {
 		if ($time === false)
 			$time = time();
@@ -378,7 +323,7 @@ class QBW_Reviews {
 				} /* not in admin AND using pretty permalinks */ else {
 					$url2 = $url;
 				}
-				$out .= '<a href="' . esc_url( $url2 ) . '">&laquo;</a>';// @test esc_url
+				$out .= '<a href="' . esc_url( $url2 ) . '">&laquo;</a>';
 			}
 
 			if ($paged > 1 && $showitems < $pages) {
@@ -446,7 +391,7 @@ class QBW_Reviews {
 			$average_score = number_format( $this->got_aggregate["aggregate"], 1 );
 
 			// Gather the LocalBusiness structured data
-			$metadata = qbw_address_structured_data( true );
+			$metadata = qbw_business_structured_data();
 
 			foreach ( $reviews as $review ) {
 				$hide_name = '';
@@ -538,7 +483,7 @@ class QBW_Reviews {
 
 				<blockquote class="description"><p>' .
 
-						// @todo fix, a bunch of HTML in the review body. so dont use esc_html around reviewBody but see how to escape it.
+						// @todo fix, a bunch of HTML in the review body. so dont use esc_html around reviewBody but escape it using another method
 						$reviewBody .
 
 				'</p></blockquote>' . $review_response . '</div><hr />';
@@ -566,20 +511,13 @@ class QBW_Reviews {
 
 			}//  foreach ($reviews as $review)
 
-
-			// @todo sync agg footer to not have duplicate markup for home page.
-
-
-
 			$reviews_content .= '<span id="qbw-reviews-aggregate">'. 
-
-				// __('Average rating: %d out of 5 based on %d ', 'quick-business-website').
-
-sprintf( esc_html( _n( 'Average rating: %1$s out of 5 based on %2$d review.', 'Average rating: %1$s out of 5 based on %2$d reviews.', $this->got_aggregate["total"], 'quick-business-website' ) ), $average_score, $this->got_aggregate["total"] );
-
+								sprintf( esc_html( _n( 'Average rating: %1$s out of 5 based on %2$d review.', 'Average rating: %1$s out of 5 based on %2$d reviews.', $this->got_aggregate["total"], 'quick-business-website' ) ),
+									$average_score,
+									$this->got_aggregate["total"] ) .
+								'</span>';
 				
-			// Add structured data for aggregate rating to the metadata array @test now now  
-
+			// Add structured data for aggregate rating to the metadata array
 			$metadata['aggregateRating'] = array(
 				'@type' => 'AggregateRating',
 				'ratingValue' => $average_score,
@@ -587,54 +525,19 @@ sprintf( esc_html( _n( 'Average rating: %1$s out of 5 based on %2$d review.', 'A
 				'reviewCount' => $this->got_aggregate["total"]
 			);
 
-
-			/************************************************************
-			*
-			* @todo now @test now @WORKING ON NOW:
-
-			possibly migrate all microdata to json-ld.
-			
-			*
-			************************************************************/
-			
-
 			// Add the reviews structured data in JSON-LD format
 			?>
 			<script type="application/ld+json"><?php echo wp_json_encode( $metadata ); ?></script>
 			<?php
-
-
-
-
-
-
-
-// @test delete...
-
-			if($this->got_aggregate["total"] == 1)
-				$basedon = __('review.', 'quick-business-website');
-			else
-				$basedon = __('reviews.', 'quick-business-website');
-
-			$reviews_content .= sprintf(__('%s', 'quick-business-website'), $basedon). '</span>';
-
-
-
-
 
 			/************************************************************
 			*
 			* @todo methinks the .isa_vcard is forgotten to be closed here.
 			*
 			************************************************************/
-			
+		}
 
-			// add closing wrapper div for business microdata type
-			// $reviews_content .= '</div><!-- end LocalBusiness microdata type -->';// @todo temp hold this while i test json-ld data
-
-			}
-
-		return array($reviews_content, $total_reviews);
+		return array( $reviews_content, $total_reviews );
 	}
 	
 	/* trims text, but does not break up a word */
@@ -659,34 +562,6 @@ sprintf( esc_html( _n( 'Average rating: %1$s out of 5 based on %2$d review.', 'A
 
 	}
 
-	/** @todo may have to modify this desc if/since we don't add reviews page with this filter anymore.
-	 * Reviews output.
-	 * 
-	 * Does the reviews page content on the reviews page and maybe the aggregate rating on the front page.
-	 */
-	// public function do_the_content( $original_content = '' ) {
-	// 	global $post;
-	// 	if ( ! in_the_loop() ) {
-	// 		return $original_content;
-	// 	}
-	// 	$reviews_content = '';
-
-
-	// 	***********************************************************
-	// 	*
-	// 	* @todo remove unused code from this func
-	// 	*
-	// 	***********************************************************
-		
-
-
-	// 	// Maybe add aggregate rating markup on front page
-	// 	if ( is_front_page() ) {// @todo rather than filtering content, maybe add this in init hook.
-	// 		$original_content .= $this->aggregate_footer();
-	// 	}
-	// 	return $original_content;
-	// }
-
 	public function output_rating($rating, $enable_hover) {
 		$out = '';
 		$rating_width = 20 * $rating; /* 20% for each star if having 5 stars */
@@ -702,7 +577,7 @@ sprintf( esc_html( _n( 'Average rating: %1$s out of 5 based on %2$d review.', 'A
 	}
 
 	function show_reviews_form() {
-		global $post; // @test need $current_user?
+		global $post;
 
 		$fields = '';
 		$out = '';
@@ -795,8 +670,7 @@ sprintf( esc_html( _n( 'Average rating: %1$s out of 5 based on %2$d review.', 'A
 		
 		foreach ( $this->options['require_fields'] as $col => $val ) {
 			if ( $val == 1 ) {
-				// $col = str_replace("'","\'",$col);
-				$col = esc_js( $col );// @test replace above
+				$col = esc_js( $col );
 				$req_js .= "smar_req.push('$col');";
 				$some_required = '<small>* '. __('Required Field', 'quick-business-website').'</small>';
 			}
@@ -804,7 +678,7 @@ sprintf( esc_html( _n( 'Average rating: %1$s out of 5 based on %2$d review.', 'A
 
 		foreach ( $this->options['require_custom'] as $i => $val ) {
 			if ( $val == 1 ) {
-				$i = (int) $i;// @test
+				$i = (int) $i;
 				$req_js .= "smar_req.push('custom_$i');";
 				$some_required = '<small>* '. __('Required Field', 'quick-business-website').'</small>';
 			}
@@ -973,7 +847,7 @@ sprintf( esc_html( _n( 'Average rating: %1$s out of 5 based on %2$d review.', 'A
 				if ( isset($this->p->$custom_i) ) {
 					
 					// isa_log( 'yes, $this->p->$custom_i isset. = ');
-					// isa_log( $this->p->$custom_i );// @test now now
+					// isa_log( $this->p->$custom_i );// @test
 
 					$custom_insert[$name] = ucfirst($this->p->$custom_i);
 				}

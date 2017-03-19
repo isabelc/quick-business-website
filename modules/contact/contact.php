@@ -25,7 +25,7 @@ $qbw_form_strings = array(
 /**
  * check for malicious input
  */
-function sbfc_malicious_input($input) {
+function qbw_contact_malicious_input($input) {
 	$maliciousness = false;
 	$denied_inputs = array("\r", "\n", "mime-version", "content-type", "cc:", "to:");
 	foreach($denied_inputs as $denied_input) {
@@ -39,7 +39,7 @@ function sbfc_malicious_input($input) {
 /**
  * check for spam
  */
-function sbfc_spam_question($input) {
+function qbw_contact_spam_question($input) {
 	$response = '2';
 	$response = stripslashes(trim($response));
 	return ($input == $response);
@@ -47,7 +47,7 @@ function sbfc_spam_question($input) {
 /**
  * Get ip address
  */
-function sbfc_get_ip_address() {
+function qbw_contact_get_ip_address() {
 	if(isset($_SERVER)) {
 		if(isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
 			$ip_address = $_SERVER["HTTP_X_FORWARDED_FOR"];
@@ -70,7 +70,7 @@ function sbfc_get_ip_address() {
 /**
  * filter input
  */
-function sbfc_input_filter() {
+function qbw_contact_input_filter() {
 	if ( ! ( isset( $_POST['sbfc_key'] ) ) ) { 
 		return false;
 	}
@@ -101,7 +101,7 @@ function sbfc_input_filter() {
 			$fail = 'empty';
 			$qbw_form_strings['response'] = '<input class="smartestb_sbfc_error" name="sbfc_response" id="sbfc_response" type="text" size="33" maxlength="99" value="'. esc_html( $_POST['sbfc_response'] ) .'" placeholder="1 + 1 =" />';
 		}
-		if (!sbfc_spam_question($_POST['sbfc_response'])) {
+		if (!qbw_contact_spam_question($_POST['sbfc_response'])) {
 			$pass = FALSE;
 			$fail = 'wrong';
 			$qbw_form_strings['response'] = '<input class="smartestb_sbfc_error" name="sbfc_response" id="sbfc_response" type="text" size="33" maxlength="99" value="'. esc_html( $_POST['sbfc_response'] ) .'" placeholder="1 + 1 =" />';
@@ -119,7 +119,7 @@ function sbfc_input_filter() {
 			$qbw_form_strings['phone'] = '<input class="smartestb_sbfc_error" name="sbfc_phone" id="sbfc_phone" type="text" size="33" maxlength="99" value="'. esc_html( $_POST['sbfc_phone'] ) . '" />';
 		}
 	}
-	if(sbfc_malicious_input($_POST['smartestb_sbfc_name']) || sbfc_malicious_input($_POST['smartestb_sbfc_email'])) {
+	if(qbw_contact_malicious_input($_POST['smartestb_sbfc_name']) || qbw_contact_malicious_input($_POST['smartestb_sbfc_email'])) {
 		$pass = false; 
 		$fail = 'malicious';
 	}
@@ -142,44 +142,44 @@ function sbfc_input_filter() {
 /**
  * shortcode to display contact form
  */
-function sbfc_shortcode() {
-	if ( sbfc_input_filter() ) {
-		return sbfc_process_contact_form();
+function qbw_contact_shortcode() {
+	if ( qbw_contact_input_filter() ) {
+		return qbw_process_contact_form();
 	} else {
-		return sbfc_display_contact_form();
+		return qbw_contact_display_contact_form();
 	}
 }
-add_shortcode( 'qbw_contact_form','sbfc_shortcode' );
+add_shortcode( 'qbw_contact_form','qbw_contact_shortcode' );
 /**
  * @todo at some point, remove this shortcode
  * @deprecated since version 2.0
  */
-add_shortcode( 'smartest_themes_contact_form','sbfc_shortcode' );
+add_shortcode( 'smartest_themes_contact_form','qbw_contact_shortcode' );
 /**
  * template tag to display contact form
  * @todo at some point, remove this function
  * @deprecated since version 2.0
  */
 function smartest_themes_contact_form() {
-	if ( sbfc_input_filter() ) {
-		echo sbfc_process_contact_form();
+	if ( qbw_contact_input_filter() ) {
+		echo qbw_process_contact_form();
 	} else {
-		echo sbfc_display_contact_form();
+		echo qbw_contact_display_contact_form();
 	}
 }
 /**
  * create contact page with working contact form
  * @uses insert_post()
  */
-function sbf_create_contact_page() {
+function qbw_contact_create_contact_page() {
 	if ( get_option( 'qbw_stop_contact') == 'false' ) {
-		$bn = stripslashes_deep( esc_attr( get_option( 'qbw_business_name' ) ) );
+		$bn = stripslashes( esc_attr( get_option( 'qbw_business_name' ) ) );
 		$contitle = sprintf(__('Contact %s','quick-business-website'), $bn);
 		global $Quick_Business_Website;
 		$Quick_Business_Website->insert_post( 'page', esc_sql( _x('contact', 'page_slug', 'quick-business-website') ), 'qbw_contact_page_id', $contitle, '[qbw_contact_form]' );
 	}
 } 
-add_action('after_setup_theme', 'sbf_create_contact_page');
+add_action('after_setup_theme', 'qbw_contact_create_contact_page');
 // if contact page is disabled, delete the page
 if(get_option( 'qbw_stop_contact') == 'true') {
 	wp_delete_post(get_option('qbw_contact_page_id'), true);
@@ -187,7 +187,7 @@ if(get_option( 'qbw_stop_contact') == 'true') {
 /**
  * enqueue CSS and validation script
  */
-function sbfc_enqueue_scripts() {
+function qbw_contact_enqueue_scripts() {
 	wp_register_script( 'qbw-contact-validate', QUICKBUSINESSWEBSITE_URL . 'modules/contact/validate.js', array('jquery' ) );
 	wp_register_style( 'qbw-contact', QUICKBUSINESSWEBSITE_URL . 'modules/contact/contact.css' );
 	if ( is_page( get_option( 'qbw_contact_page_id' ) ) ) {
@@ -195,11 +195,11 @@ function sbfc_enqueue_scripts() {
 		wp_enqueue_style( 'qbw-contact' );
 	}
 }
-add_action('wp_enqueue_scripts', 'sbfc_enqueue_scripts');
+add_action('wp_enqueue_scripts', 'qbw_contact_enqueue_scripts');
 /**
  * process contact form
  */
-function sbfc_process_contact_form( $content='' ) {
+function qbw_process_contact_form( $content='' ) {
 	global $qbw_options;
 
 	// Gather settings
@@ -235,7 +235,7 @@ function sbfc_process_contact_form( $content='' ) {
 	}
 
 	$recipsite = esc_url( get_bloginfo('url') );
-	$senderip  = esc_html( sbfc_get_ip_address() );
+	$senderip  = esc_html( qbw_contact_get_ip_address() );
 	$agent     = esc_html( $_SERVER['HTTP_USER_AGENT'] );
 	$url       = esc_url( getenv("HTTP_REFERER") );
 	$host      = esc_url( gethostbyaddr( $_SERVER['REMOTE_ADDR'] ) );
@@ -299,7 +299,7 @@ $i18n_agent  $agent
 /**
  * display contact form
  */
-function sbfc_display_contact_form() {
+function qbw_contact_display_contact_form() {
 	global $qbw_options, $qbw_form_strings;
 	$captcha_box = '';
 	$phone_field = '';
@@ -369,4 +369,25 @@ function sbfc_display_contact_form() {
 		' . $appform);
 	return $sbfc_form;
 }
+
+/**
+ * Add JSON-LD structured data to the contact page.
+ */
+function qbw_contactpage_structured_data() {
+	if ( ! is_page( get_option( 'qbw_contact_page_id' ) ) ) {
+		return;
+	}
+
+	$metadata = array(
+		'@context' => 'http://schema.org',
+		'@type' => 'ContactPage',
+		'mainEntity' => qbw_business_structured_data()
+	);
+
+	?>
+	<script type="application/ld+json"><?php echo wp_json_encode( $metadata ); ?></script>
+	<?php
+}
+
+add_action( 'wp_head', 'qbw_contactpage_structured_data' );
 ?>

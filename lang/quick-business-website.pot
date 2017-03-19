@@ -1425,7 +1425,7 @@ msgid "m/d/Y g:i a"
 msgstr ""
 
 #: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:707
-msgid "View Review on Page"
+msgid "View Live Review"
 msgstr ""
 
 #: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:710

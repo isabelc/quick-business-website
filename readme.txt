@@ -26,16 +26,15 @@ Get a complete business website up with a few clicks. When you activate this plu
 
 After you enter your business information, your site will then automatically have:
 
-- Schema.org `LocalBusiness` microdata on the Contact page, as [recommended by Google](http://support.google.com/webmasters/bin/answer.py?hl=en&answer=99170&topic=1088472&ctx=topic), to help generate rich snippets for your business in Google search.
+- Structured data for `LocalBusiness` on the Home page and Contact page in JSON-LD format as [recommended by Google](http://support.google.com/webmasters/bin/answer.py?hl=en&answer=99170&topic=1088472&ctx=topic) to help generate rich snippets for your business in Google search.
 - an 'About' page
 - the Contact page will display, in addition to the contact form, links to your business's social profiles (Facebook, Twitter, Google+, Youtube, etc.), business hours, address, phone, fax number, and email address (all optional). 
 
 When you get your first review, your site will then automatically have:
 
-- `aggregateRating` Schema.org microdata which will add stars to your website in Google search results, making your site stand out.
+- Structured data for Reviews and for `aggregateRating` which will add stars to your website in Google search results, making your site stand out.
 
 For more info, see the [Documentation](https://isabelcastillo.com/free-plugins/quick-business-website).
-
 
 == Installation ==
 

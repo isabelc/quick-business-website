@@ -46,46 +46,54 @@ function qbw_get_business_name() {
 	return $n;
 }
 /**
- * Return the Address structured data markup
+ * Return the LocalBusiness structured data markup
+ * @return array $data array to use for JSON-LD format
  */
-function qbw_address_structured_data() {
-	$data = '';
+function qbw_business_structured_data() {
 	$options = get_option( 'qbw_options' );
 	$keys = array( 'qbw_address_street',
 			'qbw_address_suite',
 			'qbw_address_city',
 			'qbw_address_state',
 			'qbw_address_zip',
-			'qbw_address_country'
+			'qbw_address_country',
+			'qbw_phone_number',
+			'qbw_fax_numb'			
 	);
 	foreach ( $keys as $key ) {
-		${$key} = isset( $options[ $key ] ) ?
-				esc_html( stripslashes( $options[ $key ] ) ) :
-				'';
+		${$key} = isset( $options[ $key ] ) ? stripslashes( $options[ $key ] ) : '';
 	}
-	if ( $qbw_address_street ) {
-		$data .= '<p id="qbw-addy-box" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"><span itemprop="streetAddress">' . $qbw_address_street . '</span>&nbsp;';
+	$data = array(
+	'@context' => 'http://schema.org',
+		'@type' => 'LocalBusiness',
+		'name' => qbw_get_business_name(),
+		'address' => array(
+			'@type' => 'PostalAddress',
+			'streetAddress' => $qbw_address_street . ' ' . $qbw_address_suite,
+			'addressLocality' => $qbw_address_city,
+			'addressRegion' => $qbw_address_state,
+			'postalCode' => $qbw_address_zip,
+			'addressCountry' => $qbw_address_country
+		),
+		'telephone' => $qbw_phone_number,
+		'faxNumber' => $qbw_fax_numb,
+		'priceRange' => '$$$'// @todo at some point, allow this to be set
+	);
+
+	if ( $logo = get_theme_mod( 'custom_logo' ) ) {
+		$image_attributes = wp_get_attachment_image_src( $logo, 'full' );
+	} elseif ( $site_icon = get_site_icon_url() ) {
+		$image_attributes = array( $site_icon, 512, 512 );
 	}
-	if ( $qbw_address_suite ) {
-		$data .= ' ' . $qbw_address_suite . '&nbsp;';
+
+	if ( ! empty( $image_attributes ) ) {
+		$data['image'] = array(
+			'@type' => 'ImageObject',
+			'url' => $image_attributes[0],
+			'width' => $image_attributes[1],
+			'height' => $image_attributes[2],
+		);
 	}
-	if ( $qbw_address_city ) {
-		$data .= '<br /><span itemprop="addressLocality">' . $qbw_address_city . '</span>';
-	}
-	if ( $qbw_address_city && $qbw_address_state ) {
-		$data .= ', ';
-	}
-	if ( $qbw_address_state ) {
-		$data .= '<span itemprop="addressRegion">' . $qbw_address_state . '</span>&nbsp;';
-	}
-	if ( $qbw_address_zip ) {
-		$data .= ' <span class="postal-code" itemprop="postalCode">' . $qbw_address_zip . '</span>&nbsp;';
-	}
-	if ( $qbw_address_country ) {
-		$data .= '<br /><span itemprop="addressCountry">' . $qbw_address_country . '</span>&nbsp;';
-	}
-	if ( $qbw_address_street ) {
-		$data .= '</p>'; // close #qbw-addy-box
-	}
+
 	return $data;
 }

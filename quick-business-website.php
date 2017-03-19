@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: https://isabelcastillo.com/free-plugins/quick-business-website
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 2.0.alpha.8
+Version: 2.0.alpha.9
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -38,48 +38,47 @@ class Quick_Business_Website {
 	}
 
 	private function __construct() {
-			if ( ! defined( 'QUICKBUSINESSWEBSITE_PATH' ) ) {
-				define( 'QUICKBUSINESSWEBSITE_PATH', plugin_dir_path( __FILE__) );
-			}
-			if ( ! defined( 'QUICKBUSINESSWEBSITE_URL' ) ) {
-				define( 'QUICKBUSINESSWEBSITE_URL', plugin_dir_url( __FILE__) );
-			}
-			add_action( 'admin_init', array( $this, 'admin_init' ) );
-			add_action( 'plugins_loaded', array( $this, 'load' ) );
-			add_action( 'wp_ajax_smartestb_ajax_post_action', array( $this, 'ajax_callback' ) );
-			add_action( 'admin_menu', array( $this, 'add_admin' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_scripts' ) );
-			add_filter( 'plugin_action_links', array( $this, 'settings_link' ), 2, 2 );
-			add_action( 'login_head', array( $this, 'login_logo' ) );
-			add_filter( 'login_headerurl',
-			    create_function(false,"return get_home_url();"));
-			add_filter( 'login_headertitle', array( $this, 'wp_login_title' ) );
-			add_action( 'after_setup_theme', array( $this, 'after_setup' ) );
-			add_action( 'init', array( $this, 'create_business_cpts') );
-			add_action( 'init', array( $this, 'set_taxonomies' ), 0 );
-			add_action( 'init', array( $this, 'textdomain' ) );
-			add_action( 'init', array( $this, 'metaboxes') );
-			add_filter( 'enter_title_here', array( $this, 'change_enter_title') );
-			add_action( 'widgets_init', array( $this, 'register_widgets') );
-			add_filter( 'manage_edit-smartest_staff_columns', array( $this, 'smar_manage_edit_staff_columns') );
-			add_action( 'manage_smartest_staff_posts_custom_column', array( $this, 'smar_manage_staff_columns' ), 10, 2 );
-			add_filter( 'manage_edit-smartest_services_columns', array( $this, 'smar_manage_edit_services_columns') );
-			add_action( 'manage_smartest_services_posts_custom_column', array( $this, 'smar_manage_services_columns' ), 10, 2 );
-			add_filter( 'manage_edit-smartest_news_columns', array( $this, 'smar_manage_edit_news_columns') );
-			add_action( 'manage_smartest_news_posts_custom_column', array( $this, 'smar_manage_news_columns' ), 10, 2 );
-			add_filter( 'admin_footer_text', array( $this, 'remove_footer_admin') ); 
-			add_action( 'wp_before_admin_bar_render', array( $this, 'admin_bar') ); 
-			add_action( 'wp_enqueue_scripts', array( $this, 'framework_enq') ); 
-			add_filter ( 'the_content',  array( $this, 'staff_meta_content_filter' ) );
-			add_filter ( 'the_content',  array( $this, 'contact_content_filter' ), 50 );
-			add_filter( 'parse_query', array( $this, 'sort_staff' ) );
-			if ( get_option( 'qbw_enable_service_sort') == 'true'  ) { 
-				add_filter( 'parse_query', array( $this, 'sort_services' ) );
-			}
-			add_action( 'admin_init', array( $this, 'upgrade_options' ) );
-			add_action( 'qbw_settings_checkbox_save', array( $this, 'set_services_sort_order' ), 10, 2 );
-			add_filter( 'qbw_sanitize_setting', array( $this, 'sanitize_setting' ), 10, 2 );
-
+		if ( ! defined( 'QUICKBUSINESSWEBSITE_PATH' ) ) {
+			define( 'QUICKBUSINESSWEBSITE_PATH', plugin_dir_path( __FILE__) );
+		}
+		if ( ! defined( 'QUICKBUSINESSWEBSITE_URL' ) ) {
+			define( 'QUICKBUSINESSWEBSITE_URL', plugin_dir_url( __FILE__) );
+		}
+		add_action( 'admin_init', array( $this, 'admin_init' ) );
+		add_action( 'plugins_loaded', array( $this, 'load' ) );
+		add_action( 'wp_ajax_smartestb_ajax_post_action', array( $this, 'ajax_callback' ) );
+		add_action( 'admin_menu', array( $this, 'add_admin' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_scripts' ) );
+		add_filter( 'plugin_action_links', array( $this, 'settings_link' ), 2, 2 );
+		add_action( 'login_head', array( $this, 'login_logo' ) );
+		add_filter( 'login_headerurl',
+		    create_function(false,"return get_home_url();"));
+		add_filter( 'login_headertitle', array( $this, 'wp_login_title' ) );
+		add_action( 'after_setup_theme', array( $this, 'after_setup' ) );
+		add_action( 'init', array( $this, 'create_business_cpts') );
+		add_action( 'init', array( $this, 'set_taxonomies' ), 0 );
+		add_action( 'init', array( $this, 'textdomain' ) );
+		add_action( 'init', array( $this, 'metaboxes') );
+		add_filter( 'enter_title_here', array( $this, 'change_enter_title') );
+		add_action( 'widgets_init', array( $this, 'register_widgets') );
+		add_filter( 'manage_edit-smartest_staff_columns', array( $this, 'smar_manage_edit_staff_columns') );
+		add_action( 'manage_smartest_staff_posts_custom_column', array( $this, 'smar_manage_staff_columns' ), 10, 2 );
+		add_filter( 'manage_edit-smartest_services_columns', array( $this, 'smar_manage_edit_services_columns') );
+		add_action( 'manage_smartest_services_posts_custom_column', array( $this, 'smar_manage_services_columns' ), 10, 2 );
+		add_filter( 'manage_edit-smartest_news_columns', array( $this, 'smar_manage_edit_news_columns') );
+		add_action( 'manage_smartest_news_posts_custom_column', array( $this, 'smar_manage_news_columns' ), 10, 2 );
+		add_filter( 'admin_footer_text', array( $this, 'remove_footer_admin') ); 
+		add_action( 'wp_before_admin_bar_render', array( $this, 'admin_bar') ); 
+		add_action( 'wp_enqueue_scripts', array( $this, 'framework_enq') ); 
+		add_filter ( 'the_content',  array( $this, 'staff_meta_content_filter' ) );
+		add_filter ( 'the_content',  array( $this, 'contact_content_filter' ), 50 );
+		add_filter( 'parse_query', array( $this, 'sort_staff' ) );
+		if ( get_option( 'qbw_enable_service_sort') == 'true'  ) { 
+			add_filter( 'parse_query', array( $this, 'sort_services' ) );
+		}
+		add_action( 'admin_init', array( $this, 'upgrade_options' ) );
+		add_action( 'qbw_settings_checkbox_save', array( $this, 'set_services_sort_order' ), 10, 2 );
+		add_filter( 'qbw_sanitize_setting', array( $this, 'sanitize_setting' ), 10, 2 );
     }
 
 	/** 
@@ -1381,7 +1380,7 @@ class Quick_Business_Website {
 			return $content;
 		}
 
-		$contactcontent = '<div id="qbw-col-wrap"><div class="qbw-one-half">' . $content . '</div><div id="qbw-contact-info" class="qbw-one-half" itemscope itemtype="http://schema.org/LocalBusiness">';
+		$contactcontent = '<div id="qbw-col-wrap"><div class="qbw-one-half">' . $content . '</div><div id="qbw-contact-info" class="qbw-one-half">';
 		// social box
 		$contactcontent .= '<ul id="qbw-staff-socials">';
 		if ( get_option( 'qbw_old_social_icons' ) == 'false') {
@@ -1396,8 +1395,7 @@ class Quick_Business_Website {
 			$yout = 'youtube';
 		}
 
-		$keys = array(
-			'qbw_business_twitter',
+		$keys = array( 'qbw_business_twitter',
 			'qbw_business_gplus',
 			'qbw_business_facebook',
 			'qbw_business_youtube',
@@ -1406,6 +1404,14 @@ class Quick_Business_Website {
 			'qbw_business_socialurl2',
 			'qbw_business_sociallabel2',
 			'qbw_business_name',
+			'qbw_address_street',
+			'qbw_address_suite',
+			'qbw_address_city',
+			'qbw_address_state',
+			'qbw_address_zip',
+			'qbw_address_country',
+			'qbw_phone_number',
+			'qbw_fax_numb',
 			'qbw_hours',
 			'qbw_phone_number',
 			'qbw_fax_numb',
@@ -1438,8 +1444,6 @@ class Quick_Business_Website {
 		if ( $qbw_business_facebook ) {
 			$contactcontent .= '<li><a class="' . $face . '" href="https://facebook.com/' . $qbw_business_facebook . '" title="'. __('Facebook', 'quick-business-website') . '"></a></li>';
 		}
-
-
 		if ( $qbw_business_youtube ) {
 			$contactcontent .= '<li><a class="' . $yout. '" href="https://youtube.com/user/' . $qbw_business_youtube . '" title="'. __('Youtube', 'quick-business-website') . '"></a></li>';
 		}
@@ -1449,9 +1453,32 @@ class Quick_Business_Website {
 		if ( $qbw_business_socialurl2 ) {
 			$contactcontent .= '<li><a class="item-add" target="_blank" href="'. $qbw_business_socialurl2 . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . $qbw_business_sociallabel2 . '</a></li>';
 		} 
-		$contactcontent .= '</ul><strong><span itemprop="name">' . $qbw_business_name . '</span></strong><br />';
+		$contactcontent .= '</ul><strong><span>' . $qbw_business_name . '</span></strong><br />';
 
-		$contactcontent .= qbw_address_structured_data();
+		if ( $qbw_address_street ) {
+			$contactcontent .= '<p id="qbw-addy-box">' . $qbw_address_street . '&nbsp;';
+		}
+		if ( $qbw_address_suite ) {
+			$contactcontent .= ' ' . $qbw_address_suite . '&nbsp;';
+		}
+		if ( $qbw_address_city ) {
+			$contactcontent .= '<br />' . $qbw_address_city;
+		}
+		if ( $qbw_address_city && $qbw_address_state ) {
+			$contactcontent .= ', ';
+		}
+		if ( $qbw_address_state ) {
+			$contactcontent .= $qbw_address_state . '&nbsp;';
+		}
+		if ( $qbw_address_zip ) {
+			$contactcontent .= ' <span class="postal-code">' . $qbw_address_zip . '</span>&nbsp;';
+		}
+		if ( $qbw_address_country ) {
+			$contactcontent .= '<br /><span class="qbw-country">' . $qbw_address_country . '</span>&nbsp;';
+		}
+		if ( $qbw_address_street ) {
+			$contactcontent .= '</p>'; // close #qbw-addy-box
+		}		
 
 		if ( $qbw_hours ) {
 			$contactcontent .= '<div id="qbw-contact-hours"><strong>Business Hours: </strong><br />' . wpautop( $qbw_hours ) . '</div>';
@@ -1460,15 +1487,15 @@ class Quick_Business_Website {
 		if ( $qbw_phone_number || $qbw_fax_numb || ( 'true' == $qbw_show_contactemail ) ) {
 			$contactcontent .= '<p>';
 			if ( $qbw_phone_number ) {
-				$contactcontent .= '' . __('Telephone:', 'quick-business-website') . ' <span itemprop="telephone">'. $qbw_phone_number . '</span>';
+				$contactcontent .= '' . __('Telephone:', 'quick-business-website') . ' <span class="qbw-phone">'. $qbw_phone_number . '</span>';
 			}
 			if ( $qbw_fax_numb ) {
-				$contactcontent .= '<br />' . __('FAX:', 'quick-business-website') . ' <span itemprop="faxNumber">' . $qbw_fax_numb . '</span>';
+				$contactcontent .= '<br />' . __('FAX:', 'quick-business-website') . ' <span class="qbw-fax">' . $qbw_fax_numb . '</span>';
 			
 			} 
 			if ( 'true' == $qbw_show_contactemail ) {
 				$email = antispambot( esc_html( get_bloginfo( 'admin_email' ) ) );
-				$contactcontent .= '<br />' . __('Email:', 'quick-business-website') . ' <a href="mailto:' . $email . '"><span itemprop="email">' . $email . '</span></a><br />';
+				$contactcontent .= '<br />' . __('Email:', 'quick-business-website') . ' <a href="mailto:' . $email . '">' . $email . '</a><br />';
 
 			}
 			$contactcontent .= '</p>';
