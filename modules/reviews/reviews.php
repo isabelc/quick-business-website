@@ -12,7 +12,6 @@
  */
 class QBW_Reviews {
 	var $dbtable = 'smareviewsb';
-	var $force_active_page = false;
 	var $got_aggregate = false;
 	var $options = array();
 	var $p = '';
@@ -27,17 +26,20 @@ class QBW_Reviews {
 
 		define( 'QBW_REVIEWS', 1 );
 		$this->dbtable = $wpdb->prefix . $this->dbtable;
-		$this->plugin_version = get_option('qbw_smartestb_plugin_version');
-		add_action('the_content', array( $this, 'do_the_content'), 10); /* prio 10 prevents a conflict with some odd themes */
-		add_action('init', array( $this, 'init'));
-		add_action('admin_init', array( $this, 'admin_init'));
-		add_action( 'widgets_init', array( $this, 'register_widget'));
-		add_action('template_redirect',array( $this, 'template_redirect')); /* handle redirects and form posts, and add style/script if needed */
-		add_action('admin_menu', array( $this, 'addmenu'));
-		add_action('wp_ajax_update_field', array( $this, 'admin_view_reviews'));
-		add_action( 'admin_init', array( $this, 'create_reviews_page'));
-		add_action('wp_enqueue_scripts', array( $this, 'enqueue_scripts'));
-		add_action('admin_enqueue_scripts', array( $this, 'admin_scripts'));
+		$this->plugin_version = get_option( 'qbw_smartestb_plugin_version' );
+
+		// @todo possibly remove....
+		// add_action( 'the_content', array( $this, 'do_the_content'), 10 ); /* prio 10 prevents a conflict with some odd themes */
+		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'admin_init', array( $this, 'admin_init' ) );
+		add_action( 'widgets_init', array( $this, 'register_widget' ) );
+		add_action( 'template_redirect',array( $this, 'template_redirect' ) ); /* handle redirects and form posts, and add style/script if needed */
+		add_action( 'admin_menu', array( $this, 'addmenu' ) );
+		add_action( 'wp_ajax_update_field', array( $this, 'admin_view_reviews' ) );
+		add_action( 'admin_init', array( $this, 'create_reviews_page' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+		add_action( 'wp_head', array( $this, 'frontpage_structured_data' ) );
 	}
 
 	function addmenu() {
@@ -67,8 +69,6 @@ class QBW_Reviews {
 		return $link;
 	}
 	function get_options() {
-		$home_domain = @parse_url(get_home_url());
-		$home_domain = $home_domain['scheme'] . "://" . $home_domain['host'] . '/';
 		$default_options = array(
 			'act_email' => '',
 			'act_uniq' => '',
@@ -78,9 +78,9 @@ class QBW_Reviews {
 			'dbversion' => 0,
 			'field_custom' => array(),
 			'form_location' => 0,
-			'goto_leave_text' => __('Click here to add your review.', 'quick-business-website'),
+			'goto_leave_text' => __( 'Click here to add your review.', 'quick-business-website' ),
+			'leave_text' => __( 'Submit your review', 'quick-business-website' ),
 			'goto_show_button' => 1,
-			'leave_text' => __('Submit your review', 'quick-business-website'),
 			'require_custom' => array(),
 			'require_fields' => array('fname' => 1, 'femail' => 1, 'fwebsite' => 0, 'ftitle' => 0, 'fage' => 0, 'fgender' => 0),
 			'reviews_per_page' => 10,
@@ -117,7 +117,7 @@ class QBW_Reviews {
 			if (is_array($val)) {
 				$this->p->$c = $val;
 			} else {
-				$this->p->$c = trim(stripslashes($val));
+				$this->p->$c = sanitize_text_field( stripslashes( $val ) );
 			}
 		}
 
@@ -125,7 +125,7 @@ class QBW_Reviews {
 			if (is_array($val)) {
 				$this->p->$c = $val;
 			} else {
-				$this->p->$c = trim(stripslashes($val));
+				$this->p->$c = sanitize_text_field( stripslashes( $val ) );
 			}
 		}
 	}
@@ -169,21 +169,7 @@ class QBW_Reviews {
 		return false;
 	}
 
-	function is_active_page() {
-		global $post;
-		$has_shortcode = $this->force_active_page;
-		if ( $has_shortcode !== false ) {
-			return 'shortcode';
-		}
-		if ( !isset($post) || !isset($post->ID) || intval($post->ID) == 0 ) {
-			return false; /* we can only use if we have a valid post ID */
-		}
-		if (!is_singular()) {
-			return false; /* not on a single post/page view */
-		}
-		return false;
-	}
-	function template_redirect() {
+	public function template_redirect() {
 		/* do this in template_redirect so we can try to redirect cleanly */
 		global $post;
 		if (!isset($post) || !isset($post->ID)) {
@@ -198,14 +184,13 @@ class QBW_Reviews {
 			}
 		}
 		$GET_P = "submitsmar_$post->ID";
-		if ($post->ID > 0 && isset($this->p->$GET_P) && $this->p->$GET_P == $this->options['submit_button_text'])
-		{
-			$msg = $this->add_review($post->ID);
-			$has_error = $msg[0];
-			$status_msg = $msg[1];
-			$url = get_permalink($post->ID);
-			$cookie = array('smar_status_msg' => $status_msg);
-			$this->smar_redirect($url, $cookie);
+		if ( $post->ID > 0 && isset( $this->p->$GET_P ) && $this->p->$GET_P == $this->options['submit_button_text'] ) {
+			$msg = $this->add_review( $post->ID );
+			// $has_error = $msg[0];// @test need? 
+			// $status_msg = $msg[1];// @test just send $msg
+			$url = get_permalink( $post->ID );
+			$cookie = array( 'smar_has_error' => $msg[0], 'smar_status_msg' => $msg[1] );
+			$this->smar_redirect( $url, $cookie );
 		}
 	}
 	function rand_string($length) {
@@ -218,25 +203,23 @@ class QBW_Reviews {
 		}
 		return $str;
 	}
-	function get_aggregate_reviews($pageID) {
+	function get_aggregate_reviews() {
 		if ($this->got_aggregate !== false) {
 			return $this->got_aggregate;
 		}
 		global $wpdb;
-		$pageID = get_option( 'qbw_reviews_page_id' );
 		$row = $wpdb->get_results("SELECT COUNT(*) AS `total`,AVG(review_rating) AS `aggregate_rating`,MAX(review_rating) AS `max_rating` FROM `$this->dbtable` WHERE `status`=1");
 
 		/* make sure we have at least one review before continuing below */
 		if ($wpdb->num_rows == 0 || $row[0]->total == 0) {
-			$this->got_aggregate = array("aggregate" => 0, "max" => 0, "total" => 0, "text" => __('Reviews for my site', 'quick-business-website'));
+			$this->got_aggregate = array( "aggregate" => 0, "max" => 0, "total" => 0 );
 			return false;
 		}
 		$aggregate_rating = $row[0]->aggregate_rating;
 		$max_rating = $row[0]->max_rating;
 		$total_reviews = $row[0]->total;
-		$row = $wpdb->get_results("SELECT `review_text` FROM `$this->dbtable` WHERE `page_id`=$pageID AND `status`=1 ORDER BY `date_time` DESC");
-		$sample_text = ! empty( $row[0]->review_text ) ? substr($row[0]->review_text, 0, 180) : '';
-		$this->got_aggregate = array("aggregate" => $aggregate_rating, "max" => $max_rating, "total" => $total_reviews, "text" => $sample_text);
+		
+		$this->got_aggregate = array( "aggregate" => $aggregate_rating, "max" => $max_rating, "total" => $total_reviews );
 		return true;
 	}
 	function get_reviews( $startpage, $perpage, $status ) {
@@ -271,99 +254,92 @@ class QBW_Reviews {
 		return array($reviews, $total_reviews);
 	}
 
-	function aggregate_footer() {// for home page
-		$qbw_options = get_option( 'qbw_options');
-		// gather agg data
-		$postID = get_option( 'qbw_reviews_page_id' );
-		$arr_Reviews = $this->get_reviews('', $this->options['reviews_per_page'], 1);
-		$reviews = $arr_Reviews[0];// 12.5 prob dont need
-		$total_reviews = intval($arr_Reviews[1]);
-		$this->get_aggregate_reviews($postID);
-		$best_score = 5;
-		$average_score = number_format($this->got_aggregate["aggregate"], 1);
-		$aggregate_footer_output = '';
-		/* only if set to agg Business ratings on front page and is front page & if home page is static then show. */
-		if ( ($this->options['show_hcard_on'] == 1) && is_front_page() && (get_option('show_on_front') == 'page') ) {
-						$show = true;
-					}
-else {$show = false; }
+	/** @todo if i go full json-ld, remove microdata markup all over.
+	 * Return the LocalBusiness Structured Data @test now now
+	 */
+	public function business_structured_data() {
+		$qbw_options = get_option( 'qbw_options' );
+		$data = '<div itemscope itemtype="http://schema.org/LocalBusiness"><span class="isa_vcard">
+			<span itemprop="name">' . esc_html( qbw_get_business_name() ) . '</span>';
 
-		if ($show) { /* we append like this to prevent newlines and wpautop issues */
-
-				// if set to declare business schema type, do it
-				if ( $this->options['biz_declare'] == 1 ) {
-						$isabiz_declare = ' itemscope itemtype="http://schema.org/LocalBusiness"';// isa depend
-						$aggregate_footer_output = '<div id="smar_respond_1"><div id="smar_hcard_s"' . $isabiz_declare . ' class="isa_vcard">';
-
-
-	$bn = stripslashes_deep(esc_attr($qbw_options['qbw_business_name']));if(!$bn) {$bn = get_bloginfo('name'); }
-
-			  $aggregate_footer_output .= '<a itemprop="name" href="' . site_url('/')
- . '">' . $bn . '</a><br />';
-						if (// isa depend addy
-									$qbw_options['qbw_address_street'] != '' || 
-									$qbw_options['qbw_address_city'] != '' ||
-									$qbw_options['qbw_address_state'] != '' ||
-									$qbw_options['qbw_address_zip'] != '' ||
-									$qbw_options['qbw_address_country'] != ''
-							   )
-							{
-								$aggregate_footer_output .= '<span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">';
-								if ($qbw_options['qbw_address_street'] != '') {
-									$aggregate_footer_output .= '<span itemprop="streetAddress">' . $qbw_options['qbw_address_street'] . '</span>&nbsp;';
-								}
-
-								if ($qbw_options['qbw_address_suite'] != '') {
-																	$aggregate_footer_output .= ' ' . $qbw_options['qbw_address_suite'] . '&nbsp;';
-																}
-
-								if ($qbw_options['qbw_address_city'] != '') {
-									$aggregate_footer_output .='<span itemprop="addressLocality">' . $qbw_options['qbw_address_city'] . '</span>,&nbsp;';
-								}
-								if ($qbw_options['qbw_address_state'] != '') {
-									$aggregate_footer_output .='<span itemprop="addressRegion">' . $qbw_options['qbw_address_state'] . '</span>,&nbsp;';
-								}
-								if ($qbw_options['qbw_address_zip'] != '') {
-									$aggregate_footer_output .='<span class="postal-code" itemprop="postalCode">' . $qbw_options['qbw_address_zip'] . '</span>&nbsp;';
-								}
-								if ($qbw_options['qbw_address_country'] != '') {
-									$aggregate_footer_output .='<span itemprop="addressCountry">' . $qbw_options['qbw_address_country'] . '</span>&nbsp;';
-								}
-			
-								$aggregate_footer_output .= '</span>';
-							}
-			
-							if ( $qbw_options['qbw_phone_number'] != '') {// isa depend
-								$aggregate_footer_output .= '<br />&nbsp;&bull;&nbsp<span itemprop="telephone">' . $qbw_options['qbw_phone_number'] . '</span>';
-							}
-
-
-					} else { // end if biz_declare, do else
-							$aggregate_footer_output = '<div id="smar_respond_1"><div id="smar_hcard_s" class="isa_vcard">';
-						}
-
-					// do agg rating for both scenarios
-
-					$aggregate_footer_output .= '<br /><span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" id="hreview-smar-aggregate"> '. __('Average rating:', 'quick-business-website'). ' <span itemprop="ratingValue" class="average">' . $average_score . '</span> ' . __('out of', 'quick-business-website'). ' <span itemprop="bestRating">' . $best_score . ' </span> '. __('based on', 'quick-business-website').' <span itemprop="ratingCount">' . $this->got_aggregate["total"] . ' </span>';
-				
-					if($this->got_aggregate["total"] == 1)
-						$basedon = __('review.', 'quick-business-website');
-					else
-						$basedon = __('reviews.', 'quick-business-website');
-					$aggregate_footer_output .= sprintf(__('%s', 'quick-business-website'), $basedon). '</span>';
-					$aggregate_footer_output .= '</div></div><!-- end agg footer -->';
-			
-			}// end if $show
-				return $aggregate_footer_output;
+		if ( ! empty( $qbw_options['qbw_phone_number'] ) ) {
+			$data .= '<br /><span itemprop="telephone">' . esc_html( $qbw_options['qbw_phone_number'] ) . '</span>';
+		}
+		$data .= qbw_address_structured_data();
+		return $data;
 	}
-	function iso8601($time=false) {
+
+	/**
+	 * Add JSON-LD structured data to the front page, if enabled.
+	 */
+	public function frontpage_structured_data() {
+  		// @test now now
+  		if ( ! is_front_page() ) {
+  			return;
+  		}
+		$metadata = qbw_address_structured_data( true );
+		?>
+		<script type="application/ld+json"><?php echo wp_json_encode( $metadata ); ?></script>
+		<?php
+	}
+
+	/**
+	 * The HTML for the aggregate rating for the front page.
+	 * This is only called if is_front_page() is true.
+	 */
+	public function aggregate_footer() {
+		$qbw_options = get_option( 'qbw_options');// @test need? 
+		// gather agg data
+		$arr_Reviews = $this->get_reviews( '', $this->options['reviews_per_page'], 1 );
+		$reviews = $arr_Reviews[0];// 12.5 prob dont need @todo need. can prob get total from got_aggregate. @test this.
+		$total_reviews = intval($arr_Reviews[1]);
+		$this->get_aggregate_reviews();// @test need? 
+		$average_score = number_format( $this->got_aggregate["aggregate"], 1 );
+		$aggregate_footer_output = '';
+		
+		/* Add markup only if the setting to show aggregate rating on front page is enabled & if home page is static */
+
+
+		/************************************************************
+		*
+		* @todo since i'm not duplicate checking for is_front_page(), make sure this doesn't get added to every page and post
+		*
+		************************************************************/
+		if ( 1 == $this->options['show_hcard_on'] && get_option('show_on_front') == 'page' ) {
+
+			$aggregate_footer_output = '<div id="smar_respond_1">';
+
+			// if "Add LocalBusiness Structured Data on Home page" is enabled, do it
+			if ( 1 == $this->options['biz_declare'] ) {
+				$aggregate_footer_output .= $this->business_structured_data();// @test now now
+			} else {
+						
+				$aggregate_footer_output = '<div id="smar_hcard_s" class="isa_vcard">';// Opening wrapper when LocalBusiness Structured Data is disabled
+			}
+
+			// aggregate rating @todo sync to only type this markup once.
+
+			$aggregate_footer_output .= '<br /><span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" id="qbw-reviews-aggregate"> '. __('Average rating:', 'quick-business-website'). ' <span itemprop="ratingValue" class="average">' . esc_html( $average_score ) . '</span> ' . __('out of', 'quick-business-website'). ' <span itemprop="bestRating">5 </span> '. __('based on', 'quick-business-website').' <span itemprop="ratingCount">' . esc_html( $this->got_aggregate["total"] ) . ' </span>';// @test this escaping
+				
+			if ( 1 == $this->got_aggregate["total"] ) {
+				$basedon = __('review.', 'quick-business-website');
+			} else {
+				$basedon = __('reviews.', 'quick-business-website');
+			}
+
+			$aggregate_footer_output .= sprintf(__('%s', 'quick-business-website'), $basedon). '</span>';
+			$aggregate_footer_output .= '</div><!-- .isa_vcard--></div><!-- #smar_respond_1 -->';
+		}
+		return $aggregate_footer_output;
+	}
+	public function iso8601($time=false) {
 		if ($time === false)
 			$time = time();
 		$date = date('Y-m-d\TH:i:sO', $time);
 		return (substr($date, 0, strlen($date) - 2) . ':' . substr($date, -2));
 	}
 
-	function pagination($total_results, $reviews_per_page) {
+	public function pagination( $total_results, $reviews_per_page ) {
 		global $post; /* will exist if on a post */
 
 		$out = '';
@@ -402,16 +378,17 @@ else {$show = false; }
 				} /* not in admin AND using pretty permalinks */ else {
 					$url2 = $url;
 				}
-				$out .= '<a href="' . $url2 . '">&laquo;</a>';
+				$out .= '<a href="' . esc_url( $url2 ) . '">&laquo;</a>';// @test esc_url
 			}
 
 			if ($paged > 1 && $showitems < $pages) {
-				$out .= '<a href="' . $url . 'smarp=' . ($paged - 1) . '">&lsaquo;</a>';
+				$url_pieces = $url . 'smarp=' . ($paged - 1);
+				$out .= '<a href="' . esc_url( $url_pieces ) . '">&lsaquo;</a>';
 			}
 
 			for ($i = 1; $i <= $pages; $i++) {
 				if ($i == $paged) {
-					$out .= '<span class="smar_current">' . $paged . '</span>';
+					$out .= '<span class="smar_current">' . esc_html( $paged ) . '</span>';
 				} else if (!($i >= $paged + $range + 1 || $i <= $paged - $range - 1) || $pages <= $showitems) {
 					if ($i == 1) {
 						if ($uri && $pretty) {
@@ -419,18 +396,21 @@ else {$show = false; }
 						} /* not in admin AND using pretty permalinks */ else {
 							$url2 = $url;
 						}
-						$out .= '<a href="' . $url2 . '" class="smar_inactive">' . $i . '</a>';
+						$out .= '<a href="' . esc_url( $url2 ) . '" class="smar_inactive">' . $i . '</a>';
 					} else {
-						$out .= '<a href="' . $url . 'smarp=' . $i . '" class="smar_inactive">' . $i . '</a>';
+						$url_pieces = $url . 'smarp=' . $i;
+						$out .= '<a href="' . esc_url( $url_pieces ) . '" class="smar_inactive">' . $i . '</a>';
 					}
 				}
 			}
 
 			if ($paged < $pages && $showitems < $pages) {
-				$out .= '<a href="' . $url . 'smarp=' . ($paged + 1) . '">&rsaquo;</a>';
+				$url_pieces = $url . 'smarp=' . ($paged + 1);
+				$out .= '<a href="' . esc_url( $url_pieces ) . '">&rsaquo;</a>';
 			}
 			if ($paged < $pages - 1 && $paged + $range - 1 < $pages && $showitems < $pages) {
-				$out .= '<a href="' . $url . 'smarp=' . $pages . '">&raquo;</a>';
+				$url_pieces = $url . 'smarp=' . $pages;
+				$out .= '<a href="' . esc_url( $url_pieces ) . '">&raquo;</a>';
 			}
 			$out .= '</div>';
 			$out .= '<div class="smar_clear smar_pb5"></div>';
@@ -438,76 +418,37 @@ else {$show = false; }
 			return $out;
 		}
 	}
-		
-	function output_reviews_show($inside_div, $postid, $perpage, $max, $hide_custom = 0, $hide_response = 0, $snippet_length = 0, $show_morelink = '') {
-	if ($max != -1) {
-			$thispage = 1;
-		} else {
-			$thispage = $this->page;
-		}
-	   $arr_Reviews = $this->get_reviews($thispage, $perpage, 1);
+
+	/**
+	 * The Reviews page content.
+	 */
+	public function reviews_html( $perpage ) {
+		$arr_Reviews = $this->get_reviews( $this->page, $perpage, 1 );
 		$reviews = $arr_Reviews[0];
-		$total_reviews = intval($arr_Reviews[1]);
+		$total_reviews = intval( $arr_Reviews[1] );
 		$reviews_content = '';
 		$hidesummary = '';
-		$title_tag = $this->options['title_tag'];
+		$title_tag = esc_attr( $this->options['title_tag'] );
 
 		$qbw_options = get_option( 'qbw_options');
-		$bn = stripslashes_deep(esc_attr($qbw_options['qbw_business_name']));if(!$bn) {$bn = get_bloginfo('name'); }
 
 		/* trying to access a page that does not exists -- send to main page */
 		if ( isset($this->p->smarp) && $this->p->smarp != 1 && count($reviews) == 0 ) {
-			$url = get_permalink(get_option( 'qbw_reviews_page_id' ));
-			$this->smar_redirect($url);
+			$url = get_permalink( get_option( 'qbw_reviews_page_id' ) );
+			$this->smar_redirect( $url );
 		}
-		
-		if ($postid == 0) {
-			/* NOTE: if using shortcode to show reviews for all pages, could do weird things when using product type */
-			$postid = $reviews[0]->page_id;
-		}
-
-		if (!$inside_div) {// isa depend itemtype, phone, addy
-
-			$reviews_content .= '<!-- no inside div --><div id="smar_respond_1"';
-				$reviews_content .= ' itemscope itemtype="http://schema.org/LocalBusiness">
-							<span class="isa_vcard" id="hreview-smar-hcard-for-' . $review->id . '">
-								<a itemprop="name" href="' . site_url('/') . '">' . $bn . '</a>
-								<span itemprop="telephone">' . $qbw_options['qbw_phone_number'] . '</span>
-								<span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-					<span itemprop="streetAddress">' . $qbw_options['qbw_address_street'] . ' ' .$qbw_options['qbw_address_suite'] . '</span>
-									<span itemprop="addressLocality">' . $qbw_options['qbw_address_city'] . '</span>
-									<span itemprop="addressRegion">' . $qbw_options['qbw_address_state'] . '</span> <span itemprop="postalCode">' . $qbw_options['qbw_address_zip'] . '</span>
-									<span itemprop="addressCountry">' . $qbw_options['qbw_address_country'] . '</span></span></span><hr />';
-		}
-		if (count($reviews) == 0) {
+		if ( count( $reviews ) == 0 ) {
 			$reviews_content .= '<p>'. __('There are no reviews yet. Be the first to leave yours!', 'quick-business-website').'</p>';
-		} elseif ($qbw_options['qbw_add_reviews'] == 'false') {
+		} elseif ( $qbw_options['qbw_add_reviews'] == 'false' ) {
 				$reviews_content .= '<p>'.__('Reviews are not available.', 'quick-business-website').'</p>';
-		} else {// isa depend itemtype, phone, addy
-			$postid = get_option( 'qbw_reviews_page_id' );
-			$this->get_aggregate_reviews($postid);
-			$summary = $this->got_aggregate["text"];
-			$best_score = 5;
-			$average_score = number_format($this->got_aggregate["aggregate"], 1);
-			$reviews_content .= '<div itemscope itemtype="http://schema.org/LocalBusiness"><br />
-							<span class="isa_vcard">
-								<a itemprop="name" href="' . site_url('/') . '">' . $bn . '</a><br />
-								<span itemprop="telephone">' . $qbw_options['qbw_phone_number'] . '</span><br />
-								<span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-									<span itemprop="streetAddress">' . $qbw_options['qbw_address_street'] . ' ' .$qbw_options['qbw_address_suite'] . '</span><br />
-									<span itemprop="addressLocality">' . $qbw_options['qbw_address_city'] . '</span>
-									<span itemprop="addressRegion">' . $qbw_options['qbw_address_state'] . '</span> <span itemprop="postalCode">' . $qbw_options['qbw_address_zip'] . '</span>
-									<span itemprop="addressCountry">' . $qbw_options['qbw_address_country'] . '</span>
-								</span>
-							</span><hr />';
-		
-			foreach ($reviews as $review) {
-				
-				if ($snippet_length > 0)
-				{
-					$review->review_text = $this->trim_text_to_word($review->review_text,$snippet_length);
-				}
-				
+		} else {
+			$this->get_aggregate_reviews();
+			$average_score = number_format( $this->got_aggregate["aggregate"], 1 );
+
+			// Gather the LocalBusiness structured data
+			$metadata = qbw_address_structured_data( true );
+
+			foreach ( $reviews as $review ) {
 				$hide_name = '';
 				if ($this->options['show_fields']['fname'] == 0) {
 					$review->reviewer_name = __('Anonymous', 'quick-business-website');
@@ -530,66 +471,169 @@ else {$show = false; }
 					$hidesummary = 'smar_hide';
 				}
 				
-				if ($show_morelink != '') {
-					$review->review_text .= " <a href='".$this->get_jumplink_for_review($review,1)."'>$show_morelink</a>";
-				}
-				
 				$review->review_text = nl2br($review->review_text);
 				$review_response = '';
 				
-				if ($hide_response == 0)
-				{
-					if (strlen($review->review_response) > 0) {
-						$review_response = '<p class="response"><strong>'.__('Response:', 'quick-business-website').'</strong> ' . nl2br($review->review_response) . '</p>';
-					}
+				if (strlen($review->review_response) > 0) {
+					$review_response = '<p class="response"><strong>'.__('Response:', 'quick-business-website').'</strong> ' . nl2br( $review->review_response ) . '</p>';// @todo decide if response allows some html... use esc_html or kses??
 				}
 
 				$custom_shown = '';
-				if ($hide_custom == 0)
-				{
-					$custom_fields_unserialized = @unserialize($review->custom_fields);
-					if (!is_array($custom_fields_unserialized)) {
-						$custom_fields_unserialized = array();
-					}
+				$custom_fields_unserialized = @unserialize($review->custom_fields);
+				if ( ! is_array( $custom_fields_unserialized ) ) {
+					$custom_fields_unserialized = array();
+				}
+
+
+					/************************************************************
+					*
+					* @todo Begin
+					*
+					************************************************************/
 					
-					foreach ($this->options['field_custom'] as $i => $val) {  
-						if ( $val ) {
-							if ( ! empty($custom_fields_unserialized[$val]) ) {
+
+				// isa_log('custom_fields_unserialized = ');
+				// isa_log($custom_fields_unserialized);// @test now
+
+				// isa_log('$review->custom_fields = ');
+				// isa_log($review->custom_fields);// @test now
+
+				// isa_log('$this->options[field_custom] = ');
+				// isa_log($this->options['field_custom']);// @test now
+
+					/************************************************************
+					*
+					* @todo End
+					*
+					************************************************************/					
+
+				foreach ($this->options['field_custom'] as $i => $val) {  
+					if ( $val ) {
+						if ( ! empty($custom_fields_unserialized[$val]) ) {
 							
-								$show = $this->options['show_custom'][$i];
-								if ($show == 1 && $custom_fields_unserialized[$val] != '') {
-									$custom_shown .= "<div class='smar_fl'>" . $val . ': ' . $custom_fields_unserialized[$val] . '&nbsp;&bull;&nbsp;</div>';
-								}
-							
+							$show = $this->options['show_custom'][$i];
+							if ($show == 1 && $custom_fields_unserialized[$val] != '') {
+								$custom_shown .= "<div class='smar_fl'>" . $val . ': ' . $custom_fields_unserialized[$val] . '&nbsp;&bull;&nbsp;</div>';
 							}
+							
 						}
-					}//foreach ($this->options['field_custom
-					$custom_shown = preg_replace("%&bull;&nbsp;</div>$%si","</div><div class='smar_clear'></div>",$custom_shown);
-				}// if 0 hide
+					}
+				}
+				$custom_shown = preg_replace("%&bull;&nbsp;</div>$%si","</div><div class='smar_clear'></div>",$custom_shown);
 
-				$name_block = '' .'<div class="smar_fl smar_rname">' .'<abbr title="' . $this->iso8601(strtotime($review->date_time)) . '" itemprop="datePublished">' . date("M d, Y", strtotime($review->date_time)) . '</abbr>&nbsp;' .'<span class="' . $hide_name . '">'. __('by', 'quick-business-website').'</span>&nbsp;' . '<span class="isa_vcard" id="hreview-smar-reviewer-' . $review->id . '">' . '<span class="' . $hide_name . '" itemprop="author">' . $review->reviewer_name . '</span>' . '</span>' . '<div class="smar_clear"></div>' .
- $custom_shown . '</div>';
+				// gather the Reviews structured 
+				$datePublished = $this->iso8601(strtotime($review->date_time));
+				$author = $review->reviewer_name;
+				$description = $review->review_title;
+				$reviewBody = $review->review_text;
+				$ratingValue = $review->review_rating;
+		
+				$name_block = '<div class="smar_fl smar_rname"><span class="isa_vcard" id="qbw-reviewer-' . $review->id . '">' .
+					'<span class="' . $hide_name . '">' . $author . ' &nbsp; &nbsp; </span>' .
+					'<small><time datetime="' . esc_attr( $datePublished ) . '">' . date_i18n( get_option( 'date_format' ), strtotime( $review->date_time ) ) . '</time></small>' .
+					 '</span>' .
+					 '<div class="smar_clear"></div>' . $custom_shown . '</div>';
 
-					$reviews_content .= '<div itemprop="review" itemscope itemtype="http://schema.org/Review" id="hreview-' . $review->id . '"><' . $title_tag . ' itemprop="description" class="summary ' . $hidesummary . '">' . $review->review_title . '</' . $title_tag . '><div class="smar_fl smar_sc"><div class="smar_rating">' . $this->output_rating($review->review_rating, false) . '</div></div>' . $name_block . '<div class="smar_clear smar_spacing1"></div><blockquote itemprop="reviewBody" class="description"><p>' . $review->review_text . ' '.__('Rating:', 'quick-business-website').' <span itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating"><span itemprop="ratingValue">'.$review->review_rating.'</span></span>  '.__('out of 5.', 'quick-business-website').'</p></blockquote>' . $review_response . '</div><hr />';
+				$reviews_content .= '<div id="hreview-' . $review->id . '"><' . $title_tag . ' class="summary ' . $hidesummary . '">' . $description . '</' . $title_tag . '><div class="smar_fl smar_sc"><div class="smar_rating">' . $this->output_rating($review->review_rating, false) . '</div></div>' . $name_block . '<div class="smar_clear smar_spacing1"></div>
+
+				<blockquote class="description"><p>' .
+
+						// @todo fix, a bunch of HTML in the review body. so dont use esc_html around reviewBody but see how to escape it.
+						$reviewBody .
+
+				'</p></blockquote>' . $review_response . '</div><hr />';
+
+
+
+				// Add structured data for each review to the metadata array
+
+				$metadata['review'][] = array(
+					'@type' => 'Review',
+					'datePublished' => $datePublished,
+					'author' => array(
+						'@type' => 'Person',
+						'name' => $author
+					),
+					'description' => $review->review_title,
+					'reviewBody' => $reviewBody,
+					'reviewRating' => array(
+						'@type' => 'Rating',
+						'ratingValue' => $ratingValue
+					)
+				);
+
+
 
 			}//  foreach ($reviews as $review)
 
-				$reviews_content .= '<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" id="hreview-smar-aggregate">'. __('Average rating:', 'quick-business-website').' <span itemprop="ratingValue">' . $average_score . '</span> '. __('out of', 'quick-business-website').' <span itemprop="bestRating">' . $best_score . ' </span> '. __('based on', 'quick-business-website').' <span itemprop="reviewCount">' . $this->got_aggregate["total"] . '</span> ';
 
-					if($this->got_aggregate["total"] == 1)
-						$basedon = __('review.', 'quick-business-website');
-					else
-						$basedon = __('reviews.', 'quick-business-website');
-					$reviews_content .= sprintf(__('%s', 'quick-business-website'), $basedon). '</span>';
+			// @todo sync agg footer to not have duplicate markup for home page.
 
- // add closing wrapper div for business microdata type
-			$reviews_content .= '</div><!-- for business microdata type, only if there are rev -->';
 
-			}//if else if (count($reviews
 
-		if (!$inside_div) {
-			$reviews_content .= '</div><!-- smar_respond_1 -->';
-		}
+			$reviews_content .= '<span id="qbw-reviews-aggregate">'. 
+
+				// __('Average rating: %d out of 5 based on %d ', 'quick-business-website').
+
+sprintf( esc_html( _n( 'Average rating: %1$s out of 5 based on %2$d review.', 'Average rating: %1$s out of 5 based on %2$d reviews.', $this->got_aggregate["total"], 'quick-business-website' ) ), $average_score, $this->got_aggregate["total"] );
+
+				
+			// Add structured data for aggregate rating to the metadata array @test now now  
+
+			$metadata['aggregateRating'] = array(
+				'@type' => 'AggregateRating',
+				'ratingValue' => $average_score,
+				'bestRating' => 5,
+				'reviewCount' => $this->got_aggregate["total"]
+			);
+
+
+			/************************************************************
+			*
+			* @todo now @test now @WORKING ON NOW:
+
+			possibly migrate all microdata to json-ld.
+			
+			*
+			************************************************************/
+			
+
+			// Add the reviews structured data in JSON-LD format
+			?>
+			<script type="application/ld+json"><?php echo wp_json_encode( $metadata ); ?></script>
+			<?php
+
+
+
+
+
+
+
+// @test delete...
+
+			if($this->got_aggregate["total"] == 1)
+				$basedon = __('review.', 'quick-business-website');
+			else
+				$basedon = __('reviews.', 'quick-business-website');
+
+			$reviews_content .= sprintf(__('%s', 'quick-business-website'), $basedon). '</span>';
+
+
+
+
+
+			/************************************************************
+			*
+			* @todo methinks the .isa_vcard is forgotten to be closed here.
+			*
+			************************************************************/
+			
+
+			// add closing wrapper div for business microdata type
+			// $reviews_content .= '</div><!-- end LocalBusiness microdata type -->';// @todo temp hold this while i test json-ld data
+
+			}
+
 		return array($reviews_content, $total_reviews);
 	}
 	
@@ -603,66 +647,47 @@ else {$show = false; }
 		return $text.'... ';
 	}
 
-/**
- * If enabled in settings, create reviews page, storing page id.
- * @uses insert_post()
- */
-function create_reviews_page() {
-	if ( get_option( 'qbw_add_reviews' ) == 'true' ) {
-		global $Quick_Business_Website;
-		$Quick_Business_Website->insert_post('page', esc_sql( _x('reviews', 'page_slug', 'quick-business-website') ), 'qbw_reviews_page_id', __('Reviews', 'quick-business-website'), '[SMAR_INSERT]' );
+	/**
+	 * If enabled in settings, create reviews page, storing page id.
+	 * @uses insert_post()
+	 */
+	public function create_reviews_page() {
+		if ( get_option( 'qbw_add_reviews' ) == 'true' ) {
+			global $Quick_Business_Website;
+			$Quick_Business_Website->insert_post('page', esc_sql( _x('reviews', 'page_slug', 'quick-business-website') ), 'qbw_reviews_page_id', __('Reviews', 'quick-business-website'), '[SMAR_INSERT]' );
+		}
+
 	}
 
-}
-function do_the_content($original_content) {
-		global $post;
+	/** @todo may have to modify this desc if/since we don't add reviews page with this filter anymore.
+	 * Reviews output.
+	 * 
+	 * Does the reviews page content on the reviews page and maybe the aggregate rating on the front page.
+	 */
+	// public function do_the_content( $original_content = '' ) {
+	// 	global $post;
+	// 	if ( ! in_the_loop() ) {
+	// 		return $original_content;
+	// 	}
+	// 	$reviews_content = '';
+
+
+	// 	***********************************************************
+	// 	*
+	// 	* @todo remove unused code from this func
+	// 	*
+	// 	***********************************************************
 		
-		$using_shortcode_insert = false;
-		if ($original_content == 'shortcode_insert') {
-			$original_content = '';
-			$using_shortcode_insert = true;
-		}
-		
-		$the_content = '';
-		$is_active_page = $this->is_active_page();
-		
-		/* return normal content if this is not an enabled page, or if this is a post not on single post view */
-		if (!$is_active_page) {/* 12.13 think this is inserted into post with no wrap */
-		   $the_content .= $this->aggregate_footer(); /* check if we need to show something in the footer then */
-			return $original_content . $the_content;
-		}
-		
-		$the_content .= '<div id="smar_respond_1"><!-- do the content -->'; /* start the div */
-		$inside_div = true;
-	   
-		if ($this->options['form_location'] == 0) {
-			$the_content .= $this->show_reviews_form();
-		}
-
-			$ret_Arr = $this->output_reviews_show( $inside_div, $post->ID, $this->options['reviews_per_page'], -1 );
-
-		  
 
 
-		$the_content .= $ret_Arr[0];
-		$total_reviews = $ret_Arr[1];
-		
-		$the_content .= $this->pagination($total_reviews, $this->options['reviews_per_page']);
+	// 	// Maybe add aggregate rating markup on front page
+	// 	if ( is_front_page() ) {// @todo rather than filtering content, maybe add this in init hook.
+	// 		$original_content .= $this->aggregate_footer();
+	// 	}
+	// 	return $original_content;
+	// }
 
-		if ($this->options['form_location'] == 1) {
-			$the_content .= $this->show_reviews_form();
-		}
-		
-		$the_content .= $this->aggregate_footer(); /* check if we need to show something in the footer also */
-		
-		$the_content .= '</div><!-- do the content -->'; /* smar_respond_1 */
-
-		$the_content = preg_replace('/\n\r|\r\n|\n|\r|\t/', '', $the_content); /* minify to prevent automatic line breaks, not removing double spaces */
-
-		return $original_content . $the_content;
-}
-
-	function output_rating($rating, $enable_hover) {
+	public function output_rating($rating, $enable_hover) {
 		$out = '';
 		$rating_width = 20 * $rating; /* 20% for each star if having 5 stars */
 		$out .= '<div class="sp_rating">';
@@ -677,18 +702,24 @@ function do_the_content($original_content) {
 	}
 
 	function show_reviews_form() {
-		global $post, $current_user;
+		global $post; // @test need $current_user?
 
 		$fields = '';
 		$out = '';
 		$req_js = "<script type='text/javascript'>";
+		$status_msg_html = '';
 
-		if ( isset($_COOKIE['smar_status_msg']) ) {
+		if ( isset( $_COOKIE['smar_status_msg'] ) ) {
 			$this->status_msg = $_COOKIE['smar_status_msg'];
 		}
-		
-		if ($this->status_msg != '') {
+
+		if ( $this->status_msg != '' ) {
 			$req_js .= "smar_del_cookie('smar_status_msg');";
+			$status_msg_html = '<div class="smar_status_msg"><div id="qbw_' .
+							( empty( $_COOKIE['smar_has_error'] ) ? 'success' : 'error' ) . '">' .
+							esc_html( $this->status_msg ) .
+							'</div></div>';
+
 		}
 
 		/* a silly and crazy but effective antispam measure.. bots wont have a clue */
@@ -709,7 +740,7 @@ function do_the_content($original_content) {
 			} else {
 				$req = '';
 			}
-			$fields .= '<tr><td><label for="' . $rand_prefixes[0] . '-fname" class="comment-field">'. __('Name:', 'quick-business-website').' ' . $req . '</label></td><td><input class="text-input" type="text" id="' . $rand_prefixes[0] . '-fname" name="' . $rand_prefixes[0] . '-fname" value="' . $this->p->fname . '" /></td></tr>';
+			$fields .= '<tr><td><label for="' . $rand_prefixes[0] . '-fname" class="comment-field">'. __('Name:', 'quick-business-website').' ' . $req . '</label></td><td><input class="text-input" type="text" id="' . $rand_prefixes[0] . '-fname" name="' . $rand_prefixes[0] . '-fname" value="' . esc_attr( $this->p->fname ) . '" /></td></tr>';
 		}
 		if ($this->options['ask_fields']['femail'] == 1) {
 			if ($this->options['require_fields']['femail'] == 1) {
@@ -717,7 +748,7 @@ function do_the_content($original_content) {
 			} else {
 				$req = '';
 			}
-			$fields .= '<tr><td><label for="' . $rand_prefixes[1] . '-femail" class="comment-field">'. __('Email:', 'quick-business-website').' ' . $req . '</label></td><td><input class="text-input" type="text" id="' . $rand_prefixes[1] . '-femail" name="' . $rand_prefixes[1] . '-femail" value="' . $this->p->femail . '" /></td></tr>';
+			$fields .= '<tr><td><label for="' . $rand_prefixes[1] . '-femail" class="comment-field">'. __('Email:', 'quick-business-website').' ' . $req . '</label></td><td><input class="text-input" type="text" id="' . $rand_prefixes[1] . '-femail" name="' . $rand_prefixes[1] . '-femail" value="' . esc_attr( $this->p->femail ) . '" /></td></tr>';
 		}
 		if ($this->options['ask_fields']['fwebsite'] == 1) {
 			if ($this->options['require_fields']['fwebsite'] == 1) {
@@ -725,7 +756,7 @@ function do_the_content($original_content) {
 			} else {
 				$req = '';
 			}
-			$fields .= '<tr><td><label for="' . $rand_prefixes[2] . '-fwebsite" class="comment-field">'. __('Website:', 'quick-business-website').' ' . $req . '</label></td><td><input class="text-input" type="text" id="' . $rand_prefixes[2] . '-fwebsite" name="' . $rand_prefixes[2] . '-fwebsite" value="' . $this->p->fwebsite . '" /></td></tr>';
+			$fields .= '<tr><td><label for="' . $rand_prefixes[2] . '-fwebsite" class="comment-field">'. __('Website:', 'quick-business-website').' ' . $req . '</label></td><td><input class="text-input" type="text" id="' . $rand_prefixes[2] . '-fwebsite" name="' . $rand_prefixes[2] . '-fwebsite" value="' . esc_attr( $this->p->fwebsite ) . '" /></td></tr>';
 		}
 		if ($this->options['ask_fields']['ftitle'] == 1) {
 			if ($this->options['require_fields']['ftitle'] == 1) {
@@ -733,11 +764,11 @@ function do_the_content($original_content) {
 			} else {
 				$req = '';
 			}
-			$fields .= '<tr><td><label for="' . $rand_prefixes[3] . '-ftitle" class="comment-field">'. __('Review Title:', 'quick-business-website').' ' . $req . '</label></td><td><input class="text-input" type="text" id="' . $rand_prefixes[3] . '-ftitle" name="' . $rand_prefixes[3] . '-ftitle" maxlength="150" value="' . $this->p->ftitle . '" /></td></tr>';
+			$fields .= '<tr><td><label for="' . $rand_prefixes[3] . '-ftitle" class="comment-field">'. __('Review Title:', 'quick-business-website').' ' . $req . '</label></td><td><input class="text-input" type="text" id="' . $rand_prefixes[3] . '-ftitle" name="' . $rand_prefixes[3] . '-ftitle" maxlength="150" value="' . esc_attr( $this->p->ftitle ) . '" /></td></tr>';
 		}
 
 		$custom_fields = array(); /* used for insert as well */
-		$custom_count = count($this->options['field_custom']); /* used for insert as well */
+		$custom_count = count( $this->options['field_custom'] ); /* used for insert as well */
 		for ($i = 0; $i < $custom_count; $i++) {
 			$custom_fields[$i] = $this->options['field_custom'][$i];
 		}
@@ -752,35 +783,41 @@ function do_the_content($original_content) {
 					}
 
 					$custom_i = "custom_$i";
-					if (!isset($this->p->$custom_i)) { $this->p->$custom_i = ''; }
-					$fields .= '<tr><td><label for="custom_' . $i . '" class="comment-field">' . $custom_fields[$i] . ': ' . $req . '</label></td><td><input class="text-input" type="text" id="custom_' . $i . '" name="custom_' . $i . '" maxlength="150" value="' . $this->p->$custom_i . '" /></td></tr>';
+					if ( ! isset( $this->p->$custom_i ) ) {
+						$this->p->$custom_i = '';
+					}
+					$fields .= '<tr><td><label for="custom_' . esc_attr( $i ) . '" class="comment-field">' . esc_html( $custom_fields[$i] ) . ': ' . $req . '</label></td><td><input class="text-input" type="text" id="custom_' . esc_attr( $i ) . '" name="custom_' . esc_attr( $i ) . '" maxlength="150" value="' . esc_attr( $this->p->$custom_i ) . '" /></td></tr>';
 				}
 			} 
 		}
 
 		$some_required = '';
 		
-		foreach ($this->options['require_fields'] as $col => $val) {
-			if ($val == 1) {
-				$col = str_replace("'","\'",$col);
+		foreach ( $this->options['require_fields'] as $col => $val ) {
+			if ( $val == 1 ) {
+				// $col = str_replace("'","\'",$col);
+				$col = esc_js( $col );// @test replace above
 				$req_js .= "smar_req.push('$col');";
 				$some_required = '<small>* '. __('Required Field', 'quick-business-website').'</small>';
 			}
 		}
 
-		foreach ($this->options['require_custom'] as $i => $val) {
-			if ($val == 1) {
+		foreach ( $this->options['require_custom'] as $i => $val ) {
+			if ( $val == 1 ) {
+				$i = (int) $i;// @test
 				$req_js .= "smar_req.push('custom_$i');";
 				$some_required = '<small>* '. __('Required Field', 'quick-business-website').'</small>';
 			}
 		}
 		
-		$req_js .= "</script>\n";
+		$req_js .= "</script>";
 		
-		if ($this->options['goto_show_button'] == 1) {
-			$button_html = '<div class="smar_status_msg">' . $this->status_msg . '</div>'; /* show errors or thank you message here */
-			$button_html .= '<p><a id="smar_button_1" href="javascript:void(0);">' . $this->options['goto_leave_text'] . '</a></p>';
-			$out .= $button_html;
+		// add the form
+		if ( $this->options['goto_show_button'] == 1 ) {
+			// show errors or thank you message
+			$out .= $status_msg_html;
+			// Show button to show form
+			$out .= '<p><a id="smar_button_1" href="javascript:void(0);">' . esc_html( $this->options['goto_leave_text'] ) . '</a></p>';
 		}
 
 		/* different output variables make it easier to debug this section */
@@ -790,9 +827,10 @@ function do_the_content($original_content) {
 							<input type="hidden" id="frating" name="frating" />
 							<table id="smar_table_2">
 								<tbody>
-									<tr><td colspan="2"><div id="smar_postcomment">' . $this->options["leave_text"] . '</div></td></tr>
-									' . $fields;
-
+									<tr><td colspan="2"><div id="smar_postcomment">' .
+									esc_html( $this->options["leave_text"] ) .
+									'</div></td></tr>' . $fields;
+// @todo continue escaping here
 		$out2 = '   
 			<tr>
 				<td><label class="comment-field">'. __('Rating:', 'quick-business-website').'</label></td>
@@ -824,6 +862,9 @@ function do_the_content($original_content) {
 		return $out . $out2 . $out3 . $out4;
 	}
 
+	/**
+	 * Insert a review into the database and send email notification of they review to the admin.
+	 */
 	function add_review($pageID) {
 		global $wpdb;
 
@@ -916,22 +957,43 @@ function do_the_content($original_content) {
 		}
 
 		/* returns true for errors */
-		if ($errors) {
-			return array(true, "<div>$errors</div>");
+		if ( $errors ) {
+			return array( true, $errors );
 		}
-		/* end - server-side validation */
+		/* end server-side validation */
 
 		$custom_insert = array();
 
 		$this->options['ask_custom'] = array(0, 1, 2, 3, 4, 5);
 		
 		for ($i = 0; $i < $custom_count; $i++) {		
-			if ($this->options['ask_custom'][$i] == 1) {
+			if ($this->options['ask_custom'][$i] == 1) {// @todo fix this but where custom field values are not saved.
 				$name = $custom_fields[$i];
 				$custom_i = "custom_$i";				
 				if ( isset($this->p->$custom_i) ) {
+					
+					// isa_log( 'yes, $this->p->$custom_i isset. = ');
+					// isa_log( $this->p->$custom_i );// @test now now
+
 					$custom_insert[$name] = ucfirst($this->p->$custom_i);
 				}
+
+
+				/************************************************************
+				*
+				* @todo Begin
+				*
+				************************************************************/
+				
+				// else {
+				// 	isa_log('ERROR, $this->p->$custom_i IS NOT SET');
+				// }
+				
+				/************************************************************
+				*
+				* @todo End
+				*
+				************************************************************/
 			}
 		}
 		$custom_insert = serialize($custom_insert);
@@ -941,8 +1003,7 @@ function do_the_content($original_content) {
 
 		$wpdb->query($query);
 
-		$qbw_options = get_option( 'qbw_options');
-		$bn = stripslashes_deep($qbw_options['qbw_business_name']);if(!$bn) {$bn = get_bloginfo('name'); }
+		$bn = esc_html( qbw_get_business_name() );
 		$admin_linkpre = get_admin_url().'admin.php?page=qbw_view_reviews';
 		$admin_link = sprintf(__('Link to admin approval page: %s', 'quick-business-website'), $admin_linkpre);
 		$message = sprintf(__('A new review has been posted on %1$s\'s website.','quick-business-website'),$bn) . "\n\n" .
@@ -957,19 +1018,20 @@ function do_the_content($original_content) {
 		
 		// @wp_mail( get_bloginfo('admin_email'), $bn.': '. sprintf(__('New Review Posted on %1$s', 'quick-business-website'), date('m/d/Y h:i e') ), $message );
 
+
 		/* returns false for no error */
-		return array(false, '<div>'.__('Thank you for your comments. All submissions are moderated and if approved, yours will appear soon.', 'quick-business-website').'</div>');
+		return array( false, __('Thank you for your comments. All submissions are moderated and if approved, yours will appear soon.', 'quick-business-website' ) );
 	}
-	function smar_redirect($url, $cookie = array()) {
+	function smar_redirect( $url, $cookie = array() ) {
 		$headers_sent = headers_sent();
-		if ($headers_sent == true) {
+		if ( $headers_sent == true ) {
 			/* use JS redirect and add cookie before redirect */
 			/* we do not html comment script blocks here - to prevent any issues with other plugins adding content to newlines, etc */
 			$out = '<html><head><title>'.__('Redirecting', 'quick-business-website').'...</title></head><body><div style="clear:both;text-align:center;padding:10px;">' .
 					__('Processing... Please wait...', 'quick-business-website') .
 					'<script type="text/javascript">';
-			foreach ($cookie as $col => $val) {
-				$val = preg_replace("/\r?\n/", "\\n", addslashes($val));
+			foreach ( $cookie as $col => $val ) {
+				$val = preg_replace( "/\r?\n/", "\\n", addslashes( $val ) );
 				$out .= "document.cookie=\"$col=$val\";";
 			}
 			$out .= "window.location='$url';";
@@ -977,11 +1039,19 @@ function do_the_content($original_content) {
 			$out .= "</div></body></html>";
 			echo $out;
 		} else {
+				isa_log('incoming cookie: ');
+				isa_log($cookie);
+
 			foreach ($cookie as $col => $val) {
-				setcookie($col, $val); /* add cookie via headers */
+				isa_log('incoming cookie val: ');
+				isa_log($val);
+				setcookie( $col, $val ); /* add cookie via headers */
 			}
-		if (ob_get_length()) ob_end_clean();
-			wp_redirect($url); /* nice redirect */
+			if ( ob_get_length() ) {
+				ob_end_clean();
+			}
+			
+			wp_redirect( esc_url_raw( $url ) );
 		}
 		
 		exit();
@@ -996,15 +1066,38 @@ function do_the_content($original_content) {
 		$this->page = intval($this->p->smarp);
 		if ($this->page < 1) { $this->page = 1; }
 		
-		add_shortcode( 'SMAR_INSERT', array(&$this, 'shortcode_smar_insert') );
+		add_shortcode( 'SMAR_INSERT', array( $this, 'shortcode_smar_insert') );
 	}
-	function shortcode_smar_insert() {
-		$this->force_active_page = 1;
-		return $this->do_the_content('shortcode_insert');        
+	/**
+	 * The shortcode to display the Reviews page
+	 */
+	public function shortcode_smar_insert() {
+		$reviews = '<div id="smar_respond_1">';
+	   
+		if ( 0 == $this->options['form_location'] ) {
+			$reviews .= $this->show_reviews_form();
+		}
+
+		$reviews_arr = $this->reviews_html( $this->options['reviews_per_page'] );
+
+		$reviews .= $reviews_arr[0];
+		$total_reviews = $reviews_arr[1];
+		
+		$reviews .= $this->pagination( $total_reviews, $this->options['reviews_per_page'] );
+
+		if ( 1 == $this->options['form_location'] ) {
+			$reviews .= $this->show_reviews_form();
+		}
+		
+		$reviews .= '</div><!-- #smar_respond_1 -->';
+
+		$reviews = preg_replace('/\n\r|\r\n|\n|\r|\t/', '', $reviews); /* minify to prevent automatic line breaks, not removing double spaces */
+
+		return $reviews;
 	}
 
 	function enqueue_scripts() {
-		if( get_option( 'qbw_add_reviews') == 'true'  ) { // isa depend
+		if( get_option( 'qbw_add_reviews') == 'true'  ) {
 			wp_register_style('qbw-reviews', $this->get_reviews_module_url() . 'reviews.css', array(), $this->plugin_version);
 			wp_register_script('qbw-reviews', $this->get_reviews_module_url() . 'reviews.js', array('jquery'), $this->plugin_version);
 
