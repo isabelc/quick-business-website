@@ -429,42 +429,19 @@ class QBW_Reviews {
 					$custom_fields_unserialized = array();
 				}
 
-
-					/************************************************************
-					*
-					* @todo Begin
-					*
-					************************************************************/
-					
-
-				// isa_log('custom_fields_unserialized = ');
-				// isa_log($custom_fields_unserialized);// @test now
-
-				// isa_log('$review->custom_fields = ');
-				// isa_log($review->custom_fields);// @test now
-
-				// isa_log('$this->options[field_custom] = ');
-				// isa_log($this->options['field_custom']);// @test now
-
-					/************************************************************
-					*
-					* @todo End
-					*
-					************************************************************/					
-
 				foreach ($this->options['field_custom'] as $i => $val) {  
 					if ( $val ) {
 						if ( ! empty($custom_fields_unserialized[$val]) ) {
 							
 							$show = $this->options['show_custom'][$i];
 							if ($show == 1 && $custom_fields_unserialized[$val] != '') {
-								$custom_shown .= "<div class='smar_fl'>" . $val . ': ' . $custom_fields_unserialized[$val] . '&nbsp;&bull;&nbsp;</div>';
+								$custom_shown .= "<small class='smar_fl'>" . $val . ': ' . $custom_fields_unserialized[$val] . '&nbsp;&bull;&nbsp;</small>';
 							}
 							
 						}
 					}
 				}
-				$custom_shown = preg_replace("%&bull;&nbsp;</div>$%si","</div><div class='smar_clear'></div>",$custom_shown);
+				$custom_shown = preg_replace("%&bull;&nbsp;</small>$%si","</small><div class='smar_clear'></div>",$custom_shown);
 
 				// gather the Reviews structured 
 				$datePublished = $this->iso8601(strtotime($review->date_time));
@@ -477,7 +454,8 @@ class QBW_Reviews {
 					'<span class="' . $hide_name . '">' . $author . ' &nbsp; &nbsp; </span>' .
 					'<small><time datetime="' . esc_attr( $datePublished ) . '">' . date_i18n( get_option( 'date_format' ), strtotime( $review->date_time ) ) . '</time></small>' .
 					 '</span>' .
-					 '<div class="smar_clear"></div>' . $custom_shown . '</div>';
+					 '<div class="smar_clear"></div>' .
+					 '</div>';
 
 				$reviews_content .= '<div id="hreview-' . $review->id . '"><' . $title_tag . ' class="summary ' . $hidesummary . '">' . $description . '</' . $title_tag . '><div class="smar_fl smar_sc"><div class="smar_rating">' . $this->output_rating($review->review_rating, false) . '</div></div>' . $name_block . '<div class="smar_clear smar_spacing1"></div>
 
@@ -486,9 +464,7 @@ class QBW_Reviews {
 						// @todo fix, a bunch of HTML in the review body. so dont use esc_html around reviewBody but escape it using another method
 						$reviewBody .
 
-				'</p></blockquote>' . $review_response . '</div><hr />';
-
-
+				'</p></blockquote>' . $custom_shown . $review_response . '</div><hr />';
 
 				// Add structured data for each review to the metadata array
 
@@ -506,8 +482,6 @@ class QBW_Reviews {
 						'ratingValue' => $ratingValue
 					)
 				);
-
-
 
 			}//  foreach ($reviews as $review)
 
@@ -791,8 +765,8 @@ class QBW_Reviews {
 			}
 		}
 
-		$custom_fields = array(); /* used for insert as well */
-		$custom_count = count($this->options['field_custom']); /* used for insert as well */
+		$custom_fields = array();
+		$custom_count = count($this->options['field_custom']);
 		for ($i = 0; $i < $custom_count; $i++) {
 			$custom_fields[$i] = $this->options['field_custom'][$i];
 		}
@@ -837,37 +811,13 @@ class QBW_Reviews {
 		/* end server-side validation */
 
 		$custom_insert = array();
-
-		$this->options['ask_custom'] = array(0, 1, 2, 3, 4, 5);
-		
 		for ($i = 0; $i < $custom_count; $i++) {		
-			if ($this->options['ask_custom'][$i] == 1) {// @todo fix this but where custom field values are not saved.
+			if ( ! empty( $this->options['ask_custom'][$i] ) ) {
 				$name = $custom_fields[$i];
 				$custom_i = "custom_$i";				
 				if ( isset($this->p->$custom_i) ) {
-					
-					// isa_log( 'yes, $this->p->$custom_i isset. = ');
-					// isa_log( $this->p->$custom_i );// @test
-
 					$custom_insert[$name] = ucfirst($this->p->$custom_i);
 				}
-
-
-				/************************************************************
-				*
-				* @todo Begin
-				*
-				************************************************************/
-				
-				// else {
-				// 	isa_log('ERROR, $this->p->$custom_i IS NOT SET');
-				// }
-				
-				/************************************************************
-				*
-				* @todo End
-				*
-				************************************************************/
 			}
 		}
 		$custom_insert = serialize($custom_insert);
@@ -913,12 +863,7 @@ class QBW_Reviews {
 			$out .= "</div></body></html>";
 			echo $out;
 		} else {
-				isa_log('incoming cookie: ');
-				isa_log($cookie);
-
 			foreach ($cookie as $col => $val) {
-				isa_log('incoming cookie val: ');
-				isa_log($val);
 				setcookie( $col, $val ); /* add cookie via headers */
 			}
 			if ( ob_get_length() ) {
