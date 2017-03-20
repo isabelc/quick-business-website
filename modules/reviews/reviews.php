@@ -819,17 +819,16 @@ class QBW_Reviews {
 	}
 	function smar_redirect( $url, $cookie = array() ) {
 		$headers_sent = headers_sent();
-		if ( $headers_sent == true ) {
+		if ( true == $headers_sent ) {
+
 			/* use JS redirect and add cookie before redirect */
-			/* we do not html comment script blocks here - to prevent any issues with other plugins adding content to newlines, etc */
 			$out = '<html><head><title>'.__('Redirecting', 'quick-business-website').'...</title></head><body><div style="clear:both;text-align:center;padding:10px;">' .
 					__('Processing... Please wait...', 'quick-business-website') .
 					'<script type="text/javascript">';
 			foreach ( $cookie as $col => $val ) {
-				$val = preg_replace( "/\r?\n/", "\\n", addslashes( $val ) );
 				$out .= "document.cookie='" . esc_js( $col ) . "=" . esc_js( $val ) . "';";
 			}
-			$out .= "window.location='$url';";
+			$out .= "window.location='" . esc_js( $url ) . "';";
 			$out .= "</script>";
 			$out .= "</div></body></html>";
 			echo $out;
