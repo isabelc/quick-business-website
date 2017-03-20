@@ -17,16 +17,16 @@ class QBW_Reviews_Testimonial extends WP_Widget {
 	 * Front-end display of widget.
 	 */
 	public function widget( $args, $instance ) {
-	
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Testimonials', 'quick-business-website' ) : $instance['title'], $instance, $this->id_base );
-		$number = isset( $instance['number'] ) ? $instance['number'] : '';
+		$number = empty( $instance['number'] ) ? 1 : $instance['number'];
+		$number = (int) $number;
 		
 		echo $args['before_widget'];
 		if ( $title )
-			echo '<h3 class="widget-title">'. $title . '</h3>';
+			echo '<h3 class="widget-title">'. esc_html( $title ) . '</h3>';
 		global $wpdb;
 		// get the permalink by page id.
-		$reviews_pageurl = get_permalink(get_option('qbw_reviews_page_id'));
+		$reviews_pageurl = esc_url( get_permalink( get_option( 'qbw_reviews_page_id' ) ) );
 		$pre = $wpdb->base_prefix;
 		if ( is_multisite() ) { 
 			global $blog_id;
@@ -36,20 +36,19 @@ class QBW_Reviews_Testimonial extends WP_Widget {
 			// not Multisite
 			$pre2 = $pre . 'smareviewsb';
 		}
-		if ( ! empty( $number ) )
-			$number_testimonials = $number;
-		else
-			$number_testimonials = 1;
-		$getreviews = $wpdb->get_results("SELECT review_text FROM $pre2 WHERE status = 1 LIMIT 0,$number_testimonials");
+
+		$getreviews = $wpdb->get_results("SELECT review_text FROM $pre2 WHERE status = 1 LIMIT 0,$number");
 
 		if ( empty( $getreviews ) ) {
 			//no review yet, lure them to leave one
-			echo '<p>'. sprintf(__('Be the first to <a href="%s">leave a review...', 'quick-business-website'), $reviews_pageurl).'</a></p>';
+			echo '<p>' . sprintf(__('Be the first to <a href="%s">leave a review...', 'quick-business-website'),
+					$reviews_pageurl ) . '</a></p>';
 		} else {
 			foreach ( $getreviews as $getreview ) {
-				echo '<blockquote>' . wp_trim_words( $getreview->review_text, 20) . '</blockquote><br />';
+				$reviewBody = esc_html( $getreview->review_text );
+				echo '<blockquote>' . wp_trim_words( $reviewBody, 20) . '</blockquote><br />';
 			}
-			echo '<a href="'.$reviews_pageurl.'">'.__('More...', 'quick-business-website').'</a>';
+			echo '<a href="' . $reviews_pageurl . '">' . __('More...', 'quick-business-website') . '</a>';
 		}
 		echo $args['after_widget'];
 	}
@@ -60,8 +59,8 @@ class QBW_Reviews_Testimonial extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		$instance['title'] = strip_tags($new_instance['title'] );
-		$instance['number'] = strip_tags( $new_instance['number'] );
+		$instance['title'] = sanitize_text_field( $new_instance['title'] );
+		$instance['number'] = intval( $new_instance['number'] );
 		return $instance;
 	}
 
