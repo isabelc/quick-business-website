@@ -826,7 +826,7 @@ class QBW_Reviews {
 					'<script type="text/javascript">';
 			foreach ( $cookie as $col => $val ) {
 				$val = preg_replace( "/\r?\n/", "\\n", addslashes( $val ) );
-				$out .= "document.cookie=\"$col=$val\";";
+				$out .= "document.cookie='" . esc_js( $col ) . "=" . esc_js( $val ) . "';";
 			}
 			$out .= "window.location='$url';";
 			$out .= "</script>";
@@ -886,11 +886,11 @@ class QBW_Reviews {
 	}
 
 	function enqueue_scripts() {
-		if( get_option( 'qbw_add_reviews') == 'true'  ) {
+		if ( get_option( 'qbw_add_reviews') == 'true'  ) {
 			wp_register_style('qbw-reviews', $this->get_reviews_module_url() . 'reviews.css', array() );
 			wp_register_script('qbw-reviews', $this->get_reviews_module_url() . 'reviews.js', array('jquery') );
 
-			if( is_page(get_option( 'qbw_reviews_page_id' ))) {
+			if ( is_page(get_option( 'qbw_reviews_page_id' ))) {
 			
 				wp_enqueue_style('qbw-reviews');
 				wp_enqueue_script('qbw-reviews');
