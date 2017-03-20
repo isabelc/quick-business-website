@@ -16,7 +16,6 @@ class QBW_Reviews {
 	var $options = array();
 	var $p = '';
 	var $page = 1;
-	var $plugin_version = '0.0.0';
 	var $shown_form = false;
 	var $shown_hcard = false;
 	var $status_msg = '';
@@ -26,12 +25,11 @@ class QBW_Reviews {
 
 		define( 'QBW_REVIEWS', 1 );
 		$this->dbtable = $wpdb->prefix . $this->dbtable;
-		$this->plugin_version = get_option( 'qbw_smartestb_plugin_version' );
 
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_action( 'widgets_init', array( $this, 'register_widget' ) );
-		add_action( 'template_redirect',array( $this, 'template_redirect' ) ); /* handle redirects and form posts, and add style/script if needed */
+		add_action( 'template_redirect', array( $this, 'template_redirect' ) );
 		add_action( 'admin_menu', array( $this, 'addmenu' ) );
 		add_action( 'wp_ajax_update_field', array( $this, 'admin_view_reviews' ) );
 		add_action( 'admin_init', array( $this, 'create_reviews_page' ) );
@@ -56,14 +54,9 @@ class QBW_Reviews {
 		$this->include_admin();
 		$QBW_Reviews_Admin->real_admin_view_reviews();
 	}
-	function get_jumplink_for_review($review,$page) {
-	   /* $page will be 1 for shortcode usage since it pulls most recent, which SHOULD all be on page 1 */
-	   $link = get_permalink( get_option( 'qbw_reviews_page_id' ) );
-		if (strpos($link,'?') === false) {
-			$link = trailingslashit($link) . "?smarp=$page#hreview-$review->id";
-		} else {
-			$link = $link . "&smarp=$page#hreview-$review->id";
-		}
+	function get_jumplink_for_review( $review, $page ) {
+		$link = get_permalink( get_option( 'qbw_reviews_page_id' ) );
+		$link = trailingslashit( $link ) . "?smarp=$page#hreview-$review->id";
 		return $link;
 	}
 	function get_options() {
@@ -73,7 +66,6 @@ class QBW_Reviews {
 			'activate' => 0,
 			'ask_custom' => array(),
 			'ask_fields' => array('fname' => 1, 'femail' => 1, 'fwebsite' => 0, 'ftitle' => 0, 'fage' => 0, 'fgender' => 0),
-			'dbversion' => 0,
 			'field_custom' => array(),
 			'form_location' => 0,
 			'goto_leave_text' => __( 'Click here to add your review.', 'quick-business-website' ),
@@ -126,64 +118,37 @@ class QBW_Reviews {
 			}
 		}
 	}
-	function check_migrate() {
-		global $wpdb;
-		$migrated = false;
-		/* remove me after official release */
-		$current_dbversion = intval(str_replace('.', '', $this->options['dbversion']));
-		$plugin_db_version = intval(str_replace('.', '', $this->plugin_version));
-		if ($current_dbversion == $plugin_db_version) {
-			return false;
+	/**
+	 * Create the Reviews table if it has not been created.
+	 */
+	private function check_table() {
+		if ( get_option( 'qbw_reviews_table_created' ) != 'completed' ) {
+			global $QBW_Reviews_Admin;
+			$this->include_admin();
+			$QBW_Reviews_Admin->createUpdateReviewTable();// @test on new install
+
+			update_option( 'qbw_reviews_table_created', 'completed' );
 		}
-		global $QBW_Reviews_Admin;
-		$this->include_admin(); /* include admin functions */
-		$QBW_Reviews_Admin->createUpdateReviewtable(); /* creates AND updates table */
-		/* initial installation */
-		if ($current_dbversion == 0) {
-		   $this->options['dbversion'] = $plugin_db_version;
-			$current_dbversion = $plugin_db_version;
-			update_option('smar_options', $this->options);
-			return false;
-		}
-		/* check for upgrades if needed */
-		/* upgrade to 2.0.0 */
-		if ($current_dbversion < 200) {
-			/* change all current reviews to use the selected page id */
-			$pageID = intval(get_option( 'qbw_reviews_page_id' ));
-			$wpdb->query("UPDATE `$this->dbtable` SET `page_id`=$pageID WHERE `page_id`=0");
-			$this->options['dbversion'] = 200;
-			$current_dbversion = 200;
-			update_option('smar_options', $this->options);
-			$migrated = true;
-		}
-		/* done with all migrations, push dbversion to current version */
-		if ($current_dbversion != $plugin_db_version || $migrated == true) {
-			$this->options['dbversion'] = $plugin_db_version;
-			$current_dbversion = $plugin_db_version;
-			update_option('smar_options', $this->options);
-			return true;
-		}
-		return false;
 	}
 
 	public function template_redirect() {
 		/* do this in template_redirect so we can try to redirect cleanly */
 		global $post;
 		if (!isset($post) || !isset($post->ID)) {
-			$post = new stdClass();
-			$post->ID = 0;
+			return;
 		}
-		if (isset($_COOKIE['smar_status_msg'])) {
+		if ( isset( $_COOKIE['smar_status_msg'] ) ) {
 			$this->status_msg = $_COOKIE['smar_status_msg'];
 			if ( !headers_sent() ) {
 				setcookie('smar_status_msg', '', time() - 3600); /* delete the cookie */
 				unset($_COOKIE['smar_status_msg']);
 			}
 		}
-		$GET_P = "submitsmar_$post->ID";
-		if ( $post->ID > 0 && isset( $this->p->$GET_P ) && $this->p->$GET_P == $this->options['submit_button_text'] ) {
-			$msg = $this->add_review( $post->ID );
-			$url = get_permalink( $post->ID );
+		$GET_P = "qbw_submit_review";
+		$reviews_page_id = get_option( 'qbw_reviews_page_id' );
+		if ( $post->ID == $reviews_page_id && isset( $this->p->$GET_P ) && $this->p->$GET_P == $this->options['submit_button_text'] ) {
+			$msg = $this->add_review();
+			$url = get_permalink( $reviews_page_id );
 			$cookie = array( 'smar_has_error' => $msg[0], 'smar_status_msg' => $msg[1] );
 			$this->smar_redirect( $url, $cookie );
 		}
@@ -202,7 +167,7 @@ class QBW_Reviews {
 	 * Sets the got_aggregate property.
 	 */
 	private function get_aggregate_reviews() {
-		if ($this->got_aggregate !== false) {
+		if ( $this->got_aggregate !== false ) {
 			return $this->got_aggregate;
 		}
 		global $wpdb;
@@ -220,36 +185,58 @@ class QBW_Reviews {
 		$this->got_aggregate = array( "aggregate" => $aggregate_rating, "max" => $max_rating, "total" => $total_reviews );
 		return true;
 	}
+
+	/**
+	 * Get reviews from the databse.
+	 */
 	function get_reviews( $startpage, $perpage, $status ) {
 		global $wpdb;
 		$startpage = $startpage - 1; /* mysql starts at 0 instead of 1, so reduce them all by 1 */
 		if ($startpage < 0) { $startpage = 0; }
 		$limit = 'LIMIT ' . $startpage * $perpage . ',' . $perpage;
-		if ($status == -1) {
-			$qry_status = '1=1';
+		if ( $status == -1 ) { // All reviews including pending and approved
+			$reviews = $wpdb->get_results("SELECT 
+				`id`,
+				`date_time`,
+				`reviewer_name`,
+				`reviewer_email`,
+				`review_title`,
+				`review_text`,
+				`review_response`,
+				`review_rating`,
+				`reviewer_url`,
+				`reviewer_ip`,
+				`status`,
+				`custom_fields`
+				FROM `$this->dbtable` ORDER BY `date_time` DESC $limit
+				");
+			$total_reviews = $wpdb->get_results("SELECT COUNT(*) AS `total` FROM `$this->dbtable`");
+
 		} else {
-			$qry_status = "`status`=$status";
+			$status = esc_sql( $status );
+			$reviews = $wpdb->get_results( $wpdb->prepare(
+				"SELECT 
+				`id`,
+				`date_time`,
+				`reviewer_name`,
+				`reviewer_email`,
+				`review_title`,
+				`review_text`,
+				`review_response`,
+				`review_rating`,
+				`reviewer_url`,
+				`reviewer_ip`,
+				`status`,
+				`custom_fields`
+				FROM `$this->dbtable` WHERE `status` = %s ORDER BY `date_time` DESC $limit
+				", $status ) );
+
+			$total_reviews = $wpdb->get_results( $wpdb->prepare( "SELECT COUNT(*) AS `total` FROM `$this->dbtable` WHERE `status` = %s", $status ) );
+
 		}
 
-		$reviews = $wpdb->get_results("SELECT 
-			`id`,
-			`date_time`,
-			`reviewer_name`,
-			`reviewer_email`,
-			`review_title`,
-			`review_text`,
-			`review_response`,
-			`review_rating`,
-			`reviewer_url`,
-			`reviewer_ip`,
-			`status`,
-			`page_id`,
-			`custom_fields`
-			FROM `$this->dbtable` WHERE $qry_status ORDER BY `date_time` DESC $limit
-			");
-		$total_reviews = $wpdb->get_results("SELECT COUNT(*) AS `total` FROM `$this->dbtable` WHERE $qry_status");
 		$total_reviews = $total_reviews[0]->total;
-		return array($reviews, $total_reviews);
+		return array( $reviews, $total_reviews );
 	}
 
 	/**
@@ -295,9 +282,13 @@ class QBW_Reviews {
 		$showitems = ($range * 2) + 1;
 
 		$paged = $this->page;
-		if ($paged == 0) { $paged = 1; }
+		if ( $paged == 0 ) {
+			$paged = 1;
+		}
 		
-		if (!isset($this->p->review_status)) { $this->p->review_status = 0; }
+		if ( ! isset( $this->p->review_status ) ) {
+			$this->p->review_status = 0;
+		}
 
 		$pages = ceil($total_results / $reviews_per_page);
 
@@ -365,7 +356,7 @@ class QBW_Reviews {
 	}
 
 	/**
-	 * The Reviews page content.
+	 * Returns the Reviews page content in an array
 	 */
 	public function reviews_html( $perpage ) {
 		$arr_Reviews = $this->get_reviews( $this->page, $perpage, 1 );
@@ -394,6 +385,9 @@ class QBW_Reviews {
 			$metadata = qbw_business_structured_data();
 
 			foreach ( $reviews as $review ) {
+				
+				$reviewBody = esc_html( $review->review_text );
+
 				$hide_name = '';
 				if ($this->options['show_fields']['fname'] == 0) {
 					$review->reviewer_name = __('Anonymous', 'quick-business-website');
@@ -404,27 +398,27 @@ class QBW_Reviews {
 				}
 
 				if ($this->options['show_fields']['fwebsite'] == 1 && $review->reviewer_url != '') {
-					$review->review_text .= '<br /><small><a href="' . $review->reviewer_url . '">' . $review->reviewer_url . '</a></small>';
+					$reviewBody .= '<br /><small><a href="' . esc_url( $review->reviewer_url ) . '">' . $review->reviewer_url . '</a></small>';
 				}
 				if ($this->options['show_fields']['femail'] == 1 && $review->reviewer_email != '') {
-					$review->review_text .= '<br /><small>' . $review->reviewer_email . '</small>';
+					$reviewBody .= '<br /><small>' . antispambot( esc_html( $review->reviewer_email ) ) . '</small>';
 				}
 				if ($this->options['show_fields']['ftitle'] == 1) {
 					/* do nothing */
 				} else {
-					$review->review_title = substr($review->review_text, 0, 150);
+					$review->review_title = substr( strip_tags( $reviewBody ), 0, 150 );
 					$hidesummary = 'smar_hide';
 				}
 				
-				$review->review_text = nl2br($review->review_text);
+				$reviewBody = nl2br( $reviewBody );
 				$review_response = '';
 				
-				if (strlen($review->review_response) > 0) {
-					$review_response = '<p class="response"><strong>'.__('Response:', 'quick-business-website').'</strong> ' . nl2br( $review->review_response ) . '</p>';// @todo decide if response allows some html... use esc_html or kses??
+				if ( strlen( $review->review_response ) > 0 ) {
+					$review_response = '<p class="response"><strong>'.__('Response:', 'quick-business-website').'</strong> ' . nl2br( esc_html( $review->review_response ) ) . '</p>';
 				}
 
 				$custom_shown = '';
-				$custom_fields_unserialized = @unserialize($review->custom_fields);
+				$custom_fields_unserialized = maybe_unserialize( $review->custom_fields );
 				if ( ! is_array( $custom_fields_unserialized ) ) {
 					$custom_fields_unserialized = array();
 				}
@@ -435,7 +429,7 @@ class QBW_Reviews {
 							
 							$show = $this->options['show_custom'][$i];
 							if ($show == 1 && $custom_fields_unserialized[$val] != '') {
-								$custom_shown .= "<small class='smar_fl'>" . $val . ': ' . $custom_fields_unserialized[$val] . '&nbsp;&bull;&nbsp;</small>';
+								$custom_shown .= "<small class='smar_fl'>" . esc_html( $val ) . ': ' . esc_html( $custom_fields_unserialized[ $val ] ) . '&nbsp;&bull;&nbsp;</small>';
 							}
 							
 						}
@@ -443,31 +437,28 @@ class QBW_Reviews {
 				}
 				$custom_shown = preg_replace("%&bull;&nbsp;</small>$%si","</small><div class='smar_clear'></div>",$custom_shown);
 
-				// gather the Reviews structured 
-				$datePublished = $this->iso8601(strtotime($review->date_time));
+				// gather the Reviews structured data
+				$datePublished = $this->iso8601( strtotime( $review->date_time ) );
 				$author = $review->reviewer_name;
 				$description = $review->review_title;
-				$reviewBody = $review->review_text;
 				$ratingValue = $review->review_rating;
 		
-				$name_block = '<div class="smar_fl smar_rname"><span class="isa_vcard" id="qbw-reviewer-' . $review->id . '">' .
-					'<span class="' . $hide_name . '">' . $author . ' &nbsp; &nbsp; </span>' .
-					'<small><time datetime="' . esc_attr( $datePublished ) . '">' . date_i18n( get_option( 'date_format' ), strtotime( $review->date_time ) ) . '</time></small>' .
-					 '</span>' .
-					 '<div class="smar_clear"></div>' .
-					 '</div>';
 
-				$reviews_content .= '<div id="hreview-' . $review->id . '"><' . $title_tag . ' class="summary ' . $hidesummary . '">' . $description . '</' . $title_tag . '><div class="smar_fl smar_sc"><div class="smar_rating">' . $this->output_rating($review->review_rating, false) . '</div></div>' . $name_block . '<div class="smar_clear smar_spacing1"></div>
+				$reviews_content .= '<div id="hreview-' . esc_attr( $review->id ) . '"><' . $title_tag . ' class="summary ' . $hidesummary . '">' . esc_html( $description ) . '</' . $title_tag . '><div class="smar_fl smar_sc"><div class="smar_rating">' . $this->output_rating( $review->review_rating, false ) . '</div></div>';
 
-				<blockquote class="description"><p>' .
+				// The name block
+				$reviews_content .= '<div class="smar_fl smar_rname"><span id="qbw-reviewer-' . esc_attr( $review->id ) . '">' .
+					'<span class="' . $hide_name . '">' . esc_html( $author ) . ' &nbsp; &nbsp; </span>' .
+					'<small><time datetime="' . esc_attr( $datePublished ) . '">' .
+					esc_html( date_i18n( get_option( 'date_format' ), strtotime( $review->date_time ) ) ) .
+					'</time></small>' .
+					 '</span><div class="smar_clear"></div></div>';
 
-						// @todo fix, a bunch of HTML in the review body. so dont use esc_html around reviewBody but escape it using another method
-						$reviewBody .
-
-				'</p></blockquote>' . $custom_shown . $review_response . '</div><hr />';
+				// Review content
+				$reviews_content .= '<div class="smar_clear smar_spacing1"></div><blockquote class="description"><p>' . $reviewBody . '</p></blockquote>' .
+					$custom_shown . $review_response . '</div><hr />';
 
 				// Add structured data for each review to the metadata array
-
 				$metadata['review'][] = array(
 					'@type' => 'Review',
 					'datePublished' => $datePublished,
@@ -475,7 +466,7 @@ class QBW_Reviews {
 						'@type' => 'Person',
 						'name' => $author
 					),
-					'description' => $review->review_title,
+					'description' => $description,
 					'reviewBody' => $reviewBody,
 					'reviewRating' => array(
 						'@type' => 'Rating',
@@ -485,6 +476,7 @@ class QBW_Reviews {
 
 			}//  foreach ($reviews as $review)
 
+			// aggregate rating
 			$reviews_content .= '<span id="qbw-reviews-aggregate">'. 
 								sprintf( esc_html( _n( 'Average rating: %1$s out of 5 based on %2$d review.', 'Average rating: %1$s out of 5 based on %2$d reviews.', $this->got_aggregate["total"], 'quick-business-website' ) ),
 									$average_score,
@@ -503,27 +495,11 @@ class QBW_Reviews {
 			?>
 			<script type="application/ld+json"><?php echo wp_json_encode( $metadata ); ?></script>
 			<?php
-
-			/************************************************************
-			*
-			* @todo methinks the .isa_vcard is forgotten to be closed here.
-			*
-			************************************************************/
 		}
 
 		return array( $reviews_content, $total_reviews );
 	}
 	
-	/* trims text, but does not break up a word */
-	function trim_text_to_word($text,$len) {
-		if(strlen($text) > $len) {
-		  $matches = array();
-		  preg_match("/^(.{1,$len})[\s]/i", $text, $matches);
-		  $text = $matches[0];
-		}
-		return $text.'... ';
-	}
-
 	/**
 	 * If enabled in settings, create reviews page, storing page id.
 	 * @uses insert_post()
@@ -533,26 +509,28 @@ class QBW_Reviews {
 			global $Quick_Business_Website;
 			$Quick_Business_Website->insert_post('page', esc_sql( _x('reviews', 'page_slug', 'quick-business-website') ), 'qbw_reviews_page_id', __('Reviews', 'quick-business-website'), '[SMAR_INSERT]' );
 		}
-
 	}
-
-	public function output_rating($rating, $enable_hover) {
+	/**
+	 * Returns the HTML string for the rating stars
+	 */
+	public function output_rating( $rating, $enable_hover ) {
 		$out = '';
 		$rating_width = 20 * $rating; /* 20% for each star if having 5 stars */
 		$out .= '<div class="sp_rating">';
-		if ($enable_hover) {
+		if ( $enable_hover ) {
 			$out .= '<div class="status"><div class="score"><a class="score1">1</a><a class="score2">2</a><a class="score3">3</a><a class="score4">4</a><a class="score5">5</a></div></div>';
 		}
 
-		$out .= '<div class="base"><div class="average" style="width:' . $rating_width . '%"></div></div>';
+		$out .= '<div class="base"><div class="average" style="width:' . esc_attr( $rating_width ) . '%"></div></div>';
 		$out .= '</div>';
 
 		return $out;
 	}
 
-	function show_reviews_form() {
-		global $post;
-
+	/**
+	 * Get the HTML for the reviews form
+	 */
+	private function show_reviews_form() {
 		$fields = '';
 		$out = '';
 		$req_js = "<script type='text/javascript'>";
@@ -616,8 +594,8 @@ class QBW_Reviews {
 			$fields .= '<tr><td><label for="' . $rand_prefixes[3] . '-ftitle" class="comment-field">'. __('Review Title:', 'quick-business-website').' ' . $req . '</label></td><td><input class="text-input" type="text" id="' . $rand_prefixes[3] . '-ftitle" name="' . $rand_prefixes[3] . '-ftitle" maxlength="150" value="' . esc_attr( $this->p->ftitle ) . '" /></td></tr>';
 		}
 
-		$custom_fields = array(); /* used for insert as well */
-		$custom_count = count( $this->options['field_custom'] ); /* used for insert as well */
+		$custom_fields = array();
+		$custom_count = count( $this->options['field_custom'] );
 		for ($i = 0; $i < $custom_count; $i++) {
 			$custom_fields[$i] = $this->options['field_custom'][$i];
 		}
@@ -678,30 +656,26 @@ class QBW_Reviews {
 									<tr><td colspan="2"><div id="smar_postcomment">' .
 									esc_html( $this->options["leave_text"] ) .
 									'</div></td></tr>' . $fields;
-// @todo continue escaping here
-		$out2 = '   
-			<tr>
+		$out2 = '<tr>
 				<td><label class="comment-field">'. __('Rating:', 'quick-business-website').'</label></td>
-				<td><div class="smar_rating">' . $this->output_rating(0, true) . '</div></td>
+				<td><div class="smar_rating">' . $this->output_rating( 0, true ) . '</div></td>
 			</tr>';
 
-		$out3 = '
-							<tr><td colspan="2"><label for="' . $rand_prefixes[5] . '-ftext" class="comment-field">'. __('Review:', 'quick-business-website').'</label></td></tr>
-							<tr><td colspan="2"><textarea id="' . $rand_prefixes[5] . '-ftext" name="' . $rand_prefixes[5] . '-ftext" rows="8" cols="50">' . $this->p->ftext . '</textarea></td></tr>
-							<tr>
-								<td colspan="2" id="smar_check_confirm">
-									' . $some_required . '
-									<div class="smar_clear"></div>    
-									<input type="checkbox" name="' . $rand_prefixes[6] . '-fconfirm1" id="fconfirm1" value="1" />
-									<div class="smar_fl"><input type="checkbox" name="' . $rand_prefixes[7] . '-fconfirm2" id="fconfirm2" value="1" /></div><div class="smar_fl" style="margin:-2px 0px 0px 5px"><label for="fconfirm2">'. __('Check this box to confirm you are human.', 'quick-business-website').'</label></div>
-									<div class="smar_clear"></div>
-									<input type="checkbox" name="' . $rand_prefixes[8] . '-fconfirm3" id="fconfirm3" value="1" />
-								</td>
-							</tr>
-							<tr><td colspan="2"><input id="smar_submit_btn" name="submitsmar_' . $post->ID . '" type="submit" value="' . $this->options['submit_button_text'] . '" /></td></tr>
-						</tbody>
-					</table>
-				</div>
+		$out3 = '<tr><td colspan="2"><label for="' . $rand_prefixes[5] . '-ftext" class="comment-field">'. __('Review:', 'quick-business-website').'</label></td></tr>
+				<tr><td colspan="2"><textarea id="' . $rand_prefixes[5] . '-ftext" name="' . $rand_prefixes[5] . '-ftext" rows="8" cols="50">' . esc_textarea( $this->p->ftext ) . '</textarea></td></tr>
+				<tr>
+					<td colspan="2" id="smar_check_confirm">' . $some_required .
+					'<div class="smar_clear"></div>    
+						<input type="checkbox" name="' . $rand_prefixes[6] . '-fconfirm1" id="fconfirm1" value="1" />
+						<div class="smar_fl"><input type="checkbox" name="' . $rand_prefixes[7] . '-fconfirm2" id="fconfirm2" value="1" /></div><div class="smar_fl" style="margin:-2px 0px 0px 5px"><label for="fconfirm2">'. __('Check this box to confirm you are human.', 'quick-business-website').'</label></div>
+						<div class="smar_clear"></div>
+						<input type="checkbox" name="' . $rand_prefixes[8] . '-fconfirm3" id="fconfirm3" value="1" />
+					</td>
+				</tr>
+				<tr><td colspan="2"><input id="smar_submit_btn" name="qbw_submit_review" type="submit" value="' . esc_attr( $this->options['submit_button_text'] ) . '" /></td></tr>
+			</tbody>
+			</table>
+			</div>
 			</form>';
 
 		$out4 = '<hr /></div>';
@@ -713,7 +687,7 @@ class QBW_Reviews {
 	/**
 	 * Insert a review into the database and send email notification of they review to the admin.
 	 */
-	function add_review($pageID) {
+	function add_review() {
 		global $wpdb;
 
 		/* begin - some antispam magic */
@@ -733,24 +707,23 @@ class QBW_Reviews {
 
 		/* some sanitation */
 		$date_time = date('Y-m-d H:i:s');
-		$ip = $_SERVER['REMOTE_ADDR'];
+		$ip = sanitize_text_field( $_SERVER['REMOTE_ADDR'] );
 		
 		if (!isset($this->p->fname)) { $this->p->fname = ''; }
 		if (!isset($this->p->femail)) { $this->p->femail = ''; }
 		if (!isset($this->p->fwebsite)) { $this->p->fwebsite = ''; }
 		if (!isset($this->p->ftitle)) { $this->p->ftitle = ''; }
 		if (!isset($this->p->ftext)) { $this->p->ftext = ''; }
-		if (!isset($this->p->femail)) { $this->p->femail = ''; }
-		if (!isset($this->p->fwebsite)) { $this->p->fwebsite = ''; }
 		if (!isset($this->p->frating)) { $this->p->frating = 0; } /* default to 0 */
 		if (!isset($this->p->fconfirm1)) { $this->p->fconfirm1 = 0; } /* default to 0 */
 		if (!isset($this->p->fconfirm2)) { $this->p->fconfirm2 = 0; } /* default to 0 */
 		if (!isset($this->p->fconfirm3)) { $this->p->fconfirm3 = 0; } /* default to 0 */
 		
-		$this->p->fname = trim(strip_tags($this->p->fname));
-		$this->p->femail = trim(strip_tags($this->p->femail));
-		$this->p->ftitle = trim(strip_tags($this->p->ftitle));
-		$this->p->ftext = trim(strip_tags($this->p->ftext));
+		$this->p->fname = sanitize_text_field( $this->p->fname );
+		$this->p->femail = sanitize_email( $this->p->femail );
+		$this->p->fwebsite = sanitize_text_field( $this->p->fwebsite );
+		$this->p->ftitle = sanitize_text_field( $this->p->ftitle );
+		$this->p->ftext = sanitize_text_field( $this->p->ftext );
 		$this->p->frating = intval($this->p->frating);
 
 		/* begin - server-side validation */
@@ -760,7 +733,7 @@ class QBW_Reviews {
 			if ($val == 1) {
 				if (!isset($this->p->$col) || $this->p->$col == '') {
 					$nice_name = ucfirst(substr($col, 1));
-					$errors .= __('You must include your', 'quick-business-website').' ' . $nice_name . '.<br />';
+					$errors .= __('You must include your', 'quick-business-website').' ' . $nice_name . '. ';
 				}
 			}
 		}
@@ -776,32 +749,31 @@ class QBW_Reviews {
 				$custom_i = "custom_$i";
 				if (!isset($this->p->$custom_i) || $this->p->$custom_i == '') {
 					$nice_name = $custom_fields[$i];
-					$errors .= __('You must include your', 'quick-business-website').' ' . $nice_name . '.<br />';
+					$errors .= __('You must include your', 'quick-business-website').' ' . $nice_name . '. ';
 				}
 			}
 		}
 		
-		/* only do regex matching if not blank */
-		if ($this->p->femail != '' && $this->options['ask_fields']['femail'] == 1) {
-			if (!preg_match('/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/', $this->p->femail)) {
-				$errors .= __('The email address provided is not valid.', 'quick-business-website').'<br />';
+		if ( $this->p->femail != '' && $this->options['ask_fields']['femail'] == 1 ) {
+			if ( ! is_email( $this->p->femail ) ) {
+				$errors .= __('The email address provided is not valid.', 'quick-business-website') . ' ';
 			}
 		}
 
 		if (intval($this->p->fconfirm1) == 1 || intval($this->p->fconfirm3) == 1) {
-			$errors .= __('You have triggered our anti-spam system. Please try again. Code 001.', 'quick-business-website').'<br />';
+			$errors .= __('You have triggered our anti-spam system. Please try again. Code 001.', 'quick-business-website').' ';
 		}
 
 		if (intval($this->p->fconfirm2) != 1) {
-			$errors .= __('You have triggered our anti-spam system. Please try again. Code 002', 'quick-business-website').'<br />';
+			$errors .= __('You have triggered our anti-spam system. Please try again. Code 002', 'quick-business-website').' ';
 		}
 
 		if ($this->p->frating < 1 || $this->p->frating > 5) {
-			$errors .= __('You have triggered our anti-spam system. Please try again. Code 003', 'quick-business-website').'<br />';
+			$errors .= __('You have triggered our anti-spam system. Please try again. Code 003', 'quick-business-website').' ';
 		}
 
-		if (strlen(trim($this->p->ftext)) < 5) {
-			$errors .= __('You must include a review. Please make reviews at least 5 letters.', 'quick-business-website').'<br />';
+		if ( strlen( $this->p->ftext ) < 5 ) {
+			$errors .= __('You must include a review. Please make reviews at least 5 letters.', 'quick-business-website').' ';
 		}
 
 		/* returns true for errors */
@@ -811,28 +783,26 @@ class QBW_Reviews {
 		/* end server-side validation */
 
 		$custom_insert = array();
-		for ($i = 0; $i < $custom_count; $i++) {		
+		for ( $i = 0; $i < $custom_count; $i++ ) {
 			if ( ! empty( $this->options['ask_custom'][$i] ) ) {
-				$name = $custom_fields[$i];
-				$custom_i = "custom_$i";				
+				$name = sanitize_text_field( $custom_fields[$i] );
+				$custom_i = "custom_$i";		
 				if ( isset($this->p->$custom_i) ) {
-					$custom_insert[$name] = ucfirst($this->p->$custom_i);
+					$custom_insert[ $name ] = ucfirst( sanitize_text_field( $this->p->$custom_i ) );
 				}
 			}
 		}
 		$custom_insert = serialize($custom_insert);
-		$query = $wpdb->prepare("INSERT INTO `$this->dbtable` 
-				(`date_time`, `reviewer_name`, `reviewer_email`, `reviewer_ip`, `review_title`, `review_text`, `status`, `review_rating`, `reviewer_url`, `custom_fields`, `page_id`) 
-				VALUES (%s, %s, %s, %s, %s, %s, %d, %d, %s, %s, %d)", $date_time, $this->p->fname, $this->p->femail, $ip, $this->p->ftitle, $this->p->ftext, 0, $this->p->frating, $this->p->fwebsite, $custom_insert, $pageID);
-
-		$wpdb->query($query);
+		$wpdb->query( $wpdb->prepare( "INSERT INTO `$this->dbtable` (`date_time`, `reviewer_name`, `reviewer_email`, `reviewer_ip`, `review_title`, `review_text`, `status`, `review_rating`, `reviewer_url`, `custom_fields`) VALUES (%s, %s, %s, %s, %s, %s, %d, %d, %s, %s)", $date_time, $this->p->fname, $this->p->femail, $ip, $this->p->ftitle, $this->p->ftext, 0, $this->p->frating, $this->p->fwebsite, $custom_insert )
+		);
 
 		$bn = esc_html( qbw_get_business_name() );
-		$admin_linkpre = get_admin_url().'admin.php?page=qbw_view_reviews';
-		$admin_link = sprintf(__('Link to admin approval page: %s', 'quick-business-website'), $admin_linkpre);
-		$message = sprintf(__('A new review has been posted on %1$s\'s website.','quick-business-website'),$bn) . "\n\n" .
-	__('You will need to login to the admin area and approve this review before it will appear on your site.','quick-business-website') . "\n\n" .$admin_link;
-
+		$admin_link = esc_url( get_admin_url() . 'admin.php?page=qbw_view_reviews' );
+		$message = sprintf( __('A new review has been posted on %1$s\'s website.','quick-business-website'),
+					$bn ).
+					"\n\n" .
+					__('You will need to login to the admin area and approve this review before it will appear on your site.','quick-business-website') . "\n\n" .
+					sprintf( __('Link to admin approval page: %s', 'quick-business-website'), $admin_link );
 
 		/************************************************************
 		*
@@ -878,7 +848,7 @@ class QBW_Reviews {
 	function init() { /* used for admin_init also */
 		$this->make_p_obj(); /* make P variables object */
 		$this->get_options(); /* populate the options array */
-		$this->check_migrate(); /* call on every instance to see if we have upgraded in any way */
+		$this->check_table();
 
 		if ( !isset($this->p->smarp) ) { $this->p->smarp = 1; }
 		
@@ -917,8 +887,8 @@ class QBW_Reviews {
 
 	function enqueue_scripts() {
 		if( get_option( 'qbw_add_reviews') == 'true'  ) {
-			wp_register_style('qbw-reviews', $this->get_reviews_module_url() . 'reviews.css', array(), $this->plugin_version);
-			wp_register_script('qbw-reviews', $this->get_reviews_module_url() . 'reviews.js', array('jquery'), $this->plugin_version);
+			wp_register_style('qbw-reviews', $this->get_reviews_module_url() . 'reviews.css', array() );
+			wp_register_script('qbw-reviews', $this->get_reviews_module_url() . 'reviews.js', array('jquery') );
 
 			if( is_page(get_option( 'qbw_reviews_page_id' ))) {
 			

@@ -8,41 +8,39 @@
 class QBW_Reviews_Admin {
 	var $parentClass = '';
 	function __construct( $parentClass ) {
-			define( 'QBW_REVIEWS_ADMIN', 1 );
+		define( 'QBW_REVIEWS_ADMIN', 1 );
 			
-			$this->parentClass = &$parentClass;
-			foreach ($this->parentClass as $col => $val) {
-				$this->$col = &$this->parentClass->$col;
-			}
+		$this->parentClass = &$parentClass;
+		foreach ($this->parentClass as $col => $val) {
+			$this->$col = &$this->parentClass->$col;
+		}
 			
 	}
 	function real_admin_init() {
-			$this->parentClass->init();
-			 register_setting( 'smar_options', 'smar_options' );
+		$this->parentClass->init();
+		register_setting( 'smar_options', 'smar_options' );
 	}
 	function createUpdateReviewTable() {
-			require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
-			$sql = "CREATE TABLE $this->dbtable (
-					  id int(11) NOT NULL AUTO_INCREMENT,
-					  date_time datetime NOT NULL,
-					  reviewer_name varchar(150) DEFAULT NULL,
-					  reviewer_email varchar(150) DEFAULT NULL,
-					  reviewer_ip varchar(15) DEFAULT NULL,
-					  review_title varchar(150) DEFAULT NULL,
-					  review_text text,
-					  review_response text,
-					  status tinyint(1) DEFAULT '0',
-					  review_rating tinyint(2) DEFAULT '0',
-					  reviewer_url varchar(255) NOT NULL,
-					  page_id int(11) NOT NULL DEFAULT '0',
-					  custom_fields text,
-					  PRIMARY KEY  (id),
-					  KEY status (status),
-					  KEY page_id (page_id)
-					  )";
-			
-			dbDelta($sql);
-		}
+		require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
+		$sql = "CREATE TABLE $this->dbtable (
+				  id int(11) NOT NULL AUTO_INCREMENT,
+				  date_time datetime NOT NULL,
+				  reviewer_name varchar(150) DEFAULT NULL,
+				  reviewer_email varchar(150) DEFAULT NULL,
+				  reviewer_ip varchar(15) DEFAULT NULL,
+				  review_title varchar(150) DEFAULT NULL,
+				  review_text text,
+				  review_response text,
+				  status tinyint(1) DEFAULT '0',
+				  review_rating tinyint(2) DEFAULT '0',
+				  reviewer_url varchar(255) NOT NULL,
+				  custom_fields text,
+				  PRIMARY KEY  (id),
+				  KEY status (status)
+				  )";
+	
+		dbDelta($sql);
+	}
 
 	function enqueue_admin_stuff() {
 		$pluginurl = $this->parentClass->get_reviews_module_url();
@@ -266,10 +264,7 @@ class QBW_Reviews_Admin {
 		global $wpdb;
 		$exists = $wpdb->get_var("SHOW TABLES LIKE '$this->dbtable'");
 		if ($exists != $this->dbtable) {
-			$exists = $wpdb->get_var("SHOW TABLES LIKE '$this->dbtable'");
-			if ($exists != $this->dbtable) {
-				print "<br /><br /><br /><p class='warning'>". __('COULD NOT CREATE DATABASE TABLE, PLEASE REPORT THIS ERROR', 'quick-business-website'). "</p>";
-			}
+			print "<br /><br /><br /><p class='warning'>". __('COULD NOT CREATE DATABASE TABLE, PLEASE REPORT THIS ERROR', 'quick-business-website'). "</p>";
 		}
 		
 		if (!isset($this->p->Submit)) { $this->p->Submit = ''; }
@@ -460,7 +455,6 @@ class QBW_Reviews_Admin {
 				`review_rating`,
 				`reviewer_url`,
 				`status`,
-				`page_id`,
 				`custom_fields`
 				FROM `$this->dbtable` WHERE $sql_where $and_clause ORDER BY `id` DESC"; 
 			
@@ -564,8 +558,7 @@ class QBW_Reviews_Admin {
 					  $review_text = nl2br($review->review_text);
 					  $review_text = str_replace( array("\r\n","\r","\n") , "" , $review_text );
 					  $review_response = nl2br($review->review_response);
-					  $review_response = str_replace( array("\r\n","\r","\n") , "" , $review_response );
-					  $page = get_post($review->page_id); ?>
+					  $review_response = str_replace( array("\r\n","\r","\n") , "" , $review_response ); ?>
 					  <tr class="approved" id="review-<?php echo $rid; ?>">
 						<th class="check-column" scope="row"><input type="checkbox" value="<?php echo $rid;?>" name="delete_reviews[]" /></th>
 						<td class="author column-author">
