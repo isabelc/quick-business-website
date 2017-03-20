@@ -39,7 +39,7 @@ class SmartestAnnouncements extends WP_Widget {
 		
 		echo $args['before_widget'];
 		if ( $title )
-			echo '<h3 class="widget-title">'. $title . '</h3>';
+			echo '<h3 class="widget-title">' . esc_html( $title ) . '</h3>';
 		 $query_args = array(
 			'posts_per_page' => $number,
 			'post_type' => 'smartest_news',
@@ -49,14 +49,14 @@ class SmartestAnnouncements extends WP_Widget {
 			echo '<ul>';
 			while ( $sbfnews->have_posts() ) {
 				$sbfnews->the_post();
-				echo '<li><a href="'.get_permalink().'" title="'. the_title_attribute( 'echo=0' ) .'">'.get_the_title().'</a><br />';
+				echo '<li><a href="' . esc_url( get_permalink() ) . '">' . esc_html( get_the_title() ) . '</a><br />';
 				$datetime = get_the_date('Y-m-d');
 				printf ( '<time datetime="%s">%s</time>', $datetime, get_the_date() );
 				echo '</li>';	
-			} // endwhile
+			}
 			echo '</ul>';
-			$li = '<a href="'.get_post_type_archive_link( 'smartest_news' ).'">'. __('All Announcements', 'quick-business-website'). '</a>';
-			?> <p><?php printf(__( '%s', 'quick-business-website'), $li); ?></p>
+			$li = '<a href="' . esc_url( get_post_type_archive_link( 'smartest_news' ) ) . '">' . __('All Announcements', 'quick-business-website' ) . '</a>';
+			?> <p><?php echo $li; ?></p>
 
 		<?php } else { ?>
 				<p><?php _e('Coming soon.', 'quick-business-website'); ?></p>		
@@ -64,7 +64,7 @@ class SmartestAnnouncements extends WP_Widget {
 		wp_reset_postdata();
 		echo $args['after_widget'];
 
-	}// end widget
+	}
 
 	/**
 	 * Sanitize widget form values as they are saved.

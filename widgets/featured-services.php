@@ -31,7 +31,7 @@ class SmartestFeaturedServices extends WP_Widget {
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Featured Services', 'quick-business-website' ) : $instance['title'], $instance, $this->id_base );
 		echo $args['before_widget'];
 		if ( $title )
-			echo '<h3 class="widget-title">'. $title . '</h3>';
+			echo '<h3 class="widget-title">'. esc_html( $title ) . '</h3>';
 		if( get_option( 'qbw_enable_service_sort') == 'true'  ) {
 
 			// custom sort order is enabled
@@ -70,18 +70,18 @@ class SmartestFeaturedServices extends WP_Widget {
 				$sbffs->the_post();
 				echo '<div class="sfswrap">';
 				if ( has_post_thumbnail() ) {
-					echo '<figure class="sfsfig"><a href="'.get_permalink().'" title="'. the_title_attribute( 'echo=0' ) .'">';
+					echo '<figure class="sfsfig"><a href="' . esc_url( get_permalink() ) . '">';
 					the_post_thumbnail( 'thumbnail', array( 'class' => 'qbw-fs-thumb' ) );
 					echo '</a></figure>';
 				}
 				echo '<div class="sfscontent">';
-				echo '<h4><a href="'.get_permalink().'" title="'. the_title_attribute( 'echo=0' ) .'">'.get_the_title().'</a></h4>';
+				echo '<h4><a href="' . esc_url( get_permalink() ) . '">' . esc_html( get_the_title() ) . '</a></h4>';
 				echo get_the_excerpt();
 				echo '</div>';
 				echo '</div>';	
 			} // endwhile
 		} else {
-				$li = '<a href="'.get_post_type_archive_link( 'smartest_services' ).'">'. __('Services', 'quick-business-website'). '</a>';
+				$li = '<a href="' . esc_url( get_post_type_archive_link( 'smartest_services' ) ) . '">' .  __('Services', 'quick-business-website') . '</a>';
 				?>
 				<p><?php printf(__( 'Coming soon. See all %s.', 'quick-business-website'), $li); ?></p>		
 		<?php } // endif
@@ -99,7 +99,7 @@ class SmartestFeaturedServices extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		$instance['title'] = strip_tags($new_instance['title'] );
+		$instance['title'] = sanitize_text_field($new_instance['title'] );
 		return $instance;
 	}
 

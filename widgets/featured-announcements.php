@@ -36,7 +36,7 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 		
 		echo $args['before_widget'];
 		if ( $title )
-			echo '<h3 class="widget-title">' . $title . '</h3>';
+			echo '<h3 class="widget-title">' . esc_html( $title ) . '</h3>';
 		$query_args = array(
 			'post_type' => 'smartest_news',
 			'meta_query' => array(
@@ -52,21 +52,21 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 				$sbffa->the_post();
 				echo '<div class="sfawrap">';
 				if ( has_post_thumbnail() ) {
-					echo '<figure class="sfafig"><a href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">';
+					echo '<figure class="sfafig"><a href="' . esc_url( get_permalink() ) . '">';
 					the_post_thumbnail( 'thumbnail', array( 'class' => 'qbw-fa-thumb' ) );
 					echo '</a></figure>';
 						
 				}
 				echo '<div class="sfacontent">';
-				echo '<h4><a href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">'.get_the_title().'</a></h4>';
-				echo '<p>'. get_the_excerpt(). '</p>';
-				echo '<a class="button" href="'.get_permalink().'" title="' . the_title_attribute( 'echo=0' ) . '">Read More</a>';
+				echo '<h4><a href="' . esc_url( get_permalink() ) . '">' . esc_html( get_the_title() ) . '</a></h4>';
+				echo '<p>' . get_the_excerpt() . '</p>';
+				echo '<a class="button" href="' . esc_url( get_permalink() ) . '">' . __( 'Read More', 'quick-business-website' ) . '</a>';
 				echo '</div>';
 				echo '</div>';	
 		 
 			} // endwhile;
 		} else { 
-				$li = '<a href="'.get_post_type_archive_link( 'smartest_news' ).'">'. __('News', 'quick-business-website'). '</a>';
+				$li = '<a href="' . esc_url( get_post_type_archive_link( 'smartest_news' ) ) . '">' . __( 'News', 'quick-business-website' ) . '</a>';
 				?>
 				<p><?php printf(__( 'Coming soon. See all %s.', 'quick-business-website'), $li); ?></p>		
 		<?php }

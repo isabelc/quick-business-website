@@ -23,14 +23,13 @@ class SmartestServices extends WP_Widget {
 	 * @param array $instance Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
-		
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Services', 'quick-business-website' ) : $instance['title'], $instance, $this->id_base );
 		$service_category_term_id = $instance['service_category'];
 		$service_category = !empty($service_category_term_id) ? $service_category_term_id : '';
 
 		echo $args['before_widget'];
 		if ( $title )
-			echo '<h3 class="widget-title">'. $title . '</h3>';
+			echo '<h3 class="widget-title">'. esc_html( $title ) . '</h3>';
 		
 		// if cat is selected, do tax query
 		if ( ! empty ($service_category) ) {
@@ -100,15 +99,15 @@ class SmartestServices extends WP_Widget {
 			while ( $sbfservices->have_posts() ) {
 				$sbfservices->the_post();
 
-				echo '<li><a href="'.get_permalink().'" title="'. the_title_attribute( 'echo=0' ) .'">'.get_the_title().'</a></li>';
+				echo '<li><a href="' . esc_url( get_permalink() ) . '">' . esc_html( get_the_title() ) . '</a></li>';
 
-			} // endwhile
+			}
 			echo '</ul>';
 
-		} // endif
+		}
 		wp_reset_postdata();
 		echo $args['after_widget'];
-	}// end widget
+	}
 
 	/**
 	 * Sanitize widget form values as they are saved.
