@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: https://isabelcastillo.com/free-plugins/quick-business-website
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 2.0.alpha.9
+Version: 2.3.alpha.91
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -44,7 +44,6 @@ class Quick_Business_Website {
 		if ( ! defined( 'QUICKBUSINESSWEBSITE_URL' ) ) {
 			define( 'QUICKBUSINESSWEBSITE_URL', plugin_dir_url( __FILE__) );
 		}
-		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_action( 'plugins_loaded', array( $this, 'load' ) );
 		add_action( 'wp_ajax_smartestb_ajax_post_action', array( $this, 'ajax_callback' ) );
 		add_action( 'admin_menu', array( $this, 'add_admin' ) );
@@ -122,16 +121,7 @@ class Quick_Business_Website {
 	public function textdomain() {
 		load_plugin_textdomain( 'quick-business-website', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
 	}	
-	/** 
-	* Store plugin name as options
-	*
-	* @since 1.0
-	* @return void
-	*/
-	public function admin_init() {
-		$plugin_data = get_plugin_data( __FILE__, false );
-		update_option( 'qbw_smartestb_plugin_version', $plugin_data['Version'] );
-	}
+
 	/**  
 	* Setup options panel
 	*
