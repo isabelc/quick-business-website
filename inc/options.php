@@ -20,10 +20,9 @@ $options[] = array( 'name' => __('Welcome','quick-business-website'),
 						);
 $options[] = array( 'name' => __('Welcome to Quick Business Website','quick-business-website'),
 						'type' => 'info',
-						'std' => __( 'On the left are tabs to customize your site, but everything is optional.<br /><br />To make your website more complete, enter these two tabs on the left:<br /><br />1. The <strong>About Page</strong> tab.<br />2. The <strong>Business Info</strong> tab.<br /><br />Then, take a moment to browse all the tabs so you can see what options are available. <br /><br />To get started, first click the \'<strong>Save all Changes</strong>\' button to save the plugin defaults.', 'quick-business-website' ) );
+						'std' => __( 'Here you\'ll see tabs to customize your site, but everything is optional.<br /><br />To give your website structured data for Google Search, enter your business info in the <strong>Business Info</strong> tab.<br /><br />Then, take a moment to browse all the tabs so you can see what options are available. <br /><br />Be sure to click the \'<strong>Save all Changes</strong>\' button when you enter new information.', 'quick-business-website' ) );
 
 /* Business */
-
 $options[] = array( 'name' => __('Business Info','quick-business-website'),'class' => 'money',
 					'type' => 'heading');
 					
