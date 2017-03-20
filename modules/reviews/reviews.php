@@ -796,10 +796,11 @@ class QBW_Reviews {
 		$wpdb->query( $wpdb->prepare( "INSERT INTO `$this->dbtable` (`date_time`, `reviewer_name`, `reviewer_email`, `reviewer_ip`, `review_title`, `review_text`, `status`, `review_rating`, `reviewer_url`, `custom_fields`) VALUES (%s, %s, %s, %s, %s, %s, %d, %d, %s, %s)", $date_time, $this->p->fname, $this->p->femail, $ip, $this->p->ftitle, $this->p->ftext, 0, $this->p->frating, $this->p->fwebsite, $custom_insert )
 		);
 
-		$bn = esc_html( qbw_get_business_name() );
-		$admin_link = esc_url( get_admin_url() . 'admin.php?page=qbw_view_reviews' );
-		$message = sprintf( __('A new review has been posted on %1$s\'s website.','quick-business-website'),
-					$bn ).
+		$bn = strip_tags( qbw_get_business_name() );
+		$url = get_admin_url() . 'admin.php?page=qbw_view_reviews';
+		$admin_link = '<a href="' . esc_url( $url ) . '">' . esc_html( $url ) . '</a>';
+		$message = sprintf( __( 'A new review has been posted on %1$s\'s website.', 'quick-business-website' ),
+					$bn ) .
 					"\n\n" .
 					__('You will need to login to the admin area and approve this review before it will appear on your site.','quick-business-website') . "\n\n" .
 					sprintf( __('Link to admin approval page: %s', 'quick-business-website'), $admin_link );
@@ -810,7 +811,7 @@ class QBW_Reviews {
 		*
 		************************************************************/
 		
-		// @wp_mail( get_bloginfo('admin_email'), $bn.': '. sprintf(__('New Review Posted on %1$s', 'quick-business-website'), date('m/d/Y h:i e') ), $message );
+		// wp_mail( get_bloginfo('admin_email'), $bn.': '. sprintf(__('New Review Posted on %1$s', 'quick-business-website'), date('m/d/Y h:i e') ), $message );
 
 
 		/* returns false for no error */
@@ -832,6 +833,7 @@ class QBW_Reviews {
 			$out .= "</script>";
 			$out .= "</div></body></html>";
 			echo $out;
+
 		} else {
 			foreach ($cookie as $col => $val) {
 				setcookie( $col, $val ); /* add cookie via headers */
