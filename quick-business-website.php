@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: https://isabelcastillo.com/free-plugins/quick-business-website
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 2.3.alpha.92
+Version: 2.3.alpha.94
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -44,6 +44,8 @@ class Quick_Business_Website {
 		if ( ! defined( 'QUICKBUSINESSWEBSITE_URL' ) ) {
 			define( 'QUICKBUSINESSWEBSITE_URL', plugin_dir_url( __FILE__) );
 		}
+		add_action( 'admin_init', array( $this, 'upgrade_options' ) );
+		add_action( 'admin_init', array( $this, 'activation_redirect' ) );
 		add_action( 'plugins_loaded', array( $this, 'load' ) );
 		add_action( 'wp_ajax_smartestb_ajax_post_action', array( $this, 'ajax_callback' ) );
 		add_action( 'admin_menu', array( $this, 'add_admin' ) );
@@ -75,7 +77,6 @@ class Quick_Business_Website {
 		if ( get_option( 'qbw_enable_service_sort') == 'true'  ) { 
 			add_filter( 'parse_query', array( $this, 'sort_services' ) );
 		}
-		add_action( 'admin_init', array( $this, 'upgrade_options' ) );
 		add_action( 'qbw_settings_checkbox_save', array( $this, 'set_services_sort_order' ), 10, 2 );
 		add_filter( 'qbw_sanitize_setting', array( $this, 'sanitize_setting' ), 10, 2 );
     }
@@ -87,6 +88,7 @@ class Quick_Business_Website {
 	*/
 	public static function activate() {
 		add_action( 'admin_head', array( __CLASS__, 'option_setup' ) );
+		add_option( 'qbw_do_activation_redirect', true );
 		global $wp_rewrite;
 		$wp_rewrite->flush_rules();
 	}
@@ -98,11 +100,24 @@ class Quick_Business_Website {
 	* @return void
 	*/
 	function settings_link($actions, $file) {
-	$qbw_path    = plugin_basename(__FILE__);
+	$qbw_path = plugin_basename(__FILE__);
 	if(false !== strpos($file, $qbw_path))
 	 $actions['settings'] = '<a href="admin.php?page=quickbusinesswebsite">'. __('Settings', 'quick-business-website'). '</a>';
 	return $actions; 
 	}
+	
+	/**
+	 * Redirect to QBW settings page upon plugin activation
+	 */
+	public function activation_redirect() {
+		if ( get_option( 'qbw_do_activation_redirect', false ) ) {
+			delete_option( 'qbw_do_activation_redirect' );
+			//wp_redirect( "options-general.php?page=rotator" );
+			wp_safe_redirect( admin_url( 'admin.php?page=quickbusinesswebsite' ) );
+			exit;
+		}
+	}
+
 	/**
 	* Include plugin options
 	*
@@ -296,20 +311,14 @@ class Quick_Business_Website {
 			</div>
 	        <?php $return = $this->machine($options); ?>
 			<div id="support-links">
-	<!--[if IE]>
-	<div class="ie">
-	<![endif]-->
 			<ul>
-			<li class="smar-ui-icon"><a href="https://isabelcastillo.com/free-plugins/quick-business-website#docs-subheading-doc" target="_blank" rel="nofollow"><div class="dashicons dashicons-book-alt"></div> <?php _e( 'Documentation', 'quick-business-website' ); ?></a></li>
+			<li class="smar-ui-icon"><a href="https://isabelcastillo.com/free-plugins/quick-business-website#docs-subheading-doc" target="_blank" rel="nofollow" class="support-button"><div class="dashicons dashicons-book-alt"></div> <?php _e( 'Documentation', 'quick-business-website' ); ?></a></li>
 
 			<li class="smar-ui-icon"><a href="https://wordpress.org/support/plugin/quick-business-website/reviews/" target="_blank"><div class="dashicons dashicons-star-filled"></div> <?php _e( 'Feedback', 'quick-business-website' ); ?></a></li>
 
 			<li class="right"><img style="display:none" src="<?php echo QUICKBUSINESSWEBSITE_URL; ?>images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." />
 				<input type="submit" value="<?php _e('Save All Changes', 'quick-business-website'); ?>" class="button submit-button" /></li>
 			</ul>
-	<!--[if IE]>
-	</div>
-	<![endif]-->
 			</div>
 	        <div id="main">
 		        <div id="smartestb-nav">
@@ -320,9 +329,6 @@ class Quick_Business_Website {
 		        </div>
 		        <div class="clear"></div>
 	        </div>
-	        <!--[if IE]>
-			<div class="ie">
-			<![endif]-->
 	        <div class="save_bar_top">
 	        <img style="display:none" src="<?php echo QUICKBUSINESSWEBSITE_URL; ?>images/loading-bottom.gif" class="ajax-loading-img ajax-loading-img-bottom" alt="Working..." />
 	        <input type="submit" value="<?php _e('Save All Changes', 'quick-business-website'); ?>" class="button submit-button" />        
@@ -336,9 +342,6 @@ class Quick_Business_Website {
 	        </form>
 	       
 	        </div>
-	        <!--[if IE 6]>
-			</div>
-			<![endif]-->
 	<div style="clear:both;"></div>    
 	</div><!--wrap-->
 	
@@ -891,7 +894,6 @@ class Quick_Business_Website {
 	 * Add CPTs conditionally, if enabled. Adds smartest_staff, smartest_services, smartest_news. Also, delete Reviews page if disabled.
 	 * @since 1.0
 	 */
-	
 	public function create_business_cpts() {
 		$staff = get_option( 'qbw_show_staff');
 		$news = get_option( 'qbw_show_news');
