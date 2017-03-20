@@ -149,12 +149,12 @@ class QBW_Reviews_Admin {
 		if ($this->options['show_fields']['fwebsite'] == 1) { $sf['fwebsite'] = 'checked'; }
 		if ($this->options['show_fields']['ftitle'] == 1) { $sf['ftitle'] = 'checked'; }
 		
-		echo '<div class="postbox" style="width:700px;"><div id="smar_ad">
+		echo '<div class="postbox"><div id="smar_ad">
 			   <form method="post" action="">
 				<div style="background:#eaf2fa;padding:6px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;"><legend>'. __('Review Page Settings', 'quick-business-website'). '</legend></div>
 					<div style="padding:10px;padding-bottom:10px;"><label for="reviews_per_page">'. __('Reviews shown per page: ', 'quick-business-website') . '</label><input style="width:40px;" type="text" id="reviews_per_page" name="reviews_per_page" value="' . esc_attr( $this->options['reviews_per_page'] ) . '" />
 						<br /><br />
-						<label for="form_location">'. __('Location of Review Form: ', 'quick-business-website'). '</label>
+						<label for="form_location" class="qbw-label-form_location qbw-label-block">'. __('Location of Review Form: ', 'quick-business-website'). '</label>
 						<select id="form_location" name="form_location">
 							<option ';
 							if ( $this->options['form_location'] == 0) {
@@ -170,27 +170,30 @@ class QBW_Reviews_Admin {
 							'</option>
 						</select>
 						<br /><br />
-						<label>'. __('Fields to ask for on review form: ', 'quick-business-website'). '</label>
+						<label class="qbw-label-ask_fields qbw-label-block">'. __('Fields to ask for on review form: ', 'quick-business-website'). '</label>
 						<input data-what="fname" id="ask_fname" name="ask_fields[]" type="checkbox" '.$af['fname'].' value="fname" />&nbsp;<label for="ask_fname"><small>'. __('Name', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
 						<input data-what="femail" id="ask_femail" name="ask_fields[]" type="checkbox" '.$af['femail'].' value="femail" />&nbsp;<label for="ask_femail"><small>'. __('Email', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
-						<input data-what="fwebsite" id="ask_fwebsite" name="ask_fields[]" type="checkbox" '.$af['fwebsite'].' value="fwebsite" />&nbsp;<label for="ask_fwebsite"><small>'. __('Website', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
-						<input data-what="ftitle" id="ask_ftitle" name="ask_fields[]" type="checkbox" '.$af['ftitle'].' value="ftitle" />&nbsp;<label for="ask_ftitle"><small>'. __('Review Title', 'quick-business-website'). '</small></label>
+						<input data-what="fwebsite" id="ask_fwebsite" name="ask_fields[]" type="checkbox" '.$af['fwebsite'].' value="fwebsite" />&nbsp;<label for="ask_fwebsite" class="qbw-label-ask_fwebsite"><small>'. __('Website', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
+						<span class="qbw-pre">
+<input data-what="ftitle" id="ask_ftitle" name="ask_fields[]" type="checkbox" '.$af['ftitle'].' value="ftitle" /></span> &nbsp;<label for="ask_ftitle"><small>'. __('Review Title', 'quick-business-website'). '</small></label>
 						<br /><br />
-						<label>'. __('Fields to require on review form: ', 'quick-business-website'). '</label>
+						<label class="qbw-label-require_fields qbw-label-block">'. __('Fields to require on review form: ', 'quick-business-website'). '</label>
 						<input id="require_fname" name="require_fields[]" type="checkbox" '.$rf['fname'].' value="fname" />&nbsp;<label for="require_fname"><small>'. __('Name', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
 						<input id="require_femail" name="require_fields[]" type="checkbox" '.$rf['femail'].' value="femail" />&nbsp;<label for="require_femail"><small>'. __('Email', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
-						<input id="require_fwebsite" name="require_fields[]" type="checkbox" '.$rf['fwebsite'].' value="fwebsite" />&nbsp;<label for="require_fwebsite"><small>'. __('Website', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
-						<input id="require_ftitle" name="require_fields[]" type="checkbox" '.$rf['ftitle'].' value="ftitle" />&nbsp;<label for="require_ftitle"><small>'. __('Review Title', 'quick-business-website'). '</small></label>
+						<input id="require_fwebsite" name="require_fields[]" type="checkbox" '.$rf['fwebsite'].' value="fwebsite" />&nbsp;<label for="require_fwebsite" class="qbw-label-require_fwebsite"><small>'. __('Website', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
+						<span class="qbw-pre">
+<input id="require_ftitle" name="require_fields[]" type="checkbox" '.$rf['ftitle'].' value="ftitle" /></span> &nbsp;<label for="require_ftitle"><small>'. __('Review Title', 'quick-business-website'). '</small></label>
 						<br /><br />
-						<label>'. __('Fields to show on each approved review: ', 'quick-business-website'). '</label>
+						<label class="qbw-label-show_fields qbw-label-block">'. __('Fields to show on each approved review: ', 'quick-business-website'). '</label>
 						<input id="show_fname" name="show_fields[]" type="checkbox" '.$sf['fname'].' value="fname" />&nbsp;<label for="show_fname"><small>'. __('Name', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
 						<input id="show_femail" name="show_fields[]" type="checkbox" '.$sf['femail'].' value="femail" />&nbsp;<label for="show_femail"><small>'. __('Email', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
-						<input id="show_fwebsite" name="show_fields[]" type="checkbox" '.$sf['fwebsite'].' value="fwebsite" />&nbsp;<label for="show_fwebsite"><small>'. __('Website', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
-						<input id="show_ftitle" name="show_fields[]" type="checkbox" '.$sf['ftitle'].' value="ftitle" />&nbsp;<label for="show_ftitle"><small>'. __('Review Title', 'quick-business-website'). '</small></label>
+						<input id="show_fwebsite" name="show_fields[]" type="checkbox" '.$sf['fwebsite'].' value="fwebsite" />&nbsp;<label for="show_fwebsite" class="qbw-label-show_fwebsite"><small>'. __('Website', 'quick-business-website'). '</small></label>&nbsp;&nbsp;&nbsp;
+						<span class="qbw-pre">
+<input id="show_ftitle" name="show_fields[]" type="checkbox" '.$sf['ftitle'].' value="ftitle" /></span> &nbsp;<label for="show_ftitle"><small>'. __('Review Title', 'quick-business-website'). '</small></label>
 						<br />
 						<small>'. __('It is usually NOT a good idea to show email addresses publicly.', 'quick-business-website'). '</small>
 						<br /><br />
-						<label>'. __('Custom fields on review form: ', 'quick-business-website'). '</label>(<small>'. __('You can type in the names of any additional fields you would like here.', 'quick-business-website'). '</small>)
+						<label class="qbw-label-custom_fields qbw-label-block">'. __('Custom fields on review form: ', 'quick-business-website'). '</label>(<small>'. __('You can type in the names of any additional fields you would like here.', 'quick-business-website'). '</small>)
 						<div style="font-size:10px;padding-top:6px;">
 						';
 						for ($i = 0; $i < 6; $i++) /* 6 custom fields */
@@ -207,7 +210,7 @@ class QBW_Reviews_Admin {
 							'';
 
 							echo '
-							<label for="field_custom'.$i.'">'. __('Field Name: ', 'quick-business-website'). '</label><input id="field_custom'.$i.'" name="field_custom['.$i.']" type="text" value="' . esc_attr( $name_value ) . '" />&nbsp;&nbsp;&nbsp;
+							<label for="field_custom'.$i.'" class="qbw-label-field_custom qbw-label-block">'. __('Field Name: ', 'quick-business-website'). '</label><input id="field_custom'.$i.'" name="field_custom['.$i.']" type="text" value="' . esc_attr( $name_value ) . '" />&nbsp;&nbsp;&nbsp;
 							<input '.$caf.' class="custom_ask" data-id="'.$i.'" id="ask_custom'.$i.'" name="ask_custom['.$i.']" type="checkbox" value="1" />&nbsp;<label for="ask_custom'.$i.'">'. __('Ask', 'quick-business-website'). '</label>&nbsp;&nbsp;&nbsp;
 							<input '.$crf.' class="custom_req" data-id="'.$i.'" id="require_custom'.$i.'" name="require_custom['.$i.']" type="checkbox" value="1" />&nbsp;<label for="require_custom'.$i.'">'. __('Require', 'quick-business-website'). '</label>&nbsp;&nbsp;&nbsp;
 							<input '.$csf.' class="custom_show" data-id="'.$i.'" id="show_custom'.$i.'" name="show_custom['.$i.']" type="checkbox" value="1" />&nbsp;<label for="show_custom'.$i.'">'. __('Show', 'quick-business-website'). '</label><br />
@@ -216,7 +219,7 @@ class QBW_Reviews_Admin {
 						echo '
 						</div>
 						<br /><br />
-						<label for="title_tag">'. __('Heading to use for Review Titles: ', 'quick-business-website'). '</label>
+						<label for="title_tag" class="qbw-label-block qbw-label-title_tag">'. __('Heading to use for Review Titles: ', 'quick-business-website'). '</label>
 						<select id="title_tag" name="title_tag">
 							<option ';if ($this->options['title_tag'] == 'h2') { echo "selected"; } echo ' value="h2">H2</option>
 							<option ';if ($this->options['title_tag'] == 'h3') { echo "selected"; } echo ' value="h3">H3</option>
@@ -229,14 +232,14 @@ class QBW_Reviews_Admin {
 						<br />
 						<small>'. __('If this option is unchecked, there will be no visible way for visitors to submit reviews.', 'quick-business-website'). '</small>
 						<br /><br />
-						<label for="goto_leave_text">'. __('Button text for the "show review form" button: ', 'quick-business-website'). '</label><input style="width:250px;" type="text" id="goto_leave_text" name="goto_leave_text" value="'. esc_attr( $this->options['goto_leave_text'] ) .'" />
+						<label for="goto_leave_text" class="qbw-label-block">'. __('Button text for the "show review form" button: ', 'quick-business-website'). '</label><input style="width:250px;" type="text" id="goto_leave_text" name="goto_leave_text" value="'. esc_attr( $this->options['goto_leave_text'] ) .'" />
 						<br /><br />
 
-                        <label for="leave_text">'. __('Title to be displayed above review form: ', 'quick-business-website'). '</label><input style="width:250px;" type="text" id="leave_text" name="leave_text" value="' . esc_attr( $this->options['leave_text'] ) . '" />
+                        <label for="leave_text" class="qbw-label-block">'. __('Title to be displayed above review form: ', 'quick-business-website'). '</label><input style="width:250px;" type="text" id="leave_text" name="leave_text" value="' . esc_attr( $this->options['leave_text'] ) . '" />
                         <br />
                         <small>'. __('This will be shown as a heading immediately above the review form.', 'quick-business-website'). '</small>
                         <br /><br />
-						<label for="submit_button_text">'. __('Button text for the submit button: ', 'quick-business-website'). '</label><input style="width:200px;" type="text" id="submit_button_text" name="submit_button_text" value="'. esc_attr( $this->options['submit_button_text'] ).'" />
+						<label for="submit_button_text" class="qbw-label-block">'. __('Button text for the submit button: ', 'quick-business-website'). '</label><input style="width:200px;" type="text" id="submit_button_text" name="submit_button_text" value="'. esc_attr( $this->options['submit_button_text'] ).'" />
 						<br />
 						<div class="submit" style="padding:10px 0px 0px 0px;"><input type="submit" class="button-primary" value="'. __('Save Changes', 'quick-business-website'). '" name="Submit"></div>
 					</div>';
@@ -653,7 +656,7 @@ class QBW_Reviews_Admin {
 			  </table>
 
 			  <div class="tablenav">
-				<div class="alignleft actions" style="float:left;">
+				<div class="alignleft actions">
 					  <select name="action2">
 							<option selected="selected" value="-1"><?php _e('Bulk Actions', 'quick-business-website'); ?></option>
 							<option value="bunapprove"><?php _e('Unapprove', 'quick-business-website'); ?></option>
@@ -663,7 +666,8 @@ class QBW_Reviews_Admin {
 					  </select>&nbsp;
 					  <input type="submit" class="button-secondary apply" name="act2" value="<?php _e('Apply', 'quick-business-website'); ?>" id="doaction2" />
 				</div>
-				<div class="alignleft actions" style="float:left;padding-left:20px;"><?php echo $this->parentClass->pagination($total_reviews, $this->options['reviews_per_page']); ?></div>  
+
+				<div class="alignleft actions"><?php echo $this->parentClass->pagination($total_reviews, $this->options['reviews_per_page']); ?></div>  
 				<br class="clear" />
 			  </div>
 			</form>

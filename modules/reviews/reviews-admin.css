@@ -76,3 +76,35 @@ inline,
 .unapproved.smar_show .unapprove {
     display: inline
 }
+#smar_pagination {
+    display: block;
+    margin-top:5px;
+}
+#smar_pagination_page {
+    display: inline-block;
+    padding-left:20px;
+}
+#smar_pagination .smar_current, #smar_pagination a {
+    padding:8px 5px;
+    margin:5px 3px;
+}
+#smar_ad label{
+    font-weight:700
+}
+
+@media screen and ( max-width: 782px ) {
+    #smar_respond_1 p.search-box {
+        margin-bottom: 5px;
+    }
+    #smar_ad label.qbw-label-block {
+        display: block;
+        padding-bottom: 8px;
+        padding-top: 8px;
+    }
+    #smar_ad label.qbw-label-field_custom {
+        margin-top:16px;
+    }
+    .qbw-pre {
+        white-space: pre;
+    }
+}
