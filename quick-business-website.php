@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: https://isabelcastillo.com/free-plugins/quick-business-website
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 2.3.alpha.91
+Version: 2.3.alpha.92
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -160,7 +160,7 @@ class Quick_Business_Website {
 	}
 
 	/** 
-	*  add admin options page
+	* add admin options page
 	*
 	* @since 1.0
 	*/
@@ -888,7 +888,7 @@ class Quick_Business_Website {
 	}
 
 	/** 
-	 * Add CPTs conditionally, if enabled. Adds smartest_staff, smartest_services, smartest_news. Also, delete About page if disabled, delete Reviews page if disabled.
+	 * Add CPTs conditionally, if enabled. Adds smartest_staff, smartest_services, smartest_news. Also, delete Reviews page if disabled.
 	 * @since 1.0
 	 */
 	
