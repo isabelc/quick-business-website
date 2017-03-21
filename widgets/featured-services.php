@@ -30,40 +30,31 @@ class SmartestFeaturedServices extends WP_Widget {
 		wp_enqueue_style( 'qbw-feat-services' );
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Featured Services', 'quick-business-website' ) : $instance['title'], $instance, $this->id_base );
 		echo $args['before_widget'];
-		if ( $title )
+		if ( $title ) {
 			echo '<h3 class="widget-title">'. esc_html( $title ) . '</h3>';
-		if ( get_option( 'qbw_enable_service_sort') == 'true' ) {
-
-			// custom sort order is enabled
-
-			$query_args = array( 
-				'post_type' => 'smartest_services',
-				'meta_query' => array(
-							array  (
-								'key' => '_smab_services_featured',
-								'value'=> 'on' 
-							)
-						),
-				'orderby' => 'meta_value_num',
-				'meta_key' => '_smab_service-order-number',
-				'order' => 'ASC'
-				);
-
-		} else {
-
-			// default sort order
-
-			$query_args = array( 
-				'post_type' => 'smartest_services',
-				'meta_query' => array(
-							array  (
-								'key' => '_smab_services_featured',
-								'value'=> 'on' 
-								)
-							)
-				);
-
 		}
+
+		// default sort order
+		$query_args = array( 
+			'post_type' => 'smartest_services',
+			'no_found_rows' => true,
+			'meta_query' => array(
+						array  (
+							'key' => '_smab_services_featured',
+							'value'=> 'on' 
+							)
+						)
+			);		
+
+
+		// Check if custom sort order is enabled
+		if ( get_option( 'qbw_enable_service_sort') == 'true' ) {
+		
+			$query_args['orderby'] = 'meta_value_num';
+			$query_args['meta_key'] = '_smab_service-order-number';
+			$query_args['order'] = 'ASC';
+		}
+
 		$sbffs = new WP_Query( $query_args );
 		if ( $sbffs->have_posts() ) {
 			while ( $sbffs->have_posts() ) {

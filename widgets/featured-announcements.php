@@ -39,6 +39,7 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 			echo '<h3 class="widget-title">' . esc_html( $title ) . '</h3>';
 		$query_args = array(
 			'post_type' => 'smartest_news',
+			'no_found_rows' => true,
 			'meta_query' => array(
 				array (
 					'key' => '_smab_news_featured',
