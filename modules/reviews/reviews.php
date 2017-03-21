@@ -125,22 +125,7 @@ class QBW_Reviews {
 		if ( get_option( 'qbw_reviews_table_created' ) != 'completed' ) {
 			global $QBW_Reviews_Admin;
 			$this->include_admin();
-			$QBW_Reviews_Admin->createUpdateReviewTable();// @test on new install
-
-
-			/************************************************************
-			*
-			* @todo now now Test this by :
-			1. back up the plugin.
-			2. delete (uninstall) the plugin.
-			3. re-install the plugin fresh.
-			4. Make sure that reviews table was created well.
-			5. make sure the old reviews were deleted on uninstall.
-			
-			*
-			************************************************************/
-			
-
+			$QBW_Reviews_Admin->createUpdateReviewTable();
 			update_option( 'qbw_reviews_table_created', 'completed' );
 		}
 	}
