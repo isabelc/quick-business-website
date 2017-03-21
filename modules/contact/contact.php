@@ -173,8 +173,8 @@ function smartest_themes_contact_form() {
  */
 function qbw_contact_create_contact_page() {
 	if ( get_option( 'qbw_stop_contact') == 'false' ) {
-		$bn = stripslashes( esc_attr( get_option( 'qbw_business_name' ) ) );
-		$contitle = sprintf(__('Contact %s','quick-business-website'), $bn);
+		$bn = qbw_get_business_name();
+		$contitle = sprintf( __( 'Contact %s','quick-business-website'), esc_html( $bn ) );
 		global $Quick_Business_Website;
 		$Quick_Business_Website->insert_post( 'page', esc_sql( _x('contact', 'page_slug', 'quick-business-website') ), 'qbw_contact_page_id', $contitle, '[qbw_contact_form]' );
 	}

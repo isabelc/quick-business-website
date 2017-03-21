@@ -34,10 +34,6 @@ function qbw_kses( $content, $img = false ) {
 
 	return wp_kses( $content, $allowed_tags );
 }
-
-/**
- * @test @todo use this everwhere that option qbw_business_name is got.
- */
 function qbw_get_business_name() {
 	$n = stripslashes( get_option( 'qbw_business_name' ) );
 	if ( empty( $n ) ) {
