@@ -168,7 +168,7 @@ $options[] = array(
                     'id' => $shortname.'_remove_adminfooter',
                     'type' => 'checkbox');
 $options[] = array( 'name' => __('Remove WordPress Links From Admin Bar','quick-business-website'),
-					'desc' => __('See the Wordpress link on the left of the bar across the top of this page? Check here to remove that link.','quick-business-website'),
+					'desc' => __('See the Wordpress logo link on the left of the bar across the top of this page? Check here to remove that link.','quick-business-website'),
 					'id' => $shortname.'_remove_wplinks',
 					'std' => 'false',
 					'type' => 'checkbox');
@@ -267,8 +267,8 @@ $options[] = array( 'name' => __('Delete All Data On Uninstall','quick-business-
 					'std' => 'false',
 					'type' => 'checkbox');
 
-$options[] = array( 'name' => __('Backwards Compatibility: Use Old Social Icons','quick-business-website'),
-					'desc' => __('As of version 1.4.1, we use new icons for the social buttons that are Retina-ready for high resolution screens, and they change color to match your links color. Check this box to use the OLD social icons instead.', 'quick-business-website'),
+$options[] = array( 'name' => __('Backwards Compatibility: Use Old Social Media Icons','quick-business-website'),
+					'desc' => __('As of version 1.4.1, we use new icons for the social media buttons that are Retina-ready for high resolution screens. Check this box to use the OLD social icons instead.', 'quick-business-website'),
 					'id' => $shortname.'_old_social_icons',
 					'std' => 'false',
 					'type' => 'checkbox');
