@@ -603,7 +603,7 @@ class QBW_Reviews_Admin {
 						<td class="comment column-comment">
 						  <div class="smar-submitted-on">
 							<span class="best_in_place" data-url='<?php echo esc_url( $update_path ); ?>' data-object='json' data-attribute='date_time'><?php 
-							echo date_i18n( get_option( 'date_format' ), strtotime( $review->date_time ) ) . ' at ' . date_i18n( get_option( 'time_format' ), strtotime( $review->date_time ) );// @test locale ?>
+							echo date_i18n( get_option( 'date_format' ), strtotime( $review->date_time ) ) . ' at ' . date_i18n( get_option( 'time_format' ), strtotime( $review->date_time ) ); ?>
 							</span>
 							<?php if ($review->status == 1) : ?>[<a target="_blank" href="<?php echo esc_url( $this->parentClass->get_jumplink_for_review( $review, $this->page ) ); ?>"><?php _e('View Live Review', 'quick-business-website'); ?></a>]<?php endif; ?>
 						  </div>
