@@ -176,7 +176,7 @@ function qbw_contact_create_contact_page() {
 		$bn = qbw_get_business_name();
 		$contitle = sprintf( __( 'Contact %s','quick-business-website'), esc_html( $bn ) );
 		global $Quick_Business_Website;
-		$Quick_Business_Website->insert_post( 'page', esc_sql( _x('contact', 'page_slug', 'quick-business-website') ), 'qbw_contact_page_id', $contitle, '[qbw_contact_form]' );
+		$Quick_Business_Website->insert_post( esc_sql( _x('contact', 'page_slug', 'quick-business-website') ), 'qbw_contact_page_id', $contitle, '[qbw_contact_form]' );
 	}
 } 
 add_action('after_setup_theme', 'qbw_contact_create_contact_page');

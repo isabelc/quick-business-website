@@ -127,6 +127,20 @@ class QBW_Reviews {
 			$this->include_admin();
 			$QBW_Reviews_Admin->createUpdateReviewTable();// @test on new install
 
+
+			/************************************************************
+			*
+			* @todo now now Test this by :
+			1. back up the plugin.
+			2. delete (uninstall) the plugin.
+			3. re-install the plugin fresh.
+			4. Make sure that reviews table was created well.
+			5. make sure the old reviews were deleted on uninstall.
+			
+			*
+			************************************************************/
+			
+
 			update_option( 'qbw_reviews_table_created', 'completed' );
 		}
 	}
@@ -507,7 +521,7 @@ class QBW_Reviews {
 	public function create_reviews_page() {
 		if ( get_option( 'qbw_add_reviews' ) == 'true' ) {
 			global $Quick_Business_Website;
-			$Quick_Business_Website->insert_post('page', esc_sql( _x('reviews', 'page_slug', 'quick-business-website') ), 'qbw_reviews_page_id', __('Reviews', 'quick-business-website'), '[SMAR_INSERT]' );
+			$Quick_Business_Website->insert_post( esc_sql( _x('reviews', 'page_slug', 'quick-business-website') ), 'qbw_reviews_page_id', __('Reviews', 'quick-business-website'), '[SMAR_INSERT]' );
 		}
 	}
 	/**

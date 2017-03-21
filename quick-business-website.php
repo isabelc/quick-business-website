@@ -767,9 +767,8 @@ class Quick_Business_Website {
 	}
 	
 	/** 
-	 * Create a page, post, or custom post
+	 * Create a page of the page type
 	 *
-	 * @param mixed $potype post type of the new page
 	 * @param mixed $slug Slug for the new page
 	 * @param mixed $option Option name to store the page's ID
 	 * @param string $page_title (default: '') Title for the new page
@@ -778,8 +777,7 @@ class Quick_Business_Website {
 	 * @since 1.0
 	 */
 	
-	public function insert_post( $potype, $slug, $option, $page_title = '', $page_content = '', $post_parent = 0 ) {
-		global $wpdb;
+	public function insert_post( $slug, $option, $page_title = '', $page_content = '', $post_parent = 0 ) {
 		$option_value = get_option( $option );
 
 		// Don't do anything if post exists.
@@ -788,7 +786,7 @@ class Quick_Business_Website {
 		}
 		$page_data = array(
 	        'post_status' 		=> 'publish',
-	        'post_type' 		=> $potype,
+	        'post_type' 		=> 'page',
 	        'post_author' 		=> 1,
 	        'post_name' 		=> $slug,
 	        'post_title' 		=> $page_title,
@@ -804,7 +802,6 @@ class Quick_Business_Website {
 	/** 
 	 * Activate Reviews.
 	 *	 
-	 * @uses insert_post()
 	 * @since 1.0
 	 */
 	public function after_setup() {
