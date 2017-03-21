@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: https://isabelcastillo.com/free-plugins/quick-business-website
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 2.3.alpha.94
+Version: 2.3.alpha.95
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -71,8 +71,8 @@ class Quick_Business_Website {
 		add_filter( 'admin_footer_text', array( $this, 'remove_footer_admin') ); 
 		add_action( 'wp_before_admin_bar_render', array( $this, 'admin_bar') ); 
 		add_action( 'wp_enqueue_scripts', array( $this, 'framework_enq') ); 
-		add_filter ( 'the_content',  array( $this, 'staff_meta_content_filter' ) );
-		add_filter ( 'the_content',  array( $this, 'contact_content_filter' ), 50 );
+		add_filter( 'the_content',  array( $this, 'staff_meta_content_filter' ) );
+		add_filter( 'the_content',  array( $this, 'contact_content_filter' ), 50 );
 		add_filter( 'parse_query', array( $this, 'sort_staff' ) );
 		if ( get_option( 'qbw_enable_service_sort') == 'true'  ) { 
 			add_filter( 'parse_query', array( $this, 'sort_services' ) );
@@ -87,7 +87,7 @@ class Quick_Business_Website {
 	* @since 1.0
 	*/
 	public static function activate() {
-		add_action( 'admin_head', array( __CLASS__, 'option_setup' ) );
+		self::option_setup();
 		add_option( 'qbw_do_activation_redirect', true );
 		global $wp_rewrite;
 		$wp_rewrite->flush_rules();
@@ -99,11 +99,12 @@ class Quick_Business_Website {
 	* @since 1.0
 	* @return void
 	*/
-	function settings_link($actions, $file) {
-	$qbw_path = plugin_basename(__FILE__);
-	if(false !== strpos($file, $qbw_path))
-	 $actions['settings'] = '<a href="admin.php?page=quickbusinesswebsite">'. __('Settings', 'quick-business-website'). '</a>';
-	return $actions; 
+	function settings_link( $actions, $file ) {
+		$qbw_path = plugin_basename(__FILE__);
+		if ( false !== strpos( $file, $qbw_path ) ) {
+			$actions['settings'] = '<a href="' . esc_url( admin_url( 'admin.php?page=quickbusinesswebsite' ) ) . '">' . __( 'Settings', 'quick-business-website' ) . '</a>';
+		}
+		return $actions; 
 	}
 	
 	/**
@@ -112,7 +113,6 @@ class Quick_Business_Website {
 	public function activation_redirect() {
 		if ( get_option( 'qbw_do_activation_redirect', false ) ) {
 			delete_option( 'qbw_do_activation_redirect' );
-			//wp_redirect( "options-general.php?page=rotator" );
 			wp_safe_redirect( admin_url( 'admin.php?page=quickbusinesswebsite' ) );
 			exit;
 		}
@@ -138,40 +138,40 @@ class Quick_Business_Website {
 	}	
 
 	/**  
-	* Setup options panel
+	* Setup options panel. This is run only on activation.
 	*
 	* @since 1.0
 	*/
-	public function option_setup() {
-		//Update EMPTY options
+	public static function option_setup() {
+		// Update EMPTY options
 		$qbw_array = array();
 		add_option( 'qbw_options',$qbw_array );
 		$template = get_option( 'qbw_template' );
-		$saved_options = get_option( 'qbw_options');
-		foreach($template as $option) {
-			if($option['type'] != 'heading'){
-				$id = isset($option['id']) ? $option['id'] : '';
-				$std = isset($option['std']) ? $option['std'] : '';
-				$db_option = get_option($id);
-				if(empty($db_option)){
-					if(is_array($option['type'])) {
-						foreach($option['type'] as $child){
-							$c_id = $child['id'];
-							$c_std = $child['std'];
-							update_option($c_id,$c_std);
-							$qbw_array[$c_id] = $c_std; 
-						}
-					} else {
-						update_option($id,$std);
-						$qbw_array[$id] = $std;
+		$saved_options = get_option( 'qbw_options' );
+		foreach ( $template as $option ) {
+			if ( $option['type'] != 'heading' ) {
+				$id = isset( $option['id'] ) ? $option['id'] : '';
+				$std = isset( $option['std'] ) ? $option['std'] : '';
+				$db_option = get_option( $id );
+				// if option is empty, set the default value
+				if ( empty( $db_option ) ) {
+					// sanitize default values, if we have any
+					if ( ! empty ( $id ) ) {
+						$std = apply_filters( 'qbw_sanitize_setting', $std, $option );
+						update_option( $id, $std );
+						$qbw_array[ $id ] = $std;
+					}
+
+				} else {
+					// sanitize their old values for good measure
+					if ( ! empty ( $id ) ) {
+						$db_option = apply_filters( 'qbw_sanitize_setting', $db_option, $option );
+						$qbw_array[ $id ] = $db_option;
 					}
 				}
-				else { //So just store the old values over again.
-					$qbw_array[$id] = $db_option;
-				}
 			}
-		}
-		update_option( 'qbw_options',$qbw_array );
+		} // end foreach option
+		update_option( 'qbw_options', $qbw_array );
 	}
 
 	/** 
@@ -207,7 +207,7 @@ class Quick_Business_Website {
 			wp_enqueue_style( 'qbw-admin' );
 		}
 	
-		// metabox style
+		// Register metabox style. Will be loaded only on our admin page
 		wp_register_style( 'qbw-metabox', QUICKBUSINESSWEBSITE_URL . 'css/qbw-metabox.css' );
 		
 	}
@@ -233,56 +233,43 @@ class Quick_Business_Website {
 	 * Reset options page
 	 * @since 1.0
 	 */
-	public function reset_options( $options, $page = '' ){
+	public function reset_options( $options, $page = '' ) {
+		if ( 'quickbusinesswebsite' != $page ) {
+			return;
+		}
 		global $wpdb;
+
 		$query_inner = '';
+		$prepare_values = array();
 		$count = 0;
-		
-		$excludes = array( 'blogname' , 'blogdescription' );
 		
 		foreach( $options as $option ) {
 
-			if(isset($option['id'])){ 
+			if ( isset( $option['id'] ) ) { 
 				$count++;
 				$option_id = $option['id'];
-				$option_type = $option['type'];
 				
-				//Skip assigned id's
-				if(in_array($option_id,$excludes)) { continue; }
-				
-				if($count > 1){ $query_inner .= ' OR '; }
-				if($option_type == 'multicheck'){
-					$multicount = 0;
-					foreach($option['options'] as $option_key => $option_option){
-						$multicount++;
-						if($multicount > 1){ $query_inner .= ' OR '; }
-						$query_inner .= "option_name = '" . $option_id . "_" . $option_key . "'";
-						
-					}
-					
-				} else if(is_array($option_type)) {
-					$type_array_count = 0;
-					foreach($option_type as $inner_option){
-						$type_array_count++;
-						$option_id = $inner_option['id'];
-						if($type_array_count > 1){ $query_inner .= ' OR '; }
-						$query_inner .= "option_name = '$option_id'";
-					}
-					
-				} else {
-					$query_inner .= "option_name = '$option_id'";
+				if ( $count > 1 ) {
+					$query_inner .= ' OR ';
 				}
+				$query_inner .= 'option_name = %s';
+
+				$prepare_values[] = $option_id;
+				
 			}
 		}
 		
-		//When Options page is reset - Add the qbw_options option
-		if ( 'quickbusinesswebsite' == $page ) {
-			$query_inner .= " OR option_name = 'qbw_options'";
-		}
-		$query = "DELETE FROM $wpdb->options WHERE $query_inner";
-		$wpdb->query($query);
-			
+		// Don't forget the serialized options array
+		$query_inner .= ' OR option_name = %s';
+		$prepare_values[] = 'qbw_options';
+
+		$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->options WHERE $query_inner",
+			$prepare_values
+			)
+		);
+
 	} // end reset_options
+
 	/** 
 	 * output options page
 	 *
@@ -300,7 +287,7 @@ class Quick_Business_Website {
 				<?php if ( $custom_logo_id = get_theme_mod( 'custom_logo' ) ) {
 					echo wp_get_attachment_image( $custom_logo_id, 'full' );
 				} elseif ( $site_icon = get_site_icon_url( 32 ) ) {
-					echo '<img src="' . $site_icon . '" width="32" height="32" alt="site icon" />';
+					echo '<img src="' . esc_url( $site_icon ) . '" width="32" height="32" alt="site icon" />';
 				} ?>
 	          </div>
 	             <div class="theme-info">
@@ -309,7 +296,7 @@ class Quick_Business_Website {
 				</div>
 				<div class="clear"></div>
 			</div>
-	        <?php $return = $this->machine($options); ?>
+	        <?php $return = $this->machine( $options ); ?>
 			<div id="support-links">
 			<ul>
 			<li class="smar-ui-icon"><a href="https://isabelcastillo.com/free-plugins/quick-business-website#docs-subheading-doc" target="_blank" rel="nofollow" class="support-button"><div class="dashicons dashicons-book-alt"></div> <?php _e( 'Documentation', 'quick-business-website' ); ?></a></li>
@@ -334,10 +321,9 @@ class Quick_Business_Website {
 	        <input type="submit" value="<?php _e('Save All Changes', 'quick-business-website'); ?>" class="button submit-button" />        
 	        </form>
 	     
-	        <form action="<?php echo esc_html( $_SERVER['REQUEST_URI'] ) ?>" method="post" style="display:inline" id="smartestbform-reset">
+	        <form action="<?php echo esc_attr( $_SERVER['REQUEST_URI'] ) ?>" method="post" style="display:inline" id="smartestbform-reset">
 	            <span class="submit-footer-reset">
-	            <input name="reset" type="submit" value="<?php _e('Reset Options', 'quick-business-website'); ?>" class="button submit-button reset-button" onclick="return confirm(localized_label.reset);" />
-	            <input type="hidden" name="smartestb_save" value="reset" /> 
+	            <input name="reset" type="submit" value="<?php _e( 'Reset Options', 'quick-business-website' ); ?>" class="button submit-button reset-button" onclick="return confirm( localized_label.reset );" /><input type="hidden" name="smartestb_save" value="reset" /> 
 	            </span>
 	        </form>
 	       
@@ -355,22 +341,17 @@ class Quick_Business_Website {
 	 */
 	public function frame_load() {
 		add_action('admin_head', 'qbw_admin_head');
-		wp_enqueue_script('jquery-ui-core');// @test need
 	
 		function qbw_admin_head() {
 			/**
 			 * Localized string for js
 			 */
 			$okr = __('Click OK to reset back to default settings. All custom QBW plugin settings will be lost!', 'quick-business-website');
-			 // deliver the vars to js
-				?>
-			<script>
+			?>
+			<script type="text/javascript">
 				var localized_label = {
 					reset : "<?php echo $okr ?>",
-				}
-			</script>
-			
-			<script type="text/javascript">
+				}			
 				jQuery(document).ready(function(){
 	
 					jQuery('.group').hide();
@@ -429,7 +410,6 @@ class Quick_Business_Website {
 						window.setTimeout(function(){
 							   reset_popup.fadeOut();                        
 							}, 2000);
-							//alert(response);
 						
 					}
 						
@@ -481,7 +461,6 @@ class Quick_Business_Website {
 							success.fadeIn();
 							window.setTimeout(function(){
 							   success.fadeOut(); 
-							   
 													
 							}, 2000);
 						});
@@ -501,7 +480,11 @@ class Quick_Business_Website {
 	 * @param string $value The new value to be saved
 	 * @param array $option Array of option details including id and type
 	 */
-	public function sanitize_setting( $value, $option ) {
+	public function sanitize_setting( $value = '', $option ) {
+		if ( '' == $value ) {
+			return $value;
+		}
+
 		if ( 'text' == $option['type'] ) {
 			$value = ( 'qbw_sbfc_email' == $option['id'] ) ?
 					sanitize_email( $value ) :
@@ -588,81 +571,52 @@ class Quick_Business_Website {
 						$new_value = apply_filters( 'qbw_sanitize_setting', $new_value, $option_array );
 						update_option( $id, $new_value );
 					}
-
 					
 				}	
 			}
-			/* Create, Encrypt and Update the Saved Settings */
+			/* Update the options array setting (qbw_options) */
 			$query_inner = '';
 			$count = 0;
+			$select_prepare_values = array();
 	
-			foreach($options as $option){
+			foreach ( $options as $option ) {
 				
-				if(isset($option['id'])){ 
+				if ( isset( $option['id'] ) ) { 
 					$count++;
 					$option_id = $option['id'];
-					$option_type = $option['type'];
 					
-					if($count > 1){ $query_inner .= ' OR '; }
-					
-					if(is_array($option_type)) {
-					$type_array_count = 0;
-					foreach($option_type as $inner_option){
-						$type_array_count++;
-						$option_id = $inner_option['id'];
-						if($type_array_count > 1){ $query_inner .= ' OR '; }
-						$query_inner .= "option_name = '$option_id'";
-						}
+					if ( $count > 1 ) {
+						$query_inner .= ' OR ';
 					}
-					else {
 					
-						$query_inner .= "option_name = '$option_id'";
-						
-					}
+					$query_inner .= 'option_name = %s';
+					$select_prepare_values[] = $option_id;
 				}
 				
 			}
 			
 			$query = "SELECT * FROM $wpdb->options WHERE $query_inner";
-					
-			$results = $wpdb->get_results($query);
+			$results = $wpdb->get_results( $wpdb->prepare( $query, $select_prepare_values ) );
 			
-			$output = "<ul>";
-			
-			foreach ($results as $result){
+			foreach ( $results as $result ) {
 					$name = $result->option_name;
 					$value = $result->option_value;
 					
-					if(is_serialized($value)) {
-						
-						$value = unserialize($value);
-						$qbw_array_option = $value;
-						$temp_options = '';
-						foreach($value as $v){
-							if(isset($v))
-								$temp_options .= $v . ',';
-							
-						}	
-						$value = $temp_options;
-						$qbw_array[$name] = $qbw_array_option;
+					if ( is_serialized( $value ) ) {
+						$qbw_array[ $name ] = unserialize( $value );// array
 					} else {
-						$qbw_array[$name] = $value;
+						$qbw_array[ $name ] = $value;
 					}
-					
-					$output .= '<li><strong>' . $name . '</strong> - ' . $value . '</li>';
 			}
-			$output .= "</ul>";
 			
-			update_option( 'qbw_options',$qbw_array);
-			update_option( 'qbw_settings_encode',$output);// @test need.
-
+			update_option( 'qbw_options', $qbw_array );
 			flush_rewrite_rules();
 		}
 		die();
 	}
 
 	/** 
-	 * Generate the options
+	 * Generate the HTML for the options and the options menu
 	 * @since 1.0
 	 */
 	public function machine( $options ) {
@@ -674,29 +628,34 @@ class Quick_Business_Website {
 			$val = '';
 			//Start Heading
 			if ( $value['type'] != "heading" ) {
-			 	$class = ''; if(isset( $value['class'] )) { $class = $value['class']; }
-				$output .= '<div class="section section-'.$value['type'].' '. $class .'">'."\n";
-				if ( !empty($value['name']) ) {
-					$output .= '<h3 class="heading">'. $value['name'] .'</h3>'."\n";
+			 	$class = '';
+			 	if ( isset( $value['class'] ) ) {
+			 		$class = $value['class'];
+			 	}
+				$output .= '<div class="section section-' . esc_attr( $value['type'] ) . ' ' . $class . '">';
+				if ( ! empty( $value['name'] ) ) {
+					$output .= '<h3 class="heading">'. esc_html( $value['name'] ) .'</h3>';
 				}
-				$output .= '<div class="option">'."\n" . '<div class="controls">'."\n";
+				$output .= '<div class="option"><div class="controls">';
 			} 
 			 //End Heading
 			$select_value = '';                                   
 			switch ( $value['type'] ) {
 			
 			case 'text':
-			if ( ! empty( $value['std'] ) ) {
-				$val = esc_attr($value['std']);
-			}
+				if ( ! empty( $value['std'] ) ) {
+					$val = esc_attr( $value['std'] );
+				}
 				$std = esc_attr(get_option($value['id']));
-				if ( $std != "") { $val = $std; }
-				$output .= '<input class="smartestb-input" name="'. $value['id'] .'" id="'. $value['id'] .'" type="'. $value['type'] .'" value="'. stripslashes($val) .'" />';
+				if ( $std != "") {
+					$val = $std;
+				}
+				$output .= '<input class="smartestb-input" name="'. esc_attr( $value['id'] ) .'" id="' . esc_attr( $value['id'] ) .'" type="'. esc_attr( $value['type'] ) .'" value="'. stripslashes( $val ) .'" />';
 			break;
 			
 			case 'select':
 	
-				$output .= '<select class="smartestb-input" name="'. $value['id'] .'" id="'. $value['id'] .'">';
+				$output .= '<select class="smartestb-input" name="'. esc_attr( $value['id'] ) .'" id="' . esc_attr( $value['id'] ) .'">';
 			
 				$select_value = get_option($value['id']);
 				 
@@ -704,15 +663,20 @@ class Quick_Business_Website {
 					
 					$selected = '';
 					
-					 if($select_value != '') {
-						 if ( $select_value == $option) { $selected = ' selected="selected"';} 
+					 if ( $select_value != '' ) {
+						 if ( $select_value == $option) {
+						 	$selected = ' selected="selected"';
+						 } 
 				     } else {
-						 if ( isset($value['std']) )
-							 if ($value['std'] == $option) { $selected = ' selected="selected"'; }
+						if ( isset($value['std']) ) {
+							 if ($value['std'] == $option) {
+							 	$selected = ' selected="selected"';
+							 }
+						}
 					 }
 					  
 					 $output .= '<option'. $selected .'>';
-					 $output .= $option;
+					 $output .= esc_html( $option );
 					 $output .= '</option>';
 				 
 				 } 
@@ -722,19 +686,23 @@ class Quick_Business_Website {
 			case 'textarea':
 				$cols = '8';
 				$ta_value = '';
-				if(isset($value['std'])) {
-					$ta_value = $value['std']; 
+				if ( isset( $value['std'] ) ) {
+					$ta_value = $value['std'];
 					if(isset($value['options'])){
 						$ta_options = $value['options'];
-						if(isset($ta_options['cols'])){
-						$cols = $ta_options['cols'];
-						} else { $cols = '8'; }
+						if ( isset( $ta_options['cols'] ) ) {
+							$cols = $ta_options['cols'];
+						} else {
+							$cols = '8';
+						}
 					}
 					
 				}
-					$std = esc_attr(get_option($value['id']));
-					if( $std != "") { $ta_value = esc_attr( $std ); }
-					$output .= '<textarea class="smartestb-input" name="'. $value['id'] .'" id="'. $value['id'] .'" cols="'. $cols .'" rows="8">'.stripslashes($ta_value).'</textarea>';
+					$std = esc_attr( get_option( $value['id'] ) );
+					if ( $std != "" ) {
+						$ta_value = esc_attr( $std );
+					}
+					$output .= '<textarea class="smartestb-input" name="' . esc_attr( $value['id'] ) .'" id="'. esc_attr( $value['id'] ) .'" cols="'. $cols .'" rows="8">'.stripslashes($ta_value).'</textarea>';
 			break;
 			case "checkbox": 
 			if ( ! empty( $value['std'] ) ) {
@@ -756,56 +724,42 @@ class Quick_Business_Website {
 				else {
 					$checked = '';
 				}
-				$output .= '<input type="checkbox" class="checkbox smartestb-input" name="'.  $value['id'] .'" id="'. $value['id'] .'" value="true" '. $checked .' />';
+				$output .= '<input type="checkbox" class="checkbox smartestb-input" name="' . esc_attr( $value['id'] ) . '" id="' . esc_attr( $value['id'] ) .'" value="true" '. $checked .' />';
 	
 			break;
 			case "info":
 				$default = $value['std'];
 				$output .= $default;
-			break;                                   
+			break;
 			case "heading":
-				if($counter >= 2){
-				   $output .= '</div>'."\n";
+				if ( $counter >= 2 ) {
+				   $output .= '</div>';
 				}
 				$jquery_click_hook = preg_replace('#[^A-Za-z0-9]#', '', strtolower($value['name']) );
 				$jquery_click_hook = "smartestb-option-" . $jquery_click_hook;
-						$menu .= '<li><a ';
-						if ( !empty( $value['class'] ) ) {
-							$menu .= 'class="'.  $value['class'] .'" ';
-						}
-						$menu .= 'title="'.  $value['name'] .'" href="#'.  $jquery_click_hook  .'"><span class="smartestb-nav-icon"></span>'.  $value['name'] .'</a></li>';
-				$output .= '<div class="group" id="'. $jquery_click_hook  .'"><h2>'.$value['name'].'</h2>'."\n";
+				$menu .= '<li><a ';
+				if ( !empty( $value['class'] ) ) {
+					$menu .= 'class="'.  esc_attr( $value['class'] ) .'" ';
+				}
+				$menu .= 'title="'. esc_attr( $value['name'] ) .'" href="#'. esc_attr( $jquery_click_hook ) . '"><span class="smartestb-nav-icon"></span>'. esc_html( $value['name'] ) . '</a></li>';
+				$output .= '<div class="group" id="' . esc_attr( $jquery_click_hook ) . '"><h2>' . esc_html( $value['name'] ) . '</h2>';
 			break;                                  
 			} 
 			
-			// if TYPE is an array, formatted into smaller inputs... ie smaller values
-			if ( is_array($value['type'])) {
-				foreach($value['type'] as $array){
-				
-						$id =   $array['id']; 
-						$std =   $array['std'];
-						$saved_std = get_option($id);
-						if($saved_std != $std && !empty($saved_std) ){$std = $saved_std;} 
-						$meta =   $array['meta'];
-						if($array['type'] == 'text') { // Only text at this point
-							 $output .= '<input class="input-text-small smartestb-input" name="'. $id .'" id="'. $id .'" type="text" value="'. $std .'" />';  
-							 $output .= '<span class="meta-two">'.$meta.'</span>';
-						}
-					}
-			}
-			if ( $value['type'] != "heading" ) { 
-				if ( $value['type'] != "checkbox" ) 
-					{ 
+			if ( $value['type'] != "heading" ) {
+				if ( $value['type'] != "checkbox" ) { 
 					$output .= '<br/>';
-					}
-				if(!isset($value['desc'])){ $explain_value = ''; } else{ $explain_value = $value['desc']; } 
-				$output .= '</div><div class="explain">'. $explain_value .'</div>'."\n";
-				$output .= '<div class="clear"> </div></div></div>'."\n";
 				}
+				
+				$explain_value = isset( $value['desc'] ) ? $value['desc'] : '';
+
+				$output .= '</div><div class="explain">' . $explain_value . '</div>';
+				$output .= '<div class="clear"> </div></div></div>';
+			}
 		   
 		}
 	    $output .= '</div>';
-	    return array($output,$menu);
+	    return array( $output, $menu );
 	}// end machine
 
 	/** 
@@ -855,7 +809,7 @@ class Quick_Business_Website {
 	 * @since 1.0
 	 */
 	
-	public function insert_post($potype, $slug, $option, $page_title = '', $page_content = '', $post_parent = 0 ) {
+	public function insert_post( $potype, $slug, $option, $page_title = '', $page_content = '', $post_parent = 0 ) {
 		global $wpdb;
 		$option_value = get_option( $option );
 
@@ -865,7 +819,7 @@ class Quick_Business_Website {
 		}
 		$page_data = array(
 	        'post_status' 		=> 'publish',
-	        'post_type' 		=> $potype,// was 'page',
+	        'post_type' 		=> $potype,
 	        'post_author' 		=> 1,
 	        'post_name' 		=> $slug,
 	        'post_title' 		=> $page_title,
@@ -885,7 +839,7 @@ class Quick_Business_Website {
 	 * @since 1.0
 	 */
 	public function after_setup() {
-		if ( ! class_exists( 'QBW_Reviews' ) && ( get_option( 'qbw_add_reviews' ) == 'true')) {
+		if ( ! class_exists( 'QBW_Reviews' ) && ( get_option( 'qbw_add_reviews' ) == 'true' ) ) {
 			include_once QUICKBUSINESSWEBSITE_PATH . 'modules/reviews/reviews.php';
 		}
 	}
@@ -934,7 +888,7 @@ class Quick_Business_Website {
 				'menu_icon' => 'dashicons-megaphone'
 	        );
 	
-		   	register_post_type( 'smartest_news' , $args );
+		   	register_post_type( 'smartest_news', $args );
 	
 		}
 	
@@ -973,7 +927,7 @@ class Quick_Business_Website {
 					'has_archive' => true,
 					'menu_icon' => 'dashicons-portfolio'
 			        );
-	    	register_post_type( 'smartest_services' , $args );
+	    	register_post_type( 'smartest_services', $args );
 		}// end if show services enabled
 
 		// if add staff enabled
@@ -1011,18 +965,17 @@ class Quick_Business_Website {
 					'menu_icon' => 'dashicons-groups',
 			        );
 	
-		   	register_post_type( 'smartest_staff' , $args );
+		   	register_post_type( 'smartest_staff', $args );
 	
 		}// end if show staff enabled
 
 		// If Reviews are disabled, delete the page
 		if ( get_option( 'qbw_add_reviews' ) == 'false' ) {
-			wp_delete_post(get_option('qbw_reviews_page_id'), true);
+			wp_delete_post( get_option( 'qbw_reviews_page_id' ), true);
 		}
 
 	} // end create_business_cpts
 	
-
 	/**
 	 * Registers custom taxonomy for services
 	 * @since 1.4
@@ -1067,7 +1020,7 @@ class Quick_Business_Website {
 		$meta_boxes[] = array(
 			'id'         => 'staff_details',
 			'title'      => __('Details', 'quick-business-website'),
-			'pages'      => array( 'smartest_staff', ), // Post type
+			'pages'      => array( 'smartest_staff' ), // Post type
 			'context'    => 'normal',
 			'priority'   => 'high',
 			'show_names' => true,
@@ -1114,7 +1067,7 @@ class Quick_Business_Website {
 		$meta_boxes[] = array(
 			'id'         => 'featured_svcs',
 			'title'      => __('Featured Services', 'quick-business-website'),
-			'pages'      => array( 'smartest_services', ), // Post type
+			'pages'      => array( 'smartest_services' ),// Post type
 			'context'    => 'side',
 			'priority'   => 'default',//high, core, default, low
 			'show_names' => true,
@@ -1149,7 +1102,7 @@ class Quick_Business_Website {
 		$meta_boxes[] = array(
 			'id'         => 'featured_news',
 			'title'      => __('Featured News', 'quick-business-website'),
-			'pages'      => array( 'smartest_news', ),
+			'pages'      => array( 'smartest_news' ),
 			'context'    => 'side',
 			'priority'   => 'default',
 			'show_names' => true,
@@ -1180,7 +1133,9 @@ class Quick_Business_Website {
 	public function change_enter_title( $title ){
 		$screen = get_current_screen();
 		if  ( 'smartest_staff' == $screen->post_type ) {
-			$title = __('Enter staff member\'s name here', 'quick-business-website');} return $title;
+			$title = __('Enter staff member\'s name here', 'quick-business-website');
+		}
+		return $title;
 	}
 
 	/** 
@@ -1188,7 +1143,6 @@ class Quick_Business_Website {
 	 * @since 1.0
 	 */
 	public function register_widgets() {
-	
 		if( get_option( 'qbw_show_news') == 'true'  ) { 
 			include QUICKBUSINESSWEBSITE_PATH . 'widgets/announcements.php';
 			include QUICKBUSINESSWEBSITE_PATH . 'widgets/featured-announcements.php';
@@ -1228,7 +1182,7 @@ class Quick_Business_Website {
 		switch( $column ) {
 			case 'jobtitle' :
 				$jobtitle = get_post_meta( $post_id, '_smab_staff_job_title', true );
-					 echo $jobtitle;
+					 echo esc_html( $jobtitle );
 				break;
 			default :
 				break;
@@ -1299,9 +1253,12 @@ class Quick_Business_Website {
 	 * @since Quick Business Website 1.0
 	 */
 	public function remove_footer_admin () {
-		if ( (get_option( 'qbw_admin_footer') != '') &&  (get_option( 'qbw_remove_adminfooter') == 'false')) {
-			echo get_option( 'qbw_admin_footer');
-		} elseif ( get_option( 'qbw_remove_adminfooter') == 'true' ) {
+		$custom_footer = get_option( 'qbw_admin_footer' );
+		$remove_footer = get_option( 'qbw_remove_adminfooter');
+
+		if ( $custom_footer && ( 'false' == $remove_footer ) ) {
+			echo qbw_kses( $custom_footer );
+		} elseif ( 'true' == $remove_footer ) {
 			echo '';
 		} else {
 			echo 'Thank you for creating with <a href="https://wordpress.org/">WordPress</a>.';
@@ -1328,9 +1285,19 @@ class Quick_Business_Website {
 	public function staff_meta_content_filter( $content ) {
 	    if ( is_single() && ( 'smartest_staff' == get_post_type() ) ) {
 			global $post;
+			$keys = array(
+				'job_title',
+				'twitter',
+				'gplus',
+				'facebook',
+				'linkedin'
+			);
+			foreach ( $keys as $key ) {
+				${$key} = get_post_meta( $post->ID, "_smab_staff_{$key}", true );
+			}
 			$staffcontent = '<div id="staff-meta">';
-			if (get_post_meta($post->ID, '_smab_staff_job_title', true)) {
-				$staffcontent .= '<h5>' . get_post_meta($post->ID, '_smab_staff_job_title', true) . '</h5>';
+			if ( $job_title ) {
+				$staffcontent .= '<h5>' . esc_html( $job_title ) . '</h5>';
 			}
 			if (get_option( 'qbw_old_social_icons') == 'false') {
 				$twit = 'fa-twitter';
@@ -1344,14 +1311,21 @@ class Quick_Business_Website {
 				$link = 'item-4';
 			}
 			$staffcontent .= '<ul id="qbw-staff-socials">';
-			if (get_post_meta($post->ID, '_smab_staff_twitter', true)) {
-					$staffcontent .= '<li><a class="' . $twit. '" href="https://twitter.com/' . get_post_meta($post->ID, '_smab_staff_twitter', true) . '" title="'. __('Twitter', 'quick-business-website') . '"></a></li>';
-			} if (get_post_meta($post->ID, '_smab_staff_gplus', true)) {
-					$staffcontent .= '<li><a class="' . $goog .'" href="https://plus.google.com/' . get_post_meta($post->ID, '_smab_staff_gplus', true) . '" title="'. __('Google Plus', 'quick-business-website') . '" rel="author"></a></li>';
-			} if (get_post_meta($post->ID, '_smab_staff_facebook', true)) {
-					$staffcontent .= '<li><a class="' . $face. '" href="https://facebook.com/' . get_post_meta($post->ID, '_smab_staff_facebook', true) . '" title="'. __('Facebook', 'quick-business-website') . '"></a></li>';
-			} if (get_post_meta($post->ID, '_smab_staff_linkedin', true)) {
-					$staffcontent .= '<li><a class="' . $link .'" href="http://www.linkedin.com/' . get_post_meta($post->ID, '_smab_staff_linkedin', true) . '" title="'. __('LinkedIn', 'quick-business-website') . '"></a></li>';
+			if ( $twitter ) {
+				$uri = 'https://twitter.com/' . $twitter;
+				$staffcontent .= '<li><a class="' . $twit. '" href="' . esc_url( $uri ) . '" title="'. __('Twitter', 'quick-business-website') . '"></a></li>';
+			}
+			if ( $gplus ) {
+				$uri = 'https://plus.google.com/' . $gplus;
+				$staffcontent .= '<li><a class="' . $goog .'" href="' . esc_url( $uri ) . '" title="'. __('Google Plus', 'quick-business-website') . '" rel="author"></a></li>';
+			}
+			if ( $facebook ) {
+				$uri = 'https://facebook.com/' . $facebook;
+				$staffcontent .= '<li><a class="' . $face. '" href="' . esc_url( $uri ) . '" title="'. __('Facebook', 'quick-business-website') . '"></a></li>';
+			}
+			if ( $linkedin ) {
+				$uri = 'http://www.linkedin.com/' . $linkedin;
+				$staffcontent .= '<li><a class="' . $link .'" href="' . esc_url( $uri ) . '" title="'. __('LinkedIn', 'quick-business-website') . '"></a></li>';
 			}
 			$staffcontent .= '</ul></div>' . $content;
 			return $staffcontent;
@@ -1413,9 +1387,7 @@ class Quick_Business_Website {
 		$options = get_option( 'qbw_options' );
 
 		// Escape all things
-
 		foreach ( $keys as $key ) {
-
 			if ( in_array( $key, array( 'qbw_business_socialurl1', 'qbw_business_socialurl2' ) ) ) {
 				${$key} = isset( $options[ $key ] ) ?
 						esc_url( $options[ $key ] ) :
@@ -1590,7 +1562,7 @@ class Quick_Business_Website {
 					$content = get_post_field( 'post_content', $about_page_id );
 
 					// get the image HTML
-					$prepend = '<div id="qbw-about"><figure id="qbw-about-pic"><a href="' . $img_url . '"><img src="' . $img_url . '" alt="' . the_title_attribute('echo=0') . '" /></a></figure></div>';
+					$prepend = '<div id="qbw-about"><figure id="qbw-about-pic"><a href="' . esc_url( $img_url ) . '"><img src="' . esc_url( $img_url ) . '" alt="' . the_title_attribute('echo=0') . '" /></a></figure></div>';
 
 						$about_page = array(
 							'ID' => $about_page_id,
