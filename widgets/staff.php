@@ -67,7 +67,7 @@ class SmartestStaff extends WP_Widget {
 
                 } // end if have posts   
                 else {
-					echo '<h2>' . __('No posts found!</h2>', 'quick-business-website') . '</h2>';
+					echo '<h2>' . __('No posts found!', 'quick-business-website') . '</h2>';
                 }
                 wp_reset_postdata();
 
