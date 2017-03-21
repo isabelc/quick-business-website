@@ -28,71 +28,37 @@ class SmartestServices extends WP_Widget {
 		$service_category = !empty($service_category_term_id) ? $service_category_term_id : '';
 
 		echo $args['before_widget'];
-		if ( $title )
+		if ( $title ) {
 			echo '<h3 class="widget-title">'. esc_html( $title ) . '</h3>';
+		}
 		
-		// if cat is selected, do tax query
+		// Basic query args for default sort order
+		$query_args = array( 
+			'posts_per_page' => -1, 
+			'post_type' => 'smartest_services',
+			'orderby' => 'title',
+			'order' => 'ASC' );
+
+		// Check if custom sort order is enabled for Services
+		if ( get_option( 'qbw_enable_service_sort') == 'true' ) {
+		
+			$query_args['orderby'] = 'meta_value_num';
+			$query_args['meta_key'] = '_smab_service-order-number';
+		}
+
+		// if cat is selected, add the tax query args
 		if ( ! empty ($service_category) ) {
 
-			if ( get_option( 'qbw_enable_service_sort') == 'true' ) {
-
-				// custom sort order is enabled
-
-				$query_args = array( 
-					'posts_per_page' => -1, 
-					'post_type' => 'smartest_services',
-					'tax_query' => array(
+			$query_args['tax_query'] = array(
 						array(
 							'taxonomy' => 'smartest_service_category',
 							'field' => 'id',
 							'terms' => array( $service_category ),
 						)
-					),
-					'orderby' => 'meta_value_num',
-					'meta_key' => '_smab_service-order-number',
-					'order' => 'ASC' );
+			);
 
-			} else { 
-
-				// default sort order
-				$query_args = array( 
-					'posts_per_page' => -1, 
-					'post_type' => 'smartest_services',
-					'tax_query' => array(
-						array(
-							'taxonomy' => 'smartest_service_category',
-							'field' => 'id',
-							'terms' => array( $service_category ),
-						)
-					),
-					'orderby' => 'title',
-					'order' => 'ASC' );
-
-			}
-
-		} else {
-
-			// no tax query
-
-			if( get_option( 'qbw_enable_service_sort') == 'true' ) {
-
-				// custom sort order is enabled
-				$query_args = array( 
-					'posts_per_page' => -1, 
-					'post_type' => 'smartest_services',
-					'orderby' => 'meta_value_num',
-					'meta_key' => '_smab_service-order-number',
-					'order' => 'ASC' );
-
-			} else {
-				// default sort order
-				$query_args = array( 
-					'posts_per_page' => -1, 
-					'post_type' => 'smartest_services',
-					'orderby' => 'title',
-					'order' => 'ASC' );
-			}
 		}
+
 		$sbfservices = new WP_Query( $query_args );
 		if ( $sbfservices->have_posts() ) {
 			echo '<ul class="serviceslist">';
