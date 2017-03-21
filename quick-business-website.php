@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: https://isabelcastillo.com/free-plugins/quick-business-website
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 2.3.alpha.95
+Version: 2.3.alpha.96
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -1478,8 +1478,8 @@ class Quick_Business_Website {
 	 * @since 1.3.2
 	 */
 
-	public function sort_staff($query) {
-		if( !is_admin() && is_post_type_archive('smartest_staff') && $query->is_main_query() && isset( $query->query_vars['meta_key'] ) ) {
+	public function sort_staff( $query ) {
+		if ( ! is_admin() && $query->is_main_query() && isset( $query->query_vars['meta_key'] ) && is_post_type_archive('smartest_staff') ) {
 			$query->query_vars['orderby'] = 'meta_value_num';
 			$query->query_vars['meta_key'] = '_smab_staff-order-number';
 			$query->query_vars['order'] = 'ASC';
@@ -1495,16 +1495,21 @@ class Quick_Business_Website {
 	 * @uses is_main_query()
 	 * @since 1.4.1
 	 */
-	function sort_services($query) {
-		if( !is_admin() &&
-		( 
-		( is_post_type_archive('smartest_services') || is_tax( 'smartest_service_category' ) ) &&
-		$query->is_main_query()
-		)
-		&& isset( $query->query_vars['meta_key'] ) ) {
-		$query->query_vars['orderby'] = 'meta_value_num';
-		$query->query_vars['meta_key'] = '_smab_service-order-number';
-		$query->query_vars['order'] = 'ASC';
+	function sort_services( $query ) {
+		if ( is_admin() ) {
+			return $query;
+		}
+
+		if ( ! $query->is_main_query() ) {
+			return $query;
+		}
+
+		if ( isset( $query->query_vars['meta_key'] ) &&
+			( is_post_type_archive('smartest_services') || is_tax( 'smartest_service_category' ) )
+		) {
+			$query->query_vars['orderby'] = 'meta_value_num';
+			$query->query_vars['meta_key'] = '_smab_service-order-number';
+			$query->query_vars['order'] = 'ASC';
 		}
 		return $query;
 	}
