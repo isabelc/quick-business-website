@@ -51,7 +51,7 @@ class SmartestStaff extends WP_Widget {
 			if ( has_post_thumbnail() ) {
 				?>
 				<figure class="ssfig">
-				<?php echo '<a href="' . get_permalink() . '" title="'. the_title_attribute( 'echo=0' ) .'">';
+				<?php echo '<a href="' . esc_url( get_permalink() ) . '">';
 				the_post_thumbnail( 'thumbnail', array( 'class' => 'qbw-staff-thumb' ) );
 				?>
 				</a>
@@ -60,7 +60,7 @@ class SmartestStaff extends WP_Widget {
 			<?php } ?>
 
 	<div class="sstcontent">
-<?php echo '<h5><a href="'.get_permalink().'" title="'. the_title_attribute( 'echo=0' ) .'">'.get_the_title().'</a></h5></div></div>';
+<?php echo '<h5><a href="' . esc_url( get_permalink() ) . '">'. esc_html( get_the_title() ) . '</a></h5></div></div>';
 
                     } // endwhile;
                    
