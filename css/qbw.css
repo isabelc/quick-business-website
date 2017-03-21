@@ -1,7 +1,7 @@
 ﻿.widget-area .widget.widget_smartest_staff_list a {
 	line-height: 140%;
 }
-#staff-meta h5 {
+#qbw-staff-meta h5 {
 	margin-bottom: 1em;
 }
 #qbw-staff-socials ul {
@@ -49,6 +49,7 @@
 	background-image: none;
 	width: 26px;
 	height: 26px;
+	box-shadow: unset;
 }
 #qbw-staff-socials li a.fa-twitter:before,
 #qbw-staff-socials li a.fa-google:before, #qbw-staff-socials li a.fa-facebook:before,
@@ -60,23 +61,47 @@
 	text-decoration: inherit;
 	font-size:26px;
 }
+#qbw-staff-socials li a.fa-twitter {
+	color:#00aced;
+}
 #qbw-staff-socials li a.fa-google:before {
 	content: "\f0d4";
+	color:#dd4b39;
 }
 #qbw-staff-socials li a.fa-facebook:before {
 	content: "\f082";
+	color: #3B5998;
 }
 #qbw-staff-socials li a.fa-linkedin:before {
 	content: "\f08c";
+	color: #0077b5;
 }
 #qbw-staff-socials li a.fa-youtube:before {
 	content: "\f166";
 }
-body.single-smartest_staff article.smartest_staff footer.entry-meta, body.post-type-archive-smartest_staff article.smartest_staff footer.entry-meta, body.post-type-archive-smartest_services article footer.entry-meta, body.single-smartest_services article footer.entry-meta {
-	display: none;
+/* Staff and Services archives */
+.qbw-staff-item-image {
+	max-height: 200px;
+	width:auto;
 }
-body.post-type-archive-smartest_services #site-navigation li.services a, body.single-smartest_services #site-navigation li.services a, body.post-type-archive-smartest_staff #site-navigation li.staff a, body.single-smartest_staff #site-navigation li.staff a, body.post-type-archive-smartest_news #site-navigation li.news a, body.single-smartest_news #site-navigation li.news a {
-	font-weight: 700;
+.qbw-service-item,
+.qbw-staff-item {
+	display: inline-block;
+	text-align: center;
+	margin: 0 7px 20px 7px;
+}
+.qbw-service-item:first-of-type,
+.qbw-staff-item:first-of-type {
+	margin-left:0;
+}
+.qbw-service-item:last-of-type,
+.qbw-staff-item:last-of-type {
+	margin-right:0;
+}
+
+/*Hide regular post meta on staff and services pages on Twenty Twelve theme*/
+body.single-smartest_staff article.smartest_staff footer.entry-meta, body.single-smartest_services article footer.entry-meta {
+	display: none;
 }
 
 #qbw-col-wrap{
@@ -144,4 +169,19 @@ display:block;width:100%;padding:0;margin:0;
 		width: 96%;
 		display: block;
 	}
+	.qbw-service-item,
+	.qbw-service-item:first-of-type,
+	.qbw-service-item:last-of-type,
+	.qbw-staff-item,
+	.qbw-staff-item:first-of-type,
+	.qbw-staff-item:last-of-type {
+		display: block;
+  		margin: 0 auto;
+	}
+  .qbw-staff-item-image {
+		max-width:100%;
+		max-height:auto;
+		height:auto;
+  }	
+
 }

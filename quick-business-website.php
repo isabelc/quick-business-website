@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: https://isabelcastillo.com/free-plugins/quick-business-website
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 2.3.alpha.96
+Version: 2.3.alpha.97
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -46,6 +46,7 @@ class Quick_Business_Website {
 		}
 		add_action( 'admin_init', array( $this, 'upgrade_options' ) );
 		add_action( 'admin_init', array( $this, 'activation_redirect' ) );
+		add_action( 'admin_init', array( $this, 'create_pages' ) );
 		add_action( 'plugins_loaded', array( $this, 'load' ) );
 		add_action( 'wp_ajax_smartestb_ajax_post_action', array( $this, 'ajax_callback' ) );
 		add_action( 'admin_menu', array( $this, 'add_admin' ) );
@@ -74,7 +75,7 @@ class Quick_Business_Website {
 		add_filter( 'the_content',  array( $this, 'staff_meta_content_filter' ) );
 		add_filter( 'the_content',  array( $this, 'contact_content_filter' ), 50 );
 		add_filter( 'parse_query', array( $this, 'sort_staff' ) );
-		if ( get_option( 'qbw_enable_service_sort') == 'true'  ) { 
+		if ( get_option( 'qbw_enable_service_sort') == 'true' ) { 
 			add_filter( 'parse_query', array( $this, 'sort_services' ) );
 		}
 		add_action( 'qbw_settings_checkbox_save', array( $this, 'set_services_sort_order' ), 10, 2 );
@@ -116,6 +117,22 @@ class Quick_Business_Website {
 			wp_safe_redirect( admin_url( 'admin.php?page=quickbusinesswebsite' ) );
 			exit;
 		}
+	}
+
+	/**
+	 * Create Staff and Services pages if enabled in settings.
+	 * @uses insert_post()
+	 * @since 2.0
+	 */
+	public function create_pages() {
+		if ( get_option( 'qbw_show_staff' ) == 'true' ) {
+			$this->insert_post( esc_sql( _x('staff', 'page_slug', 'quick-business-website') ), 'qbw_staff_page_id', __( 'Staff', 'quick-business-website' ), '[qbw_staff]' );
+		}
+
+		if ( get_option( 'qbw_show_services' ) == 'true' ) {
+			$this->insert_post( esc_sql( _x('services', 'page_slug', 'quick-business-website') ), 'qbw_services_page_id', __( 'Services', 'quick-business-website' ), '[qbw_services]' );
+		}
+
 	}
 
 	/**
@@ -811,7 +828,8 @@ class Quick_Business_Website {
 	}
 
 	/** 
-	 * Add CPTs conditionally, if enabled. Adds smartest_staff, smartest_services, smartest_news. Also, delete Reviews page if disabled.
+	 * Creates our custom post types, if enabled. Also, deletes our custom pages for things that are disabled.
+	 *
 	 * @since 1.0
 	 */
 	public function create_business_cpts() {
@@ -867,11 +885,7 @@ class Quick_Business_Website {
 			        	'show_ui' => true,
 			        	'capability_type' => 'post',
 			        	'hierarchical' => false,
-			        	'rewrite' => array(
-								'slug' => __('services','quick-business-website'),
-								'with_front' => false,
-	
-						),
+			        	'rewrite' => array( 'with_front' => false, 'slug' => 'services' ),
 			        	'exclude_from_search' => false,
 		        		'labels' => array(
 							'name' => __( 'Services','quick-business-website' ),
@@ -894,7 +908,12 @@ class Quick_Business_Website {
 					'menu_icon' => 'dashicons-portfolio'
 			        );
 	    	register_post_type( 'smartest_services', $args );
-		}// end if show services enabled
+		} else {
+		
+			// Services are disabled so delete the Services page
+			wp_delete_post( get_option( 'qbw_services_page_id' ), true);
+
+		}
 
 		// if add staff enabled
 		if ( $staff == 'true'  ) {
@@ -905,10 +924,7 @@ class Quick_Business_Website {
 	        	'show_ui' => true,
 	        	'capability_type' => 'post',
 	        	'hierarchical' => false,
-	        	'rewrite' => array(
-						'slug' => __('staff', 'quick-business-website'),
-						'with_front' => false,
-				),
+	        	'rewrite' => array( 'with_front' => false, 'slug' => 'staff' ),
 	        	'exclude_from_search' => false,
         		'labels' => array(
 					'name' => __( 'Staff','quick-business-website' ),
@@ -926,14 +942,19 @@ class Quick_Business_Website {
 							'not_found_in_trash' => __( 'No staff found in Trash','quick-business-website' ),
 							'parent' => __( 'Parent Staff','quick-business-website' ),
 						),
-			        	'supports' => array('title','editor','thumbnail','excerpt'),
-					'has_archive' => true,
-					'menu_icon' => 'dashicons-groups',
-			        );
+				'supports' => array('title','editor','thumbnail','excerpt'),
+				'has_archive' => true,
+				'menu_icon' => 'dashicons-groups',
+			    );
 	
 		   	register_post_type( 'smartest_staff', $args );
 	
-		}// end if show staff enabled
+		} else {
+
+			// Staff is disabled so delete the Staff page
+			wp_delete_post( get_option( 'qbw_staff_page_id' ), true);
+
+		}
 
 		// If Reviews are disabled, delete the page
 		if ( get_option( 'qbw_add_reviews' ) == 'false' ) {
@@ -1109,22 +1130,22 @@ class Quick_Business_Website {
 	 * @since 1.0
 	 */
 	public function register_widgets() {
-		if( get_option( 'qbw_show_news') == 'true'  ) { 
+		if ( get_option( 'qbw_show_news') == 'true' ) { 
 			include QUICKBUSINESSWEBSITE_PATH . 'widgets/announcements.php';
 			include QUICKBUSINESSWEBSITE_PATH . 'widgets/featured-announcements.php';
 			register_widget('SmartestAnnouncements'); register_widget('SmartestFeaturedAnnounce');
 		}
-		if( get_option( 'qbw_show_services') == 'true'  ) { 
+		if ( get_option( 'qbw_show_services') == 'true' ) { 
 			include QUICKBUSINESSWEBSITE_PATH . 'widgets/all-services.php';
 			include QUICKBUSINESSWEBSITE_PATH . 'widgets/featured-services.php';
 			register_widget('SmartestServices'); register_widget('SmartestFeaturedServices'); 
 		}
-		if( get_option( 'qbw_show_staff') == 'true'  ) { 
+		if ( get_option( 'qbw_show_staff') == 'true' ) { 
 			include QUICKBUSINESSWEBSITE_PATH . 'widgets/staff.php';
 			register_widget('SmartestStaff'); 
 		}
 	
-	}// end register_widgets
+	}
 	/**
 	 * Add job title column to staff admin
 	 * @since 1.0
@@ -1250,52 +1271,8 @@ class Quick_Business_Website {
 	 */
 	public function staff_meta_content_filter( $content ) {
 	    if ( is_single() && ( 'smartest_staff' == get_post_type() ) ) {
-			global $post;
-			$keys = array(
-				'job_title',
-				'twitter',
-				'gplus',
-				'facebook',
-				'linkedin'
-			);
-			foreach ( $keys as $key ) {
-				${$key} = get_post_meta( $post->ID, "_smab_staff_{$key}", true );
-			}
-			$staffcontent = '<div id="staff-meta">';
-			if ( $job_title ) {
-				$staffcontent .= '<h5>' . esc_html( $job_title ) . '</h5>';
-			}
-			if (get_option( 'qbw_old_social_icons') == 'false') {
-				$twit = 'fa-twitter';
-				$goog = 'fa-google';
-				$face = 'fa-facebook';
-				$link = 'fa-linkedin';
-			} else {
-				$twit = 'item-1';
-				$goog = 'item-2';
-				$face = 'item-3';
-				$link = 'item-4';
-			}
-			$staffcontent .= '<ul id="qbw-staff-socials">';
-			if ( $twitter ) {
-				$uri = 'https://twitter.com/' . $twitter;
-				$staffcontent .= '<li><a class="' . $twit. '" href="' . esc_url( $uri ) . '" title="'. __('Twitter', 'quick-business-website') . '"></a></li>';
-			}
-			if ( $gplus ) {
-				$uri = 'https://plus.google.com/' . $gplus;
-				$staffcontent .= '<li><a class="' . $goog .'" href="' . esc_url( $uri ) . '" title="'. __('Google Plus', 'quick-business-website') . '" rel="author"></a></li>';
-			}
-			if ( $facebook ) {
-				$uri = 'https://facebook.com/' . $facebook;
-				$staffcontent .= '<li><a class="' . $face. '" href="' . esc_url( $uri ) . '" title="'. __('Facebook', 'quick-business-website') . '"></a></li>';
-			}
-			if ( $linkedin ) {
-				$uri = 'http://www.linkedin.com/' . $linkedin;
-				$staffcontent .= '<li><a class="' . $link .'" href="' . esc_url( $uri ) . '" title="'. __('LinkedIn', 'quick-business-website') . '"></a></li>';
-			}
-			$staffcontent .= '</ul></div>' . $content;
-			return $staffcontent;
-
+	    	$meta = qbw_get_staff_meta();
+	    	return $meta . $content;
 		} else {
 			// regular content
 			return $content;
@@ -1566,6 +1543,9 @@ class Quick_Business_Website {
 				wp_update_post( $contact_page );
 			}
 
+			// Flush rewrite rules once since the Staff and Services custom post type archives changed
+			flush_rewrite_rules();
+
 			// Set flag to run upgrade only once
 			update_option( 'qbw_upgrade_two', 'completed' );
 		}
@@ -1590,9 +1570,14 @@ if (
 	 * @since 2.0
 	 */
 	include QUICKBUSINESSWEBSITE_PATH . 'inc/helper-functions.php';
+	/**
+ 	 * Include Shortcodes
+	 * @since 2.0
+	 */	
+	include QUICKBUSINESSWEBSITE_PATH . 'inc/shortcodes.php';
 
 	/**
- 	 * Include Contact form with both jquery client-side and php server-side validation
+ 	 * Include Contact form with both jQuery client-side and PHP server-side validation
 	 * @since 1.0
 	 */
 	include QUICKBUSINESSWEBSITE_PATH . 'modules/contact/contact.php';

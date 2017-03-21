@@ -93,3 +93,55 @@ function qbw_business_structured_data() {
 
 	return $data;
 }
+
+/**
+ * Get the HTML for the staff meta: job title and social media links.
+ */
+function qbw_get_staff_meta() {
+	global $post;
+
+	$keys = array(
+		'job_title',
+		'twitter',
+		'gplus',
+		'facebook',
+		'linkedin'
+	);
+	foreach ( $keys as $key ) {
+		${$key} = get_post_meta( $post->ID, "_smab_staff_{$key}", true );
+	}
+	$meta = '<div id="qbw-staff-meta">';
+	if ( $job_title ) {
+		$meta .= '<h5>' . esc_html( $job_title ) . '</h5>';
+	}
+	if ( get_option( 'qbw_old_social_icons') == 'false' ) {
+		$twit = 'fa-twitter';
+		$goog = 'fa-google';
+		$face = 'fa-facebook';
+		$link = 'fa-linkedin';
+	} else {
+		$twit = 'item-1';
+		$goog = 'item-2';
+		$face = 'item-3';
+		$link = 'item-4';
+	}
+	$meta .= '<ul id="qbw-staff-socials">';
+	if ( $twitter ) {
+		$uri = 'https://twitter.com/' . $twitter;
+		$meta .= '<li><a class="' . $twit. '" href="' . esc_url( $uri ) . '" title="'. __('Twitter', 'quick-business-website') . '"></a></li>';
+	}
+	if ( $gplus ) {
+		$uri = 'https://plus.google.com/' . $gplus;
+		$meta .= '<li><a class="' . $goog .'" href="' . esc_url( $uri ) . '" title="'. __('Google Plus', 'quick-business-website') . '" rel="author"></a></li>';
+	}
+	if ( $facebook ) {
+		$uri = 'https://facebook.com/' . $facebook;
+		$meta .= '<li><a class="' . $face. '" href="' . esc_url( $uri ) . '" title="'. __('Facebook', 'quick-business-website') . '"></a></li>';
+	}
+	if ( $linkedin ) {
+		$uri = 'http://www.linkedin.com/' . $linkedin;
+		$meta .= '<li><a class="' . $link .'" href="' . esc_url( $uri ) . '" title="'. __('LinkedIn', 'quick-business-website') . '"></a></li>';
+	}
+	$meta .= '</ul></div>';
+	return $meta;
+}
