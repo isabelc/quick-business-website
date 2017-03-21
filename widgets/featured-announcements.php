@@ -35,8 +35,9 @@ class SmartestFeaturedAnnounce extends WP_Widget {
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Featured News', 'quick-business-website' ) : $instance['title'], $instance, $this->id_base );
 		
 		echo $args['before_widget'];
-		if ( $title )
+		if ( $title ) {
 			echo '<h3 class="widget-title">' . esc_html( $title ) . '</h3>';
+		}
 		$query_args = array(
 			'post_type' => 'smartest_news',
 			'no_found_rows' => true,

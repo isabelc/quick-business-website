@@ -22,8 +22,9 @@ class QBW_Reviews_Testimonial extends WP_Widget {
 		$number = (int) $number;
 		
 		echo $args['before_widget'];
-		if ( $title )
+		if ( $title ) {
 			echo '<h3 class="widget-title">'. esc_html( $title ) . '</h3>';
+		}
 		global $wpdb;
 		// get the permalink by page id.
 		$reviews_pageurl = esc_url( get_permalink( get_option( 'qbw_reviews_page_id' ) ) );

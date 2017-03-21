@@ -34,8 +34,9 @@ class SmartestStaff extends WP_Widget {
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Staff', 'quick-business-website' ) : $instance['title'], $instance, $this->id_base );
 
 		echo $args['before_widget'];
-		if ( $title )
+		if ( $title ) {
 			echo '<h3 class="widget-title">'. $title . '</h3>';
+		}
                 $query_args = array(
                     'posts_per_page' => -1,
                     'post_type' => 'smartest_staff',

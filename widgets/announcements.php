@@ -38,8 +38,9 @@ class SmartestAnnouncements extends WP_Widget {
 		$number = isset( $instance['number'] ) ? $instance['number'] : 3;
 		
 		echo $args['before_widget'];
-		if ( $title )
+		if ( $title ) {
 			echo '<h3 class="widget-title">' . esc_html( $title ) . '</h3>';
+		}
 		 $query_args = array(
 			'posts_per_page' => $number,
 			'post_type' => 'smartest_news',
