@@ -3,7 +3,7 @@
  * Quick Business Website Options
  */
 function qbw_options() {
-$slink = '<a href="'.admin_url('options-general.php').'">'. __('Settings', 'quick-business-website').'</a>';
+$slink = '<a href="' . esc_url( admin_url('options-general.php') ) . '">' . __('Settings', 'quick-business-website') . '</a>';
 $user_info = get_userdata(1);
 if ($user_info == true) {
 	$admin_name = $user_info->user_login;

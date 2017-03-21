@@ -49,7 +49,7 @@ class QBW_Metabox {
 				echo '<td colspan="2">';
 			} else {
 				if( $this->_meta_box['show_names'] == true ) {
-					echo '<th style="width:18%"><label for="', $field['id'], '">', $field['name'], '</label></th>';
+					echo '<th style="width:18%"><label for="', esc_attr( $field['id'] ), '">', esc_html( $field['name'] ), '</label></th>';
 				}
 				echo '<td>';
 			}
@@ -57,18 +57,18 @@ class QBW_Metabox {
 			switch ( $field['type'] ) {
 
 				case 'text':
-					echo '<input type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" />','<p class="cmb_metabox_description">', $field['desc'], '</p>';
+					echo '<input type="text" name="', esc_attr( $field['id'] ), '" id="', esc_attr( $field['id'] ), '" value="', '' !== $meta ? esc_attr( $meta ) : esc_attr( $field['std'] ), '" />','<p class="cmb_metabox_description">', esc_html( $field['desc'] ), '</p>';
 					break;
 				case 'text_medium':
-					echo '<input class="cmb_text_medium" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" /><span class="cmb_metabox_description">', $field['desc'], '</span>';
+					echo '<input class="cmb_text_medium" type="text" name="', esc_attr( $field['id'] ), '" id="', esc_attr( $field['id'] ), '" value="', '' !== $meta ? esc_attr( $meta ) : esc_attr( $field['std'] ), '" /><span class="cmb_metabox_description">', esc_html( $field['desc'] ), '</span>';
 					break;
 				case 'checkbox':
-					echo '<input type="checkbox" name="', $field['id'], '" id="', $field['id'], '"', $meta ? ' checked="checked"' : '', ' />';
-					echo '<span class="cmb_metabox_description">', $field['desc'], '</span>';
+					echo '<input type="checkbox" name="', esc_attr( $field['id'] ), '" id="', esc_attr( $field['id'] ), '"', $meta ? ' checked="checked"' : '', ' />';
+					echo '<span class="cmb_metabox_description">', esc_html( $field['desc'] ), '</span>';
 					break;
 				case 'title':
-					echo '<h5 class="cmb_metabox_title">', $field['name'], '</h5>';
-					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
+					echo '<h5 class="cmb_metabox_title">', esc_html( $field['name'] ), '</h5>';
+					echo '<p class="cmb_metabox_description">', esc_html( $field['desc'] ), '</p>';
 					break;
 				default:
 					do_action('cmb_render_' . $field['type'] , $field, $meta);
