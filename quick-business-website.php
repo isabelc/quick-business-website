@@ -290,10 +290,6 @@ class Quick_Business_Website {
 					echo '<img src="' . esc_url( $site_icon ) . '" width="32" height="32" alt="site icon" />';
 				} ?>
 	          </div>
-	             <div class="theme-info">
-					<span class="theme" style="margin-top:10px;"><?php _e('Quick Business Website', 'quick-business-website'); ?>
-					</span>
-				</div>
 				<div class="clear"></div>
 			</div>
 	        <?php $return = $this->machine( $options ); ?>
@@ -357,36 +353,6 @@ class Quick_Business_Website {
 					jQuery('.group').hide();
 					jQuery('.group:first').fadeIn();
 					
-					jQuery('.group .collapsed').each(function(){
-						jQuery(this).find('input:checked').parent().parent().parent().nextAll().each( 
-							function(){
-	           					if (jQuery(this).hasClass('last')) {
-	           						jQuery(this).removeClass('hidden');
-	           						return false;
-	           					}
-	           					jQuery(this).filter('.hidden').removeClass('hidden');
-	           				});
-	           		});
-	          					
-					jQuery('.group .collapsed input:checkbox').click(unhideHidden);
-					
-					function unhideHidden(){
-						if (jQuery(this).attr('checked')) {
-							jQuery(this).parent().parent().parent().nextAll().removeClass('hidden');
-						}
-						else {
-							jQuery(this).parent().parent().parent().nextAll().each( 
-								function(){
-	           						if (jQuery(this).filter('.last').length) {
-	           							jQuery(this).addClass('hidden');
-										return false;
-	           						}
-	           						jQuery(this).addClass('hidden');
-	           					});
-	           					
-						}
-					}
-				
 					jQuery('#smartestb-nav li:first').addClass('current');
 					jQuery('#smartestb-nav li a').click(function(evt){
 					
@@ -401,9 +367,13 @@ class Quick_Business_Website {
 			
 							evt.preventDefault();
 							
-						});
+					});
 					
-					if('<?php if(isset($_REQUEST['reset'])) { echo $_REQUEST['reset'];} else { echo 'false';} ?>' == 'true'){
+					// Don't let the options panel be shorter than the tabs menu.					
+					var ul = jQuery( '#smartestb-nav ul' );
+					jQuery( '#smartestb_container #content' ).css( 'min-height', ul.height() );
+
+					if ('<?php if(isset($_REQUEST['reset'])) { echo $_REQUEST['reset'];} else { echo 'false';} ?>' == 'true'){
 						
 						var reset_popup = jQuery('#smartestb-popup-reset');
 						reset_popup.fadeIn();
@@ -420,7 +390,6 @@ class Quick_Business_Website {
 					return this;
 				}
 			
-				
 				jQuery('#smartestb-popup-save').center();
 				jQuery('#smartestb-popup-reset').center();
 				jQuery(window).scroll(function() { 
@@ -431,7 +400,7 @@ class Quick_Business_Website {
 				});
 			
 				//Save everything else
-				jQuery('#smartestbform').submit(function(){
+				jQuery('#smartestbform').submit(function() {
 					
 						function newValues() {
 						  var serializedValues = jQuery("#smartestbform").serialize();
