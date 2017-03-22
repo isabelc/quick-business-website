@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: https://isabelcastillo.com/free-plugins/quick-business-website
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 2.0.1.alpha1
+Version: 2.0.1.alpha2
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -142,7 +142,7 @@ class Quick_Business_Website {
 	* @return void
 	*/
 	public function load() {
-		include QUICKBUSINESSWEBSITE_PATH . 'inc/options.php';
+		include_once QUICKBUSINESSWEBSITE_PATH . 'inc/options.php';
 		add_action( 'init', 'qbw_options' );
 	}
 	/**
@@ -162,25 +162,25 @@ class Quick_Business_Website {
 	public static function option_setup() {
 		$qbw_array = array();
 		// Set default options
-		include QUICKBUSINESSWEBSITE_PATH . 'inc/options.php';
+		include_once QUICKBUSINESSWEBSITE_PATH . 'inc/options.php';
 		qbw_options();
 		$template = get_option( 'qbw_template' );
 		foreach ( $template as $option ) {
-			if ( $option['type'] != 'heading' ) {
+			if ( $option['type'] != 'heading' && $option['type'] != 'info' ) {
 				$id = isset( $option['id'] ) ? $option['id'] : '';
 				$std = isset( $option['std'] ) ? $option['std'] : '';
 				$db_option = get_option( $id );
 				// if option is empty, set the default value
 				if ( empty( $db_option ) ) {
-					// sanitize default values, if we have any
-					if ( ! empty ( $id ) ) {
+					// Only if we have any defaults
+					if ( '' != $std ) {
 						$std = apply_filters( 'qbw_sanitize_setting', $std, $option );
 						update_option( $id, $std );
 						$qbw_array[ $id ] = $std;
 					}
 
 				} else {
-					// sanitize their old values for good measure
+					// sanitize old values for good measure
 					if ( ! empty ( $id ) ) {
 						$db_option = apply_filters( 'qbw_sanitize_setting', $db_option, $option );
 						$qbw_array[ $id ] = $db_option;
@@ -188,6 +188,7 @@ class Quick_Business_Website {
 				}
 			}
 		} // end foreach option
+
 		update_option( 'qbw_options', $qbw_array );
 	}
 
@@ -254,47 +255,35 @@ class Quick_Business_Website {
 		if ( 'quickbusinesswebsite' != $page ) {
 			return;
 		}
-		global $wpdb;
+		$qbw_array = array();
+		foreach ( $options as $option ) {
+			if ( $option['type'] != 'heading' && $option['type'] != 'info' ) {
+				$id = isset( $option['id'] ) ? $option['id'] : '';
+				$std = isset( $option['std'] ) ? $option['std'] : '';
 
-		$query_inner = '';
-		$prepare_values = array();
-		$count = 0;
-		
-		foreach( $options as $option ) {
-
-			if ( isset( $option['id'] ) ) { 
-				$count++;
-				$option_id = $option['id'];
-				
-				if ( $count > 1 ) {
-					$query_inner .= ' OR ';
+				if ( '' != $std ) { // Save any defaults
+					$std = apply_filters( 'qbw_sanitize_setting', $std, $option );
+					update_option( $id, $std );
+					$qbw_array[ $id ] = $std;
+				} else { // Delete the rest
+					delete_option( $id );
+					$qbw_array[ $id ] = '';
 				}
-				$query_inner .= 'option_name = %s';
 
-				$prepare_values[] = $option_id;
-				
 			}
-		}
-		
-		// Don't forget the serialized options array
-		$query_inner .= ' OR option_name = %s';
-		$prepare_values[] = 'qbw_options';
+		} // end foreach option
 
-		$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->options WHERE $query_inner",
-			$prepare_values
-			)
-		);
-
-	} // end reset_options
+		global $wp_rewrite;
+		$wp_rewrite->flush_rules( false );// soft flush
+	}
 
 	/** 
-	 * output options page
+	 * The callback to display the options page
 	 *
 	 * @since 1.0
 	 */
 	public function options_page() {
-	    $options = get_option( 'qbw_template');      
-		?>
+	    $options = get_option( 'qbw_template'); ?>
 	<div class="wrap" id="smartestb_container">
 	<div id="smartestb-popup-save" class="smartestb-save-popup"><div class="smartestb-save-save"><?php _e('Options Updated', 'quick-business-website'); ?></div></div>
 	<div id="smartestb-popup-reset" class="smartestb-save-popup"><div class="smartestb-save-reset"><?php _e('Options Reset', 'quick-business-website'); ?></div></div>
@@ -690,10 +679,10 @@ class Quick_Business_Website {
 					}
 					$output .= '<textarea class="smartestb-input" name="' . esc_attr( $value['id'] ) .'" id="'. esc_attr( $value['id'] ) .'" cols="'. $cols .'" rows="8">'.stripslashes($ta_value).'</textarea>';
 			break;
-			case "checkbox": 
-			if ( ! empty( $value['std'] ) ) {
-					$std = $value['std'];
-			}
+			case 'checkbox': 
+				if ( ! empty( $value['std'] ) ) {
+						$std = $value['std'];
+				}
 			   $saved_std = get_option($value['id']);
 			   $checked = '';
 				if(!empty($saved_std)) {
@@ -838,7 +827,7 @@ class Quick_Business_Website {
 		$services = get_option( 'qbw_show_services');
 
 		// if show news enabled, create news cpt
-		if ( $news == 'true') { 
+		if ( $news == 'true') {
 	    	$args = array(
 	        	'label' => __('Announcements','quick-business-website'),
 	        	'singular_label' => __('Announcement','quick-business-website'),
