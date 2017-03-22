@@ -1,28 +1,27 @@
 === Quick Business Website ===
 Contributors: isabel104
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=isa%40smartestthemes%2ecom
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=R7BHLMCQ437SS
 Tags: business, business website, company, quick website, quick site, staff, services, announcements
-Requires at least: 3.6
-Tested up to: 4.8-alpha-40290
-Stable tag: 1.5.1
+Requires at least: 4.0
+Tested up to: 4.8-alpha-40306
+Stable tag: 2.0
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Business website to showcase your services, staff, announcements, a working contact form, and reviews.
+Business website to showcase your services, staff, announcements, contact form, reviews and rich snippets for Google search.
 
 == Description ==
 
 Get a complete business website up with a few clicks. When you activate this plugin, your website will immediately have: 
 
+- an Announcements section to post sales, events, promotions, news, or anything
+- a section to showcase your Staff, with links to their social media profiles
+- a section to showcase your Services
 - a Reviews page for visitors to review your business
 - a Contact page with a working contact form
-- a section to showcase your Staff, with links to their social profiles
-- a section to showcase your Services
-- an Announcements section to post sales, events, news, or anything
 - 6 Quick Business Website widgets
-- the wp-login.php page will show your blogname with a link to your home page, instead of "WordPress" linking to WordPress.
-- Backend branding tweaks: You can upload your own logo for your clients to see in the backend. You can change or remove the footer text in the WP Admin area. You can remove the WordPress links from Admin/tool bar.
-- You can add your Google Analytics or other scripts via the options panel, without touching your code.
+- the wp-login.php page will show your site's own name with a link to your home page, instead of "WordPress" linking to WordPress.
+- Backend branding tweaks: You can change or remove the footer text in the WP admin area. You can remove the WordPress links from Admin/tool bar.
 
 After you enter your business information, your site will then automatically have:
 
@@ -52,13 +51,54 @@ If you disable either the staff, news, services, or reviews by un-checking the b
 
 == Screenshots ==
 
-1. Options panel
-2. Staff page display samples showing name, job title, social links, and description
+1. Staff page shows each member's name, job title, and social media links
+2. The options panel
 3. Reviews and review-submission form which appear on the Reviews page
 4. Featured Services widget, Featured Announcements widget, and Staff widget
-5. Contact page showing contact form and business info 
+5. Contact page showing contact form and business info including address, phone, hours, and social media links
 
 == Changelog ==
+
+= 2.0 = 
+* New - Staff and Services archive pages have a much improved, grid-style display.
+* New - Redesigned and improved options panel.
+* New - Mobile responsive styling for the options page and the admin Reviews pages.
+* New - Updated links to plugin documentation.
+* New - Added a new option to elect to "Delete All Data On Uninstall."
+* New - Added option to customize the form field labels, e.g. Name, Email, Message. The contact form submission button text can also be customized in the options panel.
+* New - Menu items for custom post types are no longer automatically added. See the documentation page for how to add the menu items to your menu.
+* New - Removed the Scripts tab from our options. The option to add an Analytics script, or any JavaScript, is no longer supported.
+* New - Removed the Google Map from the Contact page. The option to add a Google Map is no longer supported by this plugin.
+* New - Removed the logo upload option in the Backend Branding tab. This logo was displayed above our plugin options panel. Now, we will use the built-in site logo option. If a site didn't upload a site logo via its own theme, we will try to use the site icon, if it has one. Otherwise, no image will be shown above our options panel.
+* New - Removed the About page tab from our options since users can simply add their own about page. If a user has added an image to our About page tab, that image is inserted into the about page content so that nothing is lost.
+* New - Renamed the contact form shortcode.
+* New - When a visitor submits a review, they will no longer be required to begin their website with http. Leaving out the http will no longer cause an error on the Reviews form.
+* New - Replace all microdata with JSON-LD format structured data.
+* New - Redirect to the settings page upon plugin activation for easier setup.
+* Fix: Review stars were not showing on admin--on Review page in admin.
+* Fix: Custom field values on reviews form were not being saved.
+* Fix: Fix ugly link to admin in the reviews notification email that goes to the administrator.
+* Fix: Default options were not saved upon initial activation, which is why users had to first click "Save all Changes" at first. This is no longer required as the issue is fixed.
+* Fix: Fixed a bug in which the contact page layout was messed up while the success message was displayed after a use submitted the contact form.
+* Tweak - Changed the Announcements dash menu icon.
+* Tweak - Social media icons now have their brand colors. This applies to those using the newer default icons, not for those using the old legacy icons as those were already in color.
+* Tweak - Removed "Quick Business Website" branding on options panel.
+* Tweak - Update the QBW settings page URL.
+* Tweak - Renamed CSS files and moved all CSS files into css directory.
+* API - The plugin textdomain is now loaded on the init action rather than the plugins_loaded action.
+* API - Removed unused JavaScript and jQuery scripts.
+* API - Changed our options prefix.
+* API - Delete options on uninstall rather than deactivation.
+* API - Removed vt_resize() function in favor of the_post_thumbnail().
+* API - Simplified metabox class.
+* API - Set default services sort order when sort setting is enabled.
+* API - Refactor names for reviews functions, classes and constants. New PHP constructors for reviews and reviews-admin.
+* API - Use core gravatar function for Reviewer image, which shows on the admin side.
+* API - Remove save_post action.
+* API - New function `qbw_get_business_name()`.
+* API - Don't store plugin version as option.
+* API - Replace regex with esc_js() for escaping inline JavaScript.
+* API - Delete custom post types, taxonomies, and terms on uninstall, if enabled.
 
 = 1.5.1 =
 * Fix - Removed one PHP notice.
@@ -187,3 +227,8 @@ If you disable either the staff, news, services, or reviews by un-checking the b
 
 = 1.0 =
 * Initial release.
+
+== Upgrade Notice ==
+
+= 2.0 =
+Staff and Services archive pages have a much improved, grid-style display.

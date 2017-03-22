@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: https://isabelcastillo.com/free-plugins/quick-business-website
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 2.3.alpha.991
+Version: 2.0
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
