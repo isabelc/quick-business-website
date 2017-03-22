@@ -1,8 +1,6 @@
-﻿.widget-area .widget.widget_smartest_staff_list a {
-	line-height: 140%;
-}
-#qbw-staff-meta h5 {
+﻿#qbw-staff-meta h5 {
 	margin-bottom: 1em;
+	font-weight: normal;
 }
 #qbw-staff-socials ul {
 	list-style-type: none;
@@ -78,8 +76,25 @@
 }
 #qbw-staff-socials li a.fa-youtube:before {
 	content: "\f166";
+	color: #cd201f;
 }
+
 /* Staff and Services archives */
+
+/* Smaller social media icons for Staff archives page */
+#qbw-staff-wrap #qbw-staff-socials li a.fa-twitter,
+#qbw-staff-wrap #qbw-staff-socials li a.fa-google,
+#qbw-staff-wrap #qbw-staff-socials li a.fa-facebook, 
+#qbw-staff-wrap #qbw-staff-socials li a.fa-linkedin {
+	width: 18px;
+	height: 18px;
+}
+#qbw-staff-wrap #qbw-staff-socials li a.fa-twitter:before,
+#qbw-staff-wrap #qbw-staff-socials li a.fa-google:before, #qbw-staff-wrap #qbw-staff-socials li a.fa-facebook:before,
+#qbw-staff-wrap #qbw-staff-socials li a.fa-linkedin:before {
+	font-size:18px;
+}
+
 .qbw-staff-item-image {
 	max-height: 200px;
 	width:auto;
@@ -89,6 +104,8 @@
 	display: inline-block;
 	text-align: center;
 	margin: 0 7px 20px 7px;
+	max-width:31%;
+	overflow: hidden;
 }
 .qbw-service-item:first-of-type,
 .qbw-staff-item:first-of-type {
