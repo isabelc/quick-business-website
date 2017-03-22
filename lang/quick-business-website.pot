@@ -1,370 +1,1250 @@
+# Copyright (C) 2017 Quick Business Website
+# This file is distributed under the same license as the Quick Business Website package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Quick Business Website\n"
-"POT-Creation-Date: 2014-09-05 20:33-0500\n"
-"PO-Revision-Date: 2014-09-05 20:33-0500\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: en\n"
+"Project-Id-Version: Quick Business Website 2.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/quick-business-"
+"website\n"
+"POT-Creation-Date: 2017-03-22 17:29:39+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.3\n"
-"X-Poedit-Basepath: .\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_x\n"
-"X-Poedit-SearchPath-0: C:\\Users\\Isabel\\Documents\\aA_test\\qbw\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:121
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:9
+#: inc/helper-functions.php:131 inc/options.php:126
+#: quick-business-website.php:1346
+msgid "Twitter"
+msgstr ""
+
+#: inc/helper-functions.php:135 inc/options.php:131
+#: quick-business-website.php:1349
+msgid "Google Plus"
+msgstr ""
+
+#: inc/helper-functions.php:139 quick-business-website.php:1352
+msgid "Facebook"
+msgstr ""
+
+#: inc/helper-functions.php:143
+msgid "LinkedIn"
+msgstr ""
+
+#: inc/options.php:6 quick-business-website.php:106
 msgid "Settings"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:190
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:304
+#: inc/options.php:11
+msgid "Site Administrator"
+msgstr ""
+
+#: inc/options.php:18
+msgid "Welcome"
+msgstr ""
+
+#: inc/options.php:21
+msgid "Welcome to Quick Business Website"
+msgstr ""
+
+#: inc/options.php:23
+msgid ""
+"Here you'll see tabs to customize your site, but everything is optional.<br /"
+"><br />To give your website structured data for Google Search, enter your "
+"business info in the <strong>Business Info</strong> tab.<br /><br />Then, "
+"take a moment to browse all the tabs so you can see what options are "
+"available. <br /><br />Be sure to click the '<strong>Save all Changes</"
+"strong>' button when you enter new information."
+msgstr ""
+
+#: inc/options.php:26
+msgid "Business Info"
+msgstr ""
+
+#: inc/options.php:29
+msgid "Business Name"
+msgstr ""
+
+#: inc/options.php:30
+msgid "Enter the name of your business or organization."
+msgstr ""
+
+#: inc/options.php:34
+msgid "Business Street Address"
+msgstr ""
+
+#: inc/options.php:35
+msgid "The street address of your business"
+msgstr ""
+
+#: inc/options.php:39
+msgid "Business suite or apartment number"
+msgstr ""
+
+#: inc/options.php:44
+msgid "Business city"
+msgstr ""
+
+#: inc/options.php:50
+msgid ""
+"Business state: if in the U.S., enter the state that your business is in"
+msgstr ""
+
+#: inc/options.php:56
+msgid "Business zip code"
+msgstr ""
+
+#: inc/options.php:62
+msgid "Business Country: the country that your business is in"
+msgstr ""
+
+#: inc/options.php:67
+msgid "Business Phone Number"
+msgstr ""
+
+#: inc/options.php:68
+msgid ""
+"Optional. Your business phone number to be displayed on your Contact page. "
+"Enter like 555-555-5555."
+msgstr ""
+
+#: inc/options.php:72
+msgid "Business Fax Number"
+msgstr ""
+
+#: inc/options.php:73
+msgid ""
+"Optional. Your business fax number to be displayed on your Contact page. "
+"Enter like 555-555-5555."
+msgstr ""
+
+#: inc/options.php:77
+msgid "Display Business Email Address?"
+msgstr ""
+
+#: inc/options.php:78
+msgid ""
+"Check this to show your business email address on your Contact Page. You can "
+"change your email address in %s."
+msgstr ""
+
+#: inc/options.php:83
+msgid "Business Hours"
+msgstr ""
+
+#: inc/options.php:84
+msgid ""
+"Optional. Enter your hours here if you want to display them. Example:<br /"
+"><br />Monday - Friday: 7:30 am - 6:00<br />Saturday: 7:30 am - Noon<br /"
+"><br />"
+msgstr ""
+
+#: inc/options.php:90
+msgid "Preferences"
+msgstr ""
+
+#: inc/options.php:93
+msgid "Add Staff section?"
+msgstr ""
+
+#: inc/options.php:94
+msgid "Check this to show your staff memebers."
+msgstr ""
+
+#: inc/options.php:98
+msgid "Add News section?"
+msgstr ""
+
+#: inc/options.php:99
+msgid "Check this to add an Announcements section."
+msgstr ""
+
+#: inc/options.php:103
+msgid "Add Services?"
+msgstr ""
+
+#: inc/options.php:104
+msgid "Check this to show your services."
+msgstr ""
+
+#: inc/options.php:108
+msgid ""
+"Set Custom Sort-Order? Check this if you want to set a custom sort-order for "
+"services. Otherwise, default sort-order is descending order by date of post."
+msgstr ""
+
+#: inc/options.php:112
+msgid "Add Reviews Section?"
+msgstr ""
+
+#: inc/options.php:113
+msgid "Check this to add a page to let visitors submit reviews."
+msgstr ""
+
+#: inc/options.php:118
+msgid "Social Media"
+msgstr ""
+
+#: inc/options.php:121
+msgid "Facebook Page"
+msgstr ""
+
+#: inc/options.php:122
+msgid ""
+"The ID of your business Facebook page. Tip: the part of the address that "
+"comes after www.facebook.com/"
+msgstr ""
+
+#: inc/options.php:127
+msgid "The username of your business Twitter profile. Tip: the part after '@'"
+msgstr ""
+
+#: inc/options.php:132
+msgid "The ID of your business Google Plus page."
+msgstr ""
+
+#: inc/options.php:136
+msgid "YouTube"
+msgstr ""
+
+#: inc/options.php:137
+msgid ""
+"The name of your YouTube channel. Tip: Your Youtube name or ID, or the part "
+"of the address after www.youtube.com/user/"
+msgstr ""
+
+#: inc/options.php:140 inc/options.php:149
+msgid "Another Profile"
+msgstr ""
+
+#: inc/options.php:141
+msgid ""
+"Add another business profile URL.  Example: http://www.linkedin.com/in/"
+"YourName"
+msgstr ""
+
+#: inc/options.php:145
+msgid ""
+"Give a title for the business profile you entered above. Example: LinkedIn"
+msgstr ""
+
+#: inc/options.php:150
+msgid "Add another business profile URL. Example: http://YourName.tumblr.com/"
+msgstr ""
+
+#: inc/options.php:154
+msgid ""
+"Give a title for the business profile you entered above. Example: Tumblr"
+msgstr ""
+
+#: inc/options.php:159
+msgid "Backend Branding"
+msgstr ""
+
+#: inc/options.php:162
+msgid "Custom WP Admin Footer Text"
+msgstr ""
+
+#: inc/options.php:163
+msgid ""
+"By default, the text at the bottom of this page is \"Thank you for creating "
+"with WordPress.\" Replace it with your own custom text here."
+msgstr ""
+
+#: inc/options.php:167
+msgid "Or check here to completely remove the Admin Footer Text."
+msgstr ""
+
+#: inc/options.php:170
+msgid "Remove WordPress Links From Admin Bar"
+msgstr ""
+
+#: inc/options.php:171
+msgid ""
+"See the Wordpress logo link on the left of the bar across the top of this "
+"page? Check here to remove that link."
+msgstr ""
+
+#: inc/options.php:176
+msgid "<em>Refresh this page to see the effect of these changes.</em>"
+msgstr ""
+
+#: inc/options.php:180
+msgid "Contact Form"
+msgstr ""
+
+#: inc/options.php:183
+msgid "Your Email"
+msgstr ""
+
+#: inc/options.php:184
+msgid ""
+"Where would you like to receive messages sent from the contact form? If "
+"blank, the default is the email set in your WordPress General Settings."
+msgstr ""
+
+#: inc/options.php:188
+msgid "Email Subject"
+msgstr ""
+
+#: inc/options.php:189
+msgid ""
+"What should be the subject line for the email that is sent to you when "
+"someone fills out your contact form? Default is \"Message sent from your "
+"contact form\"."
+msgstr ""
+
+#: inc/options.php:191 modules/contact/contact.php:212
+msgid "Message sent from your contact form"
+msgstr ""
+
+#: inc/options.php:193
+msgid "Success Message"
+msgstr ""
+
+#: inc/options.php:194
+msgid ""
+"When the form is sucessfully submitted, this message will be displayed to "
+"the user. Default is \"Success! Your message has been sent.\""
+msgstr ""
+
+#: inc/options.php:196
+msgid "Success! Your message has been sent."
+msgstr ""
+
+#: inc/options.php:198
+msgid "Error Message"
+msgstr ""
+
+#: inc/options.php:199
+msgid ""
+"If the user skips a required field, this message will be displayed. Default "
+"is \"Please complete the required fields.\""
+msgstr ""
+
+#: inc/options.php:201 modules/contact/contact.php:134
+msgid "Please complete the required fields."
+msgstr ""
+
+#: inc/options.php:203
+msgid "Enable Captcha"
+msgstr ""
+
+#: inc/options.php:204
+msgid ""
+"Check this box if you want to enable the captcha (challenge question/answer)."
+msgstr ""
+
+#: inc/options.php:209
+msgid "Add Phone Number Field"
+msgstr ""
+
+#: inc/options.php:210
+msgid "Check this box to add a phone number field to the contact form."
+msgstr ""
+
+#: inc/options.php:215
+msgid ""
+"Make the phone number %srequired.%s This has no effect if you do not check "
+"the box above."
+msgstr ""
+
+#: inc/options.php:219
+msgid "Custom content before the form"
+msgstr ""
+
+#: inc/options.php:220
+msgid ""
+"Add some text/markup to appear <em>before</em> the contact form (optional)."
+msgstr ""
+
+#: inc/options.php:224
+msgid "Custom content after the form"
+msgstr ""
+
+#: inc/options.php:225
+msgid ""
+"Add some text/markup to appear <em>after</em> the contact form (optional)."
+msgstr ""
+
+#: inc/options.php:229
+msgid "Custom content after results"
+msgstr ""
+
+#: inc/options.php:230
+msgid ""
+"Add some text/markup to appear <em>after</em> the success message, after the "
+"form has been submitted (optional)."
+msgstr ""
+
+#: inc/options.php:234
+msgid "Customize The Form Labels"
+msgstr ""
+
+#: inc/options.php:235
+msgid "Name field label."
+msgstr ""
+
+#: inc/options.php:237 modules/contact/contact.php:303
+msgid "Name (Required)"
+msgstr ""
+
+#: inc/options.php:240
+msgid "Email field label."
+msgstr ""
+
+#: inc/options.php:242 modules/contact/contact.php:307
+msgid "Email (Required)"
+msgstr ""
+
+#: inc/options.php:245
+msgid "Message field label."
+msgstr ""
+
+#: inc/options.php:247 modules/contact/contact.php:311
+msgid "Message (Required)"
+msgstr ""
+
+#: inc/options.php:250
+msgid "Submit button label."
+msgstr ""
+
+#: inc/options.php:252 modules/contact/contact.php:315
+msgid "Send email"
+msgstr ""
+
+#: inc/options.php:255
+msgid "Disable Contact Page"
+msgstr ""
+
+#: inc/options.php:256
+msgid ""
+"Check this to disable the Contact page. This will delete the automatically-"
+"created Contact page. You will still be able to use the shortcode to add a "
+"contact form: %s"
+msgstr ""
+
+#: inc/options.php:262
+msgid "Advanced"
+msgstr ""
+
+#: inc/options.php:264
+msgid "Delete All Data On Uninstall"
+msgstr ""
+
+#: inc/options.php:265
+msgid ""
+"Check this box if you would like Quick Business Website to completely remove "
+"all of its data when the plugin is deleted. This would permanently delete "
+"all Services, Staff, Announcement posts, Reviews, the Contact and Reviews "
+"page, and all settings. (This will happen when you delete the plugin. This "
+"does not happen when simply deactivating the plugin. Nothing is lost upon "
+"simple deactivation.)"
+msgstr ""
+
+#: inc/options.php:270
+msgid "Backwards Compatibility: Use Old Social Media Icons"
+msgstr ""
+
+#: inc/options.php:271
+msgid ""
+"As of version 1.4.1, we use new icons for the social media buttons that are "
+"Retina-ready for high resolution screens. Check this box to use the OLD "
+"social icons instead."
+msgstr ""
+
+#: inc/shortcodes.php:45
+msgid "No staff found!"
+msgstr ""
+
+#: inc/shortcodes.php:111
+msgid "No services found!"
+msgstr ""
+
+#: modules/contact/contact.php:17 modules/contact/contact.php:91
+msgid "Your name"
+msgstr ""
+
+#: modules/contact/contact.php:18 modules/contact/contact.php:96
+msgid "Your email"
+msgstr ""
+
+#: modules/contact/contact.php:130
+msgid ""
+"Please do not include any of the following in the Name or Email fields: "
+"linebreaks, or the phrases \"mime-version\", \"content-type\", \"cc:\" or "
+"\"to:\""
+msgstr ""
+
+#: modules/contact/contact.php:137
+msgid "Oops. Incorrect answer for the security question. Please try again."
+msgstr ""
+
+#: modules/contact/contact.php:137
+msgid "Hint: 1 + 1 = 2"
+msgstr ""
+
+#: modules/contact/contact.php:177
+msgid "Contact %s"
+msgstr ""
+
+#: modules/contact/contact.php:179
+msgctxt "page_slug"
+msgid "contact"
+msgstr ""
+
+#: modules/contact/contact.php:217
+msgid "Success! "
+msgstr ""
+
+#: modules/contact/contact.php:217
+msgid "Your message has been sent."
+msgstr ""
+
+#: modules/contact/contact.php:234
+msgid "Phone:"
+msgstr ""
+
+#: modules/contact/contact.php:246
+msgid "Hello"
+msgstr ""
+
+#: modules/contact/contact.php:247
+msgid "You are being contacted via %s:"
+msgstr ""
+
+#: modules/contact/contact.php:248 modules/reviews/reviews.php:569
+msgid "Name:"
+msgstr ""
+
+#: modules/contact/contact.php:249 modules/reviews/reviews.php:577
+#: quick-business-website.php:1405
+msgid "Email:"
+msgstr ""
+
+#: modules/contact/contact.php:250
+msgid "Message:"
+msgstr ""
+
+#: modules/contact/contact.php:251
+msgid "Additional Information:"
+msgstr ""
+
+#: modules/contact/contact.php:252
+msgid "URL:"
+msgstr ""
+
+#: modules/contact/contact.php:253
+msgid "Date:"
+msgstr ""
+
+#: modules/contact/contact.php:254
+msgid "IP:"
+msgstr ""
+
+#: modules/contact/contact.php:255
+msgid "Host:"
+msgstr ""
+
+#: modules/contact/contact.php:256
+msgid "Agent:"
+msgstr ""
+
+#: modules/contact/contact.php:287
+msgid "Click here to reset form"
+msgstr ""
+
+#: modules/contact/contact.php:334
+msgid "Phone"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:122
+msgid "Your settings have been saved."
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:154
+msgid "Review Page Settings"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:155
+msgid "Reviews shown per page: "
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:157
+msgid "Location of Review Form: "
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:163
+msgid "Above Reviews"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:169
+msgid "Below Reviews"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:173
+msgid "Fields to ask for on review form: "
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:174 modules/reviews/reviews-admin.php:181
+#: modules/reviews/reviews-admin.php:188 quick-business-website.php:1156
+msgid "Name"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:175 modules/reviews/reviews-admin.php:182
+#: modules/reviews/reviews-admin.php:189
+msgid "Email"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:176 modules/reviews/reviews-admin.php:183
+#: modules/reviews/reviews-admin.php:190
+msgid "Website"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:178 modules/reviews/reviews-admin.php:185
+#: modules/reviews/reviews-admin.php:192
+msgid "Review Title"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:180
+msgid "Fields to require on review form: "
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:187
+msgid "Fields to show on each approved review: "
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:194
+msgid "It is usually NOT a good idea to show email addresses publicly."
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:196
+msgid "Custom fields on review form: "
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:196
+msgid "You can type in the names of any additional fields you would like here."
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:213
+msgid "Field Name: "
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:214
+msgid "Ask"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:215
+msgid "Require"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:216
+msgid "Show"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:222
+msgid "Heading to use for Review Titles: "
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:231
+msgid "Show review form: "
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:233
+msgid ""
+"If this option is unchecked, there will be no visible way for visitors to "
+"submit reviews."
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:235
+msgid "Button text for the \"show review form\" button: "
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:238
+msgid "Title to be displayed above review form: "
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:240
+msgid "This will be shown as a heading immediately above the review form."
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:242
+msgid "Button text for the submit button: "
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:244 modules/reviews/reviews-admin.php:275
+msgid "Save Changes"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:257
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:270
+msgid "COULD NOT CREATE DATABASE TABLE, PLEASE REPORT THIS ERROR"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:282
+msgid "Reviews - Options"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:326
+msgid "Bad Request"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:339
+msgid "Bad Date Format"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:351
+msgid "Bad Value"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:477
+msgid "Submitted"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:480
+msgid "Pending"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:483 modules/reviews/reviews-admin.php:507
+msgid "Approved"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:486
+msgid "Trashed"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:501 modules/reviews/reviews.php:43
+#: modules/reviews/reviews.php:44 modules/reviews/reviews.php:509
+msgid "Reviews"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:501
+msgid "%s Reviews"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:503
+msgid "All"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:504
+msgid "Pending "
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:510
+msgid "Trash"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:517
+msgid "RESULTS FOR: "
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:518
+msgid "Search Reviews:"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:521
+msgid "Search Reviews"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:530 modules/reviews/reviews-admin.php:661
+msgid "Bulk Actions"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:531 modules/reviews/reviews-admin.php:662
+msgid "Unapprove"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:532 modules/reviews/reviews-admin.php:663
+msgid "Approve"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:533 modules/reviews/reviews-admin.php:645
+#: modules/reviews/reviews-admin.php:664
+msgid "Move to Trash"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:534 modules/reviews/reviews-admin.php:648
+#: modules/reviews/reviews-admin.php:665
+msgid "Delete Forever"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:536 modules/reviews/reviews-admin.php:667
+msgid "Apply"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:536 modules/reviews/reviews-admin.php:541
+msgid "Author"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:536 modules/reviews/reviews-admin.php:542
+msgid "Review"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:550
+msgid "There are no %s reviews yet."
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:559 modules/reviews/reviews.php:392
+#: modules/reviews/reviews.php:396
+msgid "Anonymous"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:608
+msgid "View Live Review"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:611
+#: modules/reviews/widget-testimonial.php:84 widgets/all-services.php:109
+#: widgets/announcements.php:113 widgets/featured-announcements.php:111
+#: widgets/featured-services.php:109 widgets/staff.php:111
+msgid "Title:"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:626
+msgid "Official Response:"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:627
+msgid "Leave this blank if you do not want it to be public"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:639
+msgid "Mark as Approved"
+msgstr ""
+
+#: modules/reviews/reviews-admin.php:642
+msgid "Mark as Unapproved"
+msgstr ""
+
+#: modules/reviews/reviews.php:71
+msgid "Click here to add your review."
+msgstr ""
+
+#: modules/reviews/reviews.php:72 modules/reviews/reviews.php:79
+msgid "Submit your review"
+msgstr ""
+
+#: modules/reviews/reviews.php:308
+msgid "Page: "
+msgstr ""
+
+#: modules/reviews/reviews.php:376
+msgid "There are no reviews yet. Be the first to leave yours!"
+msgstr ""
+
+#: modules/reviews/reviews.php:378
+msgid "Reviews are not available."
+msgstr ""
+
+#: modules/reviews/reviews.php:416
+msgid "Response:"
+msgstr ""
+
+#: modules/reviews/reviews.php:480
+msgid "Average rating: %1$s out of 5 based on %2$d review."
+msgid_plural "Average rating: %1$s out of 5 based on %2$d reviews."
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/reviews/reviews.php:509
+msgctxt "page_slug"
+msgid "reviews"
+msgstr ""
+
+#: modules/reviews/reviews.php:585
+msgid "Website:"
+msgstr ""
+
+#: modules/reviews/reviews.php:593
+msgid "Review Title:"
+msgstr ""
+
+#: modules/reviews/reviews.php:626 modules/reviews/reviews.php:634
+msgid "Required Field"
+msgstr ""
+
+#: modules/reviews/reviews.php:659
+msgid "Rating:"
+msgstr ""
+
+#: modules/reviews/reviews.php:663
+msgid "Review:"
+msgstr ""
+
+#: modules/reviews/reviews.php:669
+msgid "Check this box to confirm you are human."
+msgstr ""
+
+#: modules/reviews/reviews.php:735 modules/reviews/reviews.php:751
+msgid "You must include your"
+msgstr ""
+
+#: modules/reviews/reviews.php:758 modules/reviews/reviews.php:893
+msgid "The email address provided is not valid."
+msgstr ""
+
+#: modules/reviews/reviews.php:763
+msgid "You have triggered our anti-spam system. Please try again. Code 001."
+msgstr ""
+
+#: modules/reviews/reviews.php:767
+msgid "You have triggered our anti-spam system. Please try again. Code 002"
+msgstr ""
+
+#: modules/reviews/reviews.php:771
+msgid "You have triggered our anti-spam system. Please try again. Code 003"
+msgstr ""
+
+#: modules/reviews/reviews.php:775
+msgid "You must include a review. Please make reviews at least 5 letters."
+msgstr ""
+
+#: modules/reviews/reviews.php:801
+msgid "A new review has been posted on %1$s's website."
+msgstr ""
+
+#: modules/reviews/reviews.php:804
+msgid ""
+"You will need to login to the admin area and approve this review before it "
+"will appear on your site."
+msgstr ""
+
+#: modules/reviews/reviews.php:805
+msgid "Link to admin approval page: %s"
+msgstr ""
+
+#: modules/reviews/reviews.php:807
+msgid "New Review Posted on %1$s"
+msgstr ""
+
+#: modules/reviews/reviews.php:811
+msgid ""
+"Thank you for your comments. All submissions are moderated and if approved, "
+"yours will appear soon."
+msgstr ""
+
+#: modules/reviews/reviews.php:818
+msgid "Redirecting"
+msgstr ""
+
+#: modules/reviews/reviews.php:819
+msgid "Processing... Please wait..."
+msgstr ""
+
+#: modules/reviews/reviews.php:892
+msgid "Click here to hide form"
+msgstr ""
+
+#: modules/reviews/reviews.php:894
+msgid "You must include your "
+msgstr ""
+
+#: modules/reviews/reviews.php:895
+msgid "You must include a review. Please make reviews at least 4 letters."
+msgstr ""
+
+#: modules/reviews/reviews.php:896
+msgid "You must confirm that you are human."
+msgstr ""
+
+#: modules/reviews/reviews.php:897
+msgid "Code 2."
+msgstr ""
+
+#: modules/reviews/reviews.php:898
+msgid "Code 3."
+msgstr ""
+
+#: modules/reviews/reviews.php:899
+msgid "Please select a star rating from 1 to 5."
+msgstr ""
+
+#: modules/reviews/widget-testimonial.php:13
+msgid "Display a random review as a testimonial."
+msgstr ""
+
+#: modules/reviews/widget-testimonial.php:20
+#: modules/reviews/widget-testimonial.php:76
+msgid "Testimonials"
+msgstr ""
+
+#: modules/reviews/widget-testimonial.php:45
+msgid "Be the first to <a href=\"%s\">leave a review..."
+msgstr ""
+
+#: modules/reviews/widget-testimonial.php:52
+msgid "More..."
+msgstr ""
+
+#: modules/reviews/widget-testimonial.php:88
+msgid "How many testimonials to show:"
+msgstr ""
+
+#: quick-business-website.php:129
+msgctxt "page_slug"
+msgid "staff"
+msgstr ""
+
+#: quick-business-website.php:129 quick-business-website.php:921
+#: quick-business-website.php:922 quick-business-website.php:930
+#: quick-business-website.php:931 widgets/staff.php:34 widgets/staff.php:106
+msgid "Staff"
+msgstr ""
+
+#: quick-business-website.php:133
+msgctxt "page_slug"
+msgid "services"
+msgstr ""
+
+#: quick-business-website.php:133 quick-business-website.php:882
+#: quick-business-website.php:891 widgets/all-services.php:26
+#: widgets/all-services.php:102 widgets/featured-services.php:75
+msgid "Services"
+msgstr ""
+
+#. #-#-#-#-#  plugin.pot (Quick Business Website 2.0)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: quick-business-website.php:201
 msgid "Quick Business Website"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:206
-#, php-format
+#: quick-business-website.php:211
 msgid "%s Options"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:222
-msgid " Options"
+#: quick-business-website.php:240
+msgid "Quick Business Website Options"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:296
+#: quick-business-website.php:299
 msgid "Options Updated"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:297
+#: quick-business-website.php:300
 msgid "Options Reset"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:327
-msgid "See our Business App Themes"
+#: quick-business-website.php:315
+msgid "Documentation"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:328
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:386
+#: quick-business-website.php:317
+msgid "Feedback"
+msgstr ""
+
+#: quick-business-website.php:320 quick-business-website.php:334
 msgid "Save All Changes"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:338
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:346
-msgid "Plugin Support"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:348
-msgid "Stuck?  Need some help?  Found a bug?"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:353
-msgid "Support Forum"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:354
-msgid ""
-"Get help or report a bug at the forum. There we focus on answering your "
-"questions and helping you to use the default functionality of this plugin."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:356
-msgid "Go To Support Forum"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:366
-msgid "Instruction Guides"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:367
-msgid "The Instruction Guides give detailed instructions for certain tasks."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:369
-msgid "Go To Instruction Guides"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:391
+#: quick-business-website.php:339
 msgid "Reset Options"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:472
-msgid "Uploading"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:473
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1177
-msgid "Upload Image"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:474
+#: quick-business-website.php:362
 msgid ""
 "Click OK to reset back to default settings. All custom QBW plugin settings "
 "will be lost!"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:722
-msgid "Upload Error: "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1181
-msgid "Remove"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1274
-#, php-format
-msgid "About %s"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1278
-msgid "about"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1424
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1425
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1437
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1438
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1594
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1642
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/staff.php:39
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/staff.php:113
-msgid "Staff"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1431
-msgid "staff"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1439
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1479
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1521
-msgid "Add New"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1440
-msgid "Add New Staff"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1441
-msgid "All Staff"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1442
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1482
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1524
-msgid "Edit"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1443
-msgid "Edit Staff"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1444
-msgid "New Staff"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1445
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1446
-msgid "View Staff"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1447
-msgid "Search Staff"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1448
-msgid "No staff found"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1449
-msgid "No staff found in Trash"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1450
-msgid "Parent Staff"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1464
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1477
+#: quick-business-website.php:843 quick-business-website.php:855
 msgid "Announcements"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1465
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1478
+#: quick-business-website.php:844 quick-business-website.php:856
 msgid "Announcement"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1471
+#: quick-business-website.php:850
 msgid "news"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1480
+#: quick-business-website.php:857 quick-business-website.php:893
+#: quick-business-website.php:932
+msgid "Add New"
+msgstr ""
+
+#: quick-business-website.php:858
 msgid "Add New Announcement"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1481
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/announcements.php:63
+#: quick-business-website.php:859 widgets/announcements.php:59
 msgid "All Announcements"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1483
+#: quick-business-website.php:860 quick-business-website.php:896
+#: quick-business-website.php:935
+msgid "Edit"
+msgstr ""
+
+#: quick-business-website.php:861
 msgid "Edit Announcement"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1484
+#: quick-business-website.php:862
 msgid "New Announcement"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1485
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1486
+#: quick-business-website.php:863 quick-business-website.php:864
 msgid "View Announcement"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1487
+#: quick-business-website.php:865
 msgid "Search Announcements"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1488
+#: quick-business-website.php:866
 msgid "No announcement found"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1489
+#: quick-business-website.php:867
 msgid "No announcements found in Trash"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1490
+#: quick-business-website.php:868
 msgid "Parent Announcement"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1506
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1519
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1606
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1656
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/all-services.php:30
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/all-services.php:140
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/featured-services.php:94
-msgid "Services"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1507
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1520
+#: quick-business-website.php:883 quick-business-website.php:892
 msgid "Service"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1513
-msgid "services"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1522
+#: quick-business-website.php:894
 msgid "All Services"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1523
+#: quick-business-website.php:895
 msgid "Add New Service"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1525
+#: quick-business-website.php:897
 msgid "Edit Service"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1526
+#: quick-business-website.php:898
 msgid "New Service"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1527
+#: quick-business-website.php:899
 msgid "View Services"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1528
+#: quick-business-website.php:900
 msgid "View Service"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1529
+#: quick-business-website.php:901
 msgid "Search Services"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1530
+#: quick-business-website.php:902
 msgid "No services found"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1531
+#: quick-business-website.php:903
 msgid "No services found in Trash"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1532
+#: quick-business-website.php:904
 msgid "Parent Service"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1557
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1567
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1890
+#: quick-business-website.php:933
+msgid "Add New Staff"
+msgstr ""
+
+#: quick-business-website.php:934
+msgid "All Staff"
+msgstr ""
+
+#: quick-business-website.php:936
+msgid "Edit Staff"
+msgstr ""
+
+#: quick-business-website.php:937
+msgid "New Staff"
+msgstr ""
+
+#: quick-business-website.php:938 quick-business-website.php:939
+msgid "View Staff"
+msgstr ""
+
+#: quick-business-website.php:940
+msgid "Search Staff"
+msgstr ""
+
+#: quick-business-website.php:941
+msgid "No staff found"
+msgstr ""
+
+#: quick-business-website.php:942
+msgid "No staff found in Trash"
+msgstr ""
+
+#: quick-business-website.php:943
+msgid "Parent Staff"
+msgstr ""
+
+#: quick-business-website.php:973 quick-business-website.php:983
+#: quick-business-website.php:1186
 msgid "Service Categories"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1558
+#: quick-business-website.php:974
 msgid "Service Category"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1559
+#: quick-business-website.php:975
 msgid "Search Service Categories"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1560
+#: quick-business-website.php:976
 msgid "All Service Categories"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1561
+#: quick-business-website.php:977
 msgid "Parent Service Category"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1562
+#: quick-business-website.php:978
 msgid "Parent Service Category:"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1563
+#: quick-business-website.php:979
 msgid "Edit Service Category"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1564
+#: quick-business-website.php:980
 msgid "Update Service Category"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1565
+#: quick-business-website.php:981
 msgid "Add New Service Category"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1566
+#: quick-business-website.php:982
 msgid "New Service Category Name"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1631
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1680
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/featured-announcements.php:90
-msgid "News"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1696
+#: quick-business-website.php:1009
 msgid "Details"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1703
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1861
+#: quick-business-website.php:1016 quick-business-website.php:1157
 msgid "Job Title"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1704
+#: quick-business-website.php:1017
 msgid "The staff member's job title. Optional"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1709
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1767
+#: quick-business-website.php:1022 quick-business-website.php:1080
 msgid "Sort Order Number"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1710
+#: quick-business-website.php:1023
 msgid ""
 "Give this person a number to order them on the staff list. Number 1 appears "
 "1st on the list, while greater numbers appear lower. Numbers do not have to "
@@ -373,60 +1253,58 @@ msgid ""
 "without having to change everyone's current number."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1716
+#: quick-business-website.php:1029
 msgid "Facebook Profile ID"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1717
+#: quick-business-website.php:1030
 msgid "The staff member's Facebook profile ID. Optional"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1722
+#: quick-business-website.php:1035
 msgid "Twitter Username"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1723
+#: quick-business-website.php:1036
 msgid "The staff member's Twitter username. Optional"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1728
+#: quick-business-website.php:1041
 msgid "Google Plus Profile ID"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1729
+#: quick-business-website.php:1042
 msgid "The staff member's Google Plus profile ID. Optional"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1734
+#: quick-business-website.php:1047
 msgid "Linkedin Profile"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1735
+#: quick-business-website.php:1048
 msgid "The part of the profile address after \"www.linkedin.com/\". Optional"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1743
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/featured-services.php:37
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/featured-services.php:125
+#: quick-business-website.php:1056 widgets/featured-services.php:31
+#: widgets/featured-services.php:106
 msgid "Featured Services"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1750
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1785
+#: quick-business-website.php:1063 quick-business-website.php:1098
 msgid "Feature this?"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1751
+#: quick-business-website.php:1064
 msgid ""
 "Check this box to feature this service in the list of featured services on "
 "the home page and in the Featured Services widget."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1760
+#: quick-business-website.php:1073
 msgid "Set a Sort-Order"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1768
+#: quick-business-website.php:1081
 msgid ""
 "Give this service a number to order it on the services list. Number 1 "
 "appears 1st on the list, while greater numbers appear lower. Numbers do not "
@@ -435,1312 +1313,148 @@ msgid ""
 "without having to change all current numbers."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1778
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/featured-announcements.php:41
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/featured-announcements.php:125
+#: quick-business-website.php:1091 widgets/featured-announcements.php:35
+#: widgets/featured-announcements.php:106
 msgid "Featured News"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1786
+#: quick-business-website.php:1099
 msgid ""
 "Check this box to feature this announcement in the Featured Announcements "
 "widget."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1813
+#: quick-business-website.php:1123
 msgid "Enter staff member's name here"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1860
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:261
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:267
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:273
-msgid "Name"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1862
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1892
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1922
+#: quick-business-website.php:1158 quick-business-website.php:1188
+#: quick-business-website.php:1218
 msgid "Date"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1889
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1920
+#: quick-business-website.php:1185 quick-business-website.php:1216
 msgid "Title"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1891
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1907
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1921
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:1936
+#: quick-business-website.php:1187 quick-business-website.php:1203
+#: quick-business-website.php:1217 quick-business-website.php:1232
 msgid "Featured"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:2014
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:2054
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:156
-msgid "Twitter"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:2016
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:2057
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:161
-msgid "Google Plus"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:2018
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:2060
-msgid "Facebook"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:2020
-msgid "LinkedIn"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:2063
+#: quick-business-website.php:1355
 msgid "Youtube"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:2066
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:2069
+#: quick-business-website.php:1358 quick-business-website.php:1361
 msgid "Connect"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:2107
+#: quick-business-website.php:1397
 msgid "Telephone:"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:2110
+#: quick-business-website.php:1400
 msgid "FAX:"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:2114
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:251
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:741
-msgid "Email:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:2200
+#: quick-business-website.php:1562
 msgid "You cannot activate Quick Business Website"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/quick-business-website.php:2200
+#: quick-business-website.php:1562
 msgid ""
 "plugin when using Smartest Themes because they clash. But Smartest Themes "
 "have everything the Quick Business Website plugin has, and more. QBW plugin "
 "will not be activated! To use the plugin, please change your Theme, first."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:14
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:216
-msgid "Site Administrator"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:22
-msgid "Welcome"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:25
-msgid "Welcome to Quick Business Website by Smartest Themes!"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:27
-msgid ""
-"On the left are tabs to customize your site, but everything is optional.<br /"
-"><br />To make your website more complete, enter these two tabs on the left:"
-"<br /><br />1. The <strong>About Page</strong> tab.<br />2. The "
-"<strong>Business Info</strong> tab.<br /><br />Then, take a moment to browse "
-"all the tabs so you can see what options are available. <br /><br />To get "
-"started, first click the '<strong>Save all Changes</strong>' button to save "
-"the plugin defaults."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:31
-msgid "Business Info"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:34
-msgid "Business Name"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:35
-msgid "Enter the name of your business or organization."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:39
-msgid "Business Street Address"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:40
-msgid "The street address of your business"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:45
-msgid "Business suite or apartment number"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:50
-msgid "Business city"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:56
-msgid ""
-"Business state: if in the U.S., enter the state that your business is in"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:62
-msgid "Business zip code"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:68
-msgid "Business Country: the country that your business is in"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:73
-msgid "Business Phone Number"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:74
-msgid ""
-"Optional. Your business phone number to be displayed on your Contact page. "
-"Enter like 555-555-5555."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:78
-msgid "Business Fax Number"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:79
-msgid ""
-"Optional. Your business fax number to be displayed on your Contact page. "
-"Enter like 555-555-5555."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:83
-msgid "Display Business Email Address?"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:84
-#, php-format
-msgid ""
-"Check this to show your business email address on your Contact Page. You can "
-"change your email address in %s."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:94
-msgid "Business Hours"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:95
-msgid ""
-"Optional. Enter your hours here if you want to display them. Example:<br /"
-"><br />Monday - Friday: 7:30 am - 6:00<br />Saturday: 7:30 am - Noon<br /"
-"><br />"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:101
-msgid "Preferences"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:104
-msgid "Add Staff section?"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:105
-msgid "Check this to show your staff memebers."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:109
-msgid "Add News section?"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:110
-msgid "Check this to add an Announcements section."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:114
-msgid "Add Services?"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:115
-msgid "Check this to show your services."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:119
-#, php-format
-msgid ""
-"%s Set Custom Sort-Order? %s Check this to set a custom sort-order for "
-"services. Default sort-order is descending order by date of post."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:123
-msgid "Add Reviews Section?"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:124
-msgid "Check this to add a page to let visitors submit reviews."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:129
-msgid "About Page"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:131
-msgid "About Your Business"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:132
-msgid ""
-"The 'About Page' is a page about your business. Type what you want your "
-"visitors to read here. It may be a history, a sales pitch, or anything you "
-"like. To enlarge the text area, drag the lower right corner down."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:136
-msgid "About Page Picture"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:137
-msgid ""
-"Upload a picture for your About page, or specify the image address of an "
-"online picture, like http://yoursite.com/picture.png"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:141
-msgid "Disable About Page"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:142
-msgid ""
-"Check this to disable the About page altogether. Beware: this will "
-"permanently delete the About page from your website."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:148
-msgid "Social Media"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:151
-msgid "Facebook Page"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:152
-msgid ""
-"The ID of your business Facebook page. Tip: the part of the address that "
-"comes after www.facebook.com/"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:157
-msgid "The username of your business Twitter profile. Tip: the part after '@'"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:162
-msgid "The ID of your business Google Plus page."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:166
-msgid "YouTube"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:167
-msgid ""
-"The name of your YouTube channel. Tip: Your Youtube name or ID, or the part "
-"of the address after www.youtube.com/user/"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:170
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:179
-msgid "Another Profile"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:171
-msgid ""
-"Add another business profile URL.  Example: http://www.linkedin.com/in/"
-"YourName"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:175
-msgid ""
-"Give a title for the business profile you entered above. Example: LinkedIn"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:180
-msgid "Add another business profile URL. Example: http://YourName.tumblr.com/"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:184
-msgid ""
-"Give a title for the business profile you entered above. Example: Tumblr"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:189
-msgid "Backend Branding"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:191
-msgid "Replace This Page's Logo"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:192
-msgid ""
-"See the \"Smartest Themes\" logo at the top of this page? Upload a logo here "
-"to replace this page's logo. Or specify the image address of your online "
-"logo, like http://yoursite.com/logo.png"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:196
-msgid "Custom WP Admin Footer Text"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:197
-msgid ""
-"By default, the text at the bottom of this page is \"Thank you for creating "
-"with WordPress.\" Replace it with your own custom text here."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:201
-msgid "Or check here to completely remove the Admin Footer Text."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:204
-msgid "Remove WordPress Links From Admin Bar"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:205
-msgid ""
-"See the Wordpress link on the left of the bar across the top of this page? "
-"Check here to remove that link."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:210
-msgid "<em>Refresh this page to see the effect of these changes.</em>"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:214
-msgid "Contact Form"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:222
-msgid "Your Email"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:223
-msgid ""
-"Where would you like to receive messages sent from the contact form? If "
-"blank, the default is the admin email set in `Settings -> General`"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:227
-msgid "Default Subject"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:228
-msgid ""
-"What should be the default subject line for the contact messages? Default is "
-"\"Message sent from your contact form\"."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:230
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:214
-msgid "Message sent from your contact form"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:232
-msgid "Success Message"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:233
-msgid ""
-"When the form is sucessfully submitted, this message will be displayed to "
-"the sender. Default is \"Success! Your message has been sent.\""
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:235
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:217
-msgid "Success! "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:235
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:217
-msgid "Your message has been sent."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:237
-msgid "Error Message"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:238
-msgid ""
-"If the user skips a required field, this message will be displayed. Default "
-"is \"Please complete the required fields.\""
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:240
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:144
-msgid "Please complete the required fields."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:242
-msgid "Enable Captcha"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:243
-msgid ""
-"Check this box if you want to enable the captcha (challenge question/answer)."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:252
-msgid "Add Phone Number Field"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:253
-msgid "Check this box to add a phone number field to the contact form."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:258
-#, php-format
-msgid ""
-"Make the phone number %srequired.%s This has no effect if you do not check "
-"the box above."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:262
-msgid "Custom content before the form"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:263
-msgid ""
-"Add some text/markup to appear <em>before</em> the contact form (optional)."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:267
-msgid "Custom content after the form"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:268
-msgid ""
-"Add some text/markup to appear <em>after</em> the contact form (optional)."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:272
-msgid "Custom content before results"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:273
-msgid ""
-"Add some text/markup to appear <em>before</em> the success message "
-"(optional)."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:277
-msgid "Custom content after results"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:278
-msgid "Custom content after results."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:278
-msgid ""
-"Add some text/markup to appear <em>after</em> the success message (optional)."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:285
-msgid "Scripts"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:288
-msgid "Add Analytics Code"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:289
-msgid "Paste your analytics script here."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:294
-msgid "Additional Scripts To Load"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:295
-msgid ""
-"Paste any scripts here to be loaded into wp_head. Remember your script tags."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:302
-msgid "Advanced"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:305
-msgid "Disable Contact Page"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:306
-#, php-format
-msgid ""
-"Check this to disable the Contact page. This will delete the automatically-"
-"created Contact page. You will still be able to use the shortcode to add a "
-"contact form: %s"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:311
-#, php-format
-msgid "Disable Extra Items on %s and %s"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:312
-#, php-format
-msgid ""
-"Check this to stop inserting extra menu items, such as \"Staff\", \"Services"
-"\", and \"News\", into %s and %s."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:316
-msgid "Disable News Icon"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:317
-msgid ""
-"If an Announcement (News) post does not have a featured image, a news icon "
-"will show up as its featured image on the News page (if your <code>archive."
-"php</code> shows the thumbnail) and in the Featured Announcements widget. "
-"Check this to get rid of that icon."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:321
-msgid "Backwards Compatibility: Use Old Social Icons"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/inc/options.php:322
-msgid ""
-"As of version 1.4.1, we use new icons for the social buttons that are Retina-"
-"ready for high resolution screens, and they change color to match your links "
-"color. Check this box to use the OLD social icons instead."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/lib/metabox/init.php:632
-msgid "Please Try Again"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/lib/metabox/init.php:649
-msgid "Remove Embed"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/lib/metabox/init.php:655
-#, php-format
-msgid "No oEmbed Results Found for %s. View more info at"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:139
-msgid ""
-"Please do not include any of the following in the Name or Email fields: "
-"linebreaks, or the phrases \"mime-version\", \"content-type\", \"cc:\" or "
-"\"to:\""
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:147
-msgid "Oops. Incorrect answer for the security question. Please try again."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:147
-msgid "Hint: 1 + 1 = 2"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:181
-#, php-format
-msgid "Contact %s"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:183
-msgid "contact"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:248
-msgid "Hello"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:249
-#, php-format
-msgid "You are being contacted via %s:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:250
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:733
-msgid "Name:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:252
-msgid "Phone:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:253
-msgid "Message:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:254
-msgid "Additional Information:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:255
-msgid "Site:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:256
-msgid "URL:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:257
-msgid "Date:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:258
-msgid "IP:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:259
-msgid "Host:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:260
-msgid "Agent:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:290
-msgid "Click here to reset form"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:321
-msgid "Phone"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:331
-msgid "Name (Required)"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:335
-msgid "Email (Required)"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:340
-msgid "Message (Required)"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/contact/contact.php:344
-msgid "Send email"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:241
-msgid "Display Options"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:243
-msgid "General Settings"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:246
-msgid "Enable Aggregate Rating on Home Page."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:247
-msgid ""
-"This will pull data from your Reviews page, then add `aggregateRating` "
-"Schema.org Microdata to your home page."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:248
-msgid "Declare LocalBusiness Type Microdata on Home page."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:250
-msgid ""
-"Add Schema.org LocalBusiness type declaration on home page. Don't check this "
-"if you added your own Microdata type and you only want to add on the "
-"aggregate rating."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:251
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:325
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:360
-msgid "Save Changes"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:252
-msgid "Review Page Settings"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:253
-msgid "Reviews shown per page: "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:255
-msgid "Location of Review Form: "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:257
-msgid "Above Reviews"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:258
-msgid "Below Reviews"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:260
-msgid "Fields to ask for on review form: "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:262
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:268
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:274
-msgid "Email"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:263
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:269
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:275
-msgid "Website"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:264
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:270
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:276
-msgid "Review Title"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:266
-msgid "Fields to require on review form: "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:272
-msgid "Fields to show on each approved review: "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:278
-msgid "It is usually NOT a good idea to show email addresses publicly."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:280
-msgid "Custom fields on review form: "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:280
-msgid "You can type in the names of any additional fields you would like here."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:293
-msgid "Field Name: "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:294
-msgid "Ask"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:295
-msgid "Require"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:296
-msgid "Show"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:302
-msgid "Heading to use for Review Titles: "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:311
-msgid "Show review form: "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:313
-msgid ""
-"If this option is unchecked, there will be no visible way for visitors to "
-"submit reviews."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:315
-msgid "Button text used to show review form: "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:317
-msgid "This button will be shown above the first review."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:319
-msgid "Text to be displayed above review form: "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:321
-msgid "This will be shown as a heading immediately above the review form."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:323
-msgid "Text to use for review form submit button: "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:339
-msgid "You do not have sufficient permissions to access this page."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:354
-msgid "COULD NOT CREATE DATABASE TABLE, PLEASE REPORT THIS ERROR"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:372
-msgid "Smartest Reviews - Options"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:380
-msgid "About Smartest Reviews"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:382
-msgid ""
-"Smartest Reviews allows your customers and visitors to leave reviews or "
-"testimonials of your business. It also enables cross-page aggregate ratings. "
-"This pulls aggregate ratings data from the Reviews page into your home page "
-"to create rich snippets for search engines on your home page and your "
-"Reviews page. Reviews are Schema.org Microdata enabled."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:383
-#, php-format
-msgid "Activate Reviews by checking %s in %s."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:423
-msgid "Bad Request"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:436
-msgid "Bad Date Format"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:448
-msgid "Bad Value"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:574
-msgid "Submitted"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:577
-msgid "Pending"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:580
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:604
-msgid "Approved"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:583
-msgid "Trashed"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:598
-msgid "Smartest Reviews"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:598
-#, php-format
-msgid "%s Reviews"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:600
-msgid "All"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:601
-msgid "Pending "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:607
-msgid "Trash"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:614
-msgid "RESULTS FOR: "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:615
-msgid "Search Reviews:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:618
-msgid "Search Reviews"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:627
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:760
-msgid "Bulk Actions"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:628
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:761
-msgid "Unapprove"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:629
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:762
-msgid "Approve"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:630
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:744
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:763
-msgid "Move to Trash"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:631
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:747
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:764
-msgid "Delete Forever"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:633
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:766
-msgid "Apply"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:633
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:638
-msgid "Author"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:633
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:639
-msgid "Review"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:647
-#, php-format
-msgid "There are no %s reviews yet."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:657
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:533
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:537
-msgid "Anonymous"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:705
-msgid "m/d/Y g:i a"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:707
-msgid "View Live Review"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:710
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/widget-testimonial.php:87
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/all-services.php:147
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/announcements.php:117
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/featured-announcements.php:130
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/featured-services.php:128
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/staff.php:118
-msgid "Title:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:725
-msgid "Official Response:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:726
-msgid "Leave this blank if you do not want it to be public"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:738
-msgid "Mark as Approved"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews-admin.php:741
-msgid "Mark as Unapproved"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:54
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:56
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:634
-msgid "Reviews"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:96
-msgid "Click here to submit your review."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:98
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:105
-msgid "Submit your review"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:249
-msgid "Reviews for my site"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:365
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:597
-msgid "Average rating:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:365
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:597
-msgid "out of"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:365
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:597
-msgid "based on"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:368
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:600
-msgid "review."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:370
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:602
-msgid "reviews."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:371
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:603
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/announcements.php:64
-#, php-format
-msgid "%s"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:415
-msgid "Page: "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:503
-msgid "There are no reviews yet. Be the first to leave yours!"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:505
-msgid "Reviews are not available."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:563
-msgid "Response:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:590
-msgid "by"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:593
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:819
-msgid "Rating:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:593
-msgid "out of 5."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:634
-msgid "reviews"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:749
-msgid "Website:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:757
-msgid "Review Title:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:788
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:795
-msgid "Required Field"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:824
-msgid "Review:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:831
-msgid "Check this box to confirm you are human."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:895
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:911
-msgid "You must include your"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:919
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:1040
-msgid "The email address provided is not valid."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:926
-msgid "The website provided is not valid. Be sure to include http://"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:931
-msgid "You have triggered our anti-spam system. Please try again. Code 001."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:935
-msgid "You have triggered our anti-spam system. Please try again. Code 002"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:939
-msgid "You have triggered our anti-spam system. Please try again. Code 003"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:943
-msgid "You must include a review. Please make reviews at least 5 letters."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:976
-#, php-format
-msgid "Link to admin approval page: %s"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:977
-#, php-format
-msgid "A new review has been posted on %1$s's website."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:978
-msgid ""
-"You will need to login to the admin area and approve this review before it "
-"will appear on your site."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:980
-#, php-format
-msgid "New Review Posted on %1$s"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:984
-msgid ""
-"Thank you for your comments. All submissions are moderated and if approved, "
-"yours will appear soon."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:991
-msgid "Redirecting"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:992
-msgid "Processing... Please wait..."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:1039
-msgid "Click here to hide form"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:1041
-msgid "You must include your "
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:1042
-msgid "You must include a review. Please make reviews at least 4 letters."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:1043
-msgid "You must confirm that you are human."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:1044
-msgid "Code 2."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:1045
-msgid "Code 3."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:1046
-msgid "Please select a star rating from 1 to 5."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/smartest-reviews.php:1047
-msgid "The website provided is not valid. Be sure to include"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/widget-testimonial.php:16
-msgid "Display a random review as a testimonial."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/widget-testimonial.php:24
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/widget-testimonial.php:79
-msgid "Testimonials"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/widget-testimonial.php:50
-#, php-format
-msgid "Be the first to <a href=\"%s\">leave a review..."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/widget-testimonial.php:55
-msgid "More..."
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/modules/smartest-reviews/widget-testimonial.php:91
-msgid "How many testimonials to show:"
-msgstr ""
-
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/all-services.php:18
+#: widgets/all-services.php:15
 msgid "QBW Services List"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/all-services.php:19
+#: widgets/all-services.php:16
 msgid "Display the full list of Services."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/all-services.php:150
+#: widgets/all-services.php:112
 msgid "Optional. Only show services of this category:"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/announcements.php:18
+#: widgets/announcements.php:15
 msgid "QBW Announcements"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/announcements.php:19
+#: widgets/announcements.php:16
 msgid "Display the latest Announcements."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/announcements.php:42
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/announcements.php:104
+#: widgets/announcements.php:37 widgets/announcements.php:100
 msgid "Latest News"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/announcements.php:67
+#: widgets/announcements.php:63
 msgid "Coming soon."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/announcements.php:122
+#: widgets/announcements.php:118
 msgid "How many recent announcements to show:"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/featured-announcements.php:19
+#: widgets/featured-announcements.php:15
 msgid "QBW Featured Announcements"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/featured-announcements.php:20
+#: widgets/featured-announcements.php:16
 msgid "Display selected featured announcements."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/featured-announcements.php:92
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/featured-services.php:96
-#, php-format
+#: widgets/featured-announcements.php:65
+msgid "Read More"
+msgstr ""
+
+#: widgets/featured-announcements.php:71
+msgid "News"
+msgstr ""
+
+#: widgets/featured-announcements.php:73 widgets/featured-services.php:77
 msgid "Coming soon. See all %s."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/featured-services.php:15
+#: widgets/featured-services.php:12
 msgid "QBW Featured Services"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/featured-services.php:16
+#: widgets/featured-services.php:13
 msgid "Display selected featured services."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/staff.php:17
+#: widgets/staff.php:14
 msgid "QBW Staff List"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/staff.php:18
+#: widgets/staff.php:15
 msgid "Display the full list of Staff members."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\aA_test\qbw/widgets/staff.php:78
-msgid "No posts found!</h2>"
+#: widgets/staff.php:71
+msgid "No posts found!"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://isabelcastillo.com/free-plugins/quick-business-website"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Business website to showcase your services, staff, announcements, a working "
+"contact form, and reviews."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Isabel Castillo"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://isabelcastillo.com"
 msgstr ""
