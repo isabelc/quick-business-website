@@ -277,15 +277,7 @@ $i18n_host   $host
 $i18n_agent  $agent
 ");
 	$fullmsg = stripslashes( strip_tags( trim( $fullmsg ) ) );
-	
-
-	/************************************************************
-	*
-	* @todo must reinstate wp_mail after debuggin
-	*
-	************************************************************/
-	
-	//wp_mail( $recipient, $subject, $fullmsg );
+	wp_mail( $recipient, $subject, $fullmsg );
 	
 	$results = '<div id="sbfc_success"><div id="qbw_success">' . $success .
 	'</div><pre>' . $i18n_name . ' ' . $from_name . '

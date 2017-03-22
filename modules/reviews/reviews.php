@@ -804,13 +804,7 @@ class QBW_Reviews {
 					__('You will need to login to the admin area and approve this review before it will appear on your site.','quick-business-website') . "\n\n" .
 					sprintf( __('Link to admin approval page: %s', 'quick-business-website'), $admin_link );
 
-		/************************************************************
-		*
-		* @todo must reinstate wp_mail after testing
-		*
-		************************************************************/
-		
-		// wp_mail( get_bloginfo('admin_email'), $bn.': '. sprintf(__('New Review Posted on %1$s', 'quick-business-website'), date('m/d/Y h:i e') ), $message );
+		wp_mail( get_bloginfo('admin_email'), $bn.': '. sprintf(__('New Review Posted on %1$s', 'quick-business-website'), date('m/d/Y h:i e') ), $message );
 
 
 		/* returns false for no error */
