@@ -3,7 +3,7 @@
 Plugin Name: Quick Business Website
 Plugin URI: https://isabelcastillo.com/free-plugins/quick-business-website
 Description: Business website to showcase your services, staff, announcements, a working contact form, and reviews.
-Version: 2.0
+Version: 2.0.1.alpha1
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -1293,19 +1293,23 @@ class Quick_Business_Website {
 		// social box
 		$contactcontent .= '<ul id="qbw-staff-socials">';
 		if ( get_option( 'qbw_old_social_icons' ) == 'false') {
-			$twit = 'fa-twitter';
-			$goog = 'fa-google';
-			$face = 'fa-facebook';
-			$yout = 'fa-youtube';
+			$twit = 'fa fa-twitter-square';
+			$goog = 'fa fa-google-plus-square';
+			$face = 'fa fa-facebook-square';
+			$yout = 'fa fa-youtube-square';
 		} else {
 			$twit = 'item-1';
 			$goog = 'item-2';
 			$face = 'item-3';
 			$yout = 'youtube';
 		}
+		$link = 'fa fa-linkedin-square';
+		$inst = 'fa fa-instagram';
 
 		$keys = array( 'qbw_business_twitter',
 			'qbw_business_gplus',
+			'qbw_business_instagram',
+			'qbw_business_linkedin',
 			'qbw_business_facebook',
 			'qbw_business_youtube',
 			'qbw_business_socialurl1',
@@ -1329,7 +1333,7 @@ class Quick_Business_Website {
 
 		$options = get_option( 'qbw_options' );
 
-		// Escape all things
+		// Escape urls
 		foreach ( $keys as $key ) {
 			if ( in_array( $key, array( 'qbw_business_socialurl1', 'qbw_business_socialurl2' ) ) ) {
 				${$key} = isset( $options[ $key ] ) ?
@@ -1337,22 +1341,36 @@ class Quick_Business_Website {
 						'';
 			} else {
 				${$key} = isset( $options[ $key ] ) ?
-						esc_html( stripslashes( $options[ $key ] ) ) :
+						stripslashes( $options[ $key ] ) :
 						'';
 			}
 		}
 
 		if ( $qbw_business_twitter ) {
-			$contactcontent .= '<li><a class="' . $twit . '" href="https://twitter.com/' . $qbw_business_twitter . '" title="'. __('Twitter', 'quick-business-website') . '"></a></li>';
+			$uri = 'https://twitter.com/' . $qbw_business_twitter;
+			$contactcontent .= '<li><a class="' . $twit . '" href="' . esc_url( $uri ) . '" title="'. __('Twitter', 'quick-business-website') . '"></a></li>';
 		}
 		if ( $qbw_business_gplus ) {
-			$contactcontent .= '<li><a class="' . $goog . '" href="https://plus.google.com/' . $qbw_business_gplus . '" title="'. __('Google Plus', 'quick-business-website') . '" rel="publisher"></a></li>';
+			$uri = 'https://plus.google.com/' . $qbw_business_gplus;
+			$contactcontent .= '<li><a class="' . $goog . '" href="' . esc_url( $uri ) . '" title="'. __('Google Plus', 'quick-business-website') . '" rel="publisher"></a></li>';
 		} 
 		if ( $qbw_business_facebook ) {
-			$contactcontent .= '<li><a class="' . $face . '" href="https://facebook.com/' . $qbw_business_facebook . '" title="'. __('Facebook', 'quick-business-website') . '"></a></li>';
+			$uri = 'https://facebook.com/' . $qbw_business_facebook;
+			$contactcontent .= '<li><a class="' . $face . '" href="' . esc_url( $uri ) . '" title="'. __('Facebook', 'quick-business-website') . '"></a></li>';
 		}
+		if ( $qbw_business_instagram ) {
+			$uri = 'http://www.instagram.com/' . $qbw_business_instagram;
+			$contactcontent .= '<li><a class="' . $inst . '" href="' . esc_url( $uri ) . '" title="'. __('Instagram', 'quick-business-website') . '"></a></li>';
+		}
+
+		if ( $qbw_business_linkedin ) {
+			$uri = 'http://www.linkedin.com/' . $qbw_business_linkedin;
+			$contactcontent .= '<li><a class="' . $link . '" href="' . esc_url( $uri ) . '" title="'. __('Instagram', 'quick-business-website') . '"></a></li>';
+		}
+
 		if ( $qbw_business_youtube ) {
-			$contactcontent .= '<li><a class="' . $yout. '" href="https://youtube.com/user/' . $qbw_business_youtube . '" title="'. __('Youtube', 'quick-business-website') . '"></a></li>';
+			$uri = 'https://youtube.com/user/' . $qbw_business_youtube;
+			$contactcontent .= '<li><a class="' . $yout. '" href="' . esc_url( $uri ) . '" title="'. __('Youtube', 'quick-business-website') . '"></a></li>';
 		}
 		if ( $qbw_business_socialurl1 ) {
 			$contactcontent .= '<li><a class="item-add" target="_blank" href="'. $qbw_business_socialurl1 . '" title="' . __( 'Connect', 'quick-business-website' ) . '">' . $qbw_business_sociallabel1 . '</a></li>';

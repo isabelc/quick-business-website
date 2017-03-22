@@ -115,10 +115,10 @@ function qbw_get_staff_meta() {
 		$meta .= '<h5>' . esc_html( $job_title ) . '</h5>';
 	}
 	if ( get_option( 'qbw_old_social_icons') == 'false' ) {
-		$twit = 'fa-twitter';
-		$goog = 'fa-google';
-		$face = 'fa-facebook';
-		$link = 'fa-linkedin';
+		$twit = 'fa fa-twitter-square';
+		$goog = 'fa fa-google-plus-square';
+		$face = 'fa fa-facebook-square';
+		$link = 'fa fa-linkedin-square';
 	} else {
 		$twit = 'item-1';
 		$goog = 'item-2';

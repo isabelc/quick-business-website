@@ -119,12 +119,12 @@ $options[] = array( 'name' => __('Social Media','quick-business-website'),'class
 					'type' => 'heading');
 					
 $options[] = array( 'name' => __('Facebook Page','quick-business-website'),
-                    'desc' => __('The ID of your business Facebook page. Tip: the part of the address that comes after www.facebook.com/','quick-business-website'),
+                    'desc' => __('The ID of your business Facebook page. (The part of the address that comes after www.facebook.com/)','quick-business-website'),
                     'id' => $shortname.'_business_facebook',
                     'type' => 'text');
 
 $options[] = array( 'name' => __('Twitter','quick-business-website'),
-                    'desc' => __('The username of your business Twitter profile. Tip: the part after \'@\'','quick-business-website'),
+                    'desc' => __('The username of your business Twitter profile. (The part after \'@\')','quick-business-website'),
                     'id' => $shortname.'_business_twitter',
                     'type' => 'text');
 
@@ -133,16 +133,26 @@ $options[] = array( 'name' => __('Google Plus','quick-business-website'),
                     'id' => $shortname.'_business_gplus',
                     'type' => 'text');
 
+$options[] = array( 'name' => __('Instagram','quick-business-website'),
+	'desc' => __('Your company\'s Instagram username. (The part of the profile address after www.instagram.com/). ', 'quick-business-website'),
+	'id' => $shortname.'_business_instagram',
+	'type' => 'text');
+
+$options[] = array( 'name' => __('Linkedin','quick-business-website'),
+	'desc' => __('Your company Linkedin profile. (The part of the profile address after www.linkedin.com/).', 'quick-business-website'),
+	'id' => $shortname.'_business_linkedin',
+	'type' => 'text');
+
 $options[] = array( 'name' => __('YouTube','quick-business-website'),
-                    'desc' => __('The name of your YouTube channel. Tip: Your Youtube name or ID, or the part of the address after www.youtube.com/user/','quick-business-website'),
+                    'desc' => __('The name of your YouTube channel. (Your Youtube name or ID, or the part of the address after www.youtube.com/user/)','quick-business-website'),
                     'id' => $shortname.'_business_youtube',
                     'type' => 'text');
 $options[] = array( 'name' => __('Another Profile','quick-business-website'),
-                    'desc' => __('Add another business profile URL.  Example: http://www.linkedin.com/in/YourName','quick-business-website'),
+                    'desc' => __('Add another business profile URL.  Example: http://YourName.tumblr.com','quick-business-website'),
                     'id' => $shortname.'_business_socialurl1',
                     'type' => 'text');
 $options[] = array(
-                    'desc' => __('Give a title for the business profile you entered above. Example: LinkedIn','quick-business-website'),
+                    'desc' => __('Give a title for the business profile you entered above. Example: Tumblr','quick-business-website'),
                     'id' => $shortname.'_business_sociallabel1',
                     'type' => 'text');
 

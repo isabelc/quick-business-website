@@ -41,60 +41,47 @@
 	background-image: none;
 	width: auto;
 }
-#qbw-staff-socials li a.fa-twitter,
-#qbw-staff-socials li a.fa-google,#qbw-staff-socials li a.fa-facebook, #qbw-staff-socials li a.fa-linkedin,
-#qbw-staff-socials li a.fa-youtube{
+#qbw-staff-socials li a.fa {
 	background-image: none;
 	width: 26px;
 	height: 26px;
 	box-shadow: unset;
 }
-#qbw-staff-socials li a.fa-twitter:before,
-#qbw-staff-socials li a.fa-google:before, #qbw-staff-socials li a.fa-facebook:before,
-#qbw-staff-socials li a.fa-linkedin:before, #qbw-staff-socials li a.fa-youtube:before{
-	content: "\f081";
-	font-family: FontAwesome;
+#qbw-staff-socials li a.fa:before {
 	font-style: normal;
 	font-weight: normal;
 	text-decoration: inherit;
 	font-size:26px;
 }
-#qbw-staff-socials li a.fa-twitter {
+#qbw-staff-socials li a.fa-twitter-square:before {
 	color:#00aced;
 }
-#qbw-staff-socials li a.fa-google:before {
-	content: "\f0d4";
+#qbw-staff-socials li a.fa-google-plus-square:before {
 	color:#dd4b39;
 }
-#qbw-staff-socials li a.fa-facebook:before {
-	content: "\f082";
+#qbw-staff-socials li a.fa-facebook-square:before {
 	color: #3B5998;
 }
-#qbw-staff-socials li a.fa-linkedin:before {
-	content: "\f08c";
+#qbw-staff-socials li a.fa-linkedin-square:before {
 	color: #0077b5;
 }
-#qbw-staff-socials li a.fa-youtube:before {
-	content: "\f166";
+#qbw-staff-socials li a.fa-youtube-square:before {
 	color: #cd201f;
+}
+#qbw-staff-socials li a.fa-instagram:before {
+	color: #c13584;
 }
 
 /* Staff and Services archives */
 
 /* Smaller social media icons for Staff archives page */
-#qbw-staff-wrap #qbw-staff-socials li a.fa-twitter,
-#qbw-staff-wrap #qbw-staff-socials li a.fa-google,
-#qbw-staff-wrap #qbw-staff-socials li a.fa-facebook, 
-#qbw-staff-wrap #qbw-staff-socials li a.fa-linkedin {
+#qbw-staff-wrap #qbw-staff-socials li a.fa {
 	width: 18px;
 	height: 18px;
 }
-#qbw-staff-wrap #qbw-staff-socials li a.fa-twitter:before,
-#qbw-staff-wrap #qbw-staff-socials li a.fa-google:before, #qbw-staff-wrap #qbw-staff-socials li a.fa-facebook:before,
-#qbw-staff-wrap #qbw-staff-socials li a.fa-linkedin:before {
+#qbw-staff-wrap #qbw-staff-socials li a.fa:before {
 	font-size:18px;
 }
-
 .qbw-staff-item-image {
 	max-height: 200px;
 	width:auto;
