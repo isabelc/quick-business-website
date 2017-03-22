@@ -83,7 +83,7 @@ class Quick_Business_Website {
     }
 
 	/** 
-	* Only upon plugin activation, setup options and flush rewrite rules for custom post types.
+	* Only upon plugin activation, setup options and soft flush rewrite rules for custom post types.
 	*
 	* @since 1.0
 	*/
@@ -91,7 +91,7 @@ class Quick_Business_Website {
 		self::option_setup();
 		add_option( 'qbw_do_activation_redirect', true );
 		global $wp_rewrite;
-		$wp_rewrite->flush_rules();
+		$wp_rewrite->flush_rules( false );// soft flush
 	}
 
 	/** 
@@ -585,7 +585,9 @@ class Quick_Business_Website {
 			}
 			
 			update_option( 'qbw_options', $qbw_array );
-			flush_rewrite_rules();
+			global $wp_rewrite;
+			$wp_rewrite->flush_rules( false );// soft flush
+
 		}
 		die();
 	}
